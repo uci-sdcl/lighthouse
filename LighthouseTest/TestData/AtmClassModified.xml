@@ -1,0 +1,2294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model>
+  <entities>
+    <entity type="LighthouseClass">
+      <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+    </entity>
+    <entity type="LighthouseModifier">
+      <fqn>private</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.bankDatabase</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+    </entity>
+    <entity type="LighthouseModifier">
+      <fqn>protected</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM$InnerClass.methodFromInterface()</fqn>
+    </entity>
+    <entity type="LighthouseModifier">
+      <fqn>final</fqn>
+    </entity>
+    <entity type="LighthouseInterface">
+      <fqn>edu.prenticehall.deitel.ATM$MyInterface</fqn>
+    </entity>
+    <entity type="LighthouseModifier">
+      <fqn>static</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM$MyInterface.methodFromInterface()</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.innerClass</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;(edu.prenticehall.deitel.BankDatabase)</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+    </entity>
+    <entity type="LighthouseMethod">
+      <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+    </entity>
+    <entity type="LighthouseField">
+      <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+    </entity>
+    <entity type="LighthouseClass">
+      <fqn>edu.prenticehall.deitel.ATM</fqn>
+    </entity>
+    <entity type="LighthouseModifier">
+      <fqn>public</fqn>
+    </entity>
+  </entities>
+  <relationships>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Withdrawal</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Withdrawal</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RECEIVES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Long</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Long</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Screen.displayMessage(java.lang.String)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Screen.displayMessage(java.lang.String)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Deposit.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase,edu.prenticehall.deitel.Keypad,edu.prenticehall.deitel.DepositSlot)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Transaction.getAccountNumber()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Transaction.getAccountNumber()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Keypad</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Keypad</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>boolean</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>boolean</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>boolean</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>boolean</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>final</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>final</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>final</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>edu.prenticehall.deitel</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>static</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>static</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>static</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$MyInterface.methodFromInterface()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseInterface">
+          <fqn>edu.prenticehall.deitel.ATM$MyInterface</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="IMPLEMENTS">
+      <from>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseInterface">
+          <fqn>edu.prenticehall.deitel.ATM$MyInterface</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RECEIVES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RECEIVES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>int</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Integer</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Integer</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Integer</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="EXTENDS">
+      <from>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Transaction</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Transaction</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Transaction</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Screen.&lt;init&gt;()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RECEIVES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Transaction.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.util.HashSet.add(&lt;E&gt;)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.methodFromInterface()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.BalanceInquiry</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.BalanceInquiry</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Keypad.getInput()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>&lt;T&gt;</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RECEIVES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>&lt;T&gt;</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>&lt;T&gt;</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.CashDispenser</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.io.IOException</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="THROW">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.io.IOException</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.io.IOException</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.innerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>private</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.bankDatabase</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.bankDatabase</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;(edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.bankDatabase</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>protected</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.DepositSlot</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.util.LinkedHashSet&lt;edu.prenticehall.deitel.Deposit&gt;</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.util.LinkedHashSet&lt;edu.prenticehall.deitel.Deposit&gt;</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.SuppressWarnings</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RECEIVES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.BankDatabase</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.BankDatabase</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.bankDatabase</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.BankDatabase</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RECEIVES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;(edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.BankDatabase</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;(edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.BankDatabase</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Deposit</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Deposit</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.Deposit</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.innerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.innerClass</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="HOLDS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.innerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass&lt;edu.prenticehall.deitel.Deposit&gt;</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Override</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.methodFromInterface()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Override</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.BalanceInquiry.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.String</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.String</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.String</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.String</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.String</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$MyInterface.methodFromInterface()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>void</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>void</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.methodFromInterface()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>void</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.myGeneric(&lt;T&gt;)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>void</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>void</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>void</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="RETURN">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>void</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.CashDispenser.isSufficientCashAvailable(int)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Keypad.&lt;init&gt;()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="ACCESS">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Screen.displayMessageLine(java.lang.String)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Screen.displayMessageLine(java.lang.String)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Screen.displayMessageLine(java.lang.String)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Screen.displayMessageLine(java.lang.String)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.lang.Throwable.printStackTrace()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseInterface">
+          <fqn>edu.prenticehall.deitel.ATM$MyInterface</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.currentAccountNumber</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.innerClass</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.screen</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.keypad</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.bankDatabase</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.BALANCE_INQUIRY</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.WITHDRAWAL</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.EXIT</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;(edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.authenticateUser(java.lang.Long)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.performTransactions()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="INSIDE">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.util.LinkedHashSet.&lt;init&gt;()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.displayMainMenu()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.DepositSlot.isEnvelopeReceived()</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="CALL">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.createTransaction(int)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.Withdrawal.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase,edu.prenticehall.deitel.Keypad,edu.prenticehall.deitel.CashDispenser)</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseClass">
+          <fqn>edu.prenticehall.deitel.ATM</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$MyInterface.methodFromInterface()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.&lt;init&gt;(int,edu.prenticehall.deitel.Screen,edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.execute()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.methodFromInterface()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.userAuthenticated</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM.bankDatabase</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.&lt;init&gt;(edu.prenticehall.deitel.BankDatabase)</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="MODIFIED_BY">
+      <from>
+        <entity type="LighthouseMethod">
+          <fqn>edu.prenticehall.deitel.ATM.run()</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseModifier">
+          <fqn>public</fqn>
+        </entity>
+      </to>
+    </relationship>
+    <relationship type="USES">
+      <from>
+        <entity type="LighthouseField">
+          <fqn>edu.prenticehall.deitel.ATM$InnerClass.list</fqn>
+        </entity>
+      </from>
+      <to>
+        <entity type="LighthouseExternalClass">
+          <fqn>java.util.LinkedHashSet</fqn>
+        </entity>
+      </to>
+    </relationship>
+  </relationships>
+</model>
