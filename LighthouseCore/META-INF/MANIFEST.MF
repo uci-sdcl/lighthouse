@@ -9,7 +9,7 @@ Bundle-ClassPath: lib/sourcerer-extractor.jar,
  .
 Bundle-Activator: edu.uci.lighthouse.core.Activator
 Export-Package: edu.uci.lighthouse.core,
- edu.uci.lighthouse.core.controler,
+ edu.uci.lighthouse.core.controller,
  edu.uci.lighthouse.core.parser
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
