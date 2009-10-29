@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 
 public class DeltaWriter {
 
@@ -24,15 +23,9 @@ public class DeltaWriter {
 	}
 	
 	public void write(LighthouseDelta delta) {
-		out.println("Entities:");
+		out.println("Events:");
 		for (LighthouseEvent event: delta.getEvents()) {
-//			Integer id = event.getId();
-			TYPE type = event.getType();
-			Object artifact = event.getArtifact();
-//			Date time = event.getTimestamp();
-//			LighthouseAuthor user = event.getAuthor();
-			System.out.println("type: " + type + " artifact: " + artifact.toString());
-			//System.out.println("id: " + id + " type: " + type + " artifact: " + artifact.toString() + "time: " + time + "user: " + user);
+			out.println(event);
 		}
 	}
 	
