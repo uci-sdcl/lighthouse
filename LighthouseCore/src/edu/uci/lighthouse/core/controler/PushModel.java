@@ -3,6 +3,8 @@ package edu.uci.lighthouse.core.controler;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -11,8 +13,11 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
 import edu.uci.lighthouse.model.LighthouseRelationship;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class PushModel {
+	
+	private static Logger logger = Logger.getLogger(PushModel.class);
 
 	private LighthouseModel model;
 	
@@ -20,11 +25,13 @@ public class PushModel {
 		this.model = model;
 	}
 	
-	public void execute(LighthouseDelta delta) {
+	public void execute(LighthouseDelta delta) throws JPAUtilityException {
 	    HashMap<LighthouseClass,LighthouseEvent.TYPE> mapFireClassEvent = new HashMap<LighthouseClass,LighthouseEvent.TYPE>();
 	    HashMap<LighthouseRelationship,LighthouseEvent.TYPE> mapFireRelEvent = new  HashMap<LighthouseRelationship,LighthouseEvent.TYPE>();
 
+	    // for each entity event
 	    for (LighthouseEvent event : delta.getEvents()) {
+	    	logger.debug("updating: " + event.toString());
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
 				LighthouseEntity deltaEntity = (LighthouseEntity) artifact;
@@ -46,22 +53,29 @@ public class PushModel {
 					break;
 				}
 				setClassesToFireUI(mapFireClassEvent, deltaEntity, event); // FIXME Why do we need this line?
-			} else if (artifact instanceof LighthouseRelationship) {
-				LighthouseRelationship deltaRelationship = (LighthouseRelationship) artifact;
-				LighthouseRelationship lighthouseRelationship = model.getRelationship(deltaRelationship);
-				switch (event.getType()) {
-				case ADD:
+			}			
+		} // end-for-delta
+
+	    // for each relationship event
+	    for (LighthouseEvent event : delta.getEvents()) {
+	    	logger.debug("updating: " + event.toString());
+			Object artifact = event.getArtifact();
+		    if (artifact instanceof LighthouseRelationship) {
+		    	LighthouseRelationship deltaRelationship = (LighthouseRelationship) artifact;
+		    	LighthouseRelationship lighthouseRelationship = model.getRelationship(deltaRelationship);
+		    	switch (event.getType()) {
+		    	case ADD:
 					new LighthouseModelManagerPersistence(model).addEvent(event);
-					mapFireRelEvent.put(deltaRelationship, event.getType());
-					break;
-				case REMOVE:
-					event.setArtifact(lighthouseRelationship);
-					new LighthouseModelManagerPersistence(model).addEvent(event);			
-					mapFireRelEvent.put(lighthouseRelationship, event.getType());
-					break;
-				}
-			}
-		}
+		    		mapFireRelEvent.put(deltaRelationship, event.getType());
+		    		break;
+		    	case REMOVE:
+		    		event.setArtifact(lighthouseRelationship);
+		    		new LighthouseModelManagerPersistence(model).addEvent(event);			
+		    		mapFireRelEvent.put(lighthouseRelationship, event.getType());
+		    		break;
+		    	}
+		    }
+	    }
 	    
 		// Fire Modifications, call the UI
 		fireClassModifications(mapFireClassEvent);

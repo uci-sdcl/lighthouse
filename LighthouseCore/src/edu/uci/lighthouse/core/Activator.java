@@ -19,11 +19,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import edu.uci.lighthouse.core.listeners.FileChangedListener;
 import edu.uci.lighthouse.core.parser.IParserAction;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -84,7 +84,7 @@ public class Activator extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-	private void createLighthouseModel(final IWorkspace workspace){
+	private void createLighthouseModel(final IWorkspace workspace) throws JPAUtilityException{
 		IProject[] projects = workspace.getRoot().getProjects();
 		final Collection<IFile> files = new LinkedList<IFile>();
 		for (int i = 0; i < projects.length; i++) {
@@ -97,14 +97,14 @@ public class Activator extends AbstractUIPlugin {
 			final LighthouseModel lighthouseModel = LighthouseModel.getInstance();
 			parser.executeInAJob(lighthouseModel,files, new IParserAction() {
 				@Override
-				public void doAction() {
+				public void doAction() throws JPAUtilityException {
 					new LighthouseModelManagerPersistence(lighthouseModel).saveAllIntoDataBase();
 					lighthouseModel.fireModelChanged();
 					final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();;
-					listener = new FileChangedListener(window);
+					//listener = new FileChangedListener(window);
 					workspace.addResourceChangeListener(listener);						
 				}
-			});
+			}); 
 		}		
 	}
 	

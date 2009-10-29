@@ -10,6 +10,7 @@ import java.util.Map;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEventController;
 
 public class PullModel {
@@ -29,7 +30,7 @@ public class PullModel {
 		}
 	}
 	
-	public void run() {
+	public void run() throws JPAUtilityException {
 		// TODO Start Thread
 		
 		List<LighthouseEvent> listEvents = timeoutProcedure();
@@ -39,7 +40,7 @@ public class PullModel {
 		
 	}
 
-	private void updateLighthouseModel(List<LighthouseEvent> listEvents) {
+	private void updateLighthouseModel(List<LighthouseEvent> listEvents) throws JPAUtilityException {
 		for (LighthouseEvent event : listEvents) {
 			new LighthouseModelManager(model).addEvent(event);
 		}
@@ -51,12 +52,12 @@ public class PullModel {
 		return LHEventController.getInstance().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
 	}
 
-	private void checkOutProcedure() {
-		
-	}
-
-	private void getAllEventsFromDatabase() {
-		List<LighthouseEvent> listEventDatabse = LHEventController.getInstance().list();
-	}
+//	private void checkOutProcedure() {
+//		
+//	}
+//
+//	private void getAllEventsFromDatabase() {
+//		List<LighthouseEvent> listEventDatabse = LHEventController.getInstance().list();
+//	}
 
 }

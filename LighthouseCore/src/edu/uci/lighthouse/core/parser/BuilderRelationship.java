@@ -8,6 +8,7 @@ import edu.uci.lighthouse.model.LighthouseExternalClass;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class BuilderRelationship {
 
@@ -26,7 +27,7 @@ public class BuilderRelationship {
 		return instance;
 	}
 
-	public void populateAllRelationshipsToModel(LighthouseAbstractModel model) {		
+	public void populateAllRelationshipsToModel(LighthouseAbstractModel model) throws JPAUtilityException {		
 		for (RelationshipNode relationshipNode : listRelationships) {
 			String fqnFrom = relationshipNode.from;
 			String fqnTo = relationshipNode.to;

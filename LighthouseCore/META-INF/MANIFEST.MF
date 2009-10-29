@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Lighthouse Core Plug-in
-Bundle-SymbolicName: lighthouse-core; singleton:=true
+Bundle-SymbolicName: lighthouse-core;singleton:=true
 Bundle-Version: 2.0.0
 Bundle-ClassPath: lib/sourcerer-extractor.jar,
  lib/log4j-1.2.15.jar,
@@ -10,8 +10,7 @@ Bundle-ClassPath: lib/sourcerer-extractor.jar,
 Bundle-Activator: edu.uci.lighthouse.core.Activator
 Export-Package: edu.uci.lighthouse.core,
  edu.uci.lighthouse.core.controler,
- edu.uci.lighthouse.core.parser,
- org.apache.log4j
+ edu.uci.lighthouse.core.parser
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.jdt.core;bundle-version="3.4.4",
