@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.model.tests;
+package edu.uci.lighthouse.model.test;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.core.parser.tests;
+package edu.uci.lighthouse.model.test;
 
 import junit.framework.TestCase;
 

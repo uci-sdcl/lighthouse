@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.core.parser.tests;
+package edu.uci.lighthouse.core.parser.test;
 
 import java.io.IOException;
 import java.util.LinkedList;

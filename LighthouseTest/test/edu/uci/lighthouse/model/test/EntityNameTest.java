@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.model.tests;
+package edu.uci.lighthouse.model.test;
 
 import junit.framework.TestCase;
 import edu.uci.lighthouse.model.LighthouseClass;
