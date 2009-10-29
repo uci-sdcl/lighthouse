@@ -11,12 +11,13 @@ import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
 import edu.uci.lighthouse.model.io.LHDeltaXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.test.util.LHTestDataFiles;
 import edu.uci.lighthouse.test.util.LighthouseModelTest;
 
 public class PushModelTest extends TestCase {
 
-	public void testExecute() throws DocumentException, IOException {
+	public void testExecute() throws DocumentException, IOException, JPAUtilityException {
 		LighthouseModelTest xmlModel = new LighthouseModelTest();
 		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
 		
@@ -30,7 +31,7 @@ public class PushModelTest extends TestCase {
 		
 		// Update Model
 		new PushModel(xmlModel).execute(xmlDelta);
- 
+		
 		// Load LH Updated Model in XML file
 		LighthouseModelTest xmlUpdatedModel = new LighthouseModelTest();
 		new LighthouseModelXMLPersistence(xmlUpdatedModel).load(LHTestDataFiles.XML_UPDATED_MODEL);

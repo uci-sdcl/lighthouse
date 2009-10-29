@@ -6,11 +6,7 @@ import junit.framework.TestCase;
 
 import org.dom4j.DocumentException;
 
-import edu.uci.lighthouse.core.controler.PullModel;
-import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
-import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
-import edu.uci.lighthouse.test.util.LHTestDataFiles;
-import edu.uci.lighthouse.test.util.LighthouseModelTest;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class LighthouseTestElaboration extends TestCase {
 
@@ -54,7 +50,7 @@ public class LighthouseTestElaboration extends TestCase {
 //		new LHDeltaXMLPersistence(delta).save(LHTestDataFiles.XML_DELTA_ATM_CLASS);
 	}
 	
-	public void testElaboratePushXML() throws DocumentException, IOException {
+	public void testElaboratePushXML() throws DocumentException, IOException, JPAUtilityException {
 //		LighthouseModelTest xmlModel = new LighthouseModelTest();
 //		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
 //		
@@ -73,18 +69,31 @@ public class LighthouseTestElaboration extends TestCase {
 //		new LighthouseModelXMLPersistence(xmlModel).save(LHTestDataFiles.XML_UPDATED_MODEL);
 	}
 	
-	public void testElaboratePullXML() throws DocumentException {
-		LighthouseModelTest xmlModel = new LighthouseModelTest();
-		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
-		
-		// Save LH Model Into the database in order to help the
-		// BuilderRelationship to handle the External classes
-		new LighthouseModelManagerPersistence(xmlModel).saveAllIntoDataBase();
-		
-		LighthouseModelTest pulledModel = new LighthouseModelTest();
-		
-		new PullModel(pulledModel).run();
+	public void testElaboratePullXML() throws DocumentException, JPAUtilityException {
+//		LighthouseModelTest xmlModel = new LighthouseModelTest();
+//		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
+//		
+//		// Save LH Model Into the database in order to help the
+//		// BuilderRelationship to handle the External classes
+//		new LighthouseModelManagerPersistence(xmlModel).saveAllIntoDataBase();
+//		
+//		LighthouseModelTest pulledModel = new LighthouseModelTest();
+//		
+//		new PullModel(pulledModel).run();
 	}
 	
+	public void testCreateFirstLHModel() throws JPAUtilityException {
+//		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+//
+//		LinkedList<String> listProjects = new LinkedList<String>();
+//		listProjects.add("AtmDeitelSample");
+//
+//		// Parse the whole ATM Project
+//		LighthouseModelTest model = new LighthouseModelTest();
+//		UtilModel.createLHModel(workspace, listProjects, model);
+//		
+//		// Save LH Model Into the database
+//		new LighthouseModelManagerPersistence(model).saveAllIntoDataBase();
+	}
 	
 }

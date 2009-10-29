@@ -13,12 +13,13 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
 
 import edu.uci.lighthouse.core.parser.LighthouseParser;
-import edu.uci.lighthouse.model.LighthouseAbstractModel;
 import edu.uci.lighthouse.model.LighthouseFile;
+import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class UtilModel {
 
-	public static void createModel(final IWorkspace workspace, List<String> listProjects, LighthouseAbstractModel model) {
+	public static void createLHModel(final IWorkspace workspace, List<String> listProjects, LighthouseModel model) throws JPAUtilityException {
 		IProject[] projects = workspace.getRoot().getProjects();
 		final Collection<IFile> files = new LinkedList<IFile>();
 		for (int i = 0; i < projects.length; i++) {
@@ -56,7 +57,7 @@ public class UtilModel {
 		return files;
 	}
 
-	public static LighthouseFile parseJustOneFile(final IWorkspace workspace, List<String> listProjects, String fileName) {
+	public static LighthouseFile parseJustOneFile(final IWorkspace workspace, List<String> listProjects, String fileName) throws JPAUtilityException {
 		IProject[] projects = workspace.getRoot().getProjects();
 		for (int i = 0; i < projects.length; i++) {
 			if (listProjects.contains(projects[i].getName())) {
