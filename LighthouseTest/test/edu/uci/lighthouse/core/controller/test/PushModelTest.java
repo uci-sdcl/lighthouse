@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import org.dom4j.DocumentException;
 
-import edu.uci.lighthouse.core.controler.PushModel;
+import edu.uci.lighthouse.core.controller.PushModel;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
 import edu.uci.lighthouse.model.io.LHDeltaXMLPersistence;
