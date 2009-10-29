@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -18,6 +19,8 @@ import org.eclipse.swt.widgets.Display;
  */
 public class LighthouseModel extends LighthouseAbstractModel {
 
+	private static Logger logger = Logger.getLogger(LighthouseAbstractModel.class);
+	
 	/** Model instance. */
 	private static LighthouseModel instance;
 
@@ -31,6 +34,21 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	
 	private HashMap<String, LighthouseAuthor> mapAuthor = new HashMap<String, LighthouseAuthor>();
 
+	protected LighthouseModel() {
+	}
+	
+	/**
+	 * Returns the Lighthouse Model instance.
+	 * 
+	 * @return the model instance
+	 */
+	public static LighthouseModel getInstance() {
+		if (instance == null) {
+			instance = new LighthouseModel();
+		}
+		return instance;
+	}
+	
 	// only ModelManager is allowed to call this method
 	final synchronized void addEvent(LighthouseEvent event) {
 		Object artifact = event.getArtifact();
@@ -44,7 +62,7 @@ public class LighthouseModel extends LighthouseAbstractModel {
 			event.setAuthor(putAuthor(event.getAuthor()));
 			listEvents.add(event);
 		} else {
-			// TODO LOG ERROR
+			logger.warn("Artifact is null: " + event.toString());
 		}
 	}
 	
@@ -72,21 +90,6 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	
 	/** List of listeners */
 	private List<ILighthouseModelListener> listeners = new ArrayList<ILighthouseModelListener>();
-
-	protected LighthouseModel() {
-	}
-
-	/**
-	 * Returns the Lighthouse Model instance.
-	 * 
-	 * @return the model instance
-	 */
-	public static LighthouseModel getInstance() {
-		if (instance == null) {
-			instance = new LighthouseModel();
-		}
-		return instance;
-	}
 
 	public void addModelListener(ILighthouseModelListener listener) {
 		listeners.add(listener);

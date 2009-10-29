@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.dom4j.Element;
 
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -19,6 +20,8 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 
 public class AbstractXMLPersistence {
 
+	private static Logger logger = Logger.getLogger(AbstractXMLPersistence.class);
+	
 	protected void writeEvent(LighthouseEvent event, Element root) {
 		Element node = root.addElement("event");		
 		node.addAttribute("type", event.getType().toString());
@@ -55,7 +58,6 @@ public class AbstractXMLPersistence {
 	
 	
 	//
-	@SuppressWarnings("deprecation")
 	protected LighthouseEvent readEvent(Element root) {
 		LighthouseEvent event = null;
 		String type = root.attributeValue("type");
@@ -77,10 +79,10 @@ public class AbstractXMLPersistence {
 			timestamp = new Date(); 
 		} else {			
 		    SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
-		    try {
+			try {
 				timestamp = formatter.parse(strTimestamp);
 			} catch (ParseException e) {
-				e.printStackTrace(); // TODO LOG ERROR
+				logger.warn("Trying to parse the Timestamp: " + timestamp);
 			}
 		}
 		event.setTimestamp(timestamp);

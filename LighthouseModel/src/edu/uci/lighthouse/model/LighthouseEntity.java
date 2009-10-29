@@ -8,14 +8,14 @@ import javax.persistence.InheritanceType;
 /**
  * This is the base abstract class for an entity.
  * 
- * @author tproenca
+ * @author nilmax
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class LighthouseEntity {
 
 	@Id
-	private String fullyQualifiedName;
+	private String fullyQualifiedName = "";
 
 	public LighthouseEntity(String fqn) {
 		this.fullyQualifiedName = fqn;

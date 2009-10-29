@@ -2,6 +2,9 @@ package edu.uci.lighthouse.model;
 
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
+
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.util.UtilModifiers;
 
 /**
@@ -15,6 +18,8 @@ import edu.uci.lighthouse.model.util.UtilModifiers;
  * 
  */
 public class LighthouseModelManager {
+	
+	private static Logger logger = Logger.getLogger(LighthouseModelManager.class);
 	
 	protected LighthouseModel model;
 
@@ -49,8 +54,9 @@ public class LighthouseModelManager {
 		}
 	}
 	
-	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database*/
-	public void addEvent(LighthouseEvent event) {
+	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database
+	 * @throws JPAUtilityException */
+	public void addEvent(LighthouseEvent event) throws JPAUtilityException {
 		Object artifact = event.getArtifact();
 		if (artifact instanceof LighthouseEntity) {
 			LighthouseEntity entity = addEntity((LighthouseEntity) artifact);
@@ -59,7 +65,7 @@ public class LighthouseModelManager {
 			LighthouseRelationship relationship = addRelationship((LighthouseRelationship) artifact);
 			event.setArtifact(relationship);
 		} else {
-			// TODO LOG ERROR
+			logger.warn("Event Artifact is null: " + event.toString());
 		}
 		model.addEvent(event);
 	}

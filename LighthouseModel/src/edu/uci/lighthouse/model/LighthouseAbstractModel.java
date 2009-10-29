@@ -7,10 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 
- * 
- * @author tproenca
- *
+ * @author nilmax
  */
 public abstract class LighthouseAbstractModel {
 

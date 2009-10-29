@@ -4,8 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
-@SuppressWarnings("serial")
+
+/**
+ * @author nilmax
+ */
 public class CheckedOutEntities implements Serializable {
+
+	private static final long serialVersionUID = -2471477769693559865L;
 
 	private HashMap<String, Date> mapEntityCheckInTime = new HashMap<String, Date>();
 

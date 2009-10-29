@@ -8,9 +8,10 @@ import javax.persistence.OneToOne;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 
-@SuppressWarnings("serial")
 @Embeddable
 public class LHRelationshipPK implements Serializable {
+
+	private static final long serialVersionUID = -6866797359642111841L;
 
 	/** From entity. */
 	@OneToOne(cascade = CascadeType.ALL)

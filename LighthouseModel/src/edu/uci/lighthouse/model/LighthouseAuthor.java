@@ -5,7 +5,6 @@ import javax.persistence.Id;
 
 /**
  * @author tproenca
- * 
  */
 @Entity
 public class LighthouseAuthor {

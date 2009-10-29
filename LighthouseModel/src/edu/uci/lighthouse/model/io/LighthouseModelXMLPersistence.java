@@ -16,6 +16,7 @@ import org.dom4j.io.XMLWriter;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implements IPersistence {
 
@@ -50,19 +51,19 @@ public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implem
 	
 	//
 	@Override
-	public void load() throws DocumentException {
+	public void load() throws DocumentException, JPAUtilityException {
 		load(defaultFileName);
 	}
 
 	@Override
-	public void load(String fileName) throws DocumentException {
+	public void load(String fileName) throws DocumentException, JPAUtilityException {
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(new File(fileName));
-		readModel(document.getRootElement());
+		loadModel(document.getRootElement());
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void readModel(Element root) {
+	private void loadModel(Element root) throws JPAUtilityException {
 		Element elements;
 		elements = root.element("events");
 		for (Iterator i = elements.elementIterator(); i.hasNext();) {

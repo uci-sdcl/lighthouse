@@ -12,24 +12,20 @@ public class LighthouseModelManagerPersistence extends LighthouseModelManager {
 	}
 
 	@Override
-	public void addEvent(LighthouseEvent event) {
+	public void addEvent(LighthouseEvent event) throws JPAUtilityException {
 		super.addEvent(event);
 		saveEventIntoDatabase(event);
 	}
 
-	public void saveAllIntoDataBase() {
+	public void saveAllIntoDataBase() throws JPAUtilityException {
 		for (LighthouseEvent event : this.model.getListEvents()) {
 			saveEventIntoDatabase(event);
 		}
 	}
 	
-	private void saveEventIntoDatabase(LighthouseEvent event) {
+	private void saveEventIntoDatabase(LighthouseEvent event) throws JPAUtilityException {
 		event.setTimestamp(new Date()); // FIXME get time from database
-		try {
-			LHEventController.getInstance().save(event);
-		} catch (JPAUtilityException e) {
-			e.printStackTrace(); // TODO LOG
-		}
+		LHEventController.getInstance().save(event);
 	}
 	
 }

@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 public class LighthouseMethod extends LighthouseEntity {
 
 	protected LighthouseMethod() {
+		this("");
 	}
 
 	public LighthouseMethod(String fqn) {

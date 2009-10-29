@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 public class LighthouseExternalClass extends LighthouseEntity {
 
 	protected LighthouseExternalClass() {
+		this("");
 	}
 	
 	public LighthouseExternalClass(String fqn) {

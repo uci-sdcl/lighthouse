@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 public class LighthouseModifier extends LighthouseEntity {
 
 	protected LighthouseModifier() {
+		this("");
 	}
 
 	public LighthouseModifier(String fqn) {

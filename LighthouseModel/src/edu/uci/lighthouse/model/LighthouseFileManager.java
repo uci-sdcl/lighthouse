@@ -1,6 +1,5 @@
 package edu.uci.lighthouse.model;
 
-
 public class LighthouseFileManager {
 	
 	private LighthouseFile lighthouseFile;

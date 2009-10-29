@@ -11,7 +11,6 @@ public class LighthouseDelta {
 	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
 	
 	public LighthouseDelta() {
-		// Just by test propose. See LighthouseParserTest.java
 	}
 	
 	public LighthouseDelta (LighthouseFile oldModel, LighthouseFile newModel) {

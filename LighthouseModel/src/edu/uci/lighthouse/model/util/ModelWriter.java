@@ -123,6 +123,7 @@ public class ModelWriter {
 		return (List<LighthouseRelationship>) model.getRelationshipsFrom(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	private String getModifiers(LighthouseEntity entity) {
 		String fqn = entity.getFullyQualifiedName();
 		List<LighthouseRelationship> listRelationship = (List<LighthouseRelationship>) model.getRelationships();
@@ -141,6 +142,7 @@ public class ModelWriter {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	private String getType(LighthouseEntity entity) {
 		String fqn = entity.getFullyQualifiedName();
 

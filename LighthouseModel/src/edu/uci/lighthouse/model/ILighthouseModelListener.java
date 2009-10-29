@@ -2,7 +2,6 @@ package edu.uci.lighthouse.model;
 
 /**
  * 
- * 
  * @author tproenca
  *
  */

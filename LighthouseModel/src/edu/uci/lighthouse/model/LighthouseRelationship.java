@@ -13,10 +13,6 @@ import javax.persistence.Entity;
 @Entity
 public class LighthouseRelationship {
 
-//	@SequenceGenerator(name="Rel_Gen", sequenceName="Rel_Gen")
-//	@Id @GeneratedValue(generator="Rel_Gen")
-//	private Integer id;
-
 	@EmbeddedId
 	LHRelationshipPK primaryKey;
 	

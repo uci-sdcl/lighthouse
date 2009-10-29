@@ -44,10 +44,10 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
-		List<T> resultados = entityManager.createQuery(
+		List<T> result = entityManager.createQuery(
 				"select entity from " + type.getSimpleName() + " entity")
 				.getResultList();
-		return resultados;
+		return result;
 	}
  
 	@SuppressWarnings("unchecked")
@@ -64,8 +64,8 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 				}
 			}
 		}
-		List resultados = query.getResultList();
-		return resultados;
+		List result = query.getResultList();
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -82,8 +82,8 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 				}
 			}
 		}
-		List resultados = query.getResultList();
-		return resultados;
+		List result = query.getResultList();
+		return result;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> executeQuery(Map<String, Object> parameters){
-		List<T> resultados = new ArrayList<T>();		
+		List<T> result = new ArrayList<T>();		
 		StringBuffer queryBuf = new StringBuffer(
 				"select distinct entity from " + type.getSimpleName()
 						+ " entity ");
@@ -125,9 +125,9 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 				query.setParameter(entry.getKey().replaceAll(STRING_DOT, STRING_UNDERLINE), entry.getValue());
 			}
 		}
-		resultados = query.getResultList();
+		result = query.getResultList();
 		
-		return resultados;
+		return result;
 	}
 
 	
