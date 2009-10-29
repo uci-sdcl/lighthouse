@@ -4,16 +4,17 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
-import edu.uci.lighthouse.model.util.Preference;
 
 public class LighthouseDelta {
 	
 	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
+	private LighthouseAuthor author;
 	
 	public LighthouseDelta() {
 	}
 	
-	public LighthouseDelta (LighthouseFile oldModel, LighthouseFile newModel) {
+	public LighthouseDelta (LighthouseAuthor author, LighthouseFile oldModel, LighthouseFile newModel) {
+		this.author = author;
 		if (oldModel==null && newModel==null) {
 			return;
 		} else if (oldModel==null) {
@@ -30,13 +31,13 @@ public class LighthouseDelta {
 		Collection<LighthouseEntity> listOldEntities = oldModel.getEntities();
 		for(LighthouseEntity entity : listOldEntities){
 			if(!newModel.containsEntity(entity.getFullyQualifiedName())) {
-				addEvent(new LighthouseEvent(TYPE.REMOVE, Preference.author, entity));				
+				addEvent(new LighthouseEvent(TYPE.REMOVE, this.author, entity));				
 			}
 		}
 		Collection<LighthouseEntity> listNewEntities = newModel.getEntities();
 		for(LighthouseEntity entity : listNewEntities){
 			if(!oldModel.containsEntity(entity.getFullyQualifiedName())) {
-				addEvent(new LighthouseEvent(TYPE.ADD, Preference.author, entity));
+				addEvent(new LighthouseEvent(TYPE.ADD, this.author, entity));
 			}
 		}
 	}
@@ -46,7 +47,7 @@ public class LighthouseDelta {
 		for (LighthouseRelationship oldRel : listOldRel) {
 			if (!newModel.containsRelationship(oldRel)) {
 				LighthouseRelationship rel = new LighthouseRelationship(oldRel.getFromEntity(),oldRel.getToEntity(),oldRel.getType());
-				addEvent(new LighthouseEvent(TYPE.REMOVE, Preference.author, rel));
+				addEvent(new LighthouseEvent(TYPE.REMOVE, this.author, rel));
 				addEntityModifyEvent(rel);
 			}
 		}
@@ -54,7 +55,7 @@ public class LighthouseDelta {
 		for (LighthouseRelationship newRel : listNewRel) {
 			if (!oldModel.containsRelationship(newRel)) {
 				LighthouseRelationship rel = new LighthouseRelationship(newRel.getFromEntity(),newRel.getToEntity(),newRel.getType());
-				addEvent(new LighthouseEvent(TYPE.ADD, Preference.author, rel));
+				addEvent(new LighthouseEvent(TYPE.ADD, this.author, rel));
 				addEntityModifyEvent(rel);
 			}
 		}
@@ -64,10 +65,10 @@ public class LighthouseDelta {
 	private void addEntityModifyEvent(LighthouseRelationship rel) {
 		LighthouseEntity fromEntity = rel.getFromEntity();
 		if (fromEntity instanceof LighthouseField || fromEntity instanceof LighthouseMethod) {
-			LighthouseEvent tempEventAdd = new LighthouseEvent(TYPE.ADD, Preference.author, fromEntity);
-			LighthouseEvent tempEventRemove = new LighthouseEvent(TYPE.REMOVE, Preference.author, fromEntity);
+			LighthouseEvent tempEventAdd = new LighthouseEvent(TYPE.ADD, this.author, fromEntity);
+			LighthouseEvent tempEventRemove = new LighthouseEvent(TYPE.REMOVE, this.author, fromEntity);
 			if (!(listEvents.contains(tempEventAdd) || listEvents.contains(tempEventRemove))) {
-				addEvent(new LighthouseEvent(TYPE.MODIFY, Preference.author, fromEntity));
+				addEvent(new LighthouseEvent(TYPE.MODIFY, this.author, fromEntity));
 			}
 		} 
 	}
@@ -75,22 +76,22 @@ public class LighthouseDelta {
 	private void findAddedChanges(LighthouseFile model) {
 		Collection<LighthouseEntity> listEntities = model.getEntities();
 		for(LighthouseEntity entity : listEntities) {
-			addEvent(new LighthouseEvent(TYPE.ADD, Preference.author,entity));
+			addEvent(new LighthouseEvent(TYPE.ADD, this.author,entity));
 		}
 		LinkedHashSet<LighthouseRelationship> listRel = model.getRelationships();
 		for(LighthouseRelationship rel : listRel) {
-			addEvent(new LighthouseEvent(TYPE.ADD, Preference.author, rel));
+			addEvent(new LighthouseEvent(TYPE.ADD, this.author, rel));
 		}
 	}
 	
 	private void findRemovedChanges(LighthouseFile model){
 		Collection<LighthouseEntity> listEntities = model.getEntities();
 		for(LighthouseEntity entity : listEntities) {
-			addEvent(new LighthouseEvent(TYPE.REMOVE, Preference.author, entity));
+			addEvent(new LighthouseEvent(TYPE.REMOVE, this.author, entity));
 		}
 		LinkedHashSet<LighthouseRelationship> listRel = model.getRelationships();
 		for(LighthouseRelationship rel : listRel){
-			addEvent(new LighthouseEvent(TYPE.REMOVE, Preference.author, rel));
+			addEvent(new LighthouseEvent(TYPE.REMOVE, this.author, rel));
 		}
 	}
 	
