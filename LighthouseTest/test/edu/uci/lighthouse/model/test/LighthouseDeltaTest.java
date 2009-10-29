@@ -8,6 +8,7 @@ import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseFile;
 import edu.uci.lighthouse.model.io.LHDeltaXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseFileXMLPersistence;
+import edu.uci.lighthouse.model.util.LHPreference;
 import edu.uci.lighthouse.test.util.LHTestDataFiles;
 
 public class LighthouseDeltaTest extends TestCase {
@@ -20,7 +21,7 @@ public class LighthouseDeltaTest extends TestCase {
 		new LighthouseFileXMLPersistence(atmClassModified).load(LHTestDataFiles.XML_ATM_JAVA_MODIFIED);
 		
 		// Generate delta
-		LighthouseDelta currentDelta = new LighthouseDelta(atmClass, atmClassModified);
+		LighthouseDelta currentDelta = new LighthouseDelta(LHPreference.author, atmClass, atmClassModified);
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();
@@ -34,7 +35,7 @@ public class LighthouseDeltaTest extends TestCase {
 		new LighthouseFileXMLPersistence(atmClass).load(LHTestDataFiles.XML_ATM_JAVA);
 		
 		// Generate delta
-		LighthouseDelta currentDelta = new LighthouseDelta(null, atmClass);
+		LighthouseDelta currentDelta = new LighthouseDelta(LHPreference.author, null, atmClass);
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();
@@ -48,7 +49,7 @@ public class LighthouseDeltaTest extends TestCase {
 		new LighthouseFileXMLPersistence(atmClass).load(LHTestDataFiles.XML_ATM_JAVA);
 		
 		// Generate delta
-		LighthouseDelta currentDelta = new LighthouseDelta (atmClass, null);
+		LighthouseDelta currentDelta = new LighthouseDelta (LHPreference.author, atmClass, null);
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();

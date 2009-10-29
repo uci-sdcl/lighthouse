@@ -17,6 +17,7 @@ import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
 import edu.uci.lighthouse.model.io.LighthouseFileXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.util.LHPreference;
 import edu.uci.lighthouse.test.util.LHTestDataFiles;
 import edu.uci.lighthouse.test.util.LighthouseModelTest;
 import edu.uci.lighthouse.test.util.UtilModel;
@@ -61,7 +62,7 @@ public class LighthouseParserTest extends TestCase {
 		LighthouseFile xmlFile = new LighthouseFile();
 		new LighthouseFileXMLPersistence(xmlFile).load(LHTestDataFiles.XML_ATM_JAVA);
  
-		LighthouseDelta delta = new LighthouseDelta(currentFileModel, xmlFile);
+		LighthouseDelta delta = new LighthouseDelta(LHPreference.author, currentFileModel, xmlFile);
 		assertEquals(true, (delta.getEvents().size()==0));
 	}
 	
