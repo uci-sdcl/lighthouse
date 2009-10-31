@@ -11,8 +11,8 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
-import edu.uci.lighthouse.model.jpa.LHEntityController;
-import edu.uci.lighthouse.model.util.Preference;
+import edu.uci.lighthouse.model.jpa.LHEntityDAO;
+import edu.uci.lighthouse.model.util.LHPreference;
 
 public class ParserEventManager {
 	
@@ -21,7 +21,7 @@ public class ParserEventManager {
 	public static LighthouseEntity addEntity(LighthouseAbstractModel model,
 			LighthouseEntity entity) throws JPAUtilityException {		
 		if (model instanceof LighthouseModel) {
-			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,Preference.author,entity);
+			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,LHPreference.author,entity);
 			new LighthouseModelManager((LighthouseModel) model).addEvent(event);
 			return (LighthouseEntity) event.getArtifact();
 		} else if (model instanceof LighthouseFile) {
@@ -34,7 +34,7 @@ public class ParserEventManager {
 	public static LighthouseRelationship addRelationship(LighthouseAbstractModel model,
 			LighthouseRelationship relationship) throws JPAUtilityException {
 		if (model instanceof LighthouseModel) {
-			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,Preference.author,relationship);
+			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,LHPreference.author,relationship);
 			new LighthouseModelManager((LighthouseModel) model).addEvent(event);
 			return (LighthouseRelationship) event.getArtifact();
 		} else if (model instanceof LighthouseFile) {
@@ -45,7 +45,7 @@ public class ParserEventManager {
 	}
 
 	public static LighthouseEntity getEntityFromDataBase(String fqnTo) {
-		return LHEntityController.getInstance().get(fqnTo);
+		return new LHEntityDAO().get(fqnTo);
 	}
 	
 }
