@@ -1,39 +1,34 @@
 package edu.uci.lighthouse.core.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
+import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
+import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
-import edu.uci.lighthouse.model.jpa.LHEventController;
+import edu.uci.lighthouse.model.jpa.LHEventDAO;
+import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
 
 public class PullModel {
 
 	private LighthouseModel model;
-	private Date currentTime = new Date(); // FIXME remove value
-
+	
+	
 	public PullModel(LighthouseModel lighthouseModel) {
 		this.model = lighthouseModel;
 		
-		String date = 2009 + "/" + 9 + "/" + 29;
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-	    try {
-			this.currentTime = formatter.parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void run() throws JPAUtilityException {
 		// TODO Start Thread
 		
-		List<LighthouseEvent> listEvents = timeoutProcedure();
+		List<LighthouseEvent> listEvents = executeQueryTimeout(new Date());
 		updateLighthouseModel(listEvents);
 		
 		// TODO Fire the Visualization
@@ -46,12 +41,38 @@ public class PullModel {
 		}
 	}
 
-	private List<LighthouseEvent> timeoutProcedure() {
+	/**
+	 * Timeout procedure will get all new events (timestamp > lastDBaccessTime)
+	 * @param lastDBaccessTime Last time that we accessed the database
+	 * */
+	public List<LighthouseEvent> executeQueryTimeout(Date lastDBaccessTime) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("timestamp", currentTime);
-		return LHEventController.getInstance().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
+		parameters.put("timestamp", lastDBaccessTime);
+		return new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
 	}
-
+	
+	public List<LighthouseEvent> executeQueryEventAfterCheckout() {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
+		// for each class - get all entities that is INSIDE it (from the database), and set the commitTimestamp
+		for (Map.Entry<String, Date> entry : model.getCheckedOutEntities().getEntrySet()) {
+			String fqnClazz = entry.getKey();
+			LighthouseEntity clazz = new LighthouseModelManagerPersistence(model).getEntity(fqnClazz);
+			Date commitTimestamp = entry.getValue();
+			
+			parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
+			parameters.put("toEntity", clazz);
+			List<LighthouseEntity> listFromEntities = new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
+			
+			mapEntityTime.put(fqnClazz, commitTimestamp);
+			// set commitTimestamp for each entity inside a class
+			for (LighthouseEntity fromEntity : listFromEntities) {
+				mapEntityTime.put(fromEntity.getFullyQualifiedName(), commitTimestamp);
+			}
+		}
+		return new LHEventDAO().executeQueryEntitiesAndTime(mapEntityTime); 
+	}
+	
 //	private void checkOutProcedure() {
 //		
 //	}
