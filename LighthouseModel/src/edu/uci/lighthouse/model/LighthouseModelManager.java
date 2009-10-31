@@ -49,6 +49,8 @@ public class LighthouseModelManager {
 				newRelationship.setFromEntity(entityFrom);
 				newRelationship.setToEntity(entityTo);
 				model.addRelationship(newRelationship);
+			} else {
+				logger.error("Trying to add an invalid relationship: " + relationship);
 			}
 			return newRelationship;
 		}
@@ -68,6 +70,10 @@ public class LighthouseModelManager {
 			logger.warn("Event Artifact is null: " + event.toString());
 		}
 		model.addEvent(event);
+	}
+	
+	public LighthouseEntity getEntity(String fqn) {
+		return model.getEntity(fqn);
 	}
 	
 	//

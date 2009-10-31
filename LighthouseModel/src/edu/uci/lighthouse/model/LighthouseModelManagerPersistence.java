@@ -1,9 +1,8 @@
 package edu.uci.lighthouse.model;
 
-import java.util.Date;
-
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
-import edu.uci.lighthouse.model.jpa.LHEventController;
+import edu.uci.lighthouse.model.jpa.LHEntityDAO;
+import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class LighthouseModelManagerPersistence extends LighthouseModelManager {
 
@@ -24,8 +23,16 @@ public class LighthouseModelManagerPersistence extends LighthouseModelManager {
 	}
 	
 	private void saveEventIntoDatabase(LighthouseEvent event) throws JPAUtilityException {
-		event.setTimestamp(new Date()); // FIXME get time from database
-		LHEventController.getInstance().save(event);
+//		event.setTimestamp(new Date()); // FIXME get time from database
+		new LHEventDAO().save(event);
+	}
+	
+	public LighthouseEntity getEntity(String fqn) {
+		LighthouseEntity entity = super.getEntity(fqn);
+		if (entity==null) {
+			entity = new LHEntityDAO().get(fqn);
+		}
+		return entity;
 	}
 	
 }

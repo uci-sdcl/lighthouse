@@ -2,19 +2,32 @@ package edu.uci.lighthouse.model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
+
+
+/**
+ *  
+ * */
+@NamedQueries ({
+	@NamedQuery(name = "LighthouseRelationship.findFromEntityByTypeAndToEntity",
+				query = "SELECT rel.primaryKey.from " + 
+						"FROM LighthouseRelationship rel " + 
+						"WHERE rel.primaryKey.type = :relType " +
+						"AND rel.primaryKey.to = :toEntity")
+})
 /**
  * Represents a relationship between two entities.
  * 
- * @author tproenca
+ * @author nilmax
  * 
  */
-
 @Entity
 public class LighthouseRelationship {
 
 	@EmbeddedId
-	LHRelationshipPK primaryKey;
+	private LHRelationshipPK primaryKey;
 	
 	/** */
 	public static enum TYPE {

@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -86,6 +87,10 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	
 	public CheckedOutEntities getCheckedOutEntities() {
 		return checkedOutEntities;
+	}
+	
+	public void setCheckedOutEntity(String fqn, Date timestamp) {
+		this.checkedOutEntities.put(fqn, timestamp);
 	}
 	
 	/** List of listeners */

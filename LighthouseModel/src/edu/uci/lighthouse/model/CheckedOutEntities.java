@@ -3,6 +3,8 @@ package edu.uci.lighthouse.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.Map.Entry;
 
 
 /**
@@ -26,6 +28,10 @@ public class CheckedOutEntities implements Serializable {
 
 	public void put(String fqn, Date checkInTime) {
 		mapEntityCheckInTime.put(fqn, checkInTime);
+	}
+	
+	public Set<Entry<String, Date>> getEntrySet() {
+		return mapEntityCheckInTime.entrySet();
 	}
 
 }
