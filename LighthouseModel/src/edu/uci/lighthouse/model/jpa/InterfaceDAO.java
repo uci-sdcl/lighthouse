@@ -41,10 +41,10 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 * @param parameters
 	 * @return
 	 */
-	public List<T> executeQuery(Map<String, Object> parameters);
+	public List<T> executeDynamicQuery(String strQuery);
 	
 	/**
-	 * Retorn an instance of <code>T</code> using the key <code>pk</code>
+	 * Return an instance of <code>T</code> using the key <code>pk</code>
 	 * @param pk
 	 * @return
 	 */

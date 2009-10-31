@@ -2,7 +2,6 @@ package edu.uci.lighthouse.model.jpa;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -22,30 +21,21 @@ import javax.persistence.TemporalType;
  */
 public abstract class AbstractDAO<T, PK extends Serializable> implements InterfaceDAO<T, PK> {
 
-	/**
-	 * Replacement Value from "." to "_";
-	 */
-	private static final String STRING_UNDERLINE = "_";
+	protected EntityManager entityManager;
 
-	/**
-	 * Dot string that will be replaced in this kind of queries: entity.entity.name
-	 */
-	private static final String STRING_DOT = "\\.";
-
-	private EntityManager entityManager;
-
-	protected Class<T> type;
+	protected Class<T> entityClass;
 	
 	@SuppressWarnings("unchecked")
 	public AbstractDAO() {
-		this.type = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+		entityManager = JPAUtility.getEntityManager(); // TODO check this out just in case
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
 		List<T> result = entityManager.createQuery(
-				"select entity from " + type.getSimpleName() + " entity")
+				"select entity from " + entityClass.getSimpleName() + " entity")
 				.getResultList();
 		return result;
 	}
@@ -64,7 +54,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 				}
 			}
 		}
-		List result = query.getResultList();
+		List<T> result = query.getResultList();
 		return result;
 	}
 
@@ -87,76 +77,53 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	}
 
 	/**
-	 * Build a TOTALLY dynamically query.
-	 * There are 2 possibles ways to set the entry.key:
-	 * - "entity.fieldName"
-	 * - "entity.innerEntity.fieldName"
+	 * Methods that execute queries that are dynamically build by using the
+	 * parameters
+	 * 
+	 * @param parameters
+	 * @return
+	 * @throws JPAQueryException
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> executeQuery(Map<String, Object> parameters){
-		List<T> result = new ArrayList<T>();		
-		StringBuffer queryBuf = new StringBuffer(
-				"select distinct entity from " + type.getSimpleName()
-						+ " entity ");
-		boolean firstClause = true;
-		
-		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-			if (entry.getValue() instanceof String) {
-				queryBuf.append(firstClause ? " where " : " and ");
-				queryBuf
-						.append("LOWER("+entry.getKey()+")" + " LIKE :" + entry.getKey().replaceAll(STRING_DOT, STRING_UNDERLINE));
-					firstClause = false;
-			} else {
-				queryBuf.append(firstClause ? " where " : " and ");
-				queryBuf.append(entry.getKey() + " = :" + entry.getKey().replaceAll(STRING_DOT, STRING_UNDERLINE));
-				firstClause = false;
-			}
-		}
-
-		String hqlQuery = queryBuf.toString();
-		Query query = entityManager.createQuery(hqlQuery);
-		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-			if (entry.getValue() instanceof Date) {
-				query.setParameter(entry.getKey().replaceAll(STRING_DOT, STRING_UNDERLINE), (Date) entry.getValue(),
-						TemporalType.DATE);
-			} if(entry.getValue() instanceof String){
-				query.setParameter(entry.getKey().replaceAll(STRING_DOT, STRING_UNDERLINE),((String)entry.getValue()).toLowerCase());
-			} else {
-				query.setParameter(entry.getKey().replaceAll(STRING_DOT, STRING_UNDERLINE), entry.getValue());
-			}
-		}
-		result = query.getResultList();
-		
-		return result;
+	public List<T> executeDynamicQuery(String strQuery) {
+		Query query = entityManager.createQuery(strQuery);
+		return query.getResultList();
 	}
-
 	
 	public T get(PK pk) {
-		return entityManager.find(type, pk);
+		return entityManager.find(entityClass, pk);
 	}
 
 	public void save(T entity) throws JPAUtilityException{		
 		try {
+			JPAUtility.beginTransaction();
 			entityManager.persist(entity);
+			JPAUtility.commitTransaction();
 		} catch (RuntimeException e) {
 			throw new JPAUtilityException("Error trying to save the entity: " + entity, e.fillInStackTrace());
 		}
 	}
 
 	public T update(T entity) throws JPAUtilityException {
+		T result;
 		try {
-			return entityManager.merge(entity);
+			JPAUtility.beginTransaction();
+			result = entityManager.merge(entity);
+			JPAUtility.commitTransaction();
 		} catch (RuntimeException e) {
 			throw new JPAUtilityException("Error trying to update the entity: " + entity, e.fillInStackTrace());
 		}
+		return result;
 	}
 
 	/* (non-Javadoc)
 	 */
 	public void remove(T entity) throws JPAUtilityException {
 		try {
+			JPAUtility.beginTransaction();
 			Object toRemove = entityManager.merge(entity);
 			entityManager.remove(toRemove);
+			JPAUtility.commitTransaction();
 		} catch (Exception e) {
 			throw new JPAUtilityException("Error trying to remove the entity: " + entity, e.fillInStackTrace());
 		}
