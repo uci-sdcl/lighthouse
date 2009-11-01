@@ -50,22 +50,14 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 */
 	public T get(PK pk);
 	
-		
 	/**
-	 * Salve an instance of <code>T</code> in the database.
-	 * @param entity
-	 * @throws JPAInsertException
-	 */
-	public void save(T entity) throws JPAUtilityException;
-	
-	/**
-	 * Update an instance of <code>T</code> in the database.
+	 * Save and UPDATE an instance of <code>T</code> in the database.
+	 * Working with Detached entities
 	 * @param entity
 	 * @return T
 	 * @throws JPAUpdateException
 	 */
-	public T update(T entity) throws JPAUtilityException;
-	
+	public T save(T entity) throws JPAUtilityException;
 	
 	/**
 	 * Remove an instance of <code>T</code>> from the data base.

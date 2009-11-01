@@ -94,17 +94,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		return entityManager.find(entityClass, pk);
 	}
 
-	public void save(T entity) throws JPAUtilityException{		
-		try {
-			JPAUtility.beginTransaction();
-			entityManager.persist(entity);
-			JPAUtility.commitTransaction();
-		} catch (RuntimeException e) {
-			throw new JPAUtilityException("Error trying to save the entity: " + entity, e.fillInStackTrace());
-		}
-	}
-
-	public T update(T entity) throws JPAUtilityException {
+	public T save(T entity) throws JPAUtilityException {
 		T result;
 		try {
 			JPAUtility.beginTransaction();
