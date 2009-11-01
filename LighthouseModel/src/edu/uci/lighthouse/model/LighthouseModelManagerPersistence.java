@@ -1,8 +1,14 @@
 package edu.uci.lighthouse.model;
 
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
+import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
 
 public class LighthouseModelManagerPersistence extends LighthouseModelManager {
 
@@ -33,6 +39,22 @@ public class LighthouseModelManagerPersistence extends LighthouseModelManager {
 			entity = new LHEntityDAO().get(fqn);
 		}
 		return entity;
+	}
+	
+	public LinkedHashSet<LighthouseEntity> getEntitiesInsideClass(List<String> listClazzFqn) {
+		LinkedHashSet<LighthouseEntity> listFromEntities = new LinkedHashSet<LighthouseEntity>();
+		for (String clazzFqn : listClazzFqn) {
+			listFromEntities.addAll(getEntitiesInsideClass(clazzFqn));			
+		}
+		return listFromEntities;
+	}
+	
+	public  List<LighthouseEntity> getEntitiesInsideClass(String clazzFqn) {
+		LighthouseEntity clazz = new LighthouseModelManagerPersistence(model).getEntity(clazzFqn);
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
+		parameters.put("toEntity", clazz);
+		return new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
 	}
 	
 }
