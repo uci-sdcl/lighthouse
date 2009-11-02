@@ -43,7 +43,6 @@ public class LighthouseParserTest extends TestCase {
 		assertEquals(true, sameSize&&contain);
 	}
 	
-	
 	public void testParseJustOneFile() throws DocumentException, IOException, JPAUtilityException {
 		LighthouseModelTest xmlModel = new LighthouseModelTest();
 		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
