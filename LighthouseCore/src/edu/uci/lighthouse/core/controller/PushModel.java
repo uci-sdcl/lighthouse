@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.core.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -14,6 +15,7 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class PushModel {
 	
@@ -25,63 +27,38 @@ public class PushModel {
 		this.model = model;
 	}
 	
-	public void execute(LighthouseDelta delta) throws JPAUtilityException {
+	public void updateModelFromDelta(LighthouseDelta delta) throws JPAUtilityException {
 	    HashMap<LighthouseClass,LighthouseEvent.TYPE> mapFireClassEvent = new HashMap<LighthouseClass,LighthouseEvent.TYPE>();
 	    HashMap<LighthouseRelationship,LighthouseEvent.TYPE> mapFireRelEvent = new  HashMap<LighthouseRelationship,LighthouseEvent.TYPE>();
-
 	    // for each entity event
 	    for (LighthouseEvent event : delta.getEvents()) {
 	    	logger.debug("updating: " + event.toString());
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
 				LighthouseEntity deltaEntity = (LighthouseEntity) artifact;
-				LighthouseEntity lighthouseEntity = model.getEntity(deltaEntity.getFullyQualifiedName());
-				switch (event.getType()) {
-				case ADD:
-					new LighthouseModelManagerPersistence(model).addEvent(event);
-					setClassesToFireUI(mapFireClassEvent, deltaEntity, event);
-					break;
-				case MODIFY:
-					event.setArtifact(lighthouseEntity);
-					new LighthouseModelManagerPersistence(model).addEvent(event);
-					setClassesToFireUI(mapFireClassEvent, lighthouseEntity, event);
-					break;
-				case REMOVE:
-					event.setArtifact(lighthouseEntity);
-					new LighthouseModelManagerPersistence(model).addEvent(event);				
-					setClassesToFireUI(mapFireClassEvent, lighthouseEntity, event);
-					break;
-				}
-				setClassesToFireUI(mapFireClassEvent, deltaEntity, event); // FIXME Why do we need this line?
+				new LighthouseModelManagerPersistence(model).addEvent(event);
+				setClassesToFireUI(mapFireClassEvent, deltaEntity, event);
 			}			
-		} // end-for-delta
-
+		}
 	    // for each relationship event
 	    for (LighthouseEvent event : delta.getEvents()) {
 	    	logger.debug("updating: " + event.toString());
 			Object artifact = event.getArtifact();
 		    if (artifact instanceof LighthouseRelationship) {
 		    	LighthouseRelationship deltaRelationship = (LighthouseRelationship) artifact;
-		    	LighthouseRelationship lighthouseRelationship = model.getRelationship(deltaRelationship);
-		    	switch (event.getType()) {
-		    	case ADD:
-					new LighthouseModelManagerPersistence(model).addEvent(event);
-		    		mapFireRelEvent.put(deltaRelationship, event.getType());
-		    		break;
-		    	case REMOVE:
-		    		event.setArtifact(lighthouseRelationship);
-		    		new LighthouseModelManagerPersistence(model).addEvent(event);			
-		    		mapFireRelEvent.put(lighthouseRelationship, event.getType());
-		    		break;
-		    	}
+				new LighthouseModelManagerPersistence(model).addEvent(event);
+		    	mapFireRelEvent.put(deltaRelationship, event.getType());
 		    }
 	    }
-	    
 		// Fire Modifications, call the UI
 		fireClassModifications(mapFireClassEvent);
 		fireRelationshipModifications(mapFireRelEvent);
 	}
 
+	public void updateCommittedEvents(List<String> listClazzFqn, String authorName) {
+		new LHEventDAO().updateCommittedEvents(listClazzFqn,authorName);
+	}
+	
 	/**
 	 * @param mapClassEvent
 	 * @param deltaEntity
