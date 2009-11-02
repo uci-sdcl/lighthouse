@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.model.jpa;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,11 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	public List<T> executeDynamicQuery(String strQuery);
 	
 	/**
+	 * @param query
+	 * */
+	public void executeUpdateQuery(String strQuery);
+	
+	/**
 	 * Return an instance of <code>T</code> using the key <code>pk</code>
 	 * @param pk
 	 * @return
@@ -65,6 +71,8 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 * @throws JPADeleteException
 	 */
 	public void remove(T entity) throws JPAUtilityException;
+	
+	public Date getCurrentTimestamp();
 	
 	public void flush();
 
