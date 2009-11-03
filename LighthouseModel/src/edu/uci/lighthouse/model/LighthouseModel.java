@@ -1,7 +1,6 @@
 package edu.uci.lighthouse.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -25,16 +24,12 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	/** Model instance. */
 	private static LighthouseModel instance;
 
-	/** Associate an artifact(entity or relationship) with a list of events */
+	/** Associate an artifact(entity or relationship) with a list of events. */
 	private HashMap<Object, LinkedHashSet<LighthouseEvent>> mapArtifactEvents = new HashMap<Object, LinkedHashSet<LighthouseEvent>>();
 	
 	/** LIst of all events*/
 	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
 	
-	private CheckedOutEntities checkedOutEntities = new CheckedOutEntities();
-	
-	private HashMap<String, LighthouseAuthor> mapAuthor = new HashMap<String, LighthouseAuthor>();
-
 	protected LighthouseModel() {
 	}
 	
@@ -60,37 +55,14 @@ public class LighthouseModel extends LighthouseAbstractModel {
 			}
 			listArtifactEvents.add(event);
 			mapArtifactEvents.put(artifact,listArtifactEvents);
-			event.setAuthor(putAuthor(event.getAuthor()));
 			listEvents.add(event);
 		} else {
 			logger.warn("Artifact is null: " + event.toString());
 		}
 	}
 	
-	private LighthouseAuthor putAuthor(LighthouseAuthor newAuthor) {
-		LighthouseAuthor authorFromModel = mapAuthor.get(newAuthor.getName());
-		if (authorFromModel==null) {
-			mapAuthor.put(newAuthor.getName(), newAuthor);
-			return newAuthor;
-		} else {
-			return authorFromModel;
-		}
-	}
-	
 	public LinkedHashSet<LighthouseEvent> getListEvents() {
 		return listEvents;
-	}
-
-	public LighthouseAuthor getAuthor(String name) {
-		return mapAuthor.get(name);
-	}
-	
-	public CheckedOutEntities getCheckedOutEntities() {
-		return checkedOutEntities;
-	}
-	
-	public void setCheckedOutEntity(String fqn, Date timestamp) {
-		this.checkedOutEntities.put(fqn, timestamp);
 	}
 	
 	/** List of listeners */
