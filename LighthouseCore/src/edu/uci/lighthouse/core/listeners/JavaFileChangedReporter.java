@@ -24,16 +24,29 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.osgi.framework.BundleContext;
 
-public class JavaFileChangedReporter implements IElementChangedListener{
+public class JavaFileChangedReporter implements IElementChangedListener, IPluginListener{
 
 	Collection<IJavaFileStatusListener> listeners = new LinkedList<IJavaFileStatusListener>();
 	
 	private static Logger logger = Logger.getLogger(JavaFileChangedReporter.class);
 	
 	public JavaFileChangedReporter(){	
-		findActiveOpenFileInWorkspace();
+//		findActiveOpenFileInWorkspace();
 //		findOpenFilesInWorkspace();
+	}
+	
+	@Override
+	public void start(BundleContext context) throws Exception {
+		JavaCore.addElementChangedListener(this,
+				ElementChangedEvent.POST_CHANGE);
+		findActiveOpenFileInWorkspace();
+	}
+
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		JavaCore.removeElementChangedListener(this);
 	}
 	
 	private void findActiveOpenFileInWorkspace(){
@@ -137,24 +150,24 @@ public class JavaFileChangedReporter implements IElementChangedListener{
 		listeners.remove(listener);
 	}
 	
-	protected void fireOpen(IFile file, boolean hasErrors){
-		logger.debug("Opening "+file.getName()+" (errors:"+hasErrors+")");
+	protected void fireOpen(IFile iFile, boolean hasErrors){
+		logger.info("Opening "+iFile.getName()+" (errors:"+hasErrors+")");
 		for (IJavaFileStatusListener listener : listeners) {
-			listener.open(file, hasErrors);
+			listener.open(iFile, hasErrors);
 		}
 	}
 
-	protected void fireClose(IFile file, boolean hasErrors){
-		logger.debug("Closing "+file.getName()+" (errors:"+hasErrors+")");
+	protected void fireClose(IFile iFile, boolean hasErrors){
+		logger.info("Closing "+iFile.getName()+" (errors:"+hasErrors+")");
 		for (IJavaFileStatusListener listener : listeners) {
-			listener.close(file, hasErrors);
+			listener.close(iFile, hasErrors);
 		}
 	}
 
-	protected void fireChange(IFile file, boolean hasErrors){
-		logger.debug("Changing "+file.getName()+" (errors:"+hasErrors+")");
+	protected void fireChange(IFile iFile, boolean hasErrors){
+		logger.info("Changing "+iFile.getName()+" (errors:"+hasErrors+")");
 		for (IJavaFileStatusListener listener : listeners) {
-			listener.change(file, hasErrors);
+			listener.change(iFile, hasErrors);
 		}
 	}	
 	

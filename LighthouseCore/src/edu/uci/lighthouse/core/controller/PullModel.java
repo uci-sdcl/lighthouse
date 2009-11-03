@@ -49,10 +49,10 @@ public class PullModel {
 		return new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
 	}
 	
-	public List<LighthouseEvent> executeQueryEventAfterCheckout() {
+	public List<LighthouseEvent> executeQueryAfterCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
 		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
 		// for each class - get all entities that is INSIDE it (from the database)
-		for (Map.Entry<String, Date> entry : model.getCheckedOutEntities().getEntrySet()) {
+		for (Map.Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
 			String fqnClazz = entry.getKey();
 			Date commitTimestamp = entry.getValue();
 			List<LighthouseEntity> listFromEntities = new LighthouseModelManagerPersistence(model).getEntitiesInsideClass(fqnClazz);

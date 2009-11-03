@@ -8,21 +8,20 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.tigris.subversion.subclipse.core.SVNProviderPlugin;
+import org.tigris.subversion.svnclientadapter.ISVNClientAdapter;
 
-import edu.uci.lighthouse.core.parser.IParserAction;
-import edu.uci.lighthouse.core.parser.LighthouseParser;
-import edu.uci.lighthouse.model.LighthouseModel;
-import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
+import edu.uci.lighthouse.core.controller.Controller;
+import edu.uci.lighthouse.core.listeners.IPluginListener;
+import edu.uci.lighthouse.core.listeners.JavaFileChangedReporter;
+import edu.uci.lighthouse.core.listeners.SVNEventReporter;
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 /**
@@ -38,12 +37,25 @@ public class Activator extends AbstractUIPlugin {
 	// The shared instance
 	private static Activator plugin;
 	
-	IResourceChangeListener listener;
+//	IResourceChangeListener listener;
+	Collection<IPluginListener> listeners = new LinkedList<IPluginListener>();
+	
+	private LighthouseAuthor author;
 	
 	/**
 	 * The constructor
 	 */
 	public Activator() {
+		Controller controller = new Controller();
+		
+		JavaFileChangedReporter jReporter = new JavaFileChangedReporter();
+		jReporter.addJavaFileStatusListener(controller);
+		
+		SVNEventReporter svnReporter = new SVNEventReporter();
+		svnReporter.addSVNEventListener(controller);
+		
+		listeners.add(jReporter);
+		listeners.add(svnReporter);
 	}
 
 	/*
@@ -55,6 +67,14 @@ public class Activator extends AbstractUIPlugin {
 		plugin = this;
 		
 		logger.debug("Core Started");
+		
+		// Starting listeners
+		for (IPluginListener listener : listeners) {
+			listener.start(context);
+		}
+		
+//		JavaCore.addElementChangedListener(new JavaFileChangedReporter(),
+//				ElementChangedEvent.POST_CHANGE);
 
 //		IWorkspace workspace = ResourcesPlugin.getWorkspace();		
 //		createLighthouseModel(workspace);
@@ -78,34 +98,40 @@ public class Activator extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		workspace.addResourceChangeListener(listener);		
+//		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+//		workspace.addResourceChangeListener(listener);	
+		
+		// Stopping listeners
+		for (IPluginListener listener : listeners) {
+			listener.stop(context);
+		}
+		
 		plugin = null;
 		super.stop(context);
 	}
 
 	private void createLighthouseModel(final IWorkspace workspace) throws JPAUtilityException{
-		IProject[] projects = workspace.getRoot().getProjects();
-		final Collection<IFile> files = new LinkedList<IFile>();
-		for (int i = 0; i < projects.length; i++) {
-			if (projects[i].isOpen()) {
-				files.addAll(getFilesFromProject(projects[i]));
-			}
-		}
-		if (files.size()>0) {
-			LighthouseParser parser = new LighthouseParser();
-			final LighthouseModel lighthouseModel = LighthouseModel.getInstance();
-			parser.executeInAJob(lighthouseModel,files, new IParserAction() {
-				@Override
-				public void doAction() throws JPAUtilityException {
-					new LighthouseModelManagerPersistence(lighthouseModel).saveAllIntoDataBase();
-					lighthouseModel.fireModelChanged();
-					final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();;
-					//listener = new FileChangedListener(window);
-					workspace.addResourceChangeListener(listener);						
-				}
-			}); 
-		}		
+//		IProject[] projects = workspace.getRoot().getProjects();
+//		final Collection<IFile> files = new LinkedList<IFile>();
+//		for (int i = 0; i < projects.length; i++) {
+//			if (projects[i].isOpen()) {
+//				files.addAll(getFilesFromProject(projects[i]));
+//			}
+//		}
+//		if (files.size()>0) {
+//			LighthouseParser parser = new LighthouseParser();
+//			final LighthouseModel lighthouseModel = LighthouseModel.getInstance();
+//			parser.executeInAJob(lighthouseModel,files, new IParserAction() {
+//				@Override
+//				public void doAction() throws JPAUtilityException {
+//					new LighthouseModelManagerPersistence(lighthouseModel).saveAllIntoDataBase();
+//					lighthouseModel.fireModelChanged();
+//					final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();;
+//					//listener = new FileChangedListener(window);
+//					workspace.addResourceChangeListener(listener);						
+//				}
+//			}); 
+//		}		
 	}
 	
 	private Collection<IFile> getFilesFromProject(IProject project) {
@@ -148,4 +174,12 @@ public class Activator extends AbstractUIPlugin {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 	
+	public LighthouseAuthor getAuthor(){
+		if (author == null){
+			//ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin().getSVNClient();
+			author = new LighthouseAuthor("Max");
+		}
+		return author;
+	}
+
 }

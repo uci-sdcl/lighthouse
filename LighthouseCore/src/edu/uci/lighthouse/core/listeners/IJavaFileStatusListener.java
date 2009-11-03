@@ -4,10 +4,10 @@ import org.eclipse.core.resources.IFile;
 
 public interface IJavaFileStatusListener {
 
-	public void open(IFile file, boolean hasErrors);
+	public void open(IFile iFile, boolean hasErrors);
 	
-	public void close(IFile file, boolean hasErrors);
+	public void close(IFile iFile, boolean hasErrors);
 	
-	public void change(IFile file, boolean hasErrors);
+	public void change(IFile iFile, boolean hasErrors);
 	
 }
