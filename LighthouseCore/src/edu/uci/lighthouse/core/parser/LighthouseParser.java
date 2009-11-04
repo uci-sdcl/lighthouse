@@ -12,7 +12,6 @@ import edu.uci.ics.sourcerer.util.io.Logging;
 import edu.uci.ics.sourcerer.util.io.Property;
 import edu.uci.ics.sourcerer.util.io.PropertyManager;
 import edu.uci.lighthouse.model.LighthouseAbstractModel;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class LighthouseParser {
 
@@ -34,7 +33,7 @@ public class LighthouseParser {
 		return extractor;
 	}
 
-	public void execute(LighthouseAbstractModel model, Collection<IFile> files) throws JPAUtilityException {
+	public void execute(LighthouseAbstractModel model, Collection<IFile> files) {
 		FeatureExtractor extractor = getFeatureExtractor();
 
 		extractor.extractSourceFiles(files);
@@ -43,11 +42,11 @@ public class LighthouseParser {
 		BuilderRelationship.getInstance().populateAllRelationshipsToModel(model);
 	}
 
-	public void execute(LighthouseAbstractModel model, IFile file) throws JPAUtilityException {
+	public void execute(LighthouseAbstractModel model, IFile file) {
 		execute(model,Collections.singleton(file));
 	} 
 	
-	public void executeInAJob(final LighthouseAbstractModel model, final Collection<IFile> files, final IParserAction action) throws JPAUtilityException {
+	public void executeInAJob(final LighthouseAbstractModel model, final Collection<IFile> files, final IParserAction action) {
 /*		class ParserJob extends Job {
 			public ParserJob() {
 				super(Messages.getString("LighthouseParser.job.msg"));
@@ -73,7 +72,7 @@ public class LighthouseParser {
 		action.doAction();
 	}
 	
-	public void executeInAJob(final LighthouseAbstractModel model, final IFile file, final IParserAction action) throws JPAUtilityException {
+	public void executeInAJob(final LighthouseAbstractModel model, final IFile file, final IParserAction action) {
 		executeInAJob(model, Collections.singleton(file), action);
 	}
 	

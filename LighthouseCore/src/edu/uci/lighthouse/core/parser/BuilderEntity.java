@@ -13,7 +13,6 @@ import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseMethod;
 import edu.uci.lighthouse.model.LighthouseModifier;
 import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class BuilderEntity {
 
@@ -34,7 +33,7 @@ public class BuilderEntity {
 		return instance;
 	}
 
-	public void populateAllEntityToModel(LighthouseAbstractModel model) throws JPAUtilityException {
+	public void populateAllEntityToModel(LighthouseAbstractModel model) {
 		for (EntityNode entityNode : listEntity) {
 			if (!LighthouseParser.isEntityUnresolved(entityNode.fqn)) {
 				String fqn = entityNode.fqn;			
@@ -72,7 +71,7 @@ public class BuilderEntity {
 		removeAll();
 	}
 	
-	private void addModifiers(LighthouseAbstractModel model, LighthouseEntity entity, int modifiers) throws JPAUtilityException {
+	private void addModifiers(LighthouseAbstractModel model, LighthouseEntity entity, int modifiers) {
 		Set<Modifier> setModifiers = Modifier.convertFromInt(modifiers);
 		for (Modifier utilModifier : setModifiers) {
 			LighthouseModifier modifier = new LighthouseModifier(utilModifier.toString());

@@ -10,7 +10,6 @@ import edu.uci.lighthouse.model.LighthouseFileManager;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.util.LHPreference;
 
@@ -19,7 +18,7 @@ public class ParserEventManager {
 	private static Logger logger = Logger.getLogger(ParserEventManager.class);
 
 	public static LighthouseEntity addEntity(LighthouseAbstractModel model,
-			LighthouseEntity entity) throws JPAUtilityException {		
+			LighthouseEntity entity) {		
 		if (model instanceof LighthouseModel) {
 			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,LHPreference.author,entity);
 			new LighthouseModelManager((LighthouseModel) model).addEvent(event);
@@ -32,7 +31,7 @@ public class ParserEventManager {
 	}
 
 	public static LighthouseRelationship addRelationship(LighthouseAbstractModel model,
-			LighthouseRelationship relationship) throws JPAUtilityException {
+			LighthouseRelationship relationship) {
 		if (model instanceof LighthouseModel) {
 			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,LHPreference.author,relationship);
 			new LighthouseModelManager((LighthouseModel) model).addEvent(event);
