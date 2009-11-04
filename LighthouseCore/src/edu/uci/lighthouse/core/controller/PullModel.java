@@ -76,6 +76,31 @@ public class PullModel {
 		return listEvents;
 	}
 	
+	public List<LighthouseEvent> loadModel(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
+		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
+		// for each class - get all entities that is INSIDE it (from the database)
+		LighthouseModelManager modelManager = new LighthouseModelManager(model);
+		for (Map.Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
+			String fqnClazz = entry.getKey();
+			Date revisionTimestamp = entry.getValue();
+			List<LighthouseEntity> listFromEntities = modelManager.getEntitiesInsideClass(fqnClazz);
+			mapEntityTime.put(fqnClazz, revisionTimestamp);
+			for (LighthouseEntity fromEntity : listFromEntities) {
+				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
+			}
+		}
+
+		List<LighthouseEvent> listEvents = new LHEventDAO().list();
+		// Update the model
+		updateLighthouseModel(listEvents);
+		
+		removeCommittedEvents(listEvents,mapEntityTime);
+		
+		return listEvents;
+	}
+	
+	
+	
 	public void removeCommittedEvents(List<LighthouseEvent> listEvents, HashMap<String,Date> mapEntityTime) {
 		// Remove Committed events (TYPE==ADD and committedTime before revisionTime) from the model
 		LighthouseModelManager modelManager = new LighthouseModelManager(model);
@@ -84,11 +109,13 @@ public class PullModel {
 			if (artifact instanceof LighthouseEntity) {
 				LighthouseEntity entity = (LighthouseEntity) artifact;
 				Date revisionTime = mapEntityTime.get(entity.getFullyQualifiedName());
-				if (event.getType()==TYPE.ADD
-					&& event.isCommitted()
-					&& (revisionTime.after(event.getCommittedTime())
-					|| revisionTime.equals(event.getCommittedTime())) ) {
-					modelManager.removeEvent(event);
+				if (revisionTime!=null) {
+					if (event.getType()==TYPE.ADD
+							&& event.isCommitted()
+							&& (revisionTime.after(event.getCommittedTime())
+									|| revisionTime.equals(event.getCommittedTime())) ) {
+						modelManager.removeEvent(event);
+					}
 				}
 			}
 		}

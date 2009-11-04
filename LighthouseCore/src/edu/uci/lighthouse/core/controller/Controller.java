@@ -168,10 +168,44 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		
 		// Esse eh o certo, mas nao sei se funciona
 		PullModel pullmodel = new PullModel(LighthouseModel.getInstance());
-		pullmodel.executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
+		pullmodel.loadModel(mapClassFqnToLastRevisionTimestamp);
 		
 		//FIXME: fire the model changed to UI
 		LighthouseModel.getInstance().fireModelChanged();
+		
+//		
+//		
+//		LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance());
+//		for (LighthouseEvent event : listEvents) {
+//			modelManager.addEvent(event);
+//		}
+//		
+//		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+//		pullModel.removeCommittedEvents(listEvents, mapEntityTime);
+//		
+//		
+//		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
+//		// for each class - get all entities that is INSIDE it (from the database)
+//		LighthouseModelManager modelManager = new LighthouseModelManager(model);
+//		for (Map.Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
+//			String fqnClazz = entry.getKey();
+//			Date revisionTimestamp = entry.getValue();
+//			List<LighthouseEntity> listFromEntities = modelManager.getEntitiesInsideClass(fqnClazz);
+//			mapEntityTime.put(fqnClazz, revisionTimestamp);
+//			for (LighthouseEntity fromEntity : listFromEntities) {
+//				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
+//			}
+//		}
+//		
+//		
+//		
+//		// Update the model
+//		updateLighthouseModel(listEvents);
+//		
+//		removeCommittedEvents(listEvents,mapEntityTime);
+//		
+//		return listEvents;
+//		
 		
 //		Date minimumDate = new Date();
 //		for (Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
