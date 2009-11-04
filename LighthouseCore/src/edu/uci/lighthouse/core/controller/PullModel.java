@@ -9,7 +9,7 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
+import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
@@ -33,7 +33,7 @@ public class PullModel {
 		
 	}
 
-	private void updateLighthouseModel(List<LighthouseEvent> listEvents) throws JPAUtilityException {
+	private void updateLighthouseModel(List<LighthouseEvent> listEvents) {
 		for (LighthouseEvent event : listEvents) {
 			new LighthouseModelManager(model).addEvent(event);
 		}
@@ -52,24 +52,42 @@ public class PullModel {
 	public List<LighthouseEvent> executeQueryAfterCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
 		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
 		// for each class - get all entities that is INSIDE it (from the database)
+		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		for (Map.Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
 			String fqnClazz = entry.getKey();
-			Date commitTimestamp = entry.getValue();
-			List<LighthouseEntity> listFromEntities = new LighthouseModelManagerPersistence(model).getEntitiesInsideClass(fqnClazz);
-			mapEntityTime.put(fqnClazz, commitTimestamp);
+			Date revisionTimestamp = entry.getValue();
+			List<LighthouseEntity> listFromEntities = modelManager.getEntitiesInsideClass(fqnClazz);
+			mapEntityTime.put(fqnClazz, revisionTimestamp);
 			for (LighthouseEntity fromEntity : listFromEntities) {
-				mapEntityTime.put(fromEntity.getFullyQualifiedName(), commitTimestamp);
+				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
 			}
 		}
-		return new LHEventDAO().executeQueryEntitiesAndTime(mapEntityTime);
+		
+		List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryEntitiesAndTime(mapEntityTime);
+		
+		for (LighthouseEvent event : listEvents) {
+			modelManager.addEvent(event);
+		}
+		
+		removeCommittedEvents(listEvents,mapEntityTime);
+		
+		return listEvents;
 	}
-	 
-//	private void checkOutProcedure() {
-//		
-//	}
-//
-//	private void getAllEventsFromDatabase() {
-//		List<LighthouseEvent> listEventDatabse = LHEventController.getInstance().list();
-//	}
-
+	
+	private void removeCommittedEvents(List<LighthouseEvent> listEvents, HashMap<String,Date> mapEntityTime) {
+		// Remove Committed events (TYPE==ADD and committedTime before revisionTime) from the model
+		for (LighthouseEvent event : listEvents) {
+			Object artifact = event.getArtifact();
+			if (artifact instanceof LighthouseEntity) {
+				LighthouseEntity entity = (LighthouseEntity) artifact;
+				Date revisionTime = mapEntityTime.get(entity.getFullyQualifiedName());
+				if (event.getType()==TYPE.ADD
+					&& event.isCommitted()
+					&& event.getCommittedTime().before(revisionTime)) {
+					new LighthouseModelManager(model).removeEvent(event);
+				}
+			}
+		}
+	}
+	
 }
