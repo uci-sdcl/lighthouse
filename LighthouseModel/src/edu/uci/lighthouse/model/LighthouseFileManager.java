@@ -20,12 +20,11 @@ public class LighthouseFileManager {
 	
 	public LighthouseRelationship addRelationship(LighthouseRelationship newRelationship){
 		LighthouseRelationship relationship = lighthouseModel.getRelationship(newRelationship);
-		if (relationship != null) {
-			return relationship;
-		} else {
-			lighthouseFile.addRelationship(newRelationship);
-			return newRelationship;
+		if (relationship == null) {
+			relationship = newRelationship;
 		}
+		lighthouseFile.addRelationship(relationship);
+		return newRelationship;
 	}
 	
 }
