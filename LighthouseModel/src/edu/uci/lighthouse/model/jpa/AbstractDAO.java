@@ -49,7 +49,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
 				if (entry.getValue() instanceof Date) {
 					query.setParameter(entry.getKey(), (Date) entry.getValue(),
-							TemporalType.DATE);
+							TemporalType.TIMESTAMP);
 				} else {
 					query.setParameter(entry.getKey(), entry.getValue());
 				}
@@ -67,7 +67,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			for (Object valor : parameters) {
 				if (valor instanceof Date) {
 					query.setParameter(posicao++, (Date) valor,
-							TemporalType.DATE);
+							TemporalType.TIMESTAMP);
 				} else {
 					query.setParameter(posicao++, valor);
 				}

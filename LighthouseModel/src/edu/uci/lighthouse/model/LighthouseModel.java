@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -69,6 +70,10 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		} else {
 			logger.warn("Artifact is null: " + event.toString());
 		}
+	}
+	
+	public Collection<LighthouseEvent> getEvents(Object artifact){
+		return mapArtifactEvents.get(artifact);
 	}
 	
 	public LinkedHashSet<LighthouseEvent> getListEvents() {

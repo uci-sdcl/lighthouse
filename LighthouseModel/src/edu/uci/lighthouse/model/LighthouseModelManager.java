@@ -150,7 +150,7 @@ public class LighthouseModelManager {
 	 * @param e
 	 * @return
 	 */
-	public static LighthouseClass getMyClass(LighthouseAbstractModel model, LighthouseEntity e){
+	public LighthouseClass getMyClass(LighthouseEntity e){
 		String classFqn = null;
 		if (e instanceof LighthouseClass){
 			classFqn = e.getFullyQualifiedName();

@@ -21,7 +21,7 @@ public class LHRelationshipDAO extends AbstractDAO<LighthouseRelationship, LHRel
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
 				if (entry.getValue() instanceof Date) {
 					query.setParameter(entry.getKey(), (Date) entry.getValue(),
-							TemporalType.DATE);
+							TemporalType.TIMESTAMP);
 				} else {
 					query.setParameter(entry.getKey(), entry.getValue());
 				}
