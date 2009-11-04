@@ -61,6 +61,16 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		}
 	}
 	
+	final synchronized void removeEvent(LighthouseEvent event) {
+		Object artifact = event.getArtifact();
+		if (artifact!=null) {
+			mapArtifactEvents.remove(artifact);
+			listEvents.remove(event);
+		} else {
+			logger.warn("Artifact is null: " + event.toString());
+		}
+	}
+	
 	public LinkedHashSet<LighthouseEvent> getListEvents() {
 		return listEvents;
 	}
