@@ -13,7 +13,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseFile;
-import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
+import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.io.LighthouseFileXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
@@ -49,7 +49,7 @@ public class LighthouseParserTest extends TestCase {
 		
 		// Save LH Model Into the database in order to help the
 		// BuilderRelationship to handle the External classes
-		new LighthouseModelManagerPersistence(xmlModel).saveAllIntoDataBase();
+		new LighthouseModelManager(xmlModel).saveEventsIntoDatabase(xmlModel.getListEvents());
 		
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		LinkedList<String> listProjects = new LinkedList<String>();
