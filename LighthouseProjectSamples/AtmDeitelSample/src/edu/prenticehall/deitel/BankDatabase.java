@@ -9,6 +9,8 @@ public class BankDatabase
    
    int a;
    
+   int b;
+   
    // no-argument BankDatabase constructor initializes accounts
    public BankDatabase()
    {
