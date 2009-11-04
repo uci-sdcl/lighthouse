@@ -44,7 +44,7 @@ public class LighthouseEvent {
 	private LighthouseAuthor author;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp = new Date();
+	private Date timestamp = new Date(0);
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseEntity entity = null;
@@ -52,7 +52,9 @@ public class LighthouseEvent {
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseRelationship relationship = null;
 	
-	private boolean committed = false; 
+	private boolean isCommitted = false; 
+	
+	private Date committedTime = new Date(0);
 	
 	/** Type of the event. */
 	public static enum TYPE {
@@ -136,11 +138,20 @@ public class LighthouseEvent {
 	}
 
 	public void setCommitted(boolean committed) {
-		this.committed = committed;
+		this.isCommitted = committed;
 	}
 
 	public boolean isCommitted() {
-		return committed;
+		return isCommitted;
+	}
+
+	public void setCommittedTime(Date committedTime) {
+		this.committedTime = committedTime;
+		isCommitted = true;
+	}
+
+	public Date getCommittedTime() {
+		return committedTime;
 	}
 
 	@Override
