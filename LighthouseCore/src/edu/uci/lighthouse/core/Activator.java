@@ -3,6 +3,7 @@ package edu.uci.lighthouse.core;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -20,7 +21,9 @@ import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.JavaFileChangedReporter;
 import edu.uci.lighthouse.core.listeners.SVNEventReporter;
 import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -108,7 +111,7 @@ public class Activator extends AbstractUIPlugin {
 		plugin = null;
 		super.stop(context);
 	}
-
+	
 	private void createLighthouseModel(final IWorkspace workspace) throws JPAUtilityException{
 //		IProject[] projects = workspace.getRoot().getProjects();
 //		final Collection<IFile> files = new LinkedList<IFile>();

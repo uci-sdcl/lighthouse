@@ -73,7 +73,8 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	}
 	
 	public Collection<LighthouseEvent> getEvents(Object artifact){
-		return mapArtifactEvents.get(artifact);
+		Collection<LighthouseEvent> result = mapArtifactEvents.get(artifact);
+		return result != null ? result : new ArrayList<LighthouseEvent>();
 	}
 	
 	public LinkedHashSet<LighthouseEvent> getListEvents() {

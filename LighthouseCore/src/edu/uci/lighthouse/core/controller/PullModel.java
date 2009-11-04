@@ -76,8 +76,9 @@ public class PullModel {
 		return listEvents;
 	}
 	
-	private void removeCommittedEvents(List<LighthouseEvent> listEvents, HashMap<String,Date> mapEntityTime) {
+	public void removeCommittedEvents(List<LighthouseEvent> listEvents, HashMap<String,Date> mapEntityTime) {
 		// Remove Committed events (TYPE==ADD and committedTime before revisionTime) from the model
+		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		for (LighthouseEvent event : listEvents) {
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
@@ -85,8 +86,9 @@ public class PullModel {
 				Date revisionTime = mapEntityTime.get(entity.getFullyQualifiedName());
 				if (event.getType()==TYPE.ADD
 					&& event.isCommitted()
-					&& event.getCommittedTime().before(revisionTime)) {
-					new LighthouseModelManager(model).removeEvent(event);
+					&& (revisionTime.after(event.getCommittedTime())
+					|| revisionTime.equals(event.getCommittedTime())) ) {
+					modelManager.removeEvent(event);
 				}
 			}
 		}

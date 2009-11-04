@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -65,7 +67,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void start(BundleContext context) throws Exception {
 		loadPreferences();
-		(new Thread(this)).start();
+		loadMap(); // FIXME: delete this later. just for demo purposes
+		loadModel();
+//		(new Thread(this)).start();
 	}
 
 	@Override
@@ -135,7 +139,60 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		lastDBAccess = evtDao.getCurrentTimestamp();
 		
 	}
+	
+	private void loadMap() {
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date committedDate = formatter.parse("2009-11-03 20:30:00");
+			
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Account", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.ATM", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.ATMCaseStudy", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.BalanceInquiry", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.BankDatabase", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.CashDispenser", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Deposit", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.DepositSlot", committedDate);			
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Keypad", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Screen", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Transaction", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Withdrawal", committedDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	private void loadModel() {
+		
+		
+		// Esse eh o certo, mas nao sei se funciona
+		PullModel pullmodel = new PullModel(LighthouseModel.getInstance());
+		pullmodel.executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
+		
+		//FIXME: fire the model changed to UI
+		LighthouseModel.getInstance().fireModelChanged();
+		
+//		Date minimumDate = new Date();
+//		for (Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
+//			Date revisionTime = entry.getValue();
+//			if (revisionTime.before(minimumDate)) {
+//				minimumDate = revisionTime;
+//			}
+//		}
+//		
+//		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+//		List<LighthouseEvent> events = pullModel.getNewEventsFromDB(new Date(0));
+//		
+//		pullModel.removeCommittedEvents();
+//		
+//		fireModificationsToUI(events);
+//		
+//		
+		
+		
+	}
+	
 	public synchronized void refreshModelBasedOnWorkingCopy() {
 		if (pendingWorkingCopyModifications.size() > 0) {
 			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
@@ -251,6 +308,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		logger.debug("checkout fqns:" + cNames);
 
 		// FIXME: Fire model events to show in the LH view
+		System.out.println("");
 	}
 
 	@Override

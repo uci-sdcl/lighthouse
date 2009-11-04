@@ -117,10 +117,13 @@ public class LighthouseModelManager {
 	}
 	
 	public  List<LighthouseEntity> getEntitiesInsideClass(String clazzFqn) {
-		LighthouseEntity clazz = getEntity(clazzFqn);
+//		LighthouseEntity clazz = getEntity(clazzFqn);
+		
+		LighthouseClass entity = new LighthouseClass(clazzFqn);
+		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
-		parameters.put("toEntity", clazz);
+		parameters.put("toEntity", entity);
 		return new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
 	}
 	
@@ -166,7 +169,7 @@ public class LighthouseModelManager {
 		return null;
 	}
 	
-	public static boolean isStatic(LighthouseAbstractModel model, LighthouseEntity e){
+	public boolean isStatic(LighthouseEntity e){
 		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
 		for (LighthouseRelationship r : list) {
 			if (r.getToEntity() instanceof LighthouseModifier){
@@ -177,7 +180,7 @@ public class LighthouseModelManager {
 		}
 		return false;
 	}
-	public static boolean isFinal(LighthouseAbstractModel model, LighthouseEntity e){
+	public boolean isFinal(LighthouseEntity e){
 		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
 		for (LighthouseRelationship r : list) {
 			if (r.getToEntity() instanceof LighthouseModifier){
@@ -188,7 +191,7 @@ public class LighthouseModelManager {
 		}
 		return false;
 	}
-	public static boolean isSynchronized(LighthouseAbstractModel model, LighthouseEntity e){
+	public boolean isSynchronized(LighthouseEntity e){
 		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
 		for (LighthouseRelationship r : list) {
 			if (r.getToEntity() instanceof LighthouseModifier){
@@ -200,7 +203,7 @@ public class LighthouseModelManager {
 		return false;
 	}
 	
-	public static boolean isPublic(LighthouseAbstractModel model, LighthouseEntity e){
+	public boolean isPublic(LighthouseEntity e){
 		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
 		for (LighthouseRelationship r : list) {
 			if (r.getToEntity() instanceof LighthouseModifier){
@@ -211,7 +214,7 @@ public class LighthouseModelManager {
 		}
 		return false;
 	}
-	public static boolean isProtected(LighthouseAbstractModel model, LighthouseEntity e){
+	public boolean isProtected(LighthouseEntity e){
 		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
 		for (LighthouseRelationship r : list) {
 			if (r.getToEntity() instanceof LighthouseModifier){
@@ -222,7 +225,7 @@ public class LighthouseModelManager {
 		}
 		return false;
 	}
-	public static boolean isPrivate(LighthouseAbstractModel model, LighthouseEntity e){
+	public boolean isPrivate(LighthouseEntity e){
 		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
 		for (LighthouseRelationship r : list) {
 			if (r.getToEntity() instanceof LighthouseModifier){

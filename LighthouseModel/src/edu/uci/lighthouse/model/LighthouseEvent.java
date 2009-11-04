@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 	@NamedQuery(name = "LighthouseEvent.findByTimestamp",
 				query = "SELECT event " + 
 						"FROM LighthouseEvent event " + 
-						"WHERE event.timestamp >= :timestamp" +
+						"WHERE event.timestamp >= :timestamp " +
 						"OR event.committedTime >= :timestamp") 
 })
 /**
