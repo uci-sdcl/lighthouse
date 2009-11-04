@@ -12,7 +12,6 @@ import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class PullModel {
@@ -41,13 +40,15 @@ public class PullModel {
 	 * Timeout procedure will get all new events (timestamp > lastDBaccessTime)
 	 * @param lastDBaccessTime Last time that we accessed the database
 	 * */
-	public void executeQueryTimeout(Date lastDBaccessTime) {
+	public List<LighthouseEvent>  getNewEventsFromDB(Date lastDBaccessTime) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("timestamp", lastDBaccessTime);
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
 		
 		// Update the model
 		updateLighthouseModel(listEvents);
+		
+		return listEvents;
 	}
 	
 	public List<LighthouseEvent> executeQueryAfterCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {

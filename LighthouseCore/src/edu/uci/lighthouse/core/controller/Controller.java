@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,10 +31,15 @@ import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.ISVNEventListener;
 import edu.uci.lighthouse.core.parser.IParserAction;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
+import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseDelta;
+import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseFile;
 import edu.uci.lighthouse.model.LighthouseModel;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.LighthouseModelManager;
+import edu.uci.lighthouse.model.LighthouseRelationship;
+import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
@@ -54,12 +60,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	private boolean threadRunning;
 
-	private final int threadTimeout = 5000;
+	private final int threadTimeout = 10000;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		loadPreferences();
-//		(new Thread(this)).start();
+		(new Thread(this)).start();
 	}
 
 	@Override
@@ -108,19 +114,26 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 	}
 
+	/**
+	 * Refresh the LighthouseModel with new events from database and fire this changes to the UI.
+	 */
 	public synchronized void refreshModelBasedOnLastDBAccess() {
-		LHEventDAO evtDao = new LHEventDAO();
-		lastDBAccess = evtDao.getCurrentTimestamp();
 
 		/*
 		 * If the map's size = 0, it means that it is the first time that user
 		 * is running Lighthouse. Then, the LighthouseModel will be updated only
 		 * if the user execute a checkout first.
 		 */
-		if (mapClassFqnToLastRevisionTimestamp.size() == 0) {
+		if (mapClassFqnToLastRevisionTimestamp.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			pullModel.executeQueryTimeout(lastDBAccess);
+			List<LighthouseEvent> events = pullModel.getNewEventsFromDB(lastDBAccess);
+			fireModificationsToUI(events);
 		}
+		
+		LHEventDAO evtDao = new LHEventDAO();
+		logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
+		lastDBAccess = evtDao.getCurrentTimestamp();
+		
 	}
 
 	public synchronized void refreshModelBasedOnWorkingCopy() {
@@ -184,8 +197,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 						// Updates the current base version
 						classBaseVersion.put(classFqn, currentLhFile);
 
-						// FIXME: Fire model events to show in the LH view
-						// LOOK into PushModel
+						fireModificationsToUI(delta.getEvents());
 
 					}
 				});
@@ -249,22 +261,21 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			pushModel.updateCommittedEvents(
 					getClassesFullyQualifiedName(svnFiles), Activator
 							.getDefault().getAuthor().getName());
-			refreshModelBasedOnLastDBAccess(); // Refresh is needed because, we
-			// need to
-			// cleanup the committed events
+			
+			// Refresh is needed because, we need to cleanup the committed events
+			refreshModelBasedOnLastDBAccess(); 
 		} catch (Exception e) {
 			logger.error(e);
 		}
-		// FIXME: Fire model events to show in the LH view
 	}
 
 	@Override
 	public void update(Map<IFile, ISVNInfo> svnFiles) {
 		pendingWorkingCopyModifications.offer(svnFiles);
 
-		// FIXME: mudar base lighhousefile
+		// FIXME: mudar base lighhousefile para arquivo com merge
 
-		// refreshModelBasedOnWorkingCopy(svnFiles);
+		// refreshModelBasedOnWorkingCopy(svnFiles); // acho q nao eh aki
 
 		// FIXME: Fire model events to show in the LH view
 	}
@@ -316,15 +327,54 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 		return result;
 	}
+	
+	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
+		// We need hashmap to avoid repaint the UI multiple times
+		HashMap<LighthouseClass, LighthouseEvent.TYPE> mapClassEvent = new HashMap<LighthouseClass, LighthouseEvent.TYPE>();
+		HashMap<LighthouseRelationship, LighthouseEvent.TYPE> mapRelationshipEvent = new HashMap<LighthouseRelationship, LighthouseEvent.TYPE>();
+		LighthouseModel model = LighthouseModel.getInstance();
+		
+		for (LighthouseEvent event : events) {
+			Object artifact = event.getArtifact();
+
+			// ADD creates a new class node in the view and populates it
+			// MODIFY just re-populates the class node
+			if (artifact instanceof LighthouseClass) {
+				LighthouseClass klass = (LighthouseClass) artifact;
+				mapClassEvent.put(klass, event.getType());
+			} else if (artifact instanceof LighthouseEntity) {
+				LighthouseModelManager manager = new LighthouseModelManager(model);
+				LighthouseClass klass = manager.getMyClass((LighthouseEntity) artifact);
+				if (klass != null) {
+					// Never overwrite the ADD event
+					if (!mapClassEvent.containsKey(klass)) {
+						// Just refresh the class node
+						mapClassEvent.put(klass, LighthouseEvent.TYPE.MODIFY);
+					}
+				}
+			} else if (artifact instanceof LighthouseRelationship) {
+				LighthouseRelationship relationship = (LighthouseRelationship) artifact;
+				mapRelationshipEvent.put(relationship, event.getType());
+			}
+		}
+		// Fire class changes to the UI
+		for (Entry<LighthouseClass, TYPE> entry : mapClassEvent.entrySet()) {
+			model.fireClassChanged(entry.getKey(),entry.getValue());
+		}
+		// Fire relationship changes to the UI
+		for (Entry<LighthouseRelationship, TYPE> entry : mapRelationshipEvent.entrySet()) {
+			model.fireRelationshipChanged(entry.getKey(),entry.getValue());
+		}
+	}
 
 	@Override
 	public void run() {
 		threadRunning = true;
 
 		while (threadRunning) {
-			refreshModelBasedOnLastDBAccess();
 
-			// FIXME: Fire model events to show in the LH view
+			logger.debug("timeout()");
+			refreshModelBasedOnLastDBAccess();
 
 			// Sleep fot the time defined by thread timeout
 			try {
