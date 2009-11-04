@@ -9,7 +9,9 @@ public abstract class Transaction
    private Screen screen; // ATM's screen
    private BankDatabase bankDatabase; // account info database
 
-
+   int nilmaxviado;
+   
+   
    // Transaction constructor invoked by subclasses using super()
    public Transaction( int userAccountNumber, Screen atmScreen, 
       BankDatabase atmBankDatabase )
@@ -28,12 +30,14 @@ public abstract class Transaction
    // return reference to screen
    public Screen getScreen()
    {
+	   int b;
       return screen;
    } // end method getScreen
 
    // return reference to bank database
    public BankDatabase getBankDatabase()
    {
+	  
       return bankDatabase;
    } // end method getBankDatabase
 
