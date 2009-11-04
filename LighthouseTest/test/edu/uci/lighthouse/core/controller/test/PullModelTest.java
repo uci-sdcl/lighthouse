@@ -2,6 +2,8 @@ package edu.uci.lighthouse.core.controller.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -9,9 +11,10 @@ import edu.uci.lighthouse.core.controller.PullModel;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseField;
-import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
+import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.LHEventDAO;
 import edu.uci.lighthouse.model.util.LHPreference;
 import edu.uci.lighthouse.test.util.LighthouseModelTest;
 
@@ -19,7 +22,8 @@ public class PullModelTest extends TestCase {
 
 	public void testExecuteQueryTimeout() throws ParseException, JPAUtilityException {
 		LighthouseModelTest model = new LighthouseModelTest();
-		LighthouseModelManagerPersistence lighthouseManager = new LighthouseModelManagerPersistence(model);
+		LighthouseModelManager lighthouseManager = new LighthouseModelManager(model);
+		LHEventDAO dao = new LHEventDAO();
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
@@ -30,14 +34,17 @@ public class PullModelTest extends TestCase {
 		LighthouseEvent eventClazz_A = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, clazz_A);
 		eventClazz_A.setTimestamp(formatter.parse("2009-12-01 01:00:00"));
 		lighthouseManager.addEvent(eventClazz_A);
+		dao.save(eventClazz_A);
 		
 		LighthouseEvent eventField_A = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, field_A);
 		eventField_A.setTimestamp(formatter.parse("2009-12-01 01:30:00"));
 		lighthouseManager.addEvent(eventField_A);
+		dao.save(eventField_A);
 		
 		LighthouseEvent eventRel_A = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, rel_A);
 		eventRel_A.setTimestamp(formatter.parse("2009-12-01 02:00:00"));
 		lighthouseManager.addEvent(eventRel_A);
+		dao.save(eventRel_A);
 		
 		PullModel pullModel = new PullModel(model);
 		List<LighthouseEvent> listEvent = pullModel.executeQueryTimeout(formatter.parse("2009-12-01 01:30:00"));
@@ -47,71 +54,144 @@ public class PullModelTest extends TestCase {
 	
 	public void testExecuteQueryEventAfterCheckout() throws JPAUtilityException, ParseException {
 		LighthouseModelTest model = new LighthouseModelTest();
-		LighthouseModelManagerPersistence lighthouseManager = new LighthouseModelManagerPersistence(model);
+		LighthouseModelManager lighthouseManager = new LighthouseModelManager(model);
+		LHEventDAO dao = new LHEventDAO();
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
-		LighthouseClass clazz_A = new LighthouseClass("Class A");
-		LighthouseField field_A = new LighthouseField("Field A");
-		LighthouseField field_B = new LighthouseField("Field B");
-		LighthouseField field_C = new LighthouseField("Field C");
+		LighthouseClass mainClass = new LighthouseClass("Main Class");
+		LighthouseField fieldComittedBeforeRevisionTime = new LighthouseField("Committed Before Revision Time");
+		LighthouseField fieldCreatedBeforeRevisionWithoutCommit = new LighthouseField("Created Before Revision Without Commit");
+		LighthouseField fieldCreatedAfterRevision = new LighthouseField("Created After Revision");
+		LighthouseField fieldRemovedAndCommittedBeforeRevision = new LighthouseField("Removed and Committed Before Revision");
+		LighthouseField fieldNotInside = new LighthouseField("Field NOT Inside");
+		LighthouseField fieldRemoveAndCommittedAfterRevision = new LighthouseField("Removed And Committed After Revision");
+		LighthouseField fieldModifyWithoutAdd = new LighthouseField("Modify Without Add - Weird");
 		
 		// It WILL show up in the result
-		LighthouseEvent eventClazz_A = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, clazz_A);
-		eventClazz_A.setTimestamp(formatter.parse("2009-12-01 01:00:00"));
-		lighthouseManager.addEvent(eventClazz_A);
+		LighthouseEvent eventMainClass = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, mainClass);
+		eventMainClass.setTimestamp(formatter.parse("2009-12-01 01:00:00"));
+		lighthouseManager.addEvent(eventMainClass);
+		dao.save(eventMainClass);
 		
-		// It will NOT show up in the result - TIME
-		LighthouseEvent eventField_A = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, field_A);
-		eventField_A.setTimestamp(formatter.parse("2009-12-01 00:50:00"));
-		lighthouseManager.addEvent(eventField_A);
+		// It will show up in the result - ADDED and COMITTED
+		LighthouseEvent eventfieldComittedBeforeRevisionTime = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, fieldComittedBeforeRevisionTime);
+		eventfieldComittedBeforeRevisionTime.setTimestamp(formatter.parse("2009-12-01 00:40:00"));
+		eventfieldComittedBeforeRevisionTime.setCommittedTime(formatter.parse("2009-12-01 00:50:00"));
+		lighthouseManager.addEvent(eventfieldComittedBeforeRevisionTime);
+		dao.save(eventfieldComittedBeforeRevisionTime);
 		
-		// It WILL show up in the result
-		LighthouseEvent eventField_A_MOdify = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY, LHPreference.author, field_A);
-		eventField_A_MOdify.setTimestamp(formatter.parse("2009-12-01 01:10:00"));
-		lighthouseManager.addEvent(eventField_A_MOdify);
-		
-		// It will NOT show up in the result - TIME
-		LighthouseEvent eventField_A_Old = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, field_A);
-		eventField_A_Old.setTimestamp(formatter.parse("2009-12-01 00:30:00"));
-		lighthouseManager.addEvent(eventField_A_Old);
-		
-		// It will NOT show up in the result NOT inside
-		LighthouseEvent eventField_B = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, field_B);
-		eventField_B.setTimestamp(formatter.parse("2009-12-01 01:20:00"));
-		lighthouseManager.addEvent(eventField_B);
+		// It will NOT show up in the result - ADDED before revisionTime without commit
+		LighthouseEvent eventFieldCreatedBeforeRevisionWithoutCommit = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, fieldCreatedBeforeRevisionWithoutCommit);
+		eventFieldCreatedBeforeRevisionWithoutCommit.setTimestamp(formatter.parse("2009-12-01 00:40:00"));
+		lighthouseManager.addEvent(eventFieldCreatedBeforeRevisionWithoutCommit);
+		dao.save(eventFieldCreatedBeforeRevisionWithoutCommit);
 		
 		// It WILL show up in the result
-		LighthouseEvent eventField_C = new LighthouseEvent(LighthouseEvent.TYPE.REMOVE, LHPreference.author, field_C);
-		eventField_C.setTimestamp(formatter.parse("2009-12-01 01:30:00"));
-		lighthouseManager.addEvent(eventField_C);
+		LighthouseEvent eventfieldCreatedAfterRevision = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, fieldCreatedAfterRevision);
+		eventfieldCreatedAfterRevision.setTimestamp(formatter.parse("2009-12-01 01:10:00"));
+		lighthouseManager.addEvent(eventfieldCreatedAfterRevision);
+		dao.save(eventfieldCreatedAfterRevision);
+		
+		// It will NOT show up in the result - TYPE.REMOVE and COMITTED_TIME
+		LighthouseEvent eventfieldRemovedAndCommitted = new LighthouseEvent(LighthouseEvent.TYPE.REMOVE, LHPreference.author, fieldRemovedAndCommittedBeforeRevision);
+		eventfieldRemovedAndCommitted.setTimestamp(formatter.parse("2009-12-01 00:40:00"));
+		eventfieldRemovedAndCommitted.setCommittedTime(formatter.parse("2009-12-01 00:50:00"));
+		lighthouseManager.addEvent(eventfieldRemovedAndCommitted);
+		dao.save(eventfieldRemovedAndCommitted);
+		
+		// It will NOT show up in the result - NOT inside
+		LighthouseEvent eventFieldNotInside = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, fieldNotInside);
+		eventFieldNotInside.setTimestamp(formatter.parse("2009-12-01 01:20:00"));
+		lighthouseManager.addEvent(eventFieldNotInside);
+		dao.save(eventFieldNotInside);
 		
 		// It WILL show up in the result
-		LighthouseEvent eventField_C_Modify = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY, LHPreference.author, field_C);
-		eventField_C_Modify.setTimestamp(formatter.parse("2009-12-01 01:31:00"));
-		lighthouseManager.addEvent(eventField_C_Modify);
+		LighthouseEvent eventFieldRemoveAndCommittedAfterRevision = new LighthouseEvent(LighthouseEvent.TYPE.REMOVE, LHPreference.author, fieldRemoveAndCommittedAfterRevision);
+		eventFieldRemoveAndCommittedAfterRevision.setTimestamp(formatter.parse("2009-12-01 00:30:00"));
+		eventFieldRemoveAndCommittedAfterRevision.setCommittedTime(formatter.parse("2009-12-01 01:35:00"));
+		lighthouseManager.addEvent(eventFieldRemoveAndCommittedAfterRevision);
+		dao.save(eventFieldRemoveAndCommittedAfterRevision);
 		
-		LighthouseRelationship rel_A = new LighthouseRelationship(field_A,clazz_A,LighthouseRelationship.TYPE.INSIDE);
-		LighthouseRelationship rel_B = new LighthouseRelationship(field_B,clazz_A,LighthouseRelationship.TYPE.USES); // not inside
-		LighthouseRelationship rel_C = new LighthouseRelationship(field_C,clazz_A,LighthouseRelationship.TYPE.INSIDE);
+		// It WILL show up in the result
+		LighthouseEvent eventFieldModifyWithoutAdd = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY, LHPreference.author, fieldModifyWithoutAdd);
+		eventFieldModifyWithoutAdd.setTimestamp(formatter.parse("2009-12-01 01:31:00"));
+		lighthouseManager.addEvent(eventFieldModifyWithoutAdd);
+		dao.save(eventFieldModifyWithoutAdd);
 		
-		LighthouseEvent eventRel_A = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, rel_A);
-		eventRel_A.setTimestamp(formatter.parse("2009-12-01 02:00:00"));
-		lighthouseManager.addEvent(eventRel_A);
+		LighthouseRelationship relComittedBeforeRevisionTime = new LighthouseRelationship(fieldComittedBeforeRevisionTime,mainClass,LighthouseRelationship.TYPE.INSIDE);
+		LighthouseRelationship relCreatedBeforeRevisionWithoutCommit = new LighthouseRelationship(fieldCreatedBeforeRevisionWithoutCommit,mainClass,LighthouseRelationship.TYPE.INSIDE);
+		LighthouseRelationship relCreatedAfterRevision = new LighthouseRelationship(fieldCreatedAfterRevision,mainClass,LighthouseRelationship.TYPE.INSIDE);
+		LighthouseRelationship relRemoveAndCommittedBeforeRevision = new LighthouseRelationship(fieldRemovedAndCommittedBeforeRevision,mainClass,LighthouseRelationship.TYPE.INSIDE);
+		LighthouseRelationship relNotInside = new LighthouseRelationship(fieldNotInside,mainClass,LighthouseRelationship.TYPE.USES); // not inside
+		LighthouseRelationship relRemoveAndCommittedAfterRevision = new LighthouseRelationship(fieldRemoveAndCommittedAfterRevision,mainClass,LighthouseRelationship.TYPE.INSIDE);
+		LighthouseRelationship relModifyWithoutAdd = new LighthouseRelationship(fieldModifyWithoutAdd,mainClass,LighthouseRelationship.TYPE.INSIDE);
 		
-		LighthouseEvent eventRel_B = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, rel_B);
-		eventRel_B.setTimestamp(formatter.parse("2009-12-01 02:10:00"));
-		lighthouseManager.addEvent(eventRel_B);
+		// It will show up in the result - ADDED and COMITTED
+		LighthouseEvent eventRelComittedBeforeRevisionTime = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, relComittedBeforeRevisionTime);
+		eventRelComittedBeforeRevisionTime.setTimestamp(formatter.parse("2009-12-01 00:40:00"));
+		eventRelComittedBeforeRevisionTime.setCommittedTime(formatter.parse("2009-12-01 00:50:00"));
+		lighthouseManager.addEvent(eventRelComittedBeforeRevisionTime);
+		dao.save(eventRelComittedBeforeRevisionTime);
 		
-		LighthouseEvent eventRel_C = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, rel_C);
-		eventRel_C.setTimestamp(formatter.parse("2009-12-01 02:20:00"));
-		lighthouseManager.addEvent(eventRel_C);
+		// It will NOT show up in the result - ADDED before revisionTime without commit
+		LighthouseEvent eventRelCreatedBeforeRevisionWithoutCommit = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, relCreatedBeforeRevisionWithoutCommit);
+		eventRelCreatedBeforeRevisionWithoutCommit.setTimestamp(formatter.parse("2009-12-01 00:40:00"));
+		lighthouseManager.addEvent(eventRelCreatedBeforeRevisionWithoutCommit);
+		dao.save(eventRelCreatedBeforeRevisionWithoutCommit);
 		
-		model.setCheckedOutEntity(clazz_A.getFullyQualifiedName(), formatter.parse("2009-12-01 01:00:00"));
+		// It WILL show up in the result
+		LighthouseEvent eventRelCreatedAfterRevision = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, relCreatedAfterRevision);
+		eventRelCreatedAfterRevision.setTimestamp(formatter.parse("2009-12-01 01:10:00"));
+		lighthouseManager.addEvent(eventRelCreatedAfterRevision);
+		dao.save(eventRelCreatedAfterRevision);
 		
-		List<LighthouseEvent> listEvents = new PullModel(model).executeQueryEventAfterCheckout();
+		// It will NOT show up in the result - TYPE.REMOVE and COMITTED_TIME
+		LighthouseEvent eventRelRemoveAndCommittedBeforeRevision = new LighthouseEvent(LighthouseEvent.TYPE.REMOVE, LHPreference.author, relRemoveAndCommittedBeforeRevision);
+		eventRelRemoveAndCommittedBeforeRevision.setTimestamp(formatter.parse("2009-12-01 00:40:00"));
+		eventRelRemoveAndCommittedBeforeRevision.setCommittedTime(formatter.parse("2009-12-01 00:50:00"));
+		lighthouseManager.addEvent(eventRelRemoveAndCommittedBeforeRevision);
+		dao.save(eventRelRemoveAndCommittedBeforeRevision);
+		
+		//It will NOT show because is not inside (so, I am not looking for this entity) 
+		LighthouseEvent eventRelNotInside = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, relNotInside);
+		eventRelNotInside.setTimestamp(formatter.parse("2009-12-01 01:20:00"));
+		lighthouseManager.addEvent(eventRelNotInside);
+		dao.save(eventRelNotInside);
+		
+		// It WILL show up in the result
+		LighthouseEvent eventRelRemoveAndCommittedAfterRevision = new LighthouseEvent(LighthouseEvent.TYPE.REMOVE, LHPreference.author, relRemoveAndCommittedAfterRevision);
+		eventRelRemoveAndCommittedAfterRevision.setTimestamp(formatter.parse("2009-12-01 00:30:00"));
+		eventRelRemoveAndCommittedAfterRevision.setCommittedTime(formatter.parse("2009-12-01 01:35:00"));
+		lighthouseManager.addEvent(eventRelRemoveAndCommittedAfterRevision);
+		dao.save(eventRelRemoveAndCommittedAfterRevision);
+		
+		// It WILL show up in the result
+		LighthouseEvent eventRelModifyWithoutAdd = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY, LHPreference.author, relModifyWithoutAdd);
+		eventRelModifyWithoutAdd.setTimestamp(formatter.parse("2009-12-01 01:31:00"));
+		lighthouseManager.addEvent(eventRelModifyWithoutAdd);
+		dao.save(eventRelModifyWithoutAdd);
+		
+		HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
+		mapClassFqnToLastRevisionTimestamp.put(mainClass.getFullyQualifiedName(), formatter.parse("2009-12-01 01:00:00"));
+		
+		List<LighthouseEvent> listEventsFromQuery = new PullModel(model).executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
 
-		boolean result = (listEvents.size()==4) && listEvents.contains(eventClazz_A) && listEvents.contains(eventField_A_MOdify) && listEvents.contains(eventField_C) && listEvents.contains(eventField_C_Modify);
+		boolean containEntityEvents = true;
+		containEntityEvents = containEntityEvents && listEventsFromQuery.contains(eventMainClass);
+		containEntityEvents = containEntityEvents && listEventsFromQuery.contains(eventfieldComittedBeforeRevisionTime);
+		containEntityEvents = containEntityEvents && listEventsFromQuery.contains(eventfieldCreatedAfterRevision); 
+		containEntityEvents = containEntityEvents && listEventsFromQuery.contains(eventFieldRemoveAndCommittedAfterRevision);
+		containEntityEvents = containEntityEvents && listEventsFromQuery.contains(eventFieldModifyWithoutAdd);
+		
+		boolean containRelEvents = true;
+		containRelEvents = containRelEvents && listEventsFromQuery.contains(eventfieldComittedBeforeRevisionTime);
+		containRelEvents = containRelEvents && listEventsFromQuery.contains(eventRelCreatedAfterRevision);
+		containRelEvents = containRelEvents && listEventsFromQuery.contains(eventRelNotInside);
+		containRelEvents = containRelEvents && listEventsFromQuery.contains(eventRelRemoveAndCommittedAfterRevision);
+		containRelEvents = containRelEvents && listEventsFromQuery.contains(eventRelModifyWithoutAdd);
+		
+		boolean result = ((listEventsFromQuery.size()==10) && containEntityEvents && containRelEvents);
 		assertEquals(true, result);
 	}
 
