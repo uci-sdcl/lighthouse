@@ -22,28 +22,28 @@ import javax.persistence.TemporalType;
  */
 public abstract class AbstractDAO<T, PK extends Serializable> implements InterfaceDAO<T, PK> {
 
-	protected EntityManager entityManager;
-
 	protected Class<T> entityClass;
 	
 	@SuppressWarnings("unchecked")
 	public AbstractDAO() {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
 		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-		entityManager = JPAUtility.getEntityManager(); // TODO check this out just in case
 	}
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> list() {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		List<T> result = entityManager.createQuery(
 				"select entity from " + entityClass.getSimpleName() + " entity")
 				.getResultList();
+		entityManager.close();
 		return result;
 	}
  
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> executeNamedQuery(String nameQuery,
 			Map<String, Object> parameters) {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
@@ -56,11 +56,13 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			}
 		}
 		List<T> result = query.getResultList();
+		entityManager.close();
 		return result;
 	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> executeNamedQuery(String nameQuery, Object[] parameters) {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
 			int posicao = 1;
@@ -74,6 +76,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			}
 		}
 		List result = query.getResultList();
+		entityManager.close();
 		return result;
 	}
 
@@ -87,11 +90,15 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	 */
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> executeDynamicQuery(String strQuery) {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		Query query = entityManager.createQuery(strQuery);
-		return query.getResultList();
+		List result = query.getResultList();
+		entityManager.close();
+		return result;
 	}
 	
 	public synchronized void executeUpdateQuery(String strQuery) throws JPAUtilityException {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		try {
 			Query query = entityManager.createQuery(strQuery);
 			JPAUtility.beginTransaction();
@@ -100,27 +107,35 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		}	catch (RuntimeException e) {
 			throw new JPAUtilityException("Error trying to execute update the entity: " + strQuery, e.fillInStackTrace());
 		}
+		entityManager.close();
 	}
 	
 	public synchronized T get(PK pk) {
-		return entityManager.find(entityClass, pk);
+		EntityManager entityManager = JPAUtility.getEntityManager();
+		T result = entityManager.find(entityClass, pk);
+		entityManager.close();
+		return result;
 	}
 
 	public synchronized T save(T entity) throws JPAUtilityException {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		T result;
 		try {
 			JPAUtility.beginTransaction();
 			result = entityManager.merge(entity);
 			JPAUtility.commitTransaction();
 		} catch (RuntimeException e) {
+			e.printStackTrace();
 			throw new JPAUtilityException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
 		}
+		entityManager.close();
 		return result;
 	}
 
 	/* (non-Javadoc)
 	 */
 	public synchronized void remove(T entity) throws JPAUtilityException {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		try {
 			JPAUtility.beginTransaction();
 			Object toRemove = entityManager.merge(entity);
@@ -129,43 +144,33 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		} catch (Exception e) {
 			throw new JPAUtilityException("Error trying to remove the entity: " + entity, e.fillInStackTrace());
 		}
+		entityManager.close();
 	}
 
 	public synchronized Date getCurrentTimestamp() {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		Query query = entityManager.createQuery("SELECT CURRENT_TIMESTAMP FROM LighthouseEvent e WHERE e.id = 1");
 		try {
 			Object result = query.getSingleResult();
+			entityManager.close();
 			return (Date) result;
 		} catch (NoResultException e) {
+			entityManager.close();
 			return new Date();
 		}
-	}
-	
-	/**
-	 * Get entityManager.
-	 * @return entityManager
-	 */
-	public synchronized EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	/**
-	 * Set entityManager.
-	 * @param entityManager {@link EntityManager}
-	 */
-	public synchronized void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
 	}
 	
 	/* (non-Javadoc)
 	 */
 	public synchronized void flush() {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		entityManager.flush();
 	}
 
 	/* (non-Javadoc)
 	 */
 	public synchronized void clear() {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		entityManager.clear();
 	}
 }
