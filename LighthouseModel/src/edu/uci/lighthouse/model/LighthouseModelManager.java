@@ -1,10 +1,18 @@
 package edu.uci.lighthouse.model;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.LHEntityDAO;
+import edu.uci.lighthouse.model.jpa.LHEventDAO;
+import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
 import edu.uci.lighthouse.model.util.UtilModifiers;
 
 /**
@@ -56,9 +64,8 @@ public class LighthouseModelManager {
 		}
 	}
 	
-	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database
-	 * @throws JPAUtilityException */
-	public void addEvent(LighthouseEvent event) throws JPAUtilityException {
+	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database*/
+	public void addEvent(LighthouseEvent event) {
 		Object artifact = event.getArtifact();
 		if (artifact instanceof LighthouseEntity) {
 			LighthouseEntity entity = addEntity((LighthouseEntity) artifact);
@@ -72,8 +79,49 @@ public class LighthouseModelManager {
 		model.addEvent(event);
 	}
 	
+	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database */
+	public void removeEvent(LighthouseEvent event) {
+		model.removeEvent(event);
+	}
+	
 	public LighthouseEntity getEntity(String fqn) {
 		return model.getEntity(fqn);
+	}
+	
+	
+	// NOVO
+	
+	public void saveEventsIntoDatabase(LinkedHashSet<LighthouseEvent> listEvents) throws JPAUtilityException {
+		LHEventDAO dao = new LHEventDAO();
+		Date currentDBTimestamp = dao.getCurrentTimestamp();
+		for (LighthouseEvent event : listEvents) {
+			event.setTimestamp(currentDBTimestamp);
+			dao.save(event);
+		}
+	}
+	
+	public LighthouseEntity getEntityFromDatabase(String fqn) {
+		LighthouseEntity entity = getEntity(fqn);
+		if (entity==null) {
+			entity = new LHEntityDAO().get(fqn);
+		}
+		return entity;
+	}
+	
+	public LinkedHashSet<LighthouseEntity> getEntitiesInsideClass(List<String> listClazzFqn) {
+		LinkedHashSet<LighthouseEntity> listFromEntities = new LinkedHashSet<LighthouseEntity>();
+		for (String clazzFqn : listClazzFqn) {
+			listFromEntities.addAll(getEntitiesInsideClass(clazzFqn));			
+		}
+		return listFromEntities;
+	}
+	
+	public  List<LighthouseEntity> getEntitiesInsideClass(String clazzFqn) {
+		LighthouseEntity clazz = getEntity(clazzFqn);
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
+		parameters.put("toEntity", clazz);
+		return new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
 	}
 	
 	//
