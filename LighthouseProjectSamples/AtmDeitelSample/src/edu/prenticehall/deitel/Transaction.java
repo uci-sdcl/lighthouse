@@ -12,6 +12,9 @@ public abstract class Transaction
    int nilmaxviado;
    int proenca;
    
+   int caralho;
+   
+   int bosta;
    
    // Transaction constructor invoked by subclasses using super()
    public Transaction( int userAccountNumber, Screen atmScreen, 
