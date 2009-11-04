@@ -135,7 +135,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 		
 		LHEventDAO evtDao = new LHEventDAO();
-		logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
+//		logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
 		lastDBAccess = evtDao.getCurrentTimestamp();
 		
 	}
@@ -250,11 +250,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			classWithErrors.add(classFqn);
 		} else {
 			try {
-				BufferedReader d = new BufferedReader(new InputStreamReader(
-						iFile.getContents()));
-				while (d.ready()) {
-					System.out.println(d.readLine());
-				}
+//				BufferedReader d = new BufferedReader(new InputStreamReader(
+//						iFile.getContents()));
+//				while (d.ready()) {
+//					System.out.println(d.readLine());
+//				}
 
 				final LighthouseFile currentLhFile = new LighthouseFile();
 				LighthouseParser parser = new LighthouseParser();
@@ -268,13 +268,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 								.getDefault().getAuthor(), baseLhFile,
 								currentLhFile);
 
-						logger.debug("current: " + currentLhFile.getEntities());
-						logger.debug("current: " + currentLhFile.getRelationships()+"\n");
-						
-						logger.debug("base: " + baseLhFile.getEntities());
-						logger.debug("base: " + baseLhFile.getRelationships()+"\n");
-						
-						logger.debug("delta: " + delta.getEvents());
+//						logger.debug("current: " + currentLhFile.getEntities());
+//						logger.debug("current: " + currentLhFile.getRelationships()+"\n");
+//						
+//						logger.debug("base: " + baseLhFile.getEntities());
+//						logger.debug("base: " + baseLhFile.getRelationships()+"\n");
+//						
+//						logger.debug("delta: " + delta.getEvents());
 
 						PushModel pushModel = new PushModel(LighthouseModel
 								.getInstance());
