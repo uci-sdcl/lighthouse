@@ -8,6 +8,7 @@ import java.util.List;
 public class Screen
 {
 	Keypad tiago;
+	int a;
 	
 	// displays a message without a carriage return
    public void displayMessage( String message ) 
