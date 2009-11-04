@@ -46,21 +46,22 @@ public class PushModel {
 	}
 
 	public void updateCommittedEvents(List<String> listClazzFqn, String authorName) throws JPAUtilityException {
-		LinkedHashSet<LighthouseEntity> listEntity = new LighthouseModelManager(model).getEntitiesInsideClass(listClazzFqn);
-		String command = 	"UPDATE LighthouseEvent e " +
-							"SET e.isCommitted = 1 " + " , " +
-							"e.committedTime = CURRENT_TIMESTAMP " +
-							"WHERE ( e.author.name = " + "'" + authorName + "'" + " " +
-							"AND e.isCommitted = 0 ) AND ";
-		command+= " ( ";
-		for (LighthouseEntity entity : listEntity) {
-			String fqn = entity.getFullyQualifiedName();
-			command+= " ( e.entity.fullyQualifiedName = " + fqn + " ) ";
-			command+= " OR ";
-			command+= " ( e.relationship.primary.from = " + fqn + " OR " + "e.relationship.prymary.to = " + fqn + " ) ";
-		}
-		command+= " ) ";
-		new LHEventDAO().executeUpdateQuery(command);
+//		LinkedHashSet<LighthouseEntity> listEntity = new LighthouseModelManager(model).getEntitiesInsideClass(listClazzFqn);
+//		String command = 	"UPDATE LighthouseEvent e " +
+//							"SET e.isCommitted = 1 " + " , " +
+//							"e.committedTime = CURRENT_TIMESTAMP " +
+//							"WHERE ( e.author.name = " + "'" + authorName + "'" + " " +
+//							"AND e.isCommitted = 0 ) AND ";
+//		command+= " ( ";
+//		for (LighthouseEntity entity : listEntity) {
+//			String fqn = entity.getFullyQualifiedName();
+//			command+= " ( e.entity.fullyQualifiedName = " + fqn + " ) ";
+//			command+= " OR ";
+//			command+= " ( e.relationship.primary.from = " + fqn + " OR " + "e.relationship.prymary.to = " + fqn + " ) ";
+//		}
+//		command+= " ) ";
+//		new LHEventDAO().executeUpdateQuery(command);
+		new LHEventDAO().updateCommittedEvents(listClazzFqn,authorName);
 	}
 	
 }

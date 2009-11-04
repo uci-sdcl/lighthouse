@@ -13,6 +13,8 @@ final public class Icons {
 	public static final String ACTION_LINK_WITH_EDITOR = "/icons/synced.gif";
 	public static final String ACTION_CHANGE_LAYOUT = "/icons/frlayout.gif";
 	
+	public static final String IN_REPOSITORY = "/icons/in_repository.gif";
+	
 	private Icons() {
 		throw new AssertionError();
 	}

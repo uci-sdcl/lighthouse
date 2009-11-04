@@ -69,7 +69,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		loadPreferences();
 		loadMap(); // FIXME: delete this later. just for demo purposes
 		loadModel();
-//		(new Thread(this)).start();
+		(new Thread(this)).start();
 	}
 
 	@Override
@@ -465,7 +465,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 		while (threadRunning) {
 
-			logger.debug("timeout()");
+//			logger.debug("timeout()");
 			refreshModelBasedOnLastDBAccess();
 
 			// Sleep fot the time defined by thread timeout

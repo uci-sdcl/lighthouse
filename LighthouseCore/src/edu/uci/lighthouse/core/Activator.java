@@ -179,7 +179,7 @@ public class Activator extends AbstractUIPlugin {
 	public LighthouseAuthor getAuthor(){
 		if (author == null){
 			//ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin().getSVNClient();
-			author = new LighthouseAuthor("Max");
+			author = new LighthouseAuthor("Tiago");
 		}
 		return author;
 	}

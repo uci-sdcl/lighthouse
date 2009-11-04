@@ -20,7 +20,10 @@ import org.eclipse.jdt.ui.ISharedImages;
 import org.eclipse.jdt.ui.JavaElementImageDescriptor;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.DecorationOverlayIcon;
+import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -29,6 +32,7 @@ import edu.uci.lighthouse.model.LighthouseField;
 import edu.uci.lighthouse.model.LighthouseMethod;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
+import edu.uci.lighthouse.ui.LighthouseUIPlugin;
 import edu.uci.lighthouse.ui.graph.IUmlClass.LEVEL;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 import edu.uci.lighthouse.ui.swt.util.FontFactory;
@@ -283,6 +287,13 @@ public class UmlClassFigureTest extends Panel{
 //			}
 			break;
 		}
+
+		if (ev.isCommitted()){
+			ImageDescriptor desc = AbstractUIPlugin.imageDescriptorFromPlugin(LighthouseUIPlugin.PLUGIN_ID, "/icons/commit.gif");
+			DecorationOverlayIcon overlayIcon = new DecorationOverlayIcon(result,desc,IDecoration.BOTTOM_RIGHT);
+			result = overlayIcon.createImage();
+		}
+		
 		return result;
 	}
 	

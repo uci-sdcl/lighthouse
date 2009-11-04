@@ -105,6 +105,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			query.executeUpdate();
 			JPAUtility.commitTransaction();
 		}	catch (RuntimeException e) {
+			e.printStackTrace();
 			throw new JPAUtilityException("Error trying to execute update the entity: " + strQuery, e.fillInStackTrace());
 		}
 		entityManager.close();
