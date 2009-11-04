@@ -43,7 +43,7 @@ public class JPAUtility {
 	 * @return {@link EntityManager} CRUD.
 	 * @throws {@link JPAUtilityException} handle JPA errors.
 	 */
-	public static EntityManager getEntityManager() {
+	public synchronized static EntityManager getEntityManager() {
 		if (entityManager == null || !entityManager.isOpen())
 			createEntityManager();
 		return entityManager;
@@ -69,8 +69,7 @@ public class JPAUtility {
 	/**
 	 * Shutdown on Entity Manager and Factory.
 	 */
-	@SuppressWarnings("unused")
-	private static void shutdownAndCloseFactory() {
+	public static void shutdownAndCloseFactory() {
 		shutdownEntityManager();
 		if (factoryEntityManager != null && factoryEntityManager.isOpen()) {
 			factoryEntityManager.close();

@@ -74,6 +74,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		return executeDynamicQuery(strQuery);
 	}
 	
+	/** NOT in use anynmore*/
 	public void updateCommittedEvents(List<String> listClazz, String authorName) throws JPAUtilityException {
 		String command = 	"UPDATE LighthouseEvent e " +
 							"SET e.isCommitted = 1 " +
