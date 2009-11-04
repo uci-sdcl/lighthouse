@@ -11,6 +11,8 @@ public class CashDispenser
    
    int a;
    
+   int b;
+   
    // no-argument CashDispenser constructor initializes count to default
    public CashDispenser()
    {
