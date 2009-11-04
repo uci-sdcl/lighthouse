@@ -11,7 +11,7 @@ import org.dom4j.DocumentException;
 import edu.uci.lighthouse.core.controller.PushModel;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
+import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.io.LHDeltaXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
@@ -27,7 +27,7 @@ public class PushModelTest extends TestCase {
 		
 		// Save LH Model Into the database in order to help the
 		// BuilderRelationship to handle the External classes
-		new LighthouseModelManagerPersistence(xmlModel).saveAllIntoDataBase();
+		new LighthouseModelManager(xmlModel).saveEventsIntoDatabase(xmlModel.getListEvents());
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();
@@ -36,11 +36,17 @@ public class PushModelTest extends TestCase {
 		// Update Model
 		new PushModel(xmlModel).updateModelFromDelta(xmlDelta);
 		
+		List<LighthouseEvent> listEvents = new LHEventDAO().list();
+		LighthouseModelTest databaseModel = new LighthouseModelTest();
+		for (LighthouseEvent event : listEvents) {
+			new LighthouseModelManager(databaseModel).addEvent(event);
+		}
+		
 		// Load LH Updated Model in XML file
 		LighthouseModelTest xmlUpdatedModel = new LighthouseModelTest();
 		new LighthouseModelXMLPersistence(xmlUpdatedModel).load(LHTestDataFiles.XML_UPDATED_MODEL);
 		
-		assertEquals(true, xmlModel.getListEvents().containsAll(xmlUpdatedModel.getListEvents()));
+		assertEquals(true, databaseModel.getListEvents().containsAll(xmlUpdatedModel.getListEvents()));
 	}
 	
 	public void testUpdateCommittedEvents() throws DocumentException, JPAUtilityException {
@@ -49,14 +55,14 @@ public class PushModelTest extends TestCase {
 		
 		// Save LH Model Into the database in order to help the
 		// BuilderRelationship to handle the External classes
-		new LighthouseModelManagerPersistence(xmlModel).saveAllIntoDataBase();
+		new LighthouseModelManager(xmlModel).saveEventsIntoDatabase(xmlModel.getListEvents());
 		
 		List<String> listClazzFqn = new ArrayList<String>();
 		listClazzFqn.add("edu.prenticehall.deitel.Screen");
 		listClazzFqn.add("edu.prenticehall.deitel.Transaction");
 		new PushModel(xmlModel).updateCommittedEvents(listClazzFqn, "Max");
 		
-		String command = "SELECT e FROM LighthouseEvent e WHERE e.committed=1";
+		String command = "SELECT e FROM LighthouseEvent e WHERE e.isCommitted=1";
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeDynamicQuery(command);
 		assertEquals(true, listEvents.size()==12);
 	}
