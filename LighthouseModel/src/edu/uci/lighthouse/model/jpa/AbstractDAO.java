@@ -34,7 +34,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<T> list() {
+	public synchronized List<T> list() {
 		List<T> result = entityManager.createQuery(
 				"select entity from " + entityClass.getSimpleName() + " entity")
 				.getResultList();
@@ -42,7 +42,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	}
  
 	@SuppressWarnings("unchecked")
-	public List<T> executeNamedQuery(String nameQuery,
+	public synchronized List<T> executeNamedQuery(String nameQuery,
 			Map<String, Object> parameters) {
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
@@ -60,7 +60,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> executeNamedQuery(String nameQuery, Object[] parameters) {
+	public synchronized List<T> executeNamedQuery(String nameQuery, Object[] parameters) {
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
 			int posicao = 1;
@@ -86,12 +86,12 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	 * @throws JPAQueryException
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> executeDynamicQuery(String strQuery) {
+	public synchronized List<T> executeDynamicQuery(String strQuery) {
 		Query query = entityManager.createQuery(strQuery);
 		return query.getResultList();
 	}
 	
-	public void executeUpdateQuery(String strQuery) throws JPAUtilityException {
+	public synchronized void executeUpdateQuery(String strQuery) throws JPAUtilityException {
 		try {
 			Query query = entityManager.createQuery(strQuery);
 			JPAUtility.beginTransaction();
@@ -102,11 +102,11 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		}
 	}
 	
-	public T get(PK pk) {
+	public synchronized T get(PK pk) {
 		return entityManager.find(entityClass, pk);
 	}
 
-	public T save(T entity) throws JPAUtilityException {
+	public synchronized T save(T entity) throws JPAUtilityException {
 		T result;
 		try {
 			JPAUtility.beginTransaction();
@@ -120,7 +120,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 
 	/* (non-Javadoc)
 	 */
-	public void remove(T entity) throws JPAUtilityException {
+	public synchronized void remove(T entity) throws JPAUtilityException {
 		try {
 			JPAUtility.beginTransaction();
 			Object toRemove = entityManager.merge(entity);
@@ -131,7 +131,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		}
 	}
 
-	public Date getCurrentTimestamp() {
+	public synchronized Date getCurrentTimestamp() {
 		Query query = entityManager.createQuery("SELECT CURRENT_TIMESTAMP FROM LighthouseEvent e WHERE e.id = 1");
 		try {
 			Object result = query.getSingleResult();
@@ -145,7 +145,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	 * Get entityManager.
 	 * @return entityManager
 	 */
-	public EntityManager getEntityManager() {
+	public synchronized EntityManager getEntityManager() {
 		return entityManager;
 	}
 
@@ -153,19 +153,19 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	 * Set entityManager.
 	 * @param entityManager {@link EntityManager}
 	 */
-	public void setEntityManager(EntityManager entityManager) {
+	public synchronized void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 	
 	/* (non-Javadoc)
 	 */
-	public void flush() {
+	public synchronized void flush() {
 		entityManager.flush();
 	}
 
 	/* (non-Javadoc)
 	 */
-	public void clear() {
+	public synchronized void clear() {
 		entityManager.clear();
 	}
 }
