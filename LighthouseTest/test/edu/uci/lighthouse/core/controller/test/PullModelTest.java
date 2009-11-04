@@ -70,7 +70,8 @@ public class PullModelTest extends TestCase {
 		
 		// It WILL show up in the result
 		LighthouseEvent eventMainClass = new LighthouseEvent(LighthouseEvent.TYPE.ADD, LHPreference.author, mainClass);
-		eventMainClass.setTimestamp(formatter.parse("2009-12-01 01:00:00"));
+		eventMainClass.setTimestamp(formatter.parse("2009-12-01 00:40:00"));
+		eventMainClass.setCommittedTime(formatter.parse("2009-12-01 00:50:00"));
 		lighthouseManager.addEvent(eventMainClass);
 		dao.save(eventMainClass);
 		
