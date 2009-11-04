@@ -12,7 +12,6 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.model.LighthouseModelManagerPersistence;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
@@ -30,13 +29,15 @@ public class PushModel {
 	public void updateModelFromDelta(LighthouseDelta delta) throws JPAUtilityException {
 	    HashMap<LighthouseClass,LighthouseEvent.TYPE> mapFireClassEvent = new HashMap<LighthouseClass,LighthouseEvent.TYPE>();
 	    HashMap<LighthouseRelationship,LighthouseEvent.TYPE> mapFireRelEvent = new  HashMap<LighthouseRelationship,LighthouseEvent.TYPE>();
+	   
+	    LighthouseModelManager LhManager = new LighthouseModelManager(model);
 	    // for each entity event
 	    for (LighthouseEvent event : delta.getEvents()) {
 	    	logger.debug("updating: " + event.toString());
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
 				LighthouseEntity deltaEntity = (LighthouseEntity) artifact;
-				new LighthouseModelManagerPersistence(model).addEvent(event);
+				LhManager.addEvent(event);
 				setClassesToFireUI(mapFireClassEvent, deltaEntity, event);
 			}			
 		}
@@ -46,16 +47,18 @@ public class PushModel {
 			Object artifact = event.getArtifact();
 		    if (artifact instanceof LighthouseRelationship) {
 		    	LighthouseRelationship deltaRelationship = (LighthouseRelationship) artifact;
-				new LighthouseModelManagerPersistence(model).addEvent(event);
+		    	LhManager.addEvent(event);
 		    	mapFireRelEvent.put(deltaRelationship, event.getType());
 		    }
 	    }
-		// Fire Modifications, call the UI
+	    LhManager.saveEventsIntoDatabase(delta.getEvents());
+	    
+	    // Fire Modifications, call the UI
 		fireClassModifications(mapFireClassEvent);
 		fireRelationshipModifications(mapFireRelEvent);
 	}
 
-	public void updateCommittedEvents(List<String> listClazzFqn, String authorName) {
+	public void updateCommittedEvents(List<String> listClazzFqn, String authorName) throws JPAUtilityException {
 		new LHEventDAO().updateCommittedEvents(listClazzFqn,authorName);
 	}
 	
