@@ -10,6 +10,7 @@ public abstract class Transaction
    private BankDatabase bankDatabase; // account info database
 
    int nilmaxviado;
+   int proenca;
    
    
    // Transaction constructor invoked by subclasses using super()
