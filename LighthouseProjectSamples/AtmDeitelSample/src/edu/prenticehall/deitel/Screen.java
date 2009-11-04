@@ -11,6 +11,8 @@ public class Screen
 	int b;
 	int c;
 	
+
+	
 	// displays a message without a carriage return
    public void displayMessage( String message ) 
    {
