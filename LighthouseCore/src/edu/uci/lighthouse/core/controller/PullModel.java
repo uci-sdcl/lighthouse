@@ -39,6 +39,7 @@ public class PullModel {
 	/**
 	 * Timeout procedure will get all new events (timestamp > lastDBaccessTime)
 	 * @param lastDBaccessTime Last time that we accessed the database
+	 * @return 
 	 * */
 	public List<LighthouseEvent>  getNewEventsFromDB(Date lastDBaccessTime) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
