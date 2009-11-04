@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
@@ -17,6 +19,7 @@ public class PullModel {
 
 	private LighthouseModel model;
 	
+	private static Logger logger = Logger.getLogger(PullModel.class);
 	
 	public PullModel(LighthouseModel lighthouseModel) {
 		this.model = lighthouseModel;
@@ -24,6 +27,9 @@ public class PullModel {
 	}
 	
 	private void updateLighthouseModel(List<LighthouseEvent> listEvents) {
+		if (listEvents.size() > 0){
+			logger.debug("Updating model: "+listEvents);
+		}
 		// Update the model
 		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		for (LighthouseEvent event : listEvents) {
