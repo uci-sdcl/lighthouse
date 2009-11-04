@@ -23,19 +23,11 @@ public class PullModel {
 		
 	}
 	
-	public void run() throws JPAUtilityException {
-		// TODO Start Thread
-		
-		List<LighthouseEvent> listEvents = executeQueryTimeout(new Date());
-		updateLighthouseModel(listEvents);
-		
-		// TODO Fire the Visualization
-		
-	}
-
 	private void updateLighthouseModel(List<LighthouseEvent> listEvents) {
+		// Update the model
+		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		for (LighthouseEvent event : listEvents) {
-			new LighthouseModelManager(model).addEvent(event);
+			modelManager.addEvent(event);
 		}
 	}
 
@@ -43,10 +35,13 @@ public class PullModel {
 	 * Timeout procedure will get all new events (timestamp > lastDBaccessTime)
 	 * @param lastDBaccessTime Last time that we accessed the database
 	 * */
-	public List<LighthouseEvent> executeQueryTimeout(Date lastDBaccessTime) {
+	public void executeQueryTimeout(Date lastDBaccessTime) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("timestamp", lastDBaccessTime);
-		return new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
+		List<LighthouseEvent> listEvents = new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
+		
+		// Update the model
+		updateLighthouseModel(listEvents);
 	}
 	
 	public List<LighthouseEvent> executeQueryAfterCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
@@ -65,9 +60,8 @@ public class PullModel {
 		
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryEntitiesAndTime(mapEntityTime);
 		
-		for (LighthouseEvent event : listEvents) {
-			modelManager.addEvent(event);
-		}
+		// Update the model
+		updateLighthouseModel(listEvents);
 		
 		removeCommittedEvents(listEvents,mapEntityTime);
 		
