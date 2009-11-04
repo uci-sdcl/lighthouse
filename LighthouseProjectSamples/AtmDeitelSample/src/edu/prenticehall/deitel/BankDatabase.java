@@ -7,6 +7,8 @@ public class BankDatabase
 {
    private Account accounts[]; // array of Accounts
    
+   int a;
+   
    // no-argument BankDatabase constructor initializes accounts
    public BankDatabase()
    {
