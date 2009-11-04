@@ -7,7 +7,9 @@ import java.util.Scanner; // program uses Scanner to obtain user input
 public class Keypad
 {
    private Scanner input; // reads data from the command line
-                       
+       
+   public Account a;
+   
    // no-argument constructor initializes the Scanner
    public Keypad()
    {
