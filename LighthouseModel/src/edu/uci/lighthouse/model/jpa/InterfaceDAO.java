@@ -46,8 +46,9 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	
 	/**
 	 * @param query
+	 * @throws JPAUtilityException 
 	 * */
-	public void executeUpdateQuery(String strQuery);
+	public void executeUpdateQuery(String strQuery) throws JPAUtilityException;
 	
 	/**
 	 * Return an instance of <code>T</code> using the key <code>pk</code>

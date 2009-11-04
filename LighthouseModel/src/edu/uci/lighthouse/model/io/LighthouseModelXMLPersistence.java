@@ -51,19 +51,19 @@ public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implem
 	
 	//
 	@Override
-	public void load() throws DocumentException, JPAUtilityException {
+	public void load() throws DocumentException {
 		load(defaultFileName);
 	}
 
 	@Override
-	public void load(String fileName) throws DocumentException, JPAUtilityException {
+	public void load(String fileName) throws DocumentException {
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(new File(fileName));
 		loadModel(document.getRootElement());
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void loadModel(Element root) throws JPAUtilityException {
+	private void loadModel(Element root) {
 		Element elements;
 		elements = root.element("events");
 		for (Iterator i = elements.elementIterator(); i.hasNext();) {

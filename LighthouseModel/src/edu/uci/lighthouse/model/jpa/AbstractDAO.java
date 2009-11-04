@@ -91,11 +91,15 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		return query.getResultList();
 	}
 	
-	public void executeUpdateQuery(String strQuery) {
-		Query query = entityManager.createQuery(strQuery);
-		JPAUtility.beginTransaction();
-		query.executeUpdate();
-		JPAUtility.commitTransaction();
+	public void executeUpdateQuery(String strQuery) throws JPAUtilityException {
+		try {
+			Query query = entityManager.createQuery(strQuery);
+			JPAUtility.beginTransaction();
+			query.executeUpdate();
+			JPAUtility.commitTransaction();
+		}	catch (RuntimeException e) {
+			throw new JPAUtilityException("Error trying to execute update the entity: " + strQuery, e.fillInStackTrace());
+		}
 	}
 	
 	public T get(PK pk) {
@@ -109,7 +113,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			result = entityManager.merge(entity);
 			JPAUtility.commitTransaction();
 		} catch (RuntimeException e) {
-			throw new JPAUtilityException("Error trying to update the entity: " + entity, e.fillInStackTrace());
+			throw new JPAUtilityException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
 		}
 		return result;
 	}
