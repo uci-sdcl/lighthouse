@@ -14,8 +14,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.tigris.subversion.subclipse.core.SVNProviderPlugin;
-import org.tigris.subversion.svnclientadapter.ISVNClientAdapter;
 
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
@@ -56,6 +54,7 @@ public class Activator extends AbstractUIPlugin {
 		
 		listeners.add(jReporter);
 		listeners.add(svnReporter);
+		listeners.add(controller);
 	}
 
 	/*

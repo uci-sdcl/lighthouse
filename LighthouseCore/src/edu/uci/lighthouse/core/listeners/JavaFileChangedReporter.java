@@ -1,6 +1,7 @@
 
 package edu.uci.lighthouse.core.listeners;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -30,17 +31,15 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 
 	Collection<IJavaFileStatusListener> listeners = new LinkedList<IJavaFileStatusListener>();
 	
-	private static Logger logger = Logger.getLogger(JavaFileChangedReporter.class);
+	Collection<IFile> openedFiles = new ArrayList<IFile>();
 	
-	public JavaFileChangedReporter(){	
-//		findActiveOpenFileInWorkspace();
-//		findOpenFilesInWorkspace();
-	}
+	private static Logger logger = Logger.getLogger(JavaFileChangedReporter.class);
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
 		JavaCore.addElementChangedListener(this,
 				ElementChangedEvent.POST_CHANGE);
+		logger.debug("Starting JavaFileChangedReporter");
 		findActiveOpenFileInWorkspace();
 	}
 
@@ -61,6 +60,7 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 				IFile file = (IFile) editor.getEditorInput().getAdapter(IFile.class);				
 				if (isJavaFile(file)){
 					ICompilationUnit icu = JavaCore.createCompilationUnitFrom(file);
+					openedFiles.add(file);
 					fireOpen(file, hasErrors(icu));
 				}
 			}
@@ -77,6 +77,7 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 					IFile file = (IFile) editor.getEditorInput().getAdapter(IFile.class);
 					if (isJavaFile(file)){
 						ICompilationUnit icu = JavaCore.createCompilationUnitFrom(file);
+						openedFiles.add(file);
 						fireOpen(file, hasErrors(icu));
 					}
 				} catch (PartInitException e) {
@@ -104,26 +105,55 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 		if (delta.getElement().getElementType() == IJavaElement.COMPILATION_UNIT) {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			ICompilationUnit icu = (ICompilationUnit) delta.getElement();
-			IFile file = workspace.getRoot().getFile(icu.getPath());
-
-			logger.debug("Thread name: "+Thread.currentThread().getName());
-			try {
-				logger.debug("ICU opened: "+icu.isOpen()+" "+icu.isConsistent() + " "+icu.isStructureKnown()+" "+icu.isWorkingCopy());
-			} catch (JavaModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			IFile iFile = workspace.getRoot().getFile(icu.getPath());
 			
-			if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
-				fireChange(file, hasErrors(icu));
-			} else if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) != 0) {
-				if (icu.isWorkingCopy()) {
-					fireOpen(file, hasErrors(icu));
-				} else {
-					fireClose(file, hasErrors(icu));
-				}
+//			logger.debug("Thread name: "+Thread.currentThread().getName());
+			try {			
+//				logger.debug("ICU: "+icu.getChildren().length+" "+icu);
+//				logger.debug("ICU opened: "+icu.isOpen()+" "+icu.isConsistent() + " "+icu.isStructureKnown()+" "+icu.isWorkingCopy());
+//				logger.debug("*ICU opened: "+icu.isOpen()+" "+icu.isConsistent() + " "+icu.isStructureKnown()+" "+icu.isWorkingCopy());
+//
+//			
+//				logger.info("ERROR: "+!(IMarker.SEVERITY_ERROR == iFile.findMaxProblemSeverity(IJavaModelMarker.JAVA_MODEL_PROBLEM_MARKER, false, IResource.DEPTH_INFINITE)));
+
 				
+			if (icu.getChildren().length > 0 && !"ModalContext".equals(Thread.currentThread().getName())){
+				
+				boolean hasErrors = hasErrors(icu);
+				
+				if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
+					if (!openedFiles.contains(iFile)) {
+						fireOpen(iFile, hasErrors);
+						fireChange(iFile, hasErrors);
+						if (icu.isWorkingCopy()) {
+							openedFiles.add(iFile);
+						} else {
+							fireClose(iFile, hasErrors);
+						}
+					} else {
+						fireChange(iFile, hasErrors);
+//						 BufferedReader d
+//				          = new BufferedReader(new InputStreamReader(iFile.getContents()));
+//						while (d.ready()){
+//							System.out.println(d.readLine());
+//						}
+						
+					}
+				} else if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) != 0) {
+					if (icu.isWorkingCopy()) {
+						openedFiles.add(iFile);
+						fireOpen(iFile, hasErrors);
+					} else {
+						if (openedFiles.contains(iFile)) {
+						openedFiles.remove(iFile);
+						fireClose(iFile, hasErrors);
+						}
+					}
+				}
 			}
+			} catch (Exception e) {
+				logger.error(e);
+			} 
 		} else {
 			for (IJavaElementDelta child : delta.getChangedChildren()) {
 				traverseDeltaTree(child);
@@ -131,15 +161,18 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 		}
 	}
 	
+	// Comentar pq usar iFile e nao icu
 	private boolean hasErrors(ICompilationUnit icu){		
-//		WorkingCopyProblemRequestor workingCopy = new WorkingCopyProblemRequestor();
-//		try {			
-//			icu.getWorkingCopy(workingCopy, null);
-//		} catch (JavaModelException e) {
-//			logger.error(e);
-//		}
-//		return workingCopy.hasProblems;
-		return false;
+		WorkingCopyProblemRequestor workingCopy = new WorkingCopyProblemRequestor();
+		try {
+//			ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
+//			logger.debug("ICU="+icu);
+			icu.getWorkingCopy(workingCopy, null);
+//			workingCopyIcu.reconcile(ICompilationUnit.NO_AST,true, null,null);
+		} catch (JavaModelException e) {
+			logger.error(e);
+		}
+		return workingCopy.hasProblems;
 	}
 	
 	public void addJavaFileStatusListener(IJavaFileStatusListener listener){

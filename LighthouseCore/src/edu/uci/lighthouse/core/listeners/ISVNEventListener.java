@@ -1,6 +1,5 @@
 package edu.uci.lighthouse.core.listeners;
 
-import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;

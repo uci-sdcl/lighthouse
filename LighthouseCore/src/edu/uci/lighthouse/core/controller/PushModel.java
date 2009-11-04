@@ -33,9 +33,9 @@ public class PushModel {
 	    LighthouseModelManager LhManager = new LighthouseModelManager(model);
 	    // for each entity event
 	    for (LighthouseEvent event : delta.getEvents()) {
-	    	logger.debug("updating: " + event.toString());
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
+				logger.debug("updating: " + event.toString());
 				LighthouseEntity deltaEntity = (LighthouseEntity) artifact;
 				LhManager.addEvent(event);
 				setClassesToFireUI(mapFireClassEvent, deltaEntity, event);
@@ -43,9 +43,9 @@ public class PushModel {
 		}
 	    // for each relationship event
 	    for (LighthouseEvent event : delta.getEvents()) {
-	    	logger.debug("updating: " + event.toString());
 			Object artifact = event.getArtifact();
 		    if (artifact instanceof LighthouseRelationship) {
+		    	logger.debug("updating: " + event.toString());
 		    	LighthouseRelationship deltaRelationship = (LighthouseRelationship) artifact;
 		    	LhManager.addEvent(event);
 		    	mapFireRelEvent.put(deltaRelationship, event.getType());

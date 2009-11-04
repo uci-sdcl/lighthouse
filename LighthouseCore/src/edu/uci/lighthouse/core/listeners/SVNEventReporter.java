@@ -76,18 +76,20 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener{
 				svnFiles.put(iFile, svnInfo);				
 			}
 			
-			switch (command) {
-			case Command.CHECKOUT:
-				fireCheckout(svnFiles);
-				break;
+			if (svnFiles.size() > 0){
+				switch (command) {
+				case Command.CHECKOUT:
+					fireCheckout(svnFiles);
+					break;
 
-			case Command.UPDATE/*|Command.REVERT*/:
-				fireUpdate(svnFiles);
-				break;
-				
-			case Command.COMMIT:
-				fireCommit(svnFiles);
-				break;
+				case Command.UPDATE/*|Command.REVERT*/:
+					fireUpdate(svnFiles);
+					break;
+					
+				case Command.COMMIT:
+					fireCommit(svnFiles);
+					break;
+				}
 			}
 			
 		} catch (Exception e) {
@@ -142,21 +144,21 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener{
 	}
 	
 	protected void fireCheckout(Map<IFile, ISVNInfo> svnFiles){				
-//		logger.info("checkout: "+iFile.getName()+" "+info.getLastChangedRevision()+" "+info.getLastChangedDate());
+		logger.info("checkout: "+svnFiles.size()+" files");
 		for (ISVNEventListener listener : listeners) {
 			listener.checkout(svnFiles);
 		}
 	}
 	
 	protected void fireCommit(Map<IFile, ISVNInfo> svnFiles){
-//		logger.info("commit: "+iFile.getName()+" "+info.getLastChangedRevision()+" "+info.getLastChangedDate());
+		logger.info("commit: "+svnFiles.size()+" files");
 		for (ISVNEventListener listener : listeners) {
 			listener.commit(svnFiles);
 		}		
 	}
 
 	protected void fireUpdate(Map<IFile, ISVNInfo> svnFiles){
-//		logger.info("update: "+iFile.getName()+" "+info.getLastChangedRevision()+" "+info.getLastChangedDate());
+		logger.info("update: "+svnFiles.size()+" files");
 		for (ISVNEventListener listener : listeners) {
 			listener.update(svnFiles);
 		}		
