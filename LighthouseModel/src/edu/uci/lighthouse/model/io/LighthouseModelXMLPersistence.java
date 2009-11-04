@@ -16,7 +16,6 @@ import org.dom4j.io.XMLWriter;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implements IPersistence {
 
