@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
@@ -16,6 +17,7 @@ public class LHRelationshipDAO extends AbstractDAO<LighthouseRelationship, LHRel
 	@SuppressWarnings("unchecked")
 	public List<LighthouseEntity> executeNamedQueryGetFromEntityFqn(String nameQuery,
 			Map<String, Object> parameters) {
+		EntityManager entityManager = JPAUtility.getEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
