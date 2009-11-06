@@ -10,6 +10,7 @@ public class Keypad
        
    public Account a;
    int b;
+   int c;
    
    // no-argument constructor initializes the Scanner
    public Keypad()
