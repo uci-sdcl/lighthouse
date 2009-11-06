@@ -9,6 +9,7 @@ public class Keypad
    private Scanner input; // reads data from the command line
        
    public Account a;
+   int b;
    
    // no-argument constructor initializes the Scanner
    public Keypad()
