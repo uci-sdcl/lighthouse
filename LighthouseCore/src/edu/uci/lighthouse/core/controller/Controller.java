@@ -135,9 +135,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			fireModificationsToUI(events);
 		}
 
-		LHEventDAO evtDao = new LHEventDAO();
+//		LHEventDAO evtDao = new LHEventDAO();
+		
+		lastDBAccess = new Date();
+		
 		// logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
-		lastDBAccess = evtDao.getCurrentTimestamp();
+//		lastDBAccess = evtDao.getCurrentTimestamp();
 //		logger.debug("current time: " + lastDBAccess + " "
 //				+ new Date(lastDBAccess.getTime()));
 	}
@@ -248,7 +251,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	}
 
-	public synchronized void refreshModelBasedOnWorkingCopy() {
+	public synchronized void refreshModelBasedOnWorkingCopy(HashMap<String, Date> workingCopy) {
 //		if (pendingWorkingCopyModifications.size() > 0) {
 //			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
 //					.poll();
@@ -256,7 +259,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			List<LighthouseEvent> events = pullModel
-					.executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
+					.executeQueryAfterCheckout(workingCopy);
+			logger.debug("update events: "+events);
 			fireModificationsToUI(events);
 //		}
 	}
@@ -380,11 +384,17 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void svnCommit(Map<IFile, ISVNInfo> svnFiles) {
-		refreshWorkingCopy(svnFiles);
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		refreshModelBasedOnWorkingCopy(workingCopy);
 		try {
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
+			
+			// All committed times are the same
+			Date[] values = svnFiles.keySet().toArray(new Date[0]); 
+			Date svnCommittedTime = values[0];
+			
 			pushModel.updateCommittedEvents(
-					getClassesFullyQualifiedName(svnFiles), Activator
+					getClassesFullyQualifiedName(svnFiles), svnCommittedTime, Activator
 							.getDefault().getAuthor().getName());
 
 			// Refresh is needed because, we need to cleanup the committed
@@ -398,8 +408,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void svnUpdate(Map<IFile, ISVNInfo> svnFiles) {
 //		pendingWorkingCopyModifications.offer(svnFiles);
-		refreshWorkingCopy(svnFiles);
-		refreshModelBasedOnWorkingCopy();
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		refreshModelBasedOnWorkingCopy(workingCopy);
 
 		// FIXME: mudar base lighhousefile para arquivo com merge
 
@@ -408,17 +418,18 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// FIXME: Fire model events to show in the LH view
 	}
 
-	private HashMap<String, Date> refreshWorkingCopy(
+	private HashMap<String, Date> getWorkingCopy(
 			Map<IFile, ISVNInfo> svnFiles) {
+		HashMap<String, Date> result = new HashMap<String, Date>();
 		for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
 			String fqn = getClassFullyQualifiedName(entry.getKey());
 			if (fqn != null) {
 				ISVNInfo svnInfo = entry.getValue();
-				mapClassFqnToLastRevisionTimestamp.put(fqn, svnInfo
+				result.put(fqn, svnInfo
 						.getLastChangedDate());
 			}
 		}
-		return mapClassFqnToLastRevisionTimestamp;
+		return result;
 	}
 
 	private List<String> getClassesFullyQualifiedName(
@@ -442,8 +453,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			 * qualified name from ICompilationUnit doesn't work. So we decide to do
 			 * this manually, reading the file from the file system and parsing it.
 			 */
-			BufferedReader d = new BufferedReader(new InputStreamReader(iFile
-					.getContents()));
+//			BufferedReader d = new BufferedReader(new InputStreamReader(iFile
+//					.getContents()));
+			BufferedReader d = new BufferedReader(new InputStreamReader(new FileInputStream(iFile.getLocation().toOSString())));
+
 			while (d.ready()) {
 				String line = d.readLine();
 				if (line.contains("package")) {
@@ -465,9 +478,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 			String fileNameWithoutExtension = iFile.getName().replaceAll(
 					".java", "");
-			result += "."+fileNameWithoutExtension;
-			logger.debug("fqn: "+result);
-			
+			result += "."+fileNameWithoutExtension;			
 		} catch (Exception e) {
 			logger.error(e);
 		}
