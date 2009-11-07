@@ -385,13 +385,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void svnCommit(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
-		refreshModelBasedOnWorkingCopy(workingCopy);
+		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
 		try {
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
 			
 			// All committed times are the same
-			Date[] values = svnFiles.keySet().toArray(new Date[0]); 
-			Date svnCommittedTime = values[0];
+			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]); 
+			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
 			
 			pushModel.updateCommittedEvents(
 					getClassesFullyQualifiedName(svnFiles), svnCommittedTime, Activator
