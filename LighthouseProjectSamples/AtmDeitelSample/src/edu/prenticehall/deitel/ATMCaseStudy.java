@@ -7,6 +7,9 @@ public class ATMCaseStudy
 {
 	
 	int outra1;
+	
+	int bosta3;
+	
 	int bosta;
 	int bosta2;
 	int caralho;
