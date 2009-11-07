@@ -5,6 +5,9 @@ package edu.prenticehall.deitel;
 
 public class CashDispenser 
 {
+	
+	int adicionar;
+	
    // the default initial number of bills in the cash dispenser
    private final static int INITIAL_COUNT = 500;
    private int count; // number of $20 bills remaining
