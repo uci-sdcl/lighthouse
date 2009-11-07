@@ -32,6 +32,13 @@ public class ATMCaseStudy
 	
 	int caralho;
 	
+	
+	
+	
+	int bosta14;
+	
+	
+	
    // main method creates and runs the ATM
    public static void main( String[] args )
    {
