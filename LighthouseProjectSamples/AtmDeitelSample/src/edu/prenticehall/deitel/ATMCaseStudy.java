@@ -16,7 +16,8 @@ public class ATMCaseStudy
 	int bosta4;
 	
 	int bosta5;
-	
+	int bosta6;
+	int bosta7;
 	
 	int caralho;
 	
