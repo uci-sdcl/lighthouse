@@ -9,6 +9,7 @@ public class ATMCaseStudy
 	int outra1;
 	int bosta;
 	int bosta2;
+	int caralho;
 	
    // main method creates and runs the ATM
    public static void main( String[] args )
