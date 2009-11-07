@@ -138,8 +138,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		LHEventDAO evtDao = new LHEventDAO();
 		// logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
 		lastDBAccess = evtDao.getCurrentTimestamp();
-		logger.debug("current time: " + lastDBAccess + " "
-				+ new Date(lastDBAccess.getTime()));
+//		logger.debug("current time: " + lastDBAccess + " "
+//				+ new Date(lastDBAccess.getTime()));
 	}
 
 	private void loadMap() {
@@ -465,7 +465,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 			String fileNameWithoutExtension = iFile.getName().replaceAll(
 					".java", "");
-			result += fileNameWithoutExtension;
+			result += "."+fileNameWithoutExtension;
 			logger.debug("fqn: "+result);
 			
 		} catch (Exception e) {
