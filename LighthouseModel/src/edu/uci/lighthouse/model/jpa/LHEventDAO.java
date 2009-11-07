@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.LighthouseField;
+import edu.uci.lighthouse.model.LighthouseRelationship;
+import edu.uci.lighthouse.model.util.LHPreference;
 
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	
@@ -99,9 +103,11 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 //	}
 	
 	public void updateCommittedEvents(List<String> listClazz, Date revisionTime, String authorName) throws JPAUtilityException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String strRevisionTime = formatter.format(revisionTime);
 		String command = 	"UPDATE LighthouseEvent e " +
 							"SET e.isCommitted = 1 , " +
-							"e.committedTime = " + revisionTime + " " +
+							"e.committedTime = '" + strRevisionTime + "' " +
 							"WHERE e.author.name = " + "'" + authorName + "'" + " " +
 							"AND e.entity.fullyQualifiedName IN ( " +
 							"SELECT rel.primaryKey.from " +
