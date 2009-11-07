@@ -5,6 +5,9 @@ package edu.prenticehall.deitel;
 
 public class ATMCaseStudy
 {
+	
+	int outra1;
+	
    // main method creates and runs the ATM
    public static void main( String[] args )
    {
