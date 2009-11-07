@@ -10,6 +10,7 @@ public class CashDispenser
 	int adicionar2;
 	int adicionar3;
 	int adicionar4;
+	int adicionar5;
 	
    // the default initial number of bills in the cash dispenser
    private final static int INITIAL_COUNT = 500;
