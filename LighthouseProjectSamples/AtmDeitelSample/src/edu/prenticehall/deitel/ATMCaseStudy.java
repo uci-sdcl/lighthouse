@@ -23,6 +23,9 @@ public class ATMCaseStudy
 	
 	int bosta10;
 	
+	
+	int bosta11;
+	
 	int caralho;
 	
    // main method creates and runs the ATM
