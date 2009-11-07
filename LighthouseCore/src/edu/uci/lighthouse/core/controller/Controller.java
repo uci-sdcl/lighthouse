@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.core.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
@@ -20,9 +21,6 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osgi.framework.BundleContext;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
@@ -52,7 +50,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
 
 	// ....
-	private Queue<Map<IFile, ISVNInfo>> pendingWorkingCopyModifications = new LinkedList<Map<IFile, ISVNInfo>>();
+//	private Queue<Map<IFile, ISVNInfo>> pendingWorkingCopyModifications = new LinkedList<Map<IFile, ISVNInfo>>();
 
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
 
@@ -66,6 +64,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void start(BundleContext context) throws Exception {
+		// TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		loadPreferences();
 		loadMap(); // FIXME: delete this later. just for demo purposes
 		loadModel();
@@ -119,7 +118,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	}
 
 	/**
-	 * Refresh the LighthouseModel with new events from database and fire this changes to the UI.
+	 * Refresh the LighthouseModel with new events from database and fire this
+	 * changes to the UI.
 	 */
 	public synchronized void refreshModelBasedOnLastDBAccess() {
 
@@ -130,33 +130,48 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		 */
 		if (mapClassFqnToLastRevisionTimestamp.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			List<LighthouseEvent> events = pullModel.getNewEventsFromDB(lastDBAccess);
+			List<LighthouseEvent> events = pullModel
+					.getNewEventsFromDB(lastDBAccess);
 			fireModificationsToUI(events);
 		}
-		
+
 		LHEventDAO evtDao = new LHEventDAO();
-//		logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
+		// logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
 		lastDBAccess = evtDao.getCurrentTimestamp();
-		
+		logger.debug("current time: " + lastDBAccess + " "
+				+ new Date(lastDBAccess.getTime()));
 	}
-	
+
 	private void loadMap() {
 		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			Date committedDate = formatter.parse("2009-11-03 20:30:00");
-			
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Account", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.ATM", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.ATMCaseStudy", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.BalanceInquiry", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.BankDatabase", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.CashDispenser", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Deposit", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.DepositSlot", committedDate);			
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Keypad", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Screen", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Transaction", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Withdrawal", committedDate);
+
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Account", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.ATM", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.ATMCaseStudy", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.BalanceInquiry", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.BankDatabase", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.CashDispenser", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Deposit", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.DepositSlot", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Keypad", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Screen", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Transaction", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Withdrawal", committedDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,79 +179,86 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	}
 
 	private void loadModel() {
-		
-		
+
 		// Esse eh o certo, mas nao sei se funciona
 		PullModel pullmodel = new PullModel(LighthouseModel.getInstance());
 		pullmodel.loadModel(mapClassFqnToLastRevisionTimestamp);
-		
-		//FIXME: fire the model changed to UI
+
+		// FIXME: fire the model changed to UI
 		LighthouseModel.getInstance().fireModelChanged();
-		
-//		
-//		
-//		LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance());
-//		for (LighthouseEvent event : listEvents) {
-//			modelManager.addEvent(event);
-//		}
-//		
-//		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-//		pullModel.removeCommittedEvents(listEvents, mapEntityTime);
-//		
-//		
-//		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
-//		// for each class - get all entities that is INSIDE it (from the database)
-//		LighthouseModelManager modelManager = new LighthouseModelManager(model);
-//		for (Map.Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
-//			String fqnClazz = entry.getKey();
-//			Date revisionTimestamp = entry.getValue();
-//			List<LighthouseEntity> listFromEntities = modelManager.getEntitiesInsideClass(fqnClazz);
-//			mapEntityTime.put(fqnClazz, revisionTimestamp);
-//			for (LighthouseEntity fromEntity : listFromEntities) {
-//				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
-//			}
-//		}
-//		
-//		
-//		
-//		// Update the model
-//		updateLighthouseModel(listEvents);
-//		
-//		removeCommittedEvents(listEvents,mapEntityTime);
-//		
-//		return listEvents;
-//		
-		
-//		Date minimumDate = new Date();
-//		for (Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
-//			Date revisionTime = entry.getValue();
-//			if (revisionTime.before(minimumDate)) {
-//				minimumDate = revisionTime;
-//			}
-//		}
-//		
-//		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-//		List<LighthouseEvent> events = pullModel.getNewEventsFromDB(new Date(0));
-//		
-//		pullModel.removeCommittedEvents();
-//		
-//		fireModificationsToUI(events);
-//		
-//		
-		
-		
+
+		//		
+		//		
+		// LighthouseModelManager modelManager = new
+		// LighthouseModelManager(LighthouseModel.getInstance());
+		// for (LighthouseEvent event : listEvents) {
+		// modelManager.addEvent(event);
+		// }
+		//		
+		// PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+		// pullModel.removeCommittedEvents(listEvents, mapEntityTime);
+		//		
+		//		
+		// HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
+		// // for each class - get all entities that is INSIDE it (from the
+		// database)
+		// LighthouseModelManager modelManager = new
+		// LighthouseModelManager(model);
+		// for (Map.Entry<String, Date> entry :
+		// mapClassFqnToLastRevisionTimestamp.entrySet()) {
+		// String fqnClazz = entry.getKey();
+		// Date revisionTimestamp = entry.getValue();
+		// List<LighthouseEntity> listFromEntities =
+		// modelManager.getEntitiesInsideClass(fqnClazz);
+		// mapEntityTime.put(fqnClazz, revisionTimestamp);
+		// for (LighthouseEntity fromEntity : listFromEntities) {
+		// mapEntityTime.put(fromEntity.getFullyQualifiedName(),
+		// revisionTimestamp);
+		// }
+		// }
+		//		
+		//		
+		//		
+		// // Update the model
+		// updateLighthouseModel(listEvents);
+		//		
+		// removeCommittedEvents(listEvents,mapEntityTime);
+		//		
+		// return listEvents;
+		//		
+
+		// Date minimumDate = new Date();
+		// for (Entry<String, Date> entry :
+		// mapClassFqnToLastRevisionTimestamp.entrySet()) {
+		// Date revisionTime = entry.getValue();
+		// if (revisionTime.before(minimumDate)) {
+		// minimumDate = revisionTime;
+		// }
+		// }
+		//		
+		// PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+		// List<LighthouseEvent> events = pullModel.getNewEventsFromDB(new
+		// Date(0));
+		//		
+		// pullModel.removeCommittedEvents();
+		//		
+		// fireModificationsToUI(events);
+		//		
+		//		
+
 	}
-	
+
 	public synchronized void refreshModelBasedOnWorkingCopy() {
-		if (pendingWorkingCopyModifications.size() > 0) {
-			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
-					.poll();
-			mapClassFqnToLastRevisionTimestamp = refreshWorkingCopy(svnFiles);
+//		if (pendingWorkingCopyModifications.size() > 0) {
+//			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
+//					.poll();
+//			mapClassFqnToLastRevisionTimestamp = refreshWorkingCopy(svnFiles);
 
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			pullModel
+			List<LighthouseEvent> events = pullModel
 					.executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
-		}
+			fireModificationsToUI(events);
+//		}
 	}
 
 	@Override
@@ -250,11 +272,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			classWithErrors.add(classFqn);
 		} else {
 			try {
-//				BufferedReader d = new BufferedReader(new InputStreamReader(
-//						iFile.getContents()));
-//				while (d.ready()) {
-//					System.out.println(d.readLine());
-//				}
+				// BufferedReader d = new BufferedReader(new InputStreamReader(
+				// iFile.getContents()));
+				// while (d.ready()) {
+				// System.out.println(d.readLine());
+				// }
 
 				final LighthouseFile currentLhFile = new LighthouseFile();
 				LighthouseParser parser = new LighthouseParser();
@@ -268,13 +290,16 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 								.getDefault().getAuthor(), baseLhFile,
 								currentLhFile);
 
-//						logger.debug("current: " + currentLhFile.getEntities());
-//						logger.debug("current: " + currentLhFile.getRelationships()+"\n");
-//						
-//						logger.debug("base: " + baseLhFile.getEntities());
-//						logger.debug("base: " + baseLhFile.getRelationships()+"\n");
-//						
-//						logger.debug("delta: " + delta.getEvents());
+						// logger.debug("current: " +
+						// currentLhFile.getEntities());
+						// logger.debug("current: " +
+						// currentLhFile.getRelationships()+"\n");
+						//						
+						// logger.debug("base: " + baseLhFile.getEntities());
+						// logger.debug("base: " +
+						// baseLhFile.getRelationships()+"\n");
+						//						
+						// logger.debug("delta: " + delta.getEvents());
 
 						PushModel pushModel = new PushModel(LighthouseModel
 								.getInstance());
@@ -310,8 +335,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// refreshModelBasedOnWorkingCopy();
 
 		final String classFqn = getClassFullyQualifiedName(iFile);
-		logger.debug("open "+classFqn);
-		
+		logger.debug("open " + classFqn);
+
 		if (hasErrors) {
 			// FIXME: criar LighthouseFile a partir do Modelo
 			classWithErrors.add(classFqn);
@@ -323,7 +348,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 						new IParserAction() {
 							@Override
 							public void doAction() {
-								logger.debug("base: "+classFqn+" LHFile entities:"+lhFile.getEntities().size());
+								logger.debug("base: " + classFqn
+										+ " LHFile entities:"
+										+ lhFile.getEntities().size());
 								classBaseVersion.put(classFqn, lhFile);
 							}
 						});
@@ -332,10 +359,16 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			}
 		}
 	}
+	
+	@Override
+	public void svnImport(Map<IFile, ISVNInfo> svnFiles){
+		//TODO: Create a Dialog and asks if the user wants to use that project with Lighthouse
+		// IF yes, import to the DB otherwise, ignore this project
+	}
 
 	@Override
-	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
-		pendingWorkingCopyModifications.offer(svnFiles);
+	public void svnCheckout(Map<IFile, ISVNInfo> svnFiles) {
+//		pendingWorkingCopyModifications.offer(svnFiles);
 
 		// Debug purposes only
 		List<String> cNames = getClassesFullyQualifiedName(svnFiles);
@@ -346,24 +379,27 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	}
 
 	@Override
-	public void commit(Map<IFile, ISVNInfo> svnFiles) {
+	public void svnCommit(Map<IFile, ISVNInfo> svnFiles) {
 		refreshWorkingCopy(svnFiles);
 		try {
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
 			pushModel.updateCommittedEvents(
 					getClassesFullyQualifiedName(svnFiles), Activator
 							.getDefault().getAuthor().getName());
-			
-			// Refresh is needed because, we need to cleanup the committed events
-			refreshModelBasedOnLastDBAccess(); 
+
+			// Refresh is needed because, we need to cleanup the committed
+			// events
+			refreshModelBasedOnLastDBAccess();
 		} catch (Exception e) {
 			logger.error(e);
 		}
 	}
 
 	@Override
-	public void update(Map<IFile, ISVNInfo> svnFiles) {
-		pendingWorkingCopyModifications.offer(svnFiles);
+	public void svnUpdate(Map<IFile, ISVNInfo> svnFiles) {
+//		pendingWorkingCopyModifications.offer(svnFiles);
+		refreshWorkingCopy(svnFiles);
+		refreshModelBasedOnWorkingCopy();
 
 		// FIXME: mudar base lighhousefile para arquivo com merge
 
@@ -399,33 +435,71 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	private String getClassFullyQualifiedName(IFile iFile) {
 		String result = null;
+
 		try {
-			ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
-			IType[] types = icu.getTypes();
-			for (IType iType : types) {
-				String fileNameWithoutExtension = iFile.getName().replaceAll(
-						".java", "");
-				String className = iType.getFullyQualifiedName().replaceAll(
-						"\\w+\\.", "");
-				if (fileNameWithoutExtension.equals(className)) {
-					// Java files should have at least one class with the same
-					// name of the file
-					result = iType.getFullyQualifiedName();
+			/*
+			 * When the Java file is out of sync with eclipse, get the fully
+			 * qualified name from ICompilationUnit doesn't work. So we decide to do
+			 * this manually, reading the file from the file system and parsing it.
+			 */
+			BufferedReader d = new BufferedReader(new InputStreamReader(iFile
+					.getContents()));
+			while (d.ready()) {
+				String line = d.readLine();
+				if (line.contains("package")) {
+					String[] tokens = line.split("package\\s+|;");
+					for (String token : tokens) {
+						if (token.matches("[\\w\\.]+")) {
+							result = token;
+							break;
+						}
+					}
 					break;
 				}
 			}
+
+			/*
+			 * Java files should have at least one class with the same name of
+			 * the file
+			 */
+
+			String fileNameWithoutExtension = iFile.getName().replaceAll(
+					".java", "");
+			result += fileNameWithoutExtension;
+			logger.debug("fqn: "+result);
+			
 		} catch (Exception e) {
 			logger.error(e);
 		}
+
+
+		// try {
+		// ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
+		// IType[] types = icu.getTypes();
+		// for (IType iType : types) {
+		// String fileNameWithoutExtension = iFile.getName().replaceAll(
+		// ".java", "");
+		// String className = iType.getFullyQualifiedName().replaceAll(
+		// "\\w+\\.", "");
+		// if (fileNameWithoutExtension.equals(className)) {
+		// // Java files should have at least one class with the same
+		// // name of the file
+		// result = iType.getFullyQualifiedName();
+		// break;
+		// }
+		// }
+		// } catch (Exception e) {
+		// logger.error(e);
+		// }
 		return result;
 	}
-	
+
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		// We need hashmap to avoid repaint the UI multiple times
 		HashMap<LighthouseClass, LighthouseEvent.TYPE> mapClassEvent = new HashMap<LighthouseClass, LighthouseEvent.TYPE>();
 		HashMap<LighthouseRelationship, LighthouseEvent.TYPE> mapRelationshipEvent = new HashMap<LighthouseRelationship, LighthouseEvent.TYPE>();
 		LighthouseModel model = LighthouseModel.getInstance();
-		
+
 		for (LighthouseEvent event : events) {
 			Object artifact = event.getArtifact();
 
@@ -435,8 +509,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				LighthouseClass klass = (LighthouseClass) artifact;
 				mapClassEvent.put(klass, event.getType());
 			} else if (artifact instanceof LighthouseEntity) {
-				LighthouseModelManager manager = new LighthouseModelManager(model);
-				LighthouseClass klass = manager.getMyClass((LighthouseEntity) artifact);
+				LighthouseModelManager manager = new LighthouseModelManager(
+						model);
+				LighthouseClass klass = manager
+						.getMyClass((LighthouseEntity) artifact);
 				if (klass != null) {
 					// Never overwrite the ADD event
 					if (!mapClassEvent.containsKey(klass)) {
@@ -451,11 +527,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 		// Fire class changes to the UI
 		for (Entry<LighthouseClass, TYPE> entry : mapClassEvent.entrySet()) {
-			model.fireClassChanged(entry.getKey(),entry.getValue());
+			model.fireClassChanged(entry.getKey(), entry.getValue());
 		}
 		// Fire relationship changes to the UI
-		for (Entry<LighthouseRelationship, TYPE> entry : mapRelationshipEvent.entrySet()) {
-			model.fireRelationshipChanged(entry.getKey(),entry.getValue());
+		for (Entry<LighthouseRelationship, TYPE> entry : mapRelationshipEvent
+				.entrySet()) {
+			model.fireRelationshipChanged(entry.getKey(), entry.getValue());
 		}
 	}
 
@@ -465,7 +542,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 		while (threadRunning) {
 
-//			logger.debug("timeout()");
+			// logger.debug("timeout()");
 			refreshModelBasedOnLastDBAccess();
 
 			// Sleep fot the time defined by thread timeout

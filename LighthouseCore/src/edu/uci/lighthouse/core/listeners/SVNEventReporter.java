@@ -78,14 +78,15 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener{
 			
 			if (svnFiles.size() > 0){
 				switch (command) {
+				case Command.IMPORT:
+					fireImport(svnFiles);
+					break;
 				case Command.CHECKOUT:
 					fireCheckout(svnFiles);
 					break;
-
 				case Command.UPDATE/*|Command.REVERT*/:
 					fireUpdate(svnFiles);
 					break;
-					
 				case Command.COMMIT:
 					fireCommit(svnFiles);
 					break;
@@ -143,24 +144,31 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener{
 		listeners.remove(listener);
 	}
 	
+	protected void fireImport(Map<IFile, ISVNInfo> svnFiles){				
+		logger.info("import: "+svnFiles.size()+" files");
+		for (ISVNEventListener listener : listeners) {
+			listener.svnImport(svnFiles);
+		}
+	}
+	
 	protected void fireCheckout(Map<IFile, ISVNInfo> svnFiles){				
 		logger.info("checkout: "+svnFiles.size()+" files");
 		for (ISVNEventListener listener : listeners) {
-			listener.checkout(svnFiles);
+			listener.svnCheckout(svnFiles);
 		}
 	}
 	
 	protected void fireCommit(Map<IFile, ISVNInfo> svnFiles){
 		logger.info("commit: "+svnFiles.size()+" files");
 		for (ISVNEventListener listener : listeners) {
-			listener.commit(svnFiles);
+			listener.svnCommit(svnFiles);
 		}		
 	}
 
 	protected void fireUpdate(Map<IFile, ISVNInfo> svnFiles){
 		logger.info("update: "+svnFiles.size()+" files");
 		for (ISVNEventListener listener : listeners) {
-			listener.update(svnFiles);
+			listener.svnUpdate(svnFiles);
 		}		
 	}
 	
