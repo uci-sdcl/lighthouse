@@ -1,7 +1,6 @@
 package edu.uci.lighthouse.core.controller;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
@@ -16,7 +15,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
@@ -40,26 +38,16 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
-import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		IPluginListener, Runnable {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
-
 	private HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
-
-	// ....
-//	private Queue<Map<IFile, ISVNInfo>> pendingWorkingCopyModifications = new LinkedList<Map<IFile, ISVNInfo>>();
-
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
-
 	private List<String> classWithErrors = new LinkedList<String>();
-
 	private Date lastDBAccess = null;
-
 	private boolean threadRunning;
-
 	private final int threadTimeout = 10000;
 
 	@Override
@@ -103,7 +91,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		IPreferenceStore prefStore = Activator.getDefault()
 				.getPreferenceStore();
 
-		prefStore.setValue(prefix + "lastDBAccess", lastDBAccess.getTime());
+		prefStore.setValue(prefix + "lastDBAccess", lastDBAccess.getTime()); 
 		logger.debug("saving lastDBAccess=" + lastDBAccess);
 
 		try {
@@ -117,12 +105,25 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 	}
 
+	@Override
+	public void run() {
+		threadRunning = true;
+		while (threadRunning) {
+			refreshModelBasedOnLastDBAccess();
+			// Sleep for the time defined by thread timeout
+			try {
+				Thread.sleep(threadTimeout);
+			} catch (InterruptedException e) {
+				logger.error(e);
+			}
+		}
+	}
+	
 	/**
 	 * Refresh the LighthouseModel with new events from database and fire this
 	 * changes to the UI.
 	 */
 	public synchronized void refreshModelBasedOnLastDBAccess() {
-
 		/*
 		 * If the map's size = 0, it means that it is the first time that user
 		 * is running Lighthouse. Then, the LighthouseModel will be updated only
@@ -134,154 +135,33 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					.getNewEventsFromDB(lastDBAccess);
 			fireModificationsToUI(events);
 		}
-
-//		LHEventDAO evtDao = new LHEventDAO();
-		
 		lastDBAccess = new Date();
-		
-		// logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
-//		lastDBAccess = evtDao.getCurrentTimestamp();
-//		logger.debug("current time: " + lastDBAccess + " "
-//				+ new Date(lastDBAccess.getTime()));
 	}
 
-	private void loadMap() {
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
-			Date committedDate = formatter.parse("2009-11-03 20:30:00");
-
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Account", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.ATM", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.ATMCaseStudy", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.BalanceInquiry", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.BankDatabase", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.CashDispenser", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Deposit", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.DepositSlot", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Keypad", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Screen", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Transaction", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Withdrawal", committedDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	/**FIXME Temporary method we need to call the checkout procedure*/
 	private void loadModel() {
-
-		// Esse eh o certo, mas nao sei se funciona
 		PullModel pullmodel = new PullModel(LighthouseModel.getInstance());
 		pullmodel.loadModel(mapClassFqnToLastRevisionTimestamp);
-
 		// FIXME: fire the model changed to UI
 		LighthouseModel.getInstance().fireModelChanged();
-
-		//		
-		//		
-		// LighthouseModelManager modelManager = new
-		// LighthouseModelManager(LighthouseModel.getInstance());
-		// for (LighthouseEvent event : listEvents) {
-		// modelManager.addEvent(event);
-		// }
-		//		
-		// PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-		// pullModel.removeCommittedEvents(listEvents, mapEntityTime);
-		//		
-		//		
-		// HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
-		// // for each class - get all entities that is INSIDE it (from the
-		// database)
-		// LighthouseModelManager modelManager = new
-		// LighthouseModelManager(model);
-		// for (Map.Entry<String, Date> entry :
-		// mapClassFqnToLastRevisionTimestamp.entrySet()) {
-		// String fqnClazz = entry.getKey();
-		// Date revisionTimestamp = entry.getValue();
-		// List<LighthouseEntity> listFromEntities =
-		// modelManager.getEntitiesInsideClass(fqnClazz);
-		// mapEntityTime.put(fqnClazz, revisionTimestamp);
-		// for (LighthouseEntity fromEntity : listFromEntities) {
-		// mapEntityTime.put(fromEntity.getFullyQualifiedName(),
-		// revisionTimestamp);
-		// }
-		// }
-		//		
-		//		
-		//		
-		// // Update the model
-		// updateLighthouseModel(listEvents);
-		//		
-		// removeCommittedEvents(listEvents,mapEntityTime);
-		//		
-		// return listEvents;
-		//		
-
-		// Date minimumDate = new Date();
-		// for (Entry<String, Date> entry :
-		// mapClassFqnToLastRevisionTimestamp.entrySet()) {
-		// Date revisionTime = entry.getValue();
-		// if (revisionTime.before(minimumDate)) {
-		// minimumDate = revisionTime;
-		// }
-		// }
-		//		
-		// PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-		// List<LighthouseEvent> events = pullModel.getNewEventsFromDB(new
-		// Date(0));
-		//		
-		// pullModel.removeCommittedEvents();
-		//		
-		// fireModificationsToUI(events);
-		//		
-		//		
-
 	}
 
 	public synchronized void refreshModelBasedOnWorkingCopy(HashMap<String, Date> workingCopy) {
-//		if (pendingWorkingCopyModifications.size() > 0) {
-//			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
-//					.poll();
-//			mapClassFqnToLastRevisionTimestamp = refreshWorkingCopy(svnFiles);
-
-			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			List<LighthouseEvent> events = pullModel
-					.executeQueryAfterCheckout(workingCopy);
-			logger.debug("update events: "+events);
-			fireModificationsToUI(events);
-//		}
+		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+		List<LighthouseEvent> events = pullModel
+				.executeQueryAfterCheckout(workingCopy);
+		logger.debug("update events: " + events);
+		fireModificationsToUI(events);
 	}
 
 	@Override
 	public void change(final IFile iFile, boolean hasErrors) {
-		// refreshModelBasedOnWorkingCopy();
-
 		final String classFqn = getClassFullyQualifiedName(iFile);
-
 		if (hasErrors) {
 			// FIXME: criar LighthouseFile a partir do Modelo
 			classWithErrors.add(classFqn);
 		} else {
 			try {
-				// BufferedReader d = new BufferedReader(new InputStreamReader(
-				// iFile.getContents()));
-				// while (d.ready()) {
-				// System.out.println(d.readLine());
-				// }
-
 				final LighthouseFile currentLhFile = new LighthouseFile();
 				LighthouseParser parser = new LighthouseParser();
 				parser.executeInAJob(currentLhFile, Collections
@@ -293,18 +173,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 						LighthouseDelta delta = new LighthouseDelta(Activator
 								.getDefault().getAuthor(), baseLhFile,
 								currentLhFile);
-
-						// logger.debug("current: " +
-						// currentLhFile.getEntities());
-						// logger.debug("current: " +
-						// currentLhFile.getRelationships()+"\n");
-						//						
-						// logger.debug("base: " + baseLhFile.getEntities());
-						// logger.debug("base: " +
-						// baseLhFile.getRelationships()+"\n");
-						//						
-						// logger.debug("delta: " + delta.getEvents());
-
 						PushModel pushModel = new PushModel(LighthouseModel
 								.getInstance());
 						try {
@@ -313,12 +181,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 							// TODO: Try to throw up this exception
 							logger.error(e);
 						}
-
 						// Updates the current base version
 						classBaseVersion.put(classFqn, currentLhFile);
-
 						fireModificationsToUI(delta.getEvents());
-
 					}
 				});
 			} catch (Exception e) {
@@ -329,15 +194,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void close(IFile iFile, boolean hasErrors) {
-		// refreshModelBasedOnWorkingCopy();
 		final String classFqn = getClassFullyQualifiedName(iFile);
 		classBaseVersion.remove(classFqn);
 	}
 
 	@Override
 	public void open(final IFile iFile, boolean hasErrors) {
-		// refreshModelBasedOnWorkingCopy();
-
 		final String classFqn = getClassFullyQualifiedName(iFile);
 		logger.debug("open " + classFqn);
 
@@ -388,8 +250,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
 		try {
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
-			
-			// All committed times are the same
+			// assuming that there is just one committed time
 			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]); 
 			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
 			
@@ -397,9 +258,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					getClassesFullyQualifiedName(svnFiles), svnCommittedTime, Activator
 							.getDefault().getAuthor().getName());
 
-			// Refresh is needed because, we need to cleanup the committed
-			// events
-			refreshModelBasedOnLastDBAccess();
+			// Refresh is needed because, we need to cleanup the committed events
+			// Actually we need to call the refreshModelBasedOnWorkingCopy()
+			//refreshModelBasedOnLastDBAccess();
 		} catch (Exception e) {
 			logger.error(e);
 		}
@@ -547,21 +408,41 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 	}
 
-	@Override
-	public void run() {
-		threadRunning = true;
+	/**FIXME temporary method*/
+	private void loadMap() {
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
+			Date committedDate = formatter.parse("2009-11-03 20:30:00");
 
-		while (threadRunning) {
-
-			// logger.debug("timeout()");
-			refreshModelBasedOnLastDBAccess();
-
-			// Sleep fot the time defined by thread timeout
-			try {
-				Thread.sleep(threadTimeout);
-			} catch (InterruptedException e) {
-				logger.error(e);
-			}
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Account", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.ATM", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.ATMCaseStudy", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.BalanceInquiry", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.BankDatabase", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.CashDispenser", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Deposit", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.DepositSlot", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Keypad", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Screen", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Transaction", committedDate);
+			mapClassFqnToLastRevisionTimestamp.put(
+					"edu.prenticehall.deitel.Withdrawal", committedDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
+	
 }
