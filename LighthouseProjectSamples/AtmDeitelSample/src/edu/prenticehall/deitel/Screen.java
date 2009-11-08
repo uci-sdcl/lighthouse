@@ -10,6 +10,8 @@ public class Screen
 	
 	int a;
 	
+	int wine;
+	
 	
 	// displays a message without a carriage return
    public void displayMessage( String message ) 
