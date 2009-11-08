@@ -11,6 +11,7 @@ public class Screen
 	int a;
 	
 	int wine;
+	int wine1;
 	
 	
 	// displays a message without a carriage return
