@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
  * 
  */
 @Entity
-public class LighthouseEvent {
+public class LighthouseEvent implements Comparable<LighthouseEvent> {
 	
 	private static Logger logger = Logger.getLogger(LighthouseEvent.class);
 
@@ -122,19 +122,17 @@ public class LighthouseEvent {
 		}
 	}
 
-	public void setArtifact(LighthouseEntity entity) {
-		if (relationship == null) {
-			this.entity = entity;
+	protected void setArtifact(Object obj) {
+		if (entity == null && relationship == null) {
+			if (obj instanceof LighthouseEntity) {
+				this.entity = (LighthouseEntity) obj;
+			} else if (obj instanceof LighthouseRelationship) {
+				this.relationship = (LighthouseRelationship) obj;
+			}
 		} else {
-			logger.warn("Trying to set Entity Artifact when already have a Relationship Artifact: " + this.toString());
-		}
-	}
-
-	public void setArtifact(LighthouseRelationship relationship) {
-		if (entity == null) {
-			this.relationship = relationship;
-		} else {
-			logger.warn("Trying to set Relationship Artifact when already have a Entity Artifact: " + this.toString());
+			logger
+					.warn("Trying to set Entity artifact or relationship when already have one: "
+							+ this.toString());
 		}
 	}
 
@@ -207,6 +205,19 @@ public class LighthouseEvent {
 		} else if (!type.equals(other.type))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(LighthouseEvent evt) {
+		return this.getTimestamp().compareTo(evt.getTimestamp());
 	}	
 	
+	protected void assignTo(LighthouseEvent evt){
+		author = evt.author;
+		committedTime = evt.committedTime;
+		isCommitted = evt.isCommitted;
+		setArtifact(evt.getArtifact());
+		timestamp = evt.timestamp;
+		type = evt.getType();
+	}
 }

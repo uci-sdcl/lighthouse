@@ -3,8 +3,8 @@ package edu.uci.lighthouse.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
@@ -26,10 +26,13 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	private static LighthouseModel instance;
 
 	/** Associate an artifact(entity or relationship) with a list of events. */
-	private HashMap<Object, LinkedHashSet<LighthouseEvent>> mapArtifactEvents = new HashMap<Object, LinkedHashSet<LighthouseEvent>>();
+	private HashMap<Object, TreeSet<LighthouseEvent>> mapArtifactEvents = new HashMap<Object, TreeSet<LighthouseEvent>>();
 	
 	/** LIst of all events*/
-	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
+//	private Collection<LighthouseEvent> listEvents = new TreeSet<LighthouseEvent>();
+	
+	/** List of listeners */
+	private Collection<ILighthouseModelListener> listeners = new ArrayList<ILighthouseModelListener>();
 	
 	protected LighthouseModel() {
 	}
@@ -50,13 +53,20 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	final synchronized void addEvent(LighthouseEvent event) {
 		Object artifact = event.getArtifact();
 		if (artifact!=null) {
-			LinkedHashSet<LighthouseEvent> listArtifactEvents = mapArtifactEvents.get(artifact);
+			TreeSet<LighthouseEvent> listArtifactEvents = mapArtifactEvents.get(artifact);
 			if (listArtifactEvents==null) {
-				listArtifactEvents = new LinkedHashSet<LighthouseEvent>();
+				listArtifactEvents = new TreeSet<LighthouseEvent>();
+				mapArtifactEvents.put(artifact,listArtifactEvents);
 			}
-			listArtifactEvents.add(event);
-			mapArtifactEvents.put(artifact,listArtifactEvents);
-			listEvents.add(event);
+			if (listArtifactEvents.contains(event)){
+				for(LighthouseEvent evt: listArtifactEvents){
+					if (evt.equals(event)){
+						evt.assignTo(event);
+					}
+				}
+			} else {
+				listArtifactEvents.add(event);
+			}
 		} else {
 			logger.warn("Artifact is null: " + event.toString());
 		}
@@ -65,8 +75,10 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	final synchronized void removeEvent(LighthouseEvent event) {
 		Object artifact = event.getArtifact();
 		if (artifact!=null) {
-			mapArtifactEvents.remove(artifact);
-			listEvents.remove(event);
+			TreeSet<LighthouseEvent> listArtifactEvents = mapArtifactEvents.get(artifact);
+			if (listArtifactEvents!=null) {
+				listArtifactEvents.remove(event);
+			}
 		} else {
 			logger.warn("Artifact is null: " + event.toString());
 		}
@@ -77,12 +89,13 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		return result != null ? result : new ArrayList<LighthouseEvent>();
 	}
 	
-	public LinkedHashSet<LighthouseEvent> getListEvents() {
-		return listEvents;
+	public Collection<LighthouseEvent> getListEvents() {
+		Collection<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
+		for(TreeSet<LighthouseEvent> set : mapArtifactEvents.values()){
+			result.addAll(set);
+		}
+		return result;
 	}
-	
-	/** List of listeners */
-	private List<ILighthouseModelListener> listeners = new ArrayList<ILighthouseModelListener>();
 
 	public void addModelListener(ILighthouseModelListener listener) {
 		listeners.add(listener);
