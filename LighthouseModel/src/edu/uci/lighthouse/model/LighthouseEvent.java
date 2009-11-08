@@ -157,17 +157,10 @@ public class LighthouseEvent {
 
 	@Override
 	public String toString() {
-		if (getArtifact()!=null) {
-			return "LighthouseEvent [author=" + author + ", type=" + type
-			+ ", artifact=" + getArtifact().toString() + ", timestamp="
-			+ timestamp + "]";
-		} else {
-			String result = "LighthouseEvent [author="
-				+ author + ", type=" + type + ", timestamp=" + timestamp
-				+ "]";
-			logger.error("Artifact is NULL: " + result);
-			return result;
-		}
+		return "LighthouseEvent [author=" + author + ", committedTime="
+				+ committedTime + ", isCommitted=" + isCommitted
+				+ ", timestamp=" + timestamp + ", type=" + type
+				+ ", getArtifact()=" + getArtifact() + "]";
 	}
 
 	@Override
@@ -176,13 +169,14 @@ public class LighthouseEvent {
 		int result = 1;
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
-		result = prime * result + (isCommitted ? 1231 : 1237);
 		result = prime * result
 				+ ((relationship == null) ? 0 : relationship.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
+	// TODO I removed the timestamp from the equals() because I had some
+	// problems to compare 2 EQUAL models that was generated in different times
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -202,8 +196,6 @@ public class LighthouseEvent {
 				return false;
 		} else if (!entity.equals(other.entity))
 			return false;
-		if (isCommitted != other.isCommitted)
-			return false;
 		if (relationship == null) {
 			if (other.relationship != null)
 				return false;
@@ -215,41 +207,6 @@ public class LighthouseEvent {
 		} else if (!type.equals(other.type))
 			return false;
 		return true;
-	}
-	
-	//TODO I removed the timestamp from the equals() because I had some problems to compare 2 EQUAL models that was generated in different times
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		LighthouseEvent other = (LighthouseEvent) obj;
-//		if (author == null) {
-//			if (other.author != null)
-//				return false;
-//		} else if (!author.equals(other.author))
-//			return false;
-//		if (entity == null) {
-//			if (other.entity != null)
-//				return false;
-//		} else if (!entity.equals(other.entity))
-//			return false;
-//		if (relationship == null) {
-//			if (other.relationship != null)
-//				return false;
-//		} else if (!relationship.equals(other.relationship))
-//			return false;
-//		if (type == null) {
-//			if (other.type != null)
-//				return false;
-//		} else if (!type.equals(other.type))
-//			return false;
-//		return true;
-//	}
-
-	
+	}	
 	
 }
