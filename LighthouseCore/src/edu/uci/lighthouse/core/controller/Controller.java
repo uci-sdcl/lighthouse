@@ -218,6 +218,21 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 										+ " LHFile entities:"
 										+ lhFile.getEntities().size());
 								classBaseVersion.put(classFqn, lhFile);
+								
+								if (LighthouseModel.getInstance().getEntity(classFqn) == null){
+									LighthouseDelta delta = new LighthouseDelta(Activator.getDefault().getAuthor(),null,lhFile);
+									PushModel pushModel = new PushModel(LighthouseModel
+											.getInstance());
+									try {
+										pushModel.updateModelFromDelta(delta);
+									} catch (Exception e) {
+										// TODO: Try to throw up this exception
+										logger.error(e);
+									}
+									
+									fireModificationsToUI(delta.getEvents());
+									
+								}
 							}
 						});
 			} catch (Exception e) {
