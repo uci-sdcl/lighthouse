@@ -1,7 +1,6 @@
 package edu.uci.lighthouse.model.jpa;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -73,10 +72,10 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 */
 	public void remove(T entity) throws JPAUtilityException;
 	
-	public Date getCurrentTimestamp();
-	
 	public void flush();
 
 	public void clear();
 
+//	public Date getCurrentTimestamp();
+	
 }
