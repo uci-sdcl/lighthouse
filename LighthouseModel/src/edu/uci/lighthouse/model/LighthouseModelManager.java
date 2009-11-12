@@ -89,14 +89,17 @@ public class LighthouseModelManager {
 	}
 	
 	
-	// NOVO
+	// New
 	
 	public void saveEventsIntoDatabase(Collection<LighthouseEvent> listEvents) throws JPAUtilityException {
 		LHEventDAO dao = new LHEventDAO();
-		Date currentDBTimestamp = dao.getCurrentTimestamp();
-		for (LighthouseEvent event : listEvents) {
-			event.setTimestamp(currentDBTimestamp);
-			dao.save(event);
+		try {
+			for (LighthouseEvent event : listEvents) {
+				dao.save(event);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
