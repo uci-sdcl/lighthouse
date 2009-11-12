@@ -4,13 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.LighthouseField;
-import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.util.LHPreference;
 
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	
@@ -78,29 +73,6 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		strQuery += " )";
 		return executeDynamicQuery(strQuery);
 	}
-	
-	/** NOT in use anynmore
-	 * @throws JPAUtilityException */
-//	public void updateCommittedEvents(List<String> listClazz, String authorName) throws JPAUtilityException {
-//		String command = 	"UPDATE LighthouseEvent e " +
-//							"SET e.isCommitted = 1 " +
-//							", e.committedTime = CURRENT_TIMESTAMP " +
-//							"WHERE e.author.name = " + "'" + authorName + "'" + " " +
-//							"AND e.isCommitted = 0 " +
-//							"AND e.entity.fullyQualifiedName IN ( " +
-//							"SELECT rel.primaryKey.from " +
-//							"FROM LighthouseRelationship rel " +
-//							"WHERE rel.primaryKey.type = 0 "; // type==inside
-//		command+= "AND ( ";
-//		for (String fqnClazz : listClazz) {
-//			command+= "rel.primaryKey.to = " + "'" + fqnClazz + "'";
-//			command+= " OR ";
-//		}
-//		command = command.substring(0, command.lastIndexOf("OR"));
-//		command += " ) )";
-//		executeUpdateQuery(command);
-//		
-//	}
 	
 	public void updateCommittedEvents(List<String> listClazz, Date revisionTime, String authorName) throws JPAUtilityException {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
