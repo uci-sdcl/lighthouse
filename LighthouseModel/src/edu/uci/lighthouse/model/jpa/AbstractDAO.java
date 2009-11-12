@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
@@ -120,19 +119,13 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 
 	public synchronized T save(T entity) throws JPAUtilityException {
 		EntityManager entityManager = JPAUtility.getEntityManager();
-		T result;
-		try {
-			JPAUtility.beginTransaction();
-			result = entityManager.merge(entity);
-			JPAUtility.commitTransaction();
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			throw new JPAUtilityException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
-		}
+		JPAUtility.beginTransaction();
+		T result = entityManager.merge(entity);
+		JPAUtility.commitTransaction();
 		entityManager.close();
 		return result;
 	}
-
+	
 	/* (non-Javadoc)
 	 */
 	public synchronized void remove(T entity) throws JPAUtilityException {
@@ -148,19 +141,6 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		entityManager.close();
 	}
 
-	public synchronized Date getCurrentTimestamp() {
-		EntityManager entityManager = JPAUtility.getEntityManager();
-		Query query = entityManager.createQuery("SELECT CURRENT_TIMESTAMP FROM LighthouseEvent e WHERE e.id = 1");
-		try {
-			Object result = query.getSingleResult();
-			entityManager.close();
-			return (Date) result;
-		} catch (NoResultException e) {
-			entityManager.close();
-			return new Date();
-		}
-	}
-	
 	/* (non-Javadoc)
 	 */
 	public synchronized void flush() {
@@ -174,4 +154,18 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		EntityManager entityManager = JPAUtility.getEntityManager();
 		entityManager.clear();
 	}
+	
+//	public synchronized Date getCurrentTimestamp() {
+//		EntityManager entityManager = JPAUtility.getEntityManager();
+//		Query query = entityManager.createQuery("SELECT CURRENT_TIMESTAMP FROM LighthouseEvent e WHERE e.id = 1");
+//		try {
+//			Object result = query.getSingleResult();
+//			entityManager.close();
+//			return (Date) result;
+//		} catch (NoResultException e) {
+//			entityManager.close();
+//			return new Date();
+//		}
+//	}
+	
 }
