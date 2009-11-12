@@ -18,5 +18,10 @@ public class LighthouseClass extends LighthouseEntity {
 	public LighthouseClass(String fqn) {
 		super(fqn);
 	}
+	
+	public String getPackageName(){
+		String result = getFullyQualifiedName().replaceAll("\\.\\w+\\z", "");
+		return result.equals(getShortName()) ? "" : result;
+	}
 
 }
