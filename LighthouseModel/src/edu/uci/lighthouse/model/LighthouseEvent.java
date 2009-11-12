@@ -123,16 +123,14 @@ public class LighthouseEvent implements Comparable<LighthouseEvent> {
 	}
 
 	protected void setArtifact(Object obj) {
-		if (entity == null && relationship == null) {
-			if (obj instanceof LighthouseEntity) {
+		if (obj instanceof LighthouseEntity) {
+			if (relationship == null) {
 				this.entity = (LighthouseEntity) obj;
-			} else if (obj instanceof LighthouseRelationship) {
+			}
+		} else if (obj instanceof LighthouseRelationship) {
+			if (entity == null) {
 				this.relationship = (LighthouseRelationship) obj;
 			}
-		} else {
-			logger
-					.warn("Trying to set Entity artifact or relationship when already have one: "
-							+ this.toString());
 		}
 	}
 
