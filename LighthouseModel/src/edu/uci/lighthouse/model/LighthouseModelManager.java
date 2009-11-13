@@ -1,7 +1,6 @@
 package edu.uci.lighthouse.model;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -81,7 +80,7 @@ public class LighthouseModelManager {
 	
 	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database */
 	public void removeEvent(LighthouseEvent event) {
-		model.removeEvent(event);
+//		model.removeEvent(event);
 	}
 	
 	public LighthouseEntity getEntity(String fqn) {
@@ -89,17 +88,12 @@ public class LighthouseModelManager {
 	}
 	
 	
-	// New
+	// NOVO
 	
 	public void saveEventsIntoDatabase(Collection<LighthouseEvent> listEvents) throws JPAUtilityException {
 		LHEventDAO dao = new LHEventDAO();
-		try {
-			for (LighthouseEvent event : listEvents) {
-				dao.save(event);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (LighthouseEvent event : listEvents) {
+			dao.save(event);
 		}
 	}
 	
