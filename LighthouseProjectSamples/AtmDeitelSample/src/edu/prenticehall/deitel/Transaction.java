@@ -10,6 +10,7 @@ public abstract class Transaction
    private BankDatabase bankDatabase; // account info database
    
    int boi;
+   int carro;
    
    // Transaction constructor invoked by subclasses using super()
    public Transaction( int userAccountNumber, Screen atmScreen, 
