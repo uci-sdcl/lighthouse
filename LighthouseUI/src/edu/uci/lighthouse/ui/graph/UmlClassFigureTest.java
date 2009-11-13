@@ -38,6 +38,8 @@ import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 import edu.uci.lighthouse.ui.swt.util.FontFactory;
 import edu.uci.lighthouse.ui.swt.util.Icons;
 import edu.uci.lighthouse.ui.swt.util.ImageFactory;
+import edu.uci.lighthouse.ui.views.FilterManager;
+import edu.uci.lighthouse.views.filters.IClassFilter;
 
 public class UmlClassFigureTest extends Panel{
 	
@@ -45,7 +47,7 @@ public class UmlClassFigureTest extends Panel{
 	private List<IFigure> separators = new LinkedList<IFigure>();
 	private List<IFigure> separatorEvents = new LinkedList<IFigure>();
 	private HashMap<IFigure,LighthouseEntity> fig2entityMap = new HashMap<IFigure,LighthouseEntity>();
-	private static LEVEL currentLevel;
+	private static LEVEL currentLevel = LEVEL.ONE;
 
 	private final int NUM_COLUMNS = 2;
 	//private static final SharedImages jdtImg = new SharedImages();
@@ -64,7 +66,7 @@ public class UmlClassFigureTest extends Panel{
 		setBorder(new UmlClassBorderTest(ColorFactory.classBorder));
 		
 		this.umlClass = umlClass;		
-		populate(LEVEL.ONE);
+		populate(currentLevel);
 	}
 	
 	protected void paintFigure(Graphics g) {
@@ -155,33 +157,42 @@ public class UmlClassFigureTest extends Panel{
 		}
 	}
 
-	private void populateEntity(IFigure fig, Collection<? extends LighthouseEntity> entities, LEVEL level){
+	private void populateEntity(IFigure fig,
+			Collection<? extends LighthouseEntity> entities, LEVEL level) {
 		boolean entered = false;
 		LighthouseEntity[] e = entities.toArray(new LighthouseEntity[0]);
 		LighthouseModel model = LighthouseModel.getInstance();
 		for (int i = 0; i < e.length; i++) {
-			//Label label = new Label(e[i].getShortName(),getEntityIcon(e[i]));
-			StyledLabel label = new StyledLabel(e[i].getShortName(),getEntityIcon(e[i]));
-			if (isRemoved(e[i])){
-				label.setForegroundColor(ColorFactory.gray);
-				label.setStrikeout(true);
-			}
-			Collection<LighthouseEvent> events = model.getEvents(e[i]);
-			if (level == LEVEL.FOUR
-					|| (level == LEVEL.THREE && events.size() > 0)) {
-				add(label);
-				fig2entityMap.put(label,e[i]);
-				populateEvents(this, events);
-			}
-			if (level == LEVEL.FOUR) {
-				if (events.size() > 0) {
-					entered = true;
-					if (i != 0)
-						separatorEvents.add(label);
-				} else if (entered) {
-					entered = false;
-					separatorEvents.add(label);
+			if (!filterEntity(e[i])) {
+				Collection<LighthouseEvent> events = model.getEvents(e[i]);
+				if (level == LEVEL.FOUR
+						|| (level == LEVEL.THREE && events.size() > 0)) {
+
+					// Image label
+					StyledLabel label = new StyledLabel(e[i].getShortName(),
+							getEntityIcon(e[i]));
+					if (isRemoved(e[i])) {
+						label.setForegroundColor(ColorFactory.gray);
+						label.setStrikeout(true);
+					}
+
+					add(label);
+					fig2entityMap.put(label, e[i]);
+					populateEvents(this, events);
+
+					// Events Separator
+					if (level == LEVEL.FOUR) {
+						if (events.size() > 0) {
+							entered = true;
+							if (i != 0)
+								separatorEvents.add(label);
+						} else if (entered) {
+							entered = false;
+							separatorEvents.add(label);
+						}
+					}
 				}
+
 			}
 		}
 	}
@@ -204,27 +215,25 @@ public class UmlClassFigureTest extends Panel{
 		return result;
 	}
 
-	private void populateEvents(IFigure fig, Collection<LighthouseEvent> events){
+	private void populateEvents(IFigure fig, Collection<LighthouseEvent> events) {
 		if (events.size() > 0) {
-			LighthouseEvent[] evts = events.toArray(
-					new LighthouseEvent[0]);
+			LighthouseEvent[] evts = events.toArray(new LighthouseEvent[0]);
 			Label label = null;
+
 			for (int i = 0; i < evts.length; i++) {
-				//if (evts[i].getType() != LighthouseEvent.TYPE.OK_TO_REMOVE) {
+				if (!filterEvent(evts[i])) {
 					label = new Label(evts[i].getAuthor().getName(),
 							getEventIcon(evts[i]));
 					label.setBorder(new MarginBorder(0, 4, 0, 2));
 					fig.add(label);
-					
+
 					label = new Label();
 					fig.add(label);
-					/*
-					if (i != evts.length - 1) {
-						fig.add(new Label());
-					}*/
-				//}
+				}
 			}
-			fig.remove(label);
+			if (label != null){
+				fig.remove(label);
+			}
 		} else {
 			fig.add(new Label());
 		}
@@ -295,6 +304,38 @@ public class UmlClassFigureTest extends Panel{
 		}
 		
 		return result;
+	}
+	
+	protected boolean filterEntity(LighthouseEntity entity) {
+		// TODO Optimize the algorithm
+		LighthouseModel model = LighthouseModel.getInstance();
+		IClassFilter[] filters = FilterManager.getInstance().getClassFilters();
+		boolean selected = false;
+		if (filters.length > 0) {
+			for (IClassFilter filter : filters) {
+				selected |= filter.select(model, entity);
+			}
+			if (!selected) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	protected boolean filterEvent(LighthouseEvent event) {
+		// TODO Optimize the algorithm
+		LighthouseModel model = LighthouseModel.getInstance();
+		IClassFilter[] filters = FilterManager.getInstance().getClassFilters();
+		boolean selected = false;
+		if (filters.length > 0) {
+			for (IClassFilter filter : filters) {
+				selected |= filter.select(model, event);
+			}
+			if (!selected) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/* (non-Javadoc)

@@ -52,7 +52,7 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 		//this.viewer.setFilters(filters)
 		
 		// Clean the connections cache
-		cacheConnections.clear();		
+//		cacheConnections.clear();		
 	}
 	
 	@Override
@@ -72,8 +72,11 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	public Object[] getElements(Object input) {
 		logger.info("getElements()");
 		if (input instanceof LighthouseModel) {
+			// Clear the connections cache
+			cacheConnections.clear();
+
 			LighthouseModel model = (LighthouseModel) input;
-			createNodes(model);
+//			createNodes(model);
 			return model.getRelationships().toArray();
 		}
 		return null;
@@ -119,9 +122,9 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 		GraphItem item = viewer.findGraphItem(aClass);
 		if (item != null) {
 			switch (type) {
-			case ADD:
-				viewer.addNode(aClass);
-				break;
+//			case ADD:
+//				viewer.addNode(aClass);
+//				break;
 			case MODIFY: case REMOVE:
 				Animation.markBegin();
 				GraphUtils.rebuildFigure((GraphNode) item);
@@ -134,12 +137,13 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 		} else {
 			switch (type) {
 			case ADD:
-				viewer.addNode(aClass);				
+				viewer.addNode(aClass);		
 				//new GraphNode(viewer.getGraphControl(), SWT.NONE, aClass);
 				//viewer.refresh();
 				//getLightweightSystem().getUpdateManager().performUpdate();
 				break;
 			}
+			viewer.refresh();
 		}
 	}
 

@@ -7,28 +7,34 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.LighthouseRelationship;
 
 public class ViewModifiedFilter extends ViewerFilter{
 
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		//TODO Filter the connections
-//		LighthouseModel model = (LighthouseModel) parentElement;
-//		if (element instanceof LighthouseClass) {
-//			LighthouseClass aClass = (LighthouseClass) element;
-//			if (aClass.getEvents().size() > 0) {
-//				return true;
-//			} else {
-//				Collection<LighthouseEntity> entities = model
-//						.getMethodsAndAttributesFromClass(aClass);
-//				for (LighthouseEntity entity : entities) {
-//					if (entity.getEvents().size() > 0) {
-//						return true;
-//					}
-//				}
-//			}
-//		}
+		LighthouseModel model = (LighthouseModel) parentElement;
+		if (element instanceof LighthouseClass) {
+			LighthouseClass aClass = (LighthouseClass) element;
+			Collection<LighthouseEvent> classEvents = model.getEvents(aClass);
+			if (classEvents.size() > 0) {
+				return true;
+			} else {				
+				Collection<LighthouseEntity> entities = model
+						.getMethodsAndAttributesFromClass(aClass);
+				for (LighthouseEntity entity : entities) {
+					Collection<LighthouseEvent> entitiesEvents = model.getEvents(entity);
+					if (entitiesEvents.size() > 0) {
+						return true;
+					}
+				}
+			}
+		} else if (element instanceof LighthouseRelationship){
+			return true;
+		}
 		return false;
 	}
 
