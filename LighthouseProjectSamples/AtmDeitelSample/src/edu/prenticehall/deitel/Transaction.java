@@ -1,5 +1,6 @@
 package edu.prenticehall.deitel;
 
+
 // Transaction.java
 // Abstract superclass Transaction represents an ATM transaction
 
@@ -8,6 +9,8 @@ public abstract class Transaction
    private int accountNumber; // indicates account involved
    private Screen screen; // ATM's screen
    private BankDatabase bankDatabase; // account info database
+   
+   public Deposit deposit;
    
    // Transaction constructor invoked by subclasses using super()
    public Transaction( int userAccountNumber, Screen atmScreen, 
