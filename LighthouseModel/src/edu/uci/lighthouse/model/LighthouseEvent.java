@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
  * 
  */
 @Entity
-public class LighthouseEvent implements Comparable<LighthouseEvent> {
+public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 	
 	private static Logger logger = Logger.getLogger(LighthouseEvent.class);
 
@@ -205,17 +205,17 @@ public class LighthouseEvent implements Comparable<LighthouseEvent> {
 		return true;
 	}
 
-	@Override
-	public int compareTo(LighthouseEvent evt) {
-		return this.getTimestamp().compareTo(evt.getTimestamp());
-	}	
+//	@Override
+//	public int compareTo(LighthouseEvent evt) {
+//		if (this.equals(evt)){
+//			return 0;
+//		} else {
+//			int dateCompare = this.getTimestamp().compareTo(evt.getTimestamp());
+//			if (dateCompare == 0){
+//				return 1;
+//			}
+//		}
+//		return 1;
+//	}
 	
-	protected void assignTo(LighthouseEvent evt){
-		author = evt.author;
-		committedTime = evt.committedTime;
-		isCommitted = evt.isCommitted;
-		setArtifact(evt.getArtifact());
-		timestamp = evt.timestamp;
-		type = evt.getType();
-	}
 }
