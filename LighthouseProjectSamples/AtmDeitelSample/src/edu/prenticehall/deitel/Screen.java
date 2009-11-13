@@ -7,20 +7,19 @@ import java.util.List;
 
 public class Screen
 {
-	
-	int a;
-	
-	int wine;
-	int wine1;
-	
-	
-	// displays a message without a carriage return
+
+   // displays a message without a carriage return
    public void displayMessage( String message ) 
    {
-	   a++;   
+	   
       System.out.print( message ); 
    } // end method displayMessage
 
+   // display a message with a carriage return
+   public void displayMessageLine( String message) 
+   {
+      System.out.println( message );   
+   } // end method displayMessageLine
 
    // display a dollar amount
    public void displayDollarAmount( double amount )
