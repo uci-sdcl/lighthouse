@@ -93,9 +93,9 @@ public class LighthouseModelManager {
 	
 	public void saveEventsIntoDatabase(LinkedHashSet<LighthouseEvent> listEvents) throws JPAUtilityException {
 		LHEventDAO dao = new LHEventDAO();
-		Date currentDBTimestamp = dao.getCurrentTimestamp();
+		// The entity events need to come before the relationship events
+		// we could use to loops to handle that
 		for (LighthouseEvent event : listEvents) {
-			event.setTimestamp(currentDBTimestamp);
 			dao.save(event);
 		}
 	}
