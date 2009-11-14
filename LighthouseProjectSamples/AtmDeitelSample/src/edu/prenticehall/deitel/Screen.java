@@ -10,6 +10,8 @@ public class Screen
 	
 	int b;
 	
+	int c;
+	
 	Deposit deposit;
 
    // displays a message without a carriage return
