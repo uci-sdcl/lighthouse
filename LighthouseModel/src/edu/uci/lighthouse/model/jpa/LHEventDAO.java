@@ -81,6 +81,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 							"SET e.isCommitted = 1 , " +
 							"e.committedTime = '" + strRevisionTime + "' " +
 							"WHERE e.author.name = " + "'" + authorName + "'" + " " +
+							"AND e.isCommitted = 0 " +
 							"AND e.entity.fullyQualifiedName IN ( " +
 							"SELECT rel.primaryKey.from " +
 							"FROM LighthouseRelationship rel " +
