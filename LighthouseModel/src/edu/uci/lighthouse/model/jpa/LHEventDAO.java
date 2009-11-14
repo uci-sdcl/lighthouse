@@ -74,29 +74,6 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		return executeDynamicQuery(strQuery);
 	}
 	
-	/** NOT in use anynmore
-	 * @throws JPAUtilityException */
-//	public void updateCommittedEvents(List<String> listClazz, String authorName) throws JPAUtilityException {
-//		String command = 	"UPDATE LighthouseEvent e " +
-//							"SET e.isCommitted = 1 " +
-//							", e.committedTime = CURRENT_TIMESTAMP " +
-//							"WHERE e.author.name = " + "'" + authorName + "'" + " " +
-//							"AND e.isCommitted = 0 " +
-//							"AND e.entity.fullyQualifiedName IN ( " +
-//							"SELECT rel.primaryKey.from " +
-//							"FROM LighthouseRelationship rel " +
-//							"WHERE rel.primaryKey.type = 0 "; // type==inside
-//		command+= "AND ( ";
-//		for (String fqnClazz : listClazz) {
-//			command+= "rel.primaryKey.to = " + "'" + fqnClazz + "'";
-//			command+= " OR ";
-//		}
-//		command = command.substring(0, command.lastIndexOf("OR"));
-//		command += " ) )";
-//		executeUpdateQuery(command);
-//		
-//	}
-	
 	public void updateCommittedEvents(List<String> listClazz, String authorName) throws JPAUtilityException {
 		String command = 	"UPDATE LighthouseEvent e " +
 							"SET e.isCommitted = 1 , " +

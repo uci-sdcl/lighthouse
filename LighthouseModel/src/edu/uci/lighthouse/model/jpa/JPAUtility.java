@@ -52,7 +52,7 @@ public class JPAUtility {
 	/**
 	 * Begin transaction.
 	 */
-	public static void beginTransaction() {
+	public synchronized static void beginTransaction() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().begin();
 	}
@@ -69,7 +69,7 @@ public class JPAUtility {
 	/**
 	 * Shutdown on Entity Manager and Factory.
 	 */
-	public static void shutdownAndCloseFactory() {
+	public synchronized static void shutdownAndCloseFactory() {
 		shutdownEntityManager();
 		if (factoryEntityManager != null && factoryEntityManager.isOpen()) {
 			factoryEntityManager.close();
@@ -79,7 +79,7 @@ public class JPAUtility {
 	/**
 	 * Commit Transaction
 	 */
-	public static void commitTransaction() {
+	public synchronized static void commitTransaction() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().commit();
 	}
@@ -87,7 +87,7 @@ public class JPAUtility {
 	/**
 	 * Rollback Transaction.
 	 */
-	public static void rollbackTransaction() {
+	public synchronized static void rollbackTransaction() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().rollback();
 	}
@@ -95,7 +95,7 @@ public class JPAUtility {
 	/**
 	 * Flush on Entity Manager.
 	 */
-	public void flush() {
+	public synchronized void flush() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.flush();
 	}
@@ -103,7 +103,7 @@ public class JPAUtility {
 	/**
 	 * Clean entity manager.
 	 */
-	public void clear() {
+	public synchronized void clear() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.clear();
 	}

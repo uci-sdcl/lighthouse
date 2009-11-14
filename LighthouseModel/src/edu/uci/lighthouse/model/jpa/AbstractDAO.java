@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
@@ -148,19 +147,6 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		entityManager.close();
 	}
 
-	public synchronized Date getCurrentTimestamp() {
-		EntityManager entityManager = JPAUtility.getEntityManager();
-		Query query = entityManager.createQuery("SELECT CURRENT_TIMESTAMP FROM LighthouseEvent e WHERE e.id = 1");
-		try {
-			Object result = query.getSingleResult();
-			entityManager.close();
-			return (Date) result;
-		} catch (NoResultException e) {
-			entityManager.close();
-			return new Date();
-		}
-	}
-	
 	/* (non-Javadoc)
 	 */
 	public synchronized void flush() {
