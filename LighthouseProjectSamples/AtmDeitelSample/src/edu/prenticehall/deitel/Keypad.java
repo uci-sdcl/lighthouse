@@ -20,6 +20,8 @@ public class Keypad
 	
 	int max;
 	
+	int nil;
+	
    private Scanner input; // reads data from the command line
    
    // no-argument constructor initializes the Scanner
