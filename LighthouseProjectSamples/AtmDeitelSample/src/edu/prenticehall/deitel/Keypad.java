@@ -18,6 +18,8 @@ public class Keypad
 	
 	int x;
 	
+	int max;
+	
    private Scanner input; // reads data from the command line
    
    // no-argument constructor initializes the Scanner
