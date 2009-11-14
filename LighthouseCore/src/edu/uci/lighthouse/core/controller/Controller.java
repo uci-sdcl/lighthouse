@@ -1,9 +1,7 @@
 package edu.uci.lighthouse.core.controller;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
@@ -42,7 +40,6 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
-import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		IPluginListener, Runnable {
@@ -62,7 +59,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	private boolean threadRunning;
 
-	private final int threadTimeout = 10000;
+	private final int threadTimeout = 30000;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -130,14 +127,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		 */
 		if (mapClassFqnToLastRevisionTimestamp.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			List<LighthouseEvent> events = pullModel.getNewEventsFromDB(lastDBAccess);
+			List<LighthouseEvent> events = pullModel
+					.getNewEventsFromDB(lastDBAccess);
 			fireModificationsToUI(events);
 		}
-		
-		LHEventDAO evtDao = new LHEventDAO();
-//		logger.debug("lastDBAccess: "+lastDBAccess+" current: "+evtDao.getCurrentTimestamp());
-		lastDBAccess = evtDao.getCurrentTimestamp();
-		
+		lastDBAccess = new Date();
 	}
 	
 	private void loadMap() {
@@ -231,7 +225,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		if (pendingWorkingCopyModifications.size() > 0) {
 			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
 					.poll();
-			mapClassFqnToLastRevisionTimestamp = refreshWorkingCopy(svnFiles);
+			mapClassFqnToLastRevisionTimestamp = getWorkingCopy(svnFiles);
 
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			pullModel
@@ -250,12 +244,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			classWithErrors.add(classFqn);
 		} else {
 			try {
-//				BufferedReader d = new BufferedReader(new InputStreamReader(
-//						iFile.getContents()));
-//				while (d.ready()) {
-//					System.out.println(d.readLine());
-//				}
-
 				final LighthouseFile currentLhFile = new LighthouseFile();
 				LighthouseParser parser = new LighthouseParser();
 				parser.executeInAJob(currentLhFile, Collections
@@ -267,15 +255,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 						LighthouseDelta delta = new LighthouseDelta(Activator
 								.getDefault().getAuthor(), baseLhFile,
 								currentLhFile);
-
-//						logger.debug("current: " + currentLhFile.getEntities());
-//						logger.debug("current: " + currentLhFile.getRelationships()+"\n");
-//						
-//						logger.debug("base: " + baseLhFile.getEntities());
-//						logger.debug("base: " + baseLhFile.getRelationships()+"\n");
-//						
-//						logger.debug("delta: " + delta.getEvents());
-
 						PushModel pushModel = new PushModel(LighthouseModel
 								.getInstance());
 						try {
@@ -366,15 +345,21 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {
-		refreshWorkingCopy(svnFiles);
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
 		try {
-			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
-			pushModel.updateCommittedEvents(
-					getClassesFullyQualifiedName(svnFiles), Activator
-							.getDefault().getAuthor().getName());
+			PushModel pushModel = new PushModel(LighthouseModel.getInstance()); 
+			// assuming that there is just one committed time
+			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]); 
+			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
 			
+			pushModel.updateCommittedEvents(
+					getClassesFullyQualifiedName(svnFiles), svnCommittedTime, Activator
+							.getDefault().getAuthor().getName());
+
 			// Refresh is needed because, we need to cleanup the committed events
-			refreshModelBasedOnLastDBAccess(); 
+			// Actually we need to call the refreshModelBasedOnWorkingCopy()
+			//refreshModelBasedOnLastDBAccess();
 		} catch (Exception e) {
 			logger.error(e);
 		}
@@ -391,19 +376,20 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// FIXME: Fire model events to show in the LH view
 	}
 
-	private HashMap<String, Date> refreshWorkingCopy(
+	private HashMap<String, Date> getWorkingCopy(
 			Map<IFile, ISVNInfo> svnFiles) {
+		HashMap<String, Date> result = new HashMap<String, Date>();
 		for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
 			String fqn = getClassFullyQualifiedName(entry.getKey());
 			if (fqn != null) {
 				ISVNInfo svnInfo = entry.getValue();
-				mapClassFqnToLastRevisionTimestamp.put(fqn, svnInfo
+				result.put(fqn, svnInfo
 						.getLastChangedDate());
 			}
 		}
-		return mapClassFqnToLastRevisionTimestamp;
+		return result;
 	}
-
+	
 	private List<String> getClassesFullyQualifiedName(
 			Map<IFile, ISVNInfo> svnFiles) {
 		LinkedList<String> result = new LinkedList<String>();
@@ -484,7 +470,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 		while (threadRunning) {
 
-//			logger.debug("timeout()");
+			logger.debug("timeout[ "+ lastDBAccess + " ]");
 			refreshModelBasedOnLastDBAccess();
 
 			// Sleep fot the time defined by thread timeout
