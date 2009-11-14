@@ -8,13 +8,7 @@ import java.util.List;
 public class Screen
 {
 	
-	int b;
-	
-	int c;
-	
-	Deposit deposit;
-
-   // displays a message without a carriage return
+	// displays a message without a carriage return
    public void displayMessage( String message ) 
    {
 	   
