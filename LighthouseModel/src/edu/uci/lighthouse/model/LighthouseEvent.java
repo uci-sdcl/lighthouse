@@ -144,7 +144,6 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 
 	public void setCommittedTime(Date committedTime) {
 		this.committedTime = committedTime;
-		isCommitted = true;
 	}
 
 	public Date getCommittedTime() {
