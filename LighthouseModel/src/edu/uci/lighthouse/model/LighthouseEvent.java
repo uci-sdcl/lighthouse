@@ -45,7 +45,7 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 	private LighthouseAuthor author;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp = new Date(0);
+	private Date timestamp = new Date();
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseEntity entity = null;
