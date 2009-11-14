@@ -31,13 +31,15 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		super.createPartControl(parent);
 		
 		viewer = new GraphViewer(parent, SWT.NONE);
+		//Create the FilterManager instance
+		filterManager = new FilterManager(viewer);
+		
 		viewer.setContentProvider(new LighthouseRelationshipContentProvider());
 		viewer.setLabelProvider(new LighthouseLabelProvider());
 		viewer.setLayoutAlgorithm(new GridLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));		
 		viewer.setInput(LighthouseModel.getInstance());
 		
-		//Create the FilterManager instance
-		filterManager = new FilterManager(viewer);
+
 		
 		//FIXME: Erase EditorListener and put everything in LinkWithEditorAction
 		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer.getGraphControl());

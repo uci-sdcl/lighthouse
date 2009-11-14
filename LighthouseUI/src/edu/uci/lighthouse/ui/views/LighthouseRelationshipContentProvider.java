@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.Animation;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IGraphContentProvider;
 import org.eclipse.zest.core.widgets.GraphItem;
@@ -14,12 +15,14 @@ import org.eclipse.zest.core.widgets.GraphNode;
 
 import edu.uci.lighthouse.model.ILighthouseUIModelListener;
 import edu.uci.lighthouse.model.LighthouseClass;
+import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
+import edu.uci.lighthouse.views.filters.IClassFilter;
 
 public class LighthouseRelationshipContentProvider implements IGraphContentProvider, ILighthouseUIModelListener{
 
@@ -76,7 +79,7 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 			cacheConnections.clear();
 
 			LighthouseModel model = (LighthouseModel) input;
-//			createNodes(model);
+			createNodes(model);
 			return model.getRelationships().toArray();
 		}
 		return null;
@@ -137,13 +140,19 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 		} else {
 			switch (type) {
 			case ADD:
-				viewer.addNode(aClass);		
+				viewer.addNode(aClass);
+				logger.debug("Class "+aClass.getShortName()+"added.");
+				viewer.getGraphControl().applyLayout();
 				//new GraphNode(viewer.getGraphControl(), SWT.NONE, aClass);
 				//viewer.refresh();
 				//getLightweightSystem().getUpdateManager().performUpdate();
 				break;
+			default:
+				viewer.refresh();
+				break;
 			}
-			viewer.refresh();
+//			viewer.refresh();
+
 		}
 	}
 
@@ -180,15 +189,45 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	}
 	
 	private void createNodes(LighthouseModel model){
+		// FIXME I'm going to filter classes here. However maybe is better to
+		// take a look in other implementation of Content Provider
 		logger.info("createNodes()");
 		//LighthouseModel model = (LighthouseModel) viewer.getInput();
 		for (LighthouseClass aClass : model.getAllClasses()) {
+			if (!filterEntity(aClass)){
 			viewer.addNode(aClass);
+			}
 		}
 		for (Iterator itNodes = viewer.getGraphControl().getNodes().iterator(); itNodes.hasNext();) {
 			GraphNode node = (GraphNode) itNodes.next();
 			node.setBackgroundColor(ColorFactory.classBackground);
 			node.setHighlightColor(ColorFactory.classHighlight);
 		}
+	}
+	
+
+	protected boolean filterEntity(LighthouseEntity entity) {
+		// TODO Optimize the algorithm
+		LighthouseModel model = LighthouseModel.getInstance();
+		
+		ViewerFilter[] filters = FilterManager.getInstance().getViewerFilters();
+		for (ViewerFilter filter: filters){
+			boolean selected = filter.select(viewer, model, entity);
+			if (!selected) {
+				return true;
+			}
+		}
+		
+//		IClassFilter[] filters = FilterManager.getInstance().getClassFilters();
+//		boolean selected = false;
+//		if (filters.length > 0) {
+//			for (IClassFilter filter : filters) {
+//				selected |= filter.select(model, entity);
+//			}
+//			if (!selected) {
+//				return true;
+//			}
+//		}
+		return false;
 	}
 }
