@@ -6,6 +6,8 @@ package edu.prenticehall.deitel;
 public class CashDispenser 
 {
 	
+	int sexta;
+	
 	int adicionar;
 	int adicionar2;
 	int adicionar3;
