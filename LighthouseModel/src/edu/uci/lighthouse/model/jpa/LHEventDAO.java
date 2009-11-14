@@ -74,10 +74,12 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		return executeDynamicQuery(strQuery);
 	}
 	
-	public void updateCommittedEvents(List<String> listClazz, String authorName) throws JPAUtilityException {
+	public void updateCommittedEvents(List<String> listClazz, Date revisionTime, String authorName) throws JPAUtilityException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String strRevisionTime = formatter.format(revisionTime);
 		String command = 	"UPDATE LighthouseEvent e " +
 							"SET e.isCommitted = 1 , " +
-							"e.committedTime = CURRENT_TIMESTAMP " +
+							"e.committedTime = '" + strRevisionTime + "' " +
 							"WHERE e.author.name = " + "'" + authorName + "'" + " " +
 							"AND e.entity.fullyQualifiedName IN ( " +
 							"SELECT rel.primaryKey.from " +

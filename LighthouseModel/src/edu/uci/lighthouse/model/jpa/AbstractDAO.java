@@ -160,4 +160,5 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		EntityManager entityManager = JPAUtility.getEntityManager();
 		entityManager.clear();
 	}
+	
 }
