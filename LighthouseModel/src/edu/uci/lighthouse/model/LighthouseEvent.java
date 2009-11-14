@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
  * 
  */
 @Entity
-public class LighthouseEvent {
+public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 	
 	private static Logger logger = Logger.getLogger(LighthouseEvent.class);
 
@@ -122,19 +122,15 @@ public class LighthouseEvent {
 		}
 	}
 
-	public void setArtifact(LighthouseEntity entity) {
-		if (relationship == null) {
-			this.entity = entity;
-		} else {
-			logger.warn("Trying to set Entity Artifact when already have a Relationship Artifact: " + this.toString());
-		}
-	}
-
-	public void setArtifact(LighthouseRelationship relationship) {
-		if (entity == null) {
-			this.relationship = relationship;
-		} else {
-			logger.warn("Trying to set Relationship Artifact when already have a Entity Artifact: " + this.toString());
+	protected void setArtifact(Object obj) {
+		if (obj instanceof LighthouseEntity) {
+			if (relationship == null) {
+				this.entity = (LighthouseEntity) obj;
+			}
+		} else if (obj instanceof LighthouseRelationship) {
+			if (entity == null) {
+				this.relationship = (LighthouseRelationship) obj;
+			}
 		}
 	}
 
@@ -148,7 +144,7 @@ public class LighthouseEvent {
 
 	public void setCommittedTime(Date committedTime) {
 		this.committedTime = committedTime;
-//		isCommitted = true;
+		isCommitted = true;
 	}
 
 	public Date getCommittedTime() {
@@ -157,17 +153,10 @@ public class LighthouseEvent {
 
 	@Override
 	public String toString() {
-		if (getArtifact()!=null) {
-			return "LighthouseEvent [author=" + author + ", type=" + type
-			+ ", artifact=" + getArtifact().toString() + ", timestamp="
-			+ timestamp + "]";
-		} else {
-			String result = "LighthouseEvent [author="
-				+ author + ", type=" + type + ", timestamp=" + timestamp
-				+ "]";
-			logger.error("Artifact is NULL: " + result);
-			return result;
-		}
+		return "LighthouseEvent [author=" + author + ", committedTime="
+				+ committedTime + ", isCommitted=" + isCommitted
+				+ ", timestamp=" + timestamp + ", type=" + type
+				+ ", getArtifact()=" + getArtifact() + "]";
 	}
 
 	@Override
@@ -182,6 +171,8 @@ public class LighthouseEvent {
 		return result;
 	}
 
+	// TODO I removed the timestamp from the equals() because I had some
+	// problems to compare 2 EQUAL models that was generated in different times
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -215,55 +206,16 @@ public class LighthouseEvent {
 	}
 
 //	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((author == null) ? 0 : author.hashCode());
-//		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
-//		result = prime * result + (isCommitted ? 1231 : 1237);
-//		result = prime * result
-//				+ ((relationship == null) ? 0 : relationship.hashCode());
-//		result = prime * result + ((type == null) ? 0 : type.hashCode());
-//		return result;
+//	public int compareTo(LighthouseEvent evt) {
+//		if (this.equals(evt)){
+//			return 0;
+//		} else {
+//			int dateCompare = this.getTimestamp().compareTo(evt.getTimestamp());
+//			if (dateCompare == 0){
+//				return 1;
+//			}
+//		}
+//		return 1;
 //	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		LighthouseEvent other = (LighthouseEvent) obj;
-//		if (author == null) {
-//			if (other.author != null)
-//				return false;
-//		} else if (!author.equals(other.author))
-//			return false;
-//		if (entity == null) {
-//			if (other.entity != null)
-//				return false;
-//		} else if (!entity.equals(other.entity))
-//			return false;
-//		if (isCommitted != other.isCommitted)
-//			return false;
-//		if (relationship == null) {
-//			if (other.relationship != null)
-//				return false;
-//		} else if (!relationship.equals(other.relationship))
-//			return false;
-//		if (type == null) {
-//			if (other.type != null)
-//				return false;
-//		} else if (!type.equals(other.type))
-//			return false;
-//		return true;
-//	}
-	
-	//TODO I removed the timestamp from the equals() because I had some problems to compare 2 EQUAL models that was generated in different times
-
-
-	
 	
 }
