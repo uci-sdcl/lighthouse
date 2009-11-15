@@ -1,5 +1,8 @@
 package edu.uci.lighthouse.model;
 
+import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
+
+
 public class LighthouseFileManager {
 	
 	private LighthouseFile lighthouseFile;
@@ -23,8 +26,26 @@ public class LighthouseFileManager {
 		if (relationship == null) {
 			relationship = newRelationship;
 		}
+		handleEntitiesNotInsideClass(relationship);		
 		lighthouseFile.addRelationship(relationship);
 		return newRelationship;
+	}
+
+	/** Need this method for add ExternalClass and Modifiers in the LHBaseFile
+	 * because they have not Inside relationship */
+	private void handleEntitiesNotInsideClass(
+			LighthouseRelationship relationship) {
+		LighthouseEntity fromEntity = relationship.getFromEntity();
+		LighthouseEntity toEntity = relationship.getToEntity();
+		if (fromEntity instanceof LighthouseExternalClass) {
+			addEntity(fromEntity);
+		}
+		if (toEntity instanceof LighthouseExternalClass) {
+			addEntity(toEntity);
+		}
+		if (relationship.getType()==TYPE.MODIFIED_BY) {
+			addEntity(toEntity);
+		}
 	}
 	
 }

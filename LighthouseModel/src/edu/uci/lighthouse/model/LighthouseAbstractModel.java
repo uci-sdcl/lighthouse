@@ -113,17 +113,35 @@ public abstract class LighthouseAbstractModel {
 //	}
 	
 	/** */
-	public Collection<LighthouseRelationship> getRelationshipsFrom(LighthouseEntity e) {
+	public Collection<LighthouseRelationship> getRelationshipsFrom(LighthouseEntity entity) {
 		List<LighthouseRelationship> result = new LinkedList<LighthouseRelationship>();
+		// FIXME Use this code for optimization - relationships.get(entity.getFullyQualifiedName()).iterator();
 		for (Collection<LighthouseRelationship> list : relationships.values()) {			
-			for (LighthouseRelationship r : list) {			
-				if (r.getFromEntity().getFullyQualifiedName().compareTo(e.getFullyQualifiedName()) == 0)
-					result.add(r);			
+			for (LighthouseRelationship rel : list) {			
+				if (rel.getFromEntity().getFullyQualifiedName().compareTo(entity.getFullyQualifiedName()) == 0)
+					result.add(rel);			
+			}
+		}
+		return result;
+	}
+	
+	public Collection<LighthouseRelationship> getRelationshipsTo(LighthouseEntity entity) {
+		List<LighthouseRelationship> result = new LinkedList<LighthouseRelationship>();
+		// FIXME Use this code for optimization - relationships.get(entity.getFullyQualifiedName()).iterator();
+		for (Collection<LighthouseRelationship> list : relationships.values()) {
+			for (LighthouseRelationship rel : list) {			
+				if (rel.getToEntity().getFullyQualifiedName().compareTo(entity.getFullyQualifiedName()) == 0)
+					result.add(rel);			
 			}
 		}
 		return result;
 	}
 
+	public Collection<LighthouseRelationship> getRelationships(LighthouseEntity entity) {
+		// FIXME just return the TO relationship :(
+		return relationships.get(entity.getFullyQualifiedName());
+	}
+	
 //	public Collection<LighthouseRelationship> getRelationshipsTo(LighthouseEntity e) {
 //		List<LighthouseRelationship> result = new LinkedList<LighthouseRelationship>();
 //		Collection<LighthouseRelationship> list = relationships.get(e.getFullQualifiedName());
