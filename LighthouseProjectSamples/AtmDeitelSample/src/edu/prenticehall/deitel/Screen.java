@@ -11,6 +11,9 @@ public class Screen
 	int nardia2;
 	int nardia3;
 	
+	int nardia4;
+	
+	
 	// displays a message without a carriage return
    public void displayMessage( String message ) 
    {
