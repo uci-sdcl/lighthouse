@@ -155,61 +155,51 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			ICompilationUnit icu = (ICompilationUnit) delta.getElement();
 			IFile iFile = workspace.getRoot().getFile(icu.getPath());
-			
-			
-			
-			try {		
+
+			try {
+
 				boolean hasErrors = hasErrors(icu);
-			
 
 				if (!icu.exists()) {
-					if ("ModalContext".equals(Thread.currentThread().getName())) {
-						if (delta.getKind() == IJavaElementDelta.REMOVED) {
-							fireRemoved(iFile, hasErrors);
-						}
+					if (delta.getKind() == IJavaElementDelta.REMOVED) {
+						fireRemoved(iFile, hasErrors);
 					}
-				} else 
-				
-			if (icu.getChildren().length > 0 && !"ModalContext".equals(Thread.currentThread().getName())){
-				
-				
-				
-				if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
-					if (!openedFiles.contains(iFile)) {
-						fireOpen(iFile, hasErrors);
-						fireChange(iFile, hasErrors);
+				} else if (icu.getChildren().length > 0
+						&& !"ModalContext".equals(Thread.currentThread()
+								.getName())) {
+
+					if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
+						if (!openedFiles.contains(iFile)) {
+							fireOpen(iFile, hasErrors);
+							fireChange(iFile, hasErrors);
+							if (icu.isWorkingCopy()) {
+								openedFiles.add(iFile);
+							} else {
+								fireClose(iFile, hasErrors);
+							}
+						} else {
+							fireChange(iFile, hasErrors);
+						}
+					} else if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) != 0) {
 						if (icu.isWorkingCopy()) {
 							openedFiles.add(iFile);
+							fireOpen(iFile, hasErrors);
 						} else {
-							fireClose(iFile, hasErrors);
-						}
-					} else {
-						fireChange(iFile, hasErrors);
-					}
-				} else if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) != 0) {
-					if (icu.isWorkingCopy()) {
-						openedFiles.add(iFile);
-						fireOpen(iFile, hasErrors);
-					} else {
-						if (openedFiles.contains(iFile)) {
-						openedFiles.remove(iFile);
-						fireClose(iFile, hasErrors);
+							if (openedFiles.contains(iFile)) {
+								openedFiles.remove(iFile);
+								fireClose(iFile, hasErrors);
+							}
 						}
 					}
 				}
-			}
 			} catch (Exception e) {
 				logger.error(e);
-			} 
+			}
 		} else {
 			for (IJavaElementDelta child : delta.getAffectedChildren()) {
 				traverseDeltaTree(child);
 			}
 		}
-		
-//		if (delta.getKind() == IJavaElementDelta.REMOVED) {
-//			fireRemoved(iFile, hasErrors);
-//		}
 	}
 	
 
