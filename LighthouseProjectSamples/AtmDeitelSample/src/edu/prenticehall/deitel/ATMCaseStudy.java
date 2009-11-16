@@ -5,7 +5,7 @@ package edu.prenticehall.deitel;
 
 public class ATMCaseStudy
 {
-	
+	int a;
 	int outra1;
 	
 	
