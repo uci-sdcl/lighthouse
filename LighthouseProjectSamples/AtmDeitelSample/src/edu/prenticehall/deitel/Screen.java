@@ -8,6 +8,7 @@ import java.util.List;
 public class Screen
 {
 	int nardia;
+	int nardia2;
 	
 	// displays a message without a carriage return
    public void displayMessage( String message ) 
