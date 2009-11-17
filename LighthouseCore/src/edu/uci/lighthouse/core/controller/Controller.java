@@ -1,7 +1,9 @@
 package edu.uci.lighthouse.core.controller;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
@@ -13,14 +15,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osgi.framework.BundleContext;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
@@ -49,7 +47,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
 
 	// ....
-	private Queue<Map<IFile, ISVNInfo>> pendingWorkingCopyModifications = new LinkedList<Map<IFile, ISVNInfo>>();
+//	private Queue<Map<IFile, ISVNInfo>> pendingWorkingCopyModifications = new LinkedList<Map<IFile, ISVNInfo>>();
 
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
 
@@ -131,7 +129,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					.getNewEventsFromDB(lastDBAccess);
 			fireModificationsToUI(events);
 		}
-		lastDBAccess = new Date();
+		lastDBAccess = getTimestamp();
+		logger.debug("refreshing timeout: "+lastDBAccess);
 	}
 	
 	private void loadMap() {
@@ -221,16 +220,24 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		
 	}
 	
-	public synchronized void refreshModelBasedOnWorkingCopy() {
-		if (pendingWorkingCopyModifications.size() > 0) {
-			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
-					.poll();
-			mapClassFqnToLastRevisionTimestamp = getWorkingCopy(svnFiles);
-
-			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			pullModel
-					.executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
-		}
+//	public synchronized void refreshModelBasedOnWorkingCopy() {
+//		if (pendingWorkingCopyModifications.size() > 0) {
+//			Map<IFile, ISVNInfo> svnFiles = pendingWorkingCopyModifications
+//					.poll();
+//			mapClassFqnToLastRevisionTimestamp = getWorkingCopy(svnFiles);
+//
+//			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+//			pullModel
+//					.executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
+//		}
+//	}
+	
+	public synchronized void refreshModelBasedOnWorkingCopy(HashMap<String, Date> workingCopy) {
+		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+		List<LighthouseEvent> events = pullModel
+				.executeQueryAfterCheckout(workingCopy);
+		logger.debug("update events: " + events);
+		fireModificationsToUI(events);
 	}
 
 	@Override
@@ -333,7 +340,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
-		pendingWorkingCopyModifications.offer(svnFiles);
+//		pendingWorkingCopyModifications.offer(svnFiles);
 
 		// Debug purposes only
 		List<String> cNames = getClassesFullyQualifiedName(svnFiles);
@@ -353,10 +360,15 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]); 
 			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
 			
+			logger.debug("commit time: "+svnCommittedTime);
+			
 			pushModel.updateCommittedEvents(
-					getClassesFullyQualifiedName(svnFiles), svnCommittedTime, Activator
+					getClassesFullyQualifiedName(svnFiles), /*svnCommittedTime*/getTimestamp(), Activator
 							.getDefault().getAuthor().getName());
-
+			
+			
+			
+			
 			// Refresh is needed because, we need to cleanup the committed events
 			// Actually we need to call the refreshModelBasedOnWorkingCopy()
 			//refreshModelBasedOnLastDBAccess();
@@ -367,7 +379,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void update(Map<IFile, ISVNInfo> svnFiles) {
-		pendingWorkingCopyModifications.offer(svnFiles);
+//		pendingWorkingCopyModifications.offer(svnFiles);
+		
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);	
+		refreshModelBasedOnWorkingCopy(mapClassFqnToLastRevisionTimestamp); // change workingCopy
 
 		// FIXME: mudar base lighhousefile para arquivo com merge
 
@@ -404,26 +420,65 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	private String getClassFullyQualifiedName(IFile iFile) {
 		String result = null;
+
 		try {
-			ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
-			IType[] types = icu.getTypes();
-			for (IType iType : types) {
-				String fileNameWithoutExtension = iFile.getName().replaceAll(
-						".java", "");
-				String className = iType.getFullyQualifiedName().replaceAll(
-						"\\w+\\.", "");
-				if (fileNameWithoutExtension.equals(className)) {
-					// Java files should have at least one class with the same
-					// name of the file
-					result = iType.getFullyQualifiedName();
+			/*
+			 * When the Java file is out of sync with eclipse, get the fully
+			 * qualified name from ICompilationUnit doesn't work. So we decide to do
+			 * this manually, reading the file from the file system and parsing it.
+			 */
+//			BufferedReader d = new BufferedReader(new InputStreamReader(iFile
+//					.getContents()));
+			BufferedReader d = new BufferedReader(new InputStreamReader(new FileInputStream(iFile.getLocation().toOSString())));
+
+			while (d.ready()) {
+				String line = d.readLine();
+				if (line.contains("package")) {
+					String[] tokens = line.split("package\\s+|;");
+					for (String token : tokens) {
+						if (token.matches("[\\w\\.]+")) {
+							result = token;
+							break;
+						}
+					}
 					break;
 				}
 			}
+
+			/*
+			 * Java files should have at least one class with the same name of
+			 * the file
+			 */
+
+			String fileNameWithoutExtension = iFile.getName().replaceAll(
+					".java", "");
+			result += "."+fileNameWithoutExtension;			
 		} catch (Exception e) {
 			logger.error(e);
 		}
+
+
+		// try {
+		// ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
+		// IType[] types = icu.getTypes();
+		// for (IType iType : types) {
+		// String fileNameWithoutExtension = iFile.getName().replaceAll(
+		// ".java", "");
+		// String className = iType.getFullyQualifiedName().replaceAll(
+		// "\\w+\\.", "");
+		// if (fileNameWithoutExtension.equals(className)) {
+		// // Java files should have at least one class with the same
+		// // name of the file
+		// result = iType.getFullyQualifiedName();
+		// break;
+		// }
+		// }
+		// } catch (Exception e) {
+		// logger.error(e);
+		// }
 		return result;
 	}
+
 	
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		// We need hashmap to avoid repaint the UI multiple times
@@ -434,6 +489,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		for (LighthouseEvent event : events) {
 			Object artifact = event.getArtifact();
 
+			//TODO: comment more this method. It is confusing.
+			
 			// ADD creates a new class node in the view and populates it
 			// MODIFY just re-populates the class node
 			if (artifact instanceof LighthouseClass) {
@@ -480,11 +537,14 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				logger.error(e);
 			}
 		}
+	};
+	
+	public synchronized Date getTimestamp(){
+		return new Date();
 	}
 
 	@Override
 	public void removed(IFile iFile, boolean hasErrors) {
-		// TODO Auto-generated method stub
 		
 	}
 }
