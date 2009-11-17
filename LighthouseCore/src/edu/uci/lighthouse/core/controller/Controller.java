@@ -43,21 +43,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		IPluginListener, Runnable {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
-
 	private HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
-
-	// ....
 //	private Queue<Map<IFile, ISVNInfo>> pendingWorkingCopyModifications = new LinkedList<Map<IFile, ISVNInfo>>();
-
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
-
 	private List<String> classWithErrors = new LinkedList<String>();
-
 	private Date lastDBAccess = null;
-
 	private boolean threadRunning;
-
-	private final int threadTimeout = 30000;
+	private final int threadTimeout = 20000;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -125,14 +117,15 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		 */
 		if (mapClassFqnToLastRevisionTimestamp.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			List<LighthouseEvent> events = pullModel
-					.getNewEventsFromDB(lastDBAccess);
+			List<LighthouseEvent> events = pullModel.getNewEventsFromDB(lastDBAccess);
 			fireModificationsToUI(events);
 		}
+
 		lastDBAccess = getTimestamp();
 		logger.debug("refreshing timeout: "+lastDBAccess);
 	}
 	
+
 	private void loadMap() {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -359,7 +352,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			// assuming that there is just one committed time
 			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]); 
 			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
-			
+								
 			logger.debug("commit time: "+svnCommittedTime);
 			
 			pushModel.updateCommittedEvents(
@@ -369,6 +362,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			
 			
 			
+			logger.debug("commitTime[ "+ svnCommittedTime + " ]");
 			// Refresh is needed because, we need to cleanup the committed events
 			// Actually we need to call the refreshModelBasedOnWorkingCopy()
 			//refreshModelBasedOnLastDBAccess();
