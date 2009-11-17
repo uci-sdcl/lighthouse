@@ -32,7 +32,7 @@ public class LighthouseFileManager {
 	}
 
 	/** Need this method for add ExternalClass and Modifiers in the LHBaseFile
-	 * because they have not Inside relationship */
+	 * because they have not TYPE.INSIDE relationship */
 	private void handleEntitiesNotInsideClass(
 			LighthouseRelationship relationship) {
 		LighthouseEntity fromEntity = relationship.getFromEntity();
