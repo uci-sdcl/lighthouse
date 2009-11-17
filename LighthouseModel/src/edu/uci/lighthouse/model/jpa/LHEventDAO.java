@@ -2,6 +2,7 @@ package edu.uci.lighthouse.model.jpa;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	
 	public List<LighthouseEvent> executeQueryEntitiesAndTime(
 			Map<String, Date> parameters) {
+		List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
+		
 		String strQuery = "SELECT e " + "FROM LighthouseEvent e "
 				+ "WHERE ";
 		strQuery += " ( ";
@@ -69,9 +72,19 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			strQuery += "OR ";
 		}
 		
-		strQuery = strQuery.substring(0, strQuery.lastIndexOf("OR"));
-		strQuery += " )";
-		return executeDynamicQuery(strQuery);
+		int pos = strQuery.lastIndexOf("OR");
+		if (pos != -1){
+			strQuery = strQuery.substring(0, strQuery.lastIndexOf("OR"));
+			strQuery += " )";
+			List<LighthouseEvent> queryResult = executeDynamicQuery(strQuery);
+			result.addAll(queryResult);
+		}
+		
+//		strQuery = strQuery.substring(0, strQuery.lastIndexOf("OR"));
+//		strQuery += " )";
+//		return executeDynamicQuery(strQuery);
+
+		return result;
 	}
 	
 	public void updateCommittedEvents(List<String> listClazz, Date revisionTime, String authorName) throws JPAUtilityException {
