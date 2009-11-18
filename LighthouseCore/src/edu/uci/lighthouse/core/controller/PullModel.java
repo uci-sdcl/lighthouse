@@ -29,7 +29,6 @@ public class PullModel {
 		if (listEvents.size() > 0){
 			logger.debug("Updating model: "+listEvents);
 		}
-		// Update the model
 		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		for (LighthouseEvent event : listEvents) {
 			modelManager.addEvent(event);
@@ -45,10 +44,7 @@ public class PullModel {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("timestamp", lastDBaccessTime);
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
-		
-		// Update the model
 		updateLighthouseModel(listEvents);
-		
 		return listEvents;
 	}
 	
@@ -65,14 +61,9 @@ public class PullModel {
 				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
 			}
 		}
-		
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryEntitiesAndTime(mapEntityTime);
-		
-		// Update the model
 		updateLighthouseModel(listEvents);
-		
 		removeCommittedEvents(listEvents,mapEntityTime);
-		
 		return listEvents;
 	}
 	
@@ -89,13 +80,12 @@ public class PullModel {
 				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
 			}
 		}
-
 		List<LighthouseEvent> listEvents = new LHEventDAO().list();
-		// Update the model
+		if (listEvents.size()==0) {
+			logger.error("Empty model - try to modify the persistence.xml to update");	
+		}
 		updateLighthouseModel(listEvents);
-		
 		removeCommittedEvents(listEvents,mapEntityTime);
-		
 		return listEvents;
 	}
 	
