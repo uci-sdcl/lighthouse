@@ -1,7 +1,6 @@
 package edu.uci.lighthouse.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -96,9 +95,10 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		}
 	}
 	
-	public Collection<LighthouseEvent> getEvents(Object artifact){
-		Collection<LighthouseEvent> result = mapArtifactEvents.get(artifact);
-		return result != null ? result : new ArrayList<LighthouseEvent>();
+	/**I changed the return to LinkedHashSet to invoke the removeAll() - demo propose (svnUpdate)*/
+	public LinkedHashSet<LighthouseEvent> getEvents(Object artifact){
+		LinkedHashSet<LighthouseEvent> result = mapArtifactEvents.get(artifact);
+		return result != null ? result : new LinkedHashSet<LighthouseEvent>();
 	}
 	
 	public LinkedHashSet<LighthouseEvent> getListEvents() {

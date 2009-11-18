@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
@@ -55,6 +56,7 @@ public class LighthouseModelManager {
 			if (entityFrom!=null && entityTo!=null) {
 				newRelationship.setFromEntity(entityFrom);
 				newRelationship.setToEntity(entityTo);
+				// TODO handleEntitiesNotInsideClass(relationship);		
 				model.addRelationship(newRelationship);
 			} else {
 				logger.error("Trying to add an invalid relationship: " + relationship);
@@ -76,6 +78,23 @@ public class LighthouseModelManager {
 			logger.warn("Event Artifact is null: " + event.toString());
 		}
 		model.addEvent(event);
+	}
+	
+	/** Need this method for add ExternalClass and Modifiers in the LHBaseFile
+	 * because they have not TYPE.INSIDE relationship */
+	private void handleEntitiesNotInsideClass(
+			LighthouseRelationship relationship) {
+		LighthouseEntity fromEntity = relationship.getFromEntity();
+		LighthouseEntity toEntity = relationship.getToEntity();
+		if (fromEntity instanceof LighthouseExternalClass) {
+			addEntity(fromEntity);
+		}
+		if (toEntity instanceof LighthouseExternalClass) {
+			addEntity(toEntity);
+		}
+		if (relationship.getType()==TYPE.MODIFIED_BY) {
+			addEntity(toEntity);
+		}
 	}
 	
 	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database */
