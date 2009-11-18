@@ -6,28 +6,7 @@ import java.util.Scanner; // program uses Scanner to obtain user input
 
 public class Keypad
 {
-	int information;
-	
-	int sexta7;
-	
-	int t;
-	
-	int u;
-	
-	int v;
-	
-	int x;
-	
-	int max;
-	
-	int nil;
-	
    private Scanner input; // reads data from the command line
-   
-   int b;
-   
-   int home;
-   int c;
    
    // no-argument constructor initializes the Scanner
    public Keypad()

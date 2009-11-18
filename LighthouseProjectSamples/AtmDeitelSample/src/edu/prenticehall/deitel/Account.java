@@ -5,9 +5,6 @@ package edu.prenticehall.deitel;
 
 public class Account 
 {
-	int sexta2;
-	int sexta3;
-	
    private int accountNumber; // account number
    private int pin; // PIN for authentication
    private double availableBalance; // funds available for withdrawal

@@ -5,39 +5,6 @@ package edu.prenticehall.deitel;
 
 public class ATMCaseStudy
 {
-	int a;
-	int outra1;
-	
-	
-	int bosta;
-	int bosta2;
-	
-	int bosta3;
-	int bosta4;
-	
-	int bosta5;
-	int bosta6;
-	int bosta7;
-	
-	int bosta9;
-	
-	int bosta10;
-	
-	
-	int bosta11;
-	
-	int bosta12;
-	
-	int bosta13;
-	
-	int caralho;
-	
-	
-	
-	
-	int bosta14;
-	
-	
 	
    // main method creates and runs the ATM
    public static void main( String[] args )

@@ -5,8 +5,6 @@ package edu.prenticehall.deitel;
 
 public class BalanceInquiry extends Transaction
 {
-	int a;
-	
    // BalanceInquiry constructor
    public BalanceInquiry( int userAccountNumber, Screen atmScreen, 
       BankDatabase atmBankDatabase )
