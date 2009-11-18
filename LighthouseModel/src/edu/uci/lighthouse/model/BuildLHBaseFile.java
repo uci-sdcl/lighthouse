@@ -45,19 +45,20 @@ public class BuildLHBaseFile {
 						shouldAddEntity = false;
 						break;
 					}
-				} else { // if is NOT committed
-					// check if the author create a new entity in his own working copy after the revision time
-					if (event.getAuthor().equals(author)) {
-						if (revisionTime.before(event.getTimestamp())) {
-							if (event.getType() == TYPE.ADD) {
-								shouldAddEntity = true;
-							} else if (event.getType() == TYPE.REMOVE) {
-								shouldAddEntity = false;
-								break;
-							}
-						}
-					}
-				}
+				} 
+//				else { // if is NOT committed
+//					// check if the author create a new entity in his own working copy after the revision time
+//					if (event.getAuthor().equals(author)) {
+//						if (revisionTime.before(event.getTimestamp())) {
+//							if (event.getType() == TYPE.ADD) {
+//								shouldAddEntity = true;
+//							} else if (event.getType() == TYPE.REMOVE) {
+//								shouldAddEntity = false;
+//								break;
+//							}
+//						}
+//					}
+//				}
 			} // end-for-events
 			if (shouldAddEntity) {
 				fileManager.addEntity(entity);
@@ -75,19 +76,20 @@ public class BuildLHBaseFile {
 								shouldAddRel = false;
 								break;
 							}
-						} else { // if is NOT committed
-							// check if the author create a new entity in his own working copy after the revision time
-							if (event.getAuthor().equals(author)) {
-								if (revisionTime.before(event.getTimestamp())) {
-									if (event.getType() == TYPE.ADD) {
-										shouldAddEntity = true;
-									} else if (event.getType() == TYPE.REMOVE) {
-										shouldAddEntity = false;
-										break;
-									}
-								}
-							}
-						}
+						} 
+//						else { // if is NOT committed
+//							// check if the author create a new entity in his own working copy after the revision time
+//							if (event.getAuthor().equals(author)) {
+//								if (revisionTime.before(event.getTimestamp())) {
+//									if (event.getType() == TYPE.ADD) {
+//										shouldAddEntity = true;
+//									} else if (event.getType() == TYPE.REMOVE) {
+//										shouldAddEntity = false;
+//										break;
+//									}
+//								}
+//							}
+//						}
 					}
 					if (shouldAddRel) {
 						fileManager.addRelationship(relationship);
@@ -96,7 +98,9 @@ public class BuildLHBaseFile {
 				for (LighthouseRelationship relationship : listRelTo) {
 					boolean shouldAddRel = false;
 					if (!listEntitiesInside.contains(relationship.getFromEntity())) {
-						if (relationship.getType()==LighthouseRelationship.TYPE.CALL || relationship.getType()==LighthouseRelationship.TYPE.USES) {
+						if (	relationship.getType()==LighthouseRelationship.TYPE.CALL 
+								|| relationship.getType()==LighthouseRelationship.TYPE.USES
+								|| relationship.getType()==LighthouseRelationship.TYPE.HOLDS) {
 							shouldAddRel = false;
 							break;
 						}
@@ -110,19 +114,20 @@ public class BuildLHBaseFile {
 								shouldAddRel = false;
 								break;
 							}
-						} else { // if is NOT committed
-							// check if the author create a new entity in his own working copy after the revision time
-							if (event.getAuthor().equals(author)) {
-								if (revisionTime.before(event.getTimestamp())) {
-									if (event.getType() == TYPE.ADD) {
-										shouldAddEntity = true;
-									} else if (event.getType() == TYPE.REMOVE) {
-										shouldAddEntity = false;
-										break;
-									}
-								}
-							}
-						}
+						} 
+//						else { // if is NOT committed
+//							// check if the author create a new entity in his own working copy after the revision time
+//							if (event.getAuthor().equals(author)) {
+//								if (revisionTime.before(event.getTimestamp())) {
+//									if (event.getType() == TYPE.ADD) {
+//										shouldAddEntity = true;
+//									} else if (event.getType() == TYPE.REMOVE) {
+//										shouldAddEntity = false;
+//										break;
+//									}
+//								}
+//							}
+//						}
 					}
 					if (shouldAddRel) {
 						fileManager.addRelationship(relationship);
