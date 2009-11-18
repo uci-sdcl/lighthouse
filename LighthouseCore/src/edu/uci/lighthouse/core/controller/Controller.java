@@ -264,7 +264,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void update(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
 		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);	
-
 		
 		// FIXME REMOVER - este codigo eu soh fiz para o demo
 		
