@@ -50,7 +50,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private List<String> classWithErrors = new LinkedList<String>();
 	private Date lastDBAccess = null;
 	private boolean threadRunning;
-	private final int threadTimeout = 20000;
+	private final int threadTimeout = 5000;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -141,6 +141,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		final String classFqn = getClassFullyQualifiedName(iFile);
 		logger.debug("open "+classFqn);
 		if (hasErrors) {
+			Date revisionTime = mapClassFqnToLastRevisionTimestamp.get(classFqn);
+			LighthouseFile lhBaseFile = BuildLHBaseFile.execute(LighthouseModel.getInstance(), classFqn, revisionTime, Activator.getDefault().getAuthor());
+			classBaseVersion.put(classFqn,lhBaseFile);
 			classWithErrors.add(classFqn);
 		} else {
 			try {
@@ -194,11 +197,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					public void doAction() {
 						LighthouseFile lhBaseFile = classBaseVersion.get(classFqn);
 						if (lhBaseFile==null) {
-							// It is not working because I am removing the committed events
-							Date revisionTime = mapClassFqnToLastRevisionTimestamp.get(classFqn);
-							lhBaseFile = BuildLHBaseFile.execute(LighthouseModel.getInstance(), classFqn, revisionTime, Activator.getDefault().getAuthor());
+							// raise exception there is something wrong here
 						}
-						
 						LighthouseDelta delta = new LighthouseDelta(Activator
 								.getDefault().getAuthor(), lhBaseFile,
 								currentLhFile);
