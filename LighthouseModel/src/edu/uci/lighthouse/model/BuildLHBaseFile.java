@@ -17,7 +17,6 @@ public class BuildLHBaseFile {
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryLhBaseFile(listEntitiesInside,revisionTime,author);
 
 		for (LighthouseEvent event : listEvents) {
-			System.out.println(event);
 			if (event.getType()==LighthouseEvent.TYPE.ADD) {
 				if (!wasEventRemoved(listEvents,event)) {
 					Object artifact = event.getArtifact();
