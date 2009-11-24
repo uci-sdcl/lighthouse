@@ -47,5 +47,15 @@ public class LighthouseFileManager {
 			addEntity(toEntity);
 		}
 	}
+
+	public void addArtifact(Object artifact) {
+		if (artifact instanceof LighthouseEntity) {
+			LighthouseEntity entity = (LighthouseEntity) artifact;
+			addEntity(entity);
+		} else if (artifact instanceof LighthouseRelationship) {
+			LighthouseRelationship rel = (LighthouseRelationship) artifact;
+			addRelationship(rel);
+		}		
+	}
 	
 }
