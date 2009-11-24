@@ -43,7 +43,7 @@ public class JPAUtility {
 	 * @return {@link EntityManager} CRUD.
 	 * @throws {@link JPAUtilityException} handle JPA errors.
 	 */
-	public synchronized static EntityManager getEntityManager() {
+	public static EntityManager getEntityManager() {
 		if (entityManager == null || !entityManager.isOpen())
 			createEntityManager();
 		return entityManager;
@@ -52,7 +52,7 @@ public class JPAUtility {
 	/**
 	 * Begin transaction.
 	 */
-	public synchronized static void beginTransaction() {
+	public static void beginTransaction() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().begin();
 	}
@@ -69,7 +69,7 @@ public class JPAUtility {
 	/**
 	 * Shutdown on Entity Manager and Factory.
 	 */
-	public synchronized static void shutdownAndCloseFactory() {
+	public static void shutdownAndCloseFactory() {
 		shutdownEntityManager();
 		if (factoryEntityManager != null && factoryEntityManager.isOpen()) {
 			factoryEntityManager.close();
@@ -79,7 +79,7 @@ public class JPAUtility {
 	/**
 	 * Commit Transaction
 	 */
-	public synchronized static void commitTransaction() {
+	public static void commitTransaction() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().commit();
 	}
@@ -87,7 +87,7 @@ public class JPAUtility {
 	/**
 	 * Rollback Transaction.
 	 */
-	public synchronized static void rollbackTransaction() {
+	public static void rollbackTransaction() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().rollback();
 	}
@@ -95,7 +95,7 @@ public class JPAUtility {
 	/**
 	 * Flush on Entity Manager.
 	 */
-	public synchronized void flush() {
+	public void flush() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.flush();
 	}
@@ -103,7 +103,7 @@ public class JPAUtility {
 	/**
 	 * Clean entity manager.
 	 */
-	public synchronized void clear() {
+	public void clear() {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.clear();
 	}
