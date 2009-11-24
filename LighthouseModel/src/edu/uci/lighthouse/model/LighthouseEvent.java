@@ -59,7 +59,7 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 	
 	/** Type of the event. */
 	public static enum TYPE {
-		ADD, REMOVE, MODIFY, CUSTOM
+		ADD, REMOVE, MODIFY
 	}
 
 	private TYPE type;	
@@ -67,18 +67,12 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 	protected LighthouseEvent() {
 	}
 
-	public LighthouseEvent(TYPE type, LighthouseAuthor author, LighthouseEntity entity) {
+	public LighthouseEvent(TYPE type, LighthouseAuthor author, Object artifact) {
 		this.type = type;
 		this.author = author;
-		this.setArtifact(entity);
+		this.setArtifact(artifact);
 	}
 	
-	public LighthouseEvent(TYPE type, LighthouseAuthor author, LighthouseRelationship relationship) {
-		this.type = type;
-		this.author = author;
-		this.setArtifact(relationship);
-	}
-
 	protected void setId(Integer id) {
 		this.id = id;
 	}
