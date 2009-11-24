@@ -61,7 +61,7 @@ public class PullModel {
 				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
 			}
 		}
-		List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryEntitiesAndTime(mapEntityTime);
+		List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryCheckOut(mapEntityTime);
 		updateLighthouseModel(listEvents);
 		removeCommittedEvents(listEvents,mapEntityTime);
 		return listEvents;
