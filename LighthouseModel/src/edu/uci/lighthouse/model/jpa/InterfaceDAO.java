@@ -72,8 +72,4 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 */
 	public void remove(T entity) throws JPAUtilityException;
 	
-	public void flush();
-
-	public void clear();
-
 }

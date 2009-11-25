@@ -23,36 +23,20 @@ public class JPAUtility {
 	private static EntityManagerFactory factoryEntityManager;
 
 	/**
-	 * Entity Manager.
-	 */
-	private static EntityManager entityManager;
-
-	/**
 	 * Method that create EntityManager.
 	 */
-	private static void createEntityManager() {
-		if (factoryEntityManager == null || !factoryEntityManager.isOpen())
+	public static EntityManager createEntityManager() {
+		if (factoryEntityManager == null || !factoryEntityManager.isOpen()) {
 			factoryEntityManager = Persistence
-					.createEntityManagerFactory(PERSISTENCE_UNIT);
-		entityManager = factoryEntityManager.createEntityManager();
-	}
-
-	/**
-	 * Method that get the EntityManager.
-	 * 
-	 * @return {@link EntityManager} CRUD.
-	 * @throws {@link JPAUtilityException} handle JPA errors.
-	 */
-	public static EntityManager getEntityManager() {
-		if (entityManager == null || !entityManager.isOpen())
-			createEntityManager();
-		return entityManager;
+			.createEntityManagerFactory(PERSISTENCE_UNIT);
+		}
+		return factoryEntityManager.createEntityManager();
 	}
 
 	/**
 	 * Begin transaction.
 	 */
-	public static void beginTransaction() {
+	public static void beginTransaction(EntityManager entityManager) {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().begin();
 	}
@@ -60,7 +44,7 @@ public class JPAUtility {
 	/**
 	 * Shutdown on Entity Manager.
 	 */
-	private static void shutdownEntityManager() {
+	public static void closeEntityManager(EntityManager entityManager) {
 		if (entityManager != null && entityManager.isOpen()) {
 			entityManager.close();
 		}
@@ -69,8 +53,8 @@ public class JPAUtility {
 	/**
 	 * Shutdown on Entity Manager and Factory.
 	 */
-	public static void shutdownAndCloseFactory() {
-		shutdownEntityManager();
+	public static void shutdownAndCloseFactory(EntityManager entityManager) {
+		closeEntityManager(entityManager);
 		if (factoryEntityManager != null && factoryEntityManager.isOpen()) {
 			factoryEntityManager.close();
 		}
@@ -79,7 +63,7 @@ public class JPAUtility {
 	/**
 	 * Commit Transaction
 	 */
-	public static void commitTransaction() {
+	public static void commitTransaction(EntityManager entityManager) {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().commit();
 	}
@@ -87,7 +71,7 @@ public class JPAUtility {
 	/**
 	 * Rollback Transaction.
 	 */
-	public static void rollbackTransaction() {
+	public static void rollbackTransaction(EntityManager entityManager) {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.getTransaction().rollback();
 	}
@@ -95,7 +79,7 @@ public class JPAUtility {
 	/**
 	 * Flush on Entity Manager.
 	 */
-	public void flush() {
+	public void flush(EntityManager entityManager) {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.flush();
 	}
@@ -103,7 +87,7 @@ public class JPAUtility {
 	/**
 	 * Clean entity manager.
 	 */
-	public void clear() {
+	public void clear(EntityManager entityManager) {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.clear();
 	}

@@ -12,12 +12,12 @@ import edu.uci.lighthouse.model.LHRelationshipPK;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 
-public class LHRelationshipDAO extends AbstractDAO<LighthouseRelationship, LHRelationshipPK> {
+public class LHRelationshipDAO extends AbstractDAO<LighthouseRelationship, LHRelationshipPK> { 
 	
 	@SuppressWarnings("unchecked")
 	public List<LighthouseEntity> executeNamedQueryGetFromEntityFqn(String nameQuery,
 			Map<String, Object> parameters) {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
@@ -30,6 +30,7 @@ public class LHRelationshipDAO extends AbstractDAO<LighthouseRelationship, LHRel
 			}
 		}
 		List<LighthouseEntity> result = query.getResultList();
+		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
 	

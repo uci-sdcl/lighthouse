@@ -31,18 +31,18 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> list() {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		List<T> result = entityManager.createQuery(
 				"select entity from " + entityClass.getSimpleName() + " entity")
 				.getResultList();
-		entityManager.close();
+		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
  
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> executeNamedQuery(String nameQuery,
 			Map<String, Object> parameters) {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
@@ -55,13 +55,13 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			}
 		}
 		List<T> result = query.getResultList();
-		entityManager.close();
+		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> executeNamedQuery(String nameQuery, Object[] parameters) {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
 			int posicao = 1;
@@ -75,7 +75,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			}
 		}
 		List result = query.getResultList();
-		entityManager.close();
+		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
 
@@ -89,76 +89,62 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	 */
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> executeDynamicQuery(String strQuery) {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createQuery(strQuery);
 		List result = query.getResultList();
-		entityManager.close();
+		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
 	
 	public synchronized void executeUpdateQuery(String strQuery) throws JPAUtilityException {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		try {
 			Query query = entityManager.createQuery(strQuery);
-			JPAUtility.beginTransaction();
+			JPAUtility.beginTransaction(entityManager);
 			query.executeUpdate();
-			JPAUtility.commitTransaction();
+			JPAUtility.commitTransaction(entityManager);
 		}	catch (RuntimeException e) {
 			e.printStackTrace();
 			throw new JPAUtilityException("Error trying to execute update the entity: " + strQuery, e.fillInStackTrace());
 		}
-		entityManager.close();
+		JPAUtility.closeEntityManager(entityManager);
 	}
 	
 	public synchronized T get(PK pk) {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		T result = entityManager.find(entityClass, pk);
-		entityManager.close();
+		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
 
 	public synchronized T save(T entity) throws JPAUtilityException {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		T result;
 		try {
-			JPAUtility.beginTransaction();
+			JPAUtility.beginTransaction(entityManager);
 			result = entityManager.merge(entity);
-			JPAUtility.commitTransaction();
+			JPAUtility.commitTransaction(entityManager);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			throw new JPAUtilityException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
 		}
-		entityManager.close();
+		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
 
 	/* (non-Javadoc)
 	 */
 	public synchronized void remove(T entity) throws JPAUtilityException {
-		EntityManager entityManager = JPAUtility.getEntityManager();
+		EntityManager entityManager = JPAUtility.createEntityManager();
 		try {
-			JPAUtility.beginTransaction();
+			JPAUtility.beginTransaction(entityManager);
 			Object toRemove = entityManager.merge(entity);
 			entityManager.remove(toRemove);
-			JPAUtility.commitTransaction();
+			JPAUtility.commitTransaction(entityManager);
 		} catch (Exception e) {
 			throw new JPAUtilityException("Error trying to remove the entity: " + entity, e.fillInStackTrace());
 		}
-		entityManager.close();
-	}
-
-	/* (non-Javadoc)
-	 */
-	public synchronized void flush() {
-		EntityManager entityManager = JPAUtility.getEntityManager();
-		entityManager.flush();
-	}
-
-	/* (non-Javadoc)
-	 */
-	public synchronized void clear() {
-		EntityManager entityManager = JPAUtility.getEntityManager();
-		entityManager.clear();
+		JPAUtility.closeEntityManager(entityManager);
 	}
 	
 }
