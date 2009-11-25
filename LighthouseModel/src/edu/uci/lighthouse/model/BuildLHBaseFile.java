@@ -38,7 +38,9 @@ public class BuildLHBaseFile {
 		if (!listEntitiesInside.contains(rel.getFromEntity())) {
 			if (	rel.getType()==LighthouseRelationship.TYPE.CALL 
 					|| rel.getType()==LighthouseRelationship.TYPE.USES
-					|| rel.getType()==LighthouseRelationship.TYPE.HOLDS) {
+					|| rel.getType()==LighthouseRelationship.TYPE.HOLDS
+					|| rel.getType()==LighthouseRelationship.TYPE.RECEIVES
+					|| rel.getType()==LighthouseRelationship.TYPE.RETURN) {
 				result = false;
 			}
 		}
