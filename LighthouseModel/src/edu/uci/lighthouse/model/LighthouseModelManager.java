@@ -48,36 +48,12 @@ public class LighthouseModelManager {
 	
 	private LighthouseRelationship addRelationship(LighthouseRelationship newRelationship){
 		LighthouseRelationship relationship = model.getRelationship(newRelationship);
-		if (relationship!=null) {
-			return relationship; 
-		} else { // I need to keep the old instance of entities because of JPA integrity
-			LighthouseEntity entityFrom = model.getEntity(newRelationship.getFromEntity().getFullyQualifiedName());
-			LighthouseEntity entityTo = model.getEntity(newRelationship.getToEntity().getFullyQualifiedName());
-			if (entityFrom!=null && entityTo!=null) {
-				newRelationship.setFromEntity(entityFrom);
-				newRelationship.setToEntity(entityTo);
-				// TODO handleEntitiesNotInsideClass(relationship);		
-				model.addRelationship(newRelationship);
-			} else {
-				logger.error("Trying to add an invalid relationship: " + relationship);
-			}
-			return newRelationship;
+		if (relationship == null) {
+			relationship = newRelationship;
 		}
-	}
-	
-	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database*/
-	public void addEvent(LighthouseEvent event) {
-		Object artifact = event.getArtifact();
-		if (artifact instanceof LighthouseEntity) {
-			LighthouseEntity entity = addEntity((LighthouseEntity) artifact);
-			event.setArtifact(entity);
-		} else if (artifact instanceof LighthouseRelationship) {
-			LighthouseRelationship relationship = addRelationship((LighthouseRelationship) artifact);
-			event.setArtifact(relationship);
-		} else {
-			logger.warn("Event Artifact is null: " + event.toString());
-		}
-		model.addEvent(event);
+		handleEntitiesNotInsideClass(relationship);		
+		model.addRelationship(relationship);
+		return newRelationship;
 	}
 	
 	/** Need this method for add ExternalClass and Modifiers in the LHBaseFile
@@ -97,6 +73,24 @@ public class LighthouseModelManager {
 		}
 	}
 	
+	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database*/
+	public void addEvent(LighthouseEvent event) {
+		Object artifact = addArtifact(event.getArtifact());
+		event.setArtifact(artifact);
+		model.addEvent(event);
+	}
+	
+	public Object addArtifact(Object artifact) {
+		if (artifact instanceof LighthouseEntity) {
+			LighthouseEntity entity = addEntity((LighthouseEntity) artifact);
+			return entity;
+		} else if (artifact instanceof LighthouseRelationship) {
+			LighthouseRelationship relationship = addRelationship((LighthouseRelationship) artifact);
+			return relationship;
+		}
+		return null;
+	}
+	
 	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database */
 	public void removeEvent(LighthouseEvent event) {
 		model.removeEvent(event);
@@ -105,9 +99,6 @@ public class LighthouseModelManager {
 	public LighthouseEntity getEntity(String fqn) {
 		return model.getEntity(fqn);
 	}
-	
-	
-	// NOVO
 	
 	public void saveEventsIntoDatabase(LinkedHashSet<LighthouseEvent> listEvents) throws JPAUtilityException {
 		LHEventDAO dao = new LHEventDAO();
@@ -126,43 +117,43 @@ public class LighthouseModelManager {
 		return entity;
 	}
 	
-	public LinkedHashSet<LighthouseEntity> getEntitiesInsideClass(List<String> listClazzFqn) {
+	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(String fqnClazz) {
+		return selectEntitiesInsideClass(new LinkedHashSet<LighthouseEntity>(),fqnClazz);
+	}
+	
+	/**
+	 * Recursive method
+	 * @param listEntitiesInside should be a new LinkedHashSet()
+	 * */ 
+	private LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(LinkedHashSet<LighthouseEntity> listEntitiesInside, String fqnClazz) {
+		LighthouseClass clazz = new LighthouseClass(fqnClazz);
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
+		parameters.put("toEntity", clazz);
+		List<LighthouseEntity> subListEntitiesInside = new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
+		for (LighthouseEntity entity : subListEntitiesInside) {
+			if (entity instanceof LighthouseClass || entity instanceof LighthouseInterface) { // That is a Inner class
+				listEntitiesInside.addAll(selectEntitiesInsideClass(listEntitiesInside, entity.getFullyQualifiedName()));
+			}
+		}
+		listEntitiesInside.addAll(subListEntitiesInside);
+		LighthouseEntity entityClazz = getEntityFromDatabase(fqnClazz);
+		if (entityClazz instanceof LighthouseClass) {
+			listEntitiesInside.add(entityClazz);
+		}
+		return listEntitiesInside;
+	}
+	
+	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(List<String> listClazzFqn) {
 		LinkedHashSet<LighthouseEntity> listFromEntities = new LinkedHashSet<LighthouseEntity>();
 		for (String clazzFqn : listClazzFqn) {
-			listFromEntities.addAll(getEntitiesInsideClass(clazzFqn));			
+			listFromEntities.addAll(selectEntitiesInsideClass(clazzFqn));			
 		}
 		return listFromEntities;
 	}
 	
-	public  List<LighthouseEntity> getEntitiesInsideClass(String clazzFqn) {
-//		LighthouseEntity clazz = getEntity(clazzFqn);
-		
-		LighthouseClass entity = new LighthouseClass(clazzFqn);
-		
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
-		parameters.put("toEntity", entity);
-		return new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
-	}
-	
-	//
-//	public static LighthouseField addFieldInsideClass(LighthouseAbstractModel model, LighthouseClass aClass, String fieldShortName){
-//		String fieldFqn = aClass.getFullQualifiedName() + "." + fieldShortName;
-//		LighthouseField field = addField(model, fieldFqn);
-//		addRelationship(model,field,aClass,LighthouseRelationship.TYPE.INSIDE);
-//		return field;
-//	}
-//	
-//	public static LighthouseMethod addMethodInsideClass(LighthouseAbstractModel model, LighthouseClass aClass, String methodShortName){
-//		String methodFqn = aClass.getFullQualifiedName()+"."+methodShortName;
-//		LighthouseMethod method = addMethod(model, methodFqn);
-//		addRelationship(model, method, aClass, LighthouseRelationship.TYPE.INSIDE);
-//		return method;	
-//	}
-//	
-//	public static LighthouseRelationship addUsesRelationship(LighthouseAbstractModel model, LighthouseEntity from, LighthouseEntity to){
-//		return addRelationship(model,from,to,LighthouseRelationship.TYPE.USES);
-//	}
+
+	/*  PUT THOSE METHODS BELLOW IN THE LighthouseModelUtil.java */
 	
 	/**
 	 * Returns the associate class or <code>null</code> otherwise.
