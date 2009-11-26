@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -125,7 +124,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	public synchronized void refreshModelBasedOnWorkingCopy(HashMap<String, Date> workingCopy) {
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-		List<LighthouseEvent> events = pullModel
+		Collection<LighthouseEvent> events = pullModel
 				.executeQueryAfterCheckout(workingCopy);
 		fireModificationsToUI(events);
 	}
@@ -140,43 +139,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void open(final IFile iFile, boolean hasErrors) {
 		final String classFqn = getClassFullyQualifiedName(iFile);
 		logger.debug("open "+classFqn);
-		if (hasErrors) {
-			Date revisionTime = mapClassFqnToLastRevisionTimestamp.get(classFqn);
-			LighthouseFile lhBaseFile = BuildLHBaseFile.execute(LighthouseModel.getInstance(), classFqn, revisionTime, Activator.getDefault().getAuthor());
-			classBaseVersion.put(classFqn,lhBaseFile);
-			classWithErrors.add(classFqn);
-		} else {
-			try {
-				final LighthouseFile lhFile = new LighthouseFile();
-				LighthouseParser parser = new LighthouseParser();
-				parser.executeInAJob(lhFile, Collections.singleton(iFile),
-				new IParserAction() {
-					@Override
-					public void doAction() {
-						logger.debug("base: " + classFqn
-								+ " LHFile entities:"
-								+ lhFile.getEntities().size());
-						classBaseVersion.put(classFqn, lhFile);
-						// if it is a NEW class
-						if (LighthouseModel.getInstance().getEntity(classFqn) == null) {
-							// FIXME if it is the very first moment than MAYBE the model was not loaded yet
-							LighthouseDelta delta = new LighthouseDelta(Activator.getDefault().getAuthor(),null,lhFile);
-							PushModel pushModel = new PushModel(LighthouseModel
-									.getInstance());
-							try {
-								pushModel.updateModelFromDelta(delta);
-							} catch (Exception e) {
-								// TODO: Try to throw up this exception
-								logger.error(e);
-							}
-							fireModificationsToUI(delta.getEvents());
-						}
-					}
-				});
-			} catch (Exception e) {
-				logger.error(e);
-			}
-		}
+		Date revisionTime = mapClassFqnToLastRevisionTimestamp.get(classFqn);
+		LighthouseFile lhBaseFile = BuildLHBaseFile.execute(LighthouseModel.getInstance(), classFqn, revisionTime, Activator.getDefault().getAuthor());
+		classBaseVersion.put(classFqn,lhBaseFile);
 	}
 	
 	@Override
@@ -231,11 +196,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	
 	@Override
 	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
-		List<String> cNames = getClassesFullyQualifiedName(svnFiles);
-		logger.debug("checkout fqns:" + cNames);
-
-		// FIXME: Fire model events to show in the LH view
-		System.out.println("");
+		refreshModelBasedOnWorkingCopy(mapClassFqnToLastRevisionTimestamp);
 	}
 
 	@Override
@@ -247,9 +208,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			// assuming that there is just one committed time
 			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]); 
 			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
-								
-			//logger.debug("commit time: "+svnCommittedTime);
-			
 			pushModel.updateCommittedEvents(
 					getClassesFullyQualifiedName(svnFiles), /*svnCommittedTime*/getTimestamp(), Activator
 							.getDefault().getAuthor().getName());
@@ -262,24 +220,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void update(Map<IFile, ISVNInfo> svnFiles) {
-		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
-		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);	
-		
-		// FIXME REMOVER - este codigo eu soh fiz para o demo
-		
-		String fqnClazz = "";
-		for (String fqn : workingCopy.keySet()) {
-			fqnClazz = fqn;
-		}
-		LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance());
-		List<LighthouseEntity> listEntities = modelManager.getEntitiesInsideClass(fqnClazz);
-		for (LighthouseEntity entity : listEntities) {
-			LinkedHashSet<LighthouseEvent> listEvents = LighthouseModel.getInstance().getEvents(entity);
-			listEvents.removeAll(listEvents);
-		}
-		// FIXME: mudar base lighhousefile para arquivo com merge
-		// Acho que o change vai ser chamado automaticamente 
-		LighthouseModel.getInstance().fireModelChanged();		
 	}
 
 	private HashMap<String, Date> getWorkingCopy(
@@ -340,26 +280,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		} catch (Exception e) {
 			logger.error(e);
 		}
-		
-		// FIXME remove the following code
-		// try {
-		// ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
-		// IType[] types = icu.getTypes();
-		// for (IType iType : types) {
-		// String fileNameWithoutExtension = iFile.getName().replaceAll(
-		// ".java", "");
-		// String className = iType.getFullyQualifiedName().replaceAll(
-		// "\\w+\\.", "");
-		// if (fileNameWithoutExtension.equals(className)) {
-		// // Java files should have at least one class with the same
-		// // name of the file
-		// result = iType.getFullyQualifiedName();
-		// break;
-		// }
-		// }
-		// } catch (Exception e) {
-		// logger.error(e);
-		// }
 		return result;
 	}
 
@@ -423,14 +343,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void removed(IFile iFile, boolean hasErrors) {
-		
 	}
 	
 	/** FIXME: delete this later. just for demo purpose*/
 	private void loadMap() {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date committedDate = formatter.parse("2009-11-06 20:30:00");
+			Date committedDate = formatter.parse("2009-11-03 20:30:00");
 			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.Account", committedDate);
 			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.ATM", committedDate);
 			mapClassFqnToLastRevisionTimestamp.put("edu.prenticehall.deitel.ATMCaseStudy", committedDate);
