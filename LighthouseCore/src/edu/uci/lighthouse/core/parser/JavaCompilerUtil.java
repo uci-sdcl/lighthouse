@@ -21,44 +21,35 @@ public class JavaCompilerUtil {
 	
 	private static Logger logger = Logger.getLogger(JavaCompilerUtil.class);
 
+	@Deprecated
 	public static boolean hasErrors(ICompilationUnit icu){		
 		WorkingCopyProblemRequestor workingCopy = new WorkingCopyProblemRequestor();
 		try {
-//			ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
-//			logger.debug("ICU="+icu);
 			icu.getWorkingCopy(workingCopy, null);
-//			workingCopyIcu.reconcile(ICompilationUnit.NO_AST,true, null,null);
 		} catch (JavaModelException e) {
 			logger.error(e);
 		}
 		return workingCopy.hasProblems;
 	}
 	
-	public static boolean hasErrors(IFile iFile){		
-//		WorkingCopyProblemRequestor workingCopy = new WorkingCopyProblemRequestor();
-//		try {
-//			ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
-//			logger.debug("ICU="+icu);
-//			icu.getWorkingCopy(workingCopy, null);
-//		} catch (JavaModelException e) {
-//			logger.error(e);
-//		}
-//		return workingCopy.hasProblems;
-	    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-	    DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
-	    StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
-	    Iterable<? extends JavaFileObject> compilationUnits = fileManager
-	        .getJavaFileObjectsFromStrings(Arrays.asList(iFile.getLocation().toOSString()));
-	    JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, null,
-	        null, compilationUnits);
-	    boolean success = task.call();
-	    try {
+	public static boolean hasErrors(IFile iFile) {
+		boolean result = false;
+		try {
+			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+			DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
+			StandardJavaFileManager fileManager = compiler
+					.getStandardFileManager(diagnostics, null, null);
+			Iterable<? extends JavaFileObject> compilationUnits = fileManager
+					.getJavaFileObjectsFromStrings(Arrays.asList(iFile
+							.getLocation().toOSString()));
+			JavaCompiler.CompilationTask task = compiler.getTask(null,
+					fileManager, diagnostics, null, null, compilationUnits);
+			result = !task.call();
 			fileManager.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
 		}
-	    return !success;
+		return result;
 	}
 }
 
