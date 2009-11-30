@@ -6,6 +6,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
+
 /**
  * @author nilmax
  */
@@ -140,6 +142,20 @@ public abstract class LighthouseAbstractModel {
 	public Collection<LighthouseRelationship> getRelationships(LighthouseEntity entity) {
 		// FIXME just return the TO relationship :(
 		return relationships.get(entity.getFullyQualifiedName());
+	}
+	
+	public Collection<LighthouseRelationship> getRelationshipsTo(LighthouseEntity entity, TYPE type) {
+		List<LighthouseRelationship> result = new LinkedList<LighthouseRelationship>();
+		// FIXME Use this code for optimization - relationships.get(entity.getFullyQualifiedName()).iterator();
+		for (Collection<LighthouseRelationship> list : relationships.values()) {
+			for (LighthouseRelationship rel : list) {			
+				if (rel.getToEntity().getFullyQualifiedName().compareTo(entity.getFullyQualifiedName()) == 0)
+					if (rel.getType()==type) {
+						result.add(rel);
+					}
+			}
+		}
+		return result;
 	}
 	
 //	public Collection<LighthouseRelationship> getRelationshipsTo(LighthouseEntity e) {
