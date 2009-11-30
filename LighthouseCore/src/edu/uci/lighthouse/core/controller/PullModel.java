@@ -15,7 +15,6 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
 import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class PullModel {
@@ -52,11 +51,7 @@ public class PullModel {
 		return listEvents;
 	}
 	
-	public Collection<LighthouseEvent> loadModel(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
-		return executeQueryAfterCheckout(mapClassFqnToLastRevisionTimestamp);
-	}
-	
-	public Collection<LighthouseEvent> executeQueryAfterCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
+	public Collection<LighthouseEvent> executeQueryCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
 		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
 		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		LinkedHashSet<LighthouseEntity> listEntitiesInside = new LinkedHashSet<LighthouseEntity>();
@@ -113,24 +108,4 @@ public class PullModel {
 		return revisionTime;
 	}
 
-	public void removeCommittedEvents(List<LighthouseEvent> listEvents, HashMap<String,Date> mapEntityTime) {
-		// Remove Committed events (TYPE==ADD and committedTime before revisionTime) from the model
-		LighthouseModelManager modelManager = new LighthouseModelManager(model);
-		for (LighthouseEvent event : listEvents) {
-			Object artifact = event.getArtifact();
-			if (artifact instanceof LighthouseEntity) {
-				LighthouseEntity entity = (LighthouseEntity) artifact;
-				Date revisionTime = mapEntityTime.get(entity.getFullyQualifiedName());
-				if (revisionTime!=null) {
-					if (event.getType()==TYPE.ADD
-							&& event.isCommitted()
-							&& (revisionTime.after(event.getCommittedTime())
-									|| revisionTime.equals(event.getCommittedTime())) ) {
-						modelManager.removeEvent(event);
-					}
-				}
-			}
-		}
-	}
-	
 }
