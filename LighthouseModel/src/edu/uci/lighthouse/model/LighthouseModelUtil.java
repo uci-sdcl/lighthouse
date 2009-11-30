@@ -1,12 +1,15 @@
 package edu.uci.lighthouse.model;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
+
+import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 
 public class LighthouseModelUtil {
 
 	// used by BuildLHBaseFile and PullModel
-	public static boolean isValidRelationship(Object artifact, LinkedHashSet<LighthouseEntity> listEntitiesInside) {
+	public static boolean isValidRelationship(Object artifact, Collection<LighthouseEntity> listEntitiesInside) {
 		boolean result = true; 
 		LighthouseRelationship rel = (LighthouseRelationship) artifact;
 		if (!listEntitiesInside.contains(rel.getFromEntity())) {
@@ -34,6 +37,63 @@ public class LighthouseModelUtil {
 			}
 		}
 		return false;
+	}
+	
+	public static Collection<LighthouseEvent> getEventsInside(LighthouseModel model, Collection<String> listClazzFqn) {
+		Collection<LighthouseEntity> listEntity = getEntitiesInsideClasses(model, listClazzFqn);
+		Collection<LighthouseRelationship> listRel = getRelationships(model, listEntity);
+		LinkedHashSet<LighthouseEvent> listEvents = getEventsInside(model, listEntity, listRel);
+		return listEvents;
+	}
+
+	public static LinkedHashSet<LighthouseEvent> getEventsInside(
+			LighthouseModel model, Collection<LighthouseEntity> listEntity,
+			Collection<LighthouseRelationship> listRel) {
+		LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
+		for (LighthouseEntity entity : listEntity) {
+			listEvents.addAll(model.getEvents(entity));
+		}
+		for (LighthouseRelationship rel : listRel) {
+			listEvents.addAll(model.getEvents(rel));
+		}
+		return listEvents;
+	}
+
+	public static Collection<LighthouseRelationship> getRelationships(
+			LighthouseModel model, Collection<LighthouseEntity> listEntity) {
+		LinkedHashSet<LighthouseRelationship> listRel = new LinkedHashSet<LighthouseRelationship>();
+		for (LighthouseEntity entity : listEntity) {
+			for (LighthouseRelationship rel : model.getRelationshipsFrom(entity)) {
+				listRel.add(rel);
+			}
+			for (LighthouseRelationship rel : model.getRelationshipsTo(entity)) {
+				if (LighthouseModelUtil.isValidRelationship(rel, listEntity)) {
+					listRel.add(rel);
+				}
+			}
+		}
+		return listRel;
+	}
+
+	public static Collection<LighthouseEntity> getEntitiesInsideClasses(
+			LighthouseModel model, Collection<String> listClazzFqn) {
+		LinkedHashSet<LighthouseEntity> listEntity = new LinkedHashSet<LighthouseEntity>();
+		for (String clazzFqn : listClazzFqn) {
+			LighthouseEntity clazz = model.getEntity(clazzFqn);
+			listEntity.add(clazz);
+			listEntity.addAll(getEntitiesInsideClass(model, clazz));
+		}
+		return listEntity;
+	}
+			
+	private static LinkedHashSet<LighthouseEntity> getEntitiesInsideClass(LighthouseModel model, LighthouseEntity clazz) {
+		LinkedHashSet<LighthouseEntity> listEntity = new LinkedHashSet<LighthouseEntity>();
+		Collection<LighthouseRelationship> listRelInside = model.getRelationshipsTo(clazz,TYPE.INSIDE);
+		for (LighthouseRelationship rel : listRelInside) {
+			LighthouseEntity entity = rel.getFromEntity();
+			listEntity.add(entity);
+		}
+		return listEntity;
 	}
 	
 }
