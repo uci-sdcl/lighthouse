@@ -9,6 +9,7 @@ import java.util.Map;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
@@ -157,26 +158,32 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		}
 		return result;
 	}
-	
-	public void updateCommittedEvents(List<String> listClazz, Date revisionTime, String authorName) throws JPAUtilityException {
+
+	public void updateCommittedEvents(LinkedHashSet<LighthouseEvent> listEventsToCommitt, Date svnCommittedTime) throws JPAUtilityException {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String strRevisionTime = formatter.format(revisionTime);
+		String strCommittedTime = formatter.format(svnCommittedTime);
 		String command = 	"UPDATE LighthouseEvent e " +
 							"SET e.isCommitted = 1 , " +
-							"e.committedTime = '" + strRevisionTime + "' " +
-							"WHERE e.author.name = " + "'" + authorName + "'" + " " +
-							"AND e.isCommitted = 0 " +
-							"AND e.entity.fullyQualifiedName IN ( " +
-							"SELECT rel.primaryKey.from " +
-							"FROM LighthouseRelationship rel " +
-							"WHERE rel.primaryKey.type = 0 ";
-		command+= "AND ( ";
-		for (String fqnClazz : listClazz) {
-			command+= "rel.primaryKey.to = " + "'" + fqnClazz + "'";
+							"e.committedTime = '" + strCommittedTime + "' " +
+							"WHERE ";
+		command += " ( ";
+		for (LighthouseEvent event : listEventsToCommitt) {
+			Object artifact = event.getArtifact();
+			if (artifact instanceof LighthouseEntity) {
+				LighthouseEntity entity = (LighthouseEntity) artifact;
+				command += "e.entity.fullyQualifiedName = '" + entity.getFullyQualifiedName() + "' ";
+			} else if (artifact instanceof LighthouseRelationship) {
+				command += " ( ";
+				LighthouseRelationship rel = (LighthouseRelationship) artifact;
+				command+= "e.relationship.primaryKey.from = " + "'" + rel.getFromEntity().getFullyQualifiedName() + "' AND ";
+				command+= "e.relationship.primaryKey.to = " + "'" + rel.getToEntity().getFullyQualifiedName() + "' AND ";
+				command+= "e.relationship.primaryKey.type = " + "'" + rel.getType().ordinal() + "' ";
+				command += " )";
+			}
 			command+= " OR ";
 		}
 		command = command.substring(0, command.lastIndexOf("OR"));
-		command += " ) )";
+		command += " )";
 		executeUpdateQuery(command);
 	}
 	
