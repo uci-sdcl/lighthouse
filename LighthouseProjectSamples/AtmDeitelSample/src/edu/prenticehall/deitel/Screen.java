@@ -7,6 +7,9 @@ import java.util.List;
 
 public class Screen
 {
+	
+	int a;
+	
 	// displays a message without a carriage return
    public void displayMessage( String message ) 
    {
