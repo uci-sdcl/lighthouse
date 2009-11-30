@@ -91,11 +91,6 @@ public class LighthouseModelManager {
 		return null;
 	}
 	
-	/** Add <code>event</code> in the LighthouseModel, however do not add the event in the database */
-	public void removeEvent(LighthouseEvent event) {
-		model.removeEvent(event);
-	}
-	
 	public LighthouseEntity getEntity(String fqn) {
 		return model.getEntity(fqn);
 	}
@@ -122,6 +117,7 @@ public class LighthouseModelManager {
 	}
 	
 	/**
+	 * Going to the database to return the entities inside a class
 	 * Recursive method
 	 * @param listEntitiesInside should be a new LinkedHashSet()
 	 * */ 
@@ -152,6 +148,20 @@ public class LighthouseModelManager {
 		return listFromEntities;
 	}
 	
+	public void removeArtifactsAndEventsInside(Collection<String> listClazzFqn) {
+		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
+		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
+		LinkedHashSet<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(model, listEntity, listRel);
+		for (LighthouseEvent event : listEvents) {
+			model.removeEvent(event);
+		}
+		for (LighthouseRelationship rel : listRel) {
+			model.removeRelationship(rel);
+		}
+		for (LighthouseEntity entity : listEntity) {
+			model.removeEntity(entity);
+		}
+	}
 
 	/*  PUT THOSE METHODS BELLOW IN THE LighthouseModelUtil.java */
 	
@@ -245,5 +255,5 @@ public class LighthouseModelManager {
 		}
 		return false;
 	}
-	
+
 }
