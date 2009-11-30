@@ -25,10 +25,11 @@ public class LighthouseModelUtil {
 	public static boolean wasEventRemoved(List<LighthouseEvent> listEvents, LighthouseEvent paramEvent) {
 		for (LighthouseEvent event : listEvents) {
 			if (event.getArtifact().equals(paramEvent.getArtifact())) {
-				if (event.isCommitted()) {
-					if (event.getType() == LighthouseEvent.TYPE.REMOVE) {
-						return true;
-					}					
+				if (	event.isCommitted() &&
+						event.getType() == LighthouseEvent.TYPE.REMOVE && 
+						(	event.getCommittedTime().after(paramEvent.getCommittedTime()) ||
+							event.getCommittedTime().equals(paramEvent.getCommittedTime()) ) ) {
+					return true;
 				}
 			}
 		}
