@@ -6,6 +6,7 @@ package edu.prenticehall.deitel;
 public class Deposit extends Transaction
 {
 	int a;
+	int b;
 	
    private double amount; // amount to deposit
    private Keypad keypad; // reference to keypad
