@@ -82,8 +82,6 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		return result;
 	}
 	
-	
-
 	public List<LighthouseEvent> executeQueryLhBaseFile(
 			LinkedHashSet<LighthouseEntity> listCandidatesInsideEntities,
 			Date revisionTime, LighthouseAuthor author) {
