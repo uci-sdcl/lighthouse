@@ -7,6 +7,8 @@ import java.util.Scanner; // program uses Scanner to obtain user input
 public class Keypad
 {
 	int a;
+	int b;
+	int c;
 	
    private Scanner input; // reads data from the command line
    
