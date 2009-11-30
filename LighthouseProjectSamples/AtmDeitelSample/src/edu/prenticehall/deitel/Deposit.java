@@ -8,6 +8,7 @@ public class Deposit extends Transaction
 	int a;
 	int b;
 	int c;
+	int d;
 	
    private double amount; // amount to deposit
    private Keypad keypad; // reference to keypad
