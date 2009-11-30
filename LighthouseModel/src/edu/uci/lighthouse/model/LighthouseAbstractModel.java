@@ -23,6 +23,10 @@ public abstract class LighthouseAbstractModel {
 	final synchronized void addEntity(LighthouseEntity entity) {
 		entities.put(entity.getFullyQualifiedName(), entity);
 	}
+
+	final void removeEntity(LighthouseEntity entity) {
+		entities.remove(entity.getFullyQualifiedName());
+	}
 	
 	// only ModelManager is allowed to call this method
 	final synchronized void addRelationship(LighthouseRelationship rel) {
@@ -34,6 +38,14 @@ public abstract class LighthouseAbstractModel {
 			relationships.put(e.getFullyQualifiedName(), list);
 		}
 		list.add(rel);
+	}
+	
+	final void removeRelationship(LighthouseRelationship rel) {
+		LighthouseEntity entity = rel.getToEntity();
+		Collection<LighthouseRelationship> list = relationships.get(entity.getFullyQualifiedName());
+		if (list!=null) { 
+			list.remove(rel);
+		}
 	}
 
 	public boolean containsEntity(String fqn) {
