@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -23,7 +20,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
-import org.dom4j.DocumentException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osgi.framework.BundleContext;
@@ -48,7 +44,6 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.io.IPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		IPluginListener, Runnable {
@@ -187,6 +182,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				logger.error(e);
 			}
 			fireModificationsToUI(deltaEvents);
+			
+			mapClassFqnToLastRevisionTimestamp.put(classFqn, new Date(0));
 			
 //			try {
 //				final LighthouseFile lhFile = new LighthouseFile();
@@ -584,39 +581,39 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	}
 
-	/** FIXME: delete this later. just for demo purpose */
-	private void loadMap() {
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
-			Date committedDate = formatter.parse("2009-11-03 20:30:00");
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Account", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.ATM", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.ATMCaseStudy", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.BalanceInquiry", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.BankDatabase", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.CashDispenser", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Deposit", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.DepositSlot", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Keypad", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Screen", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Transaction", committedDate);
-			mapClassFqnToLastRevisionTimestamp.put(
-					"edu.prenticehall.deitel.Withdrawal", committedDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
+//	/** FIXME: delete this later. just for demo purpose */
+//	private void loadMap() {
+//		try {
+//			SimpleDateFormat formatter = new SimpleDateFormat(
+//					"yyyy-MM-dd HH:mm:ss");
+//			Date committedDate = formatter.parse("2009-11-03 20:30:00");
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.Account", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.ATM", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.ATMCaseStudy", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.BalanceInquiry", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.BankDatabase", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.CashDispenser", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.Deposit", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.DepositSlot", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.Keypad", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.Screen", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.Transaction", committedDate);
+//			mapClassFqnToLastRevisionTimestamp.put(
+//					"edu.prenticehall.deitel.Withdrawal", committedDate);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 }
