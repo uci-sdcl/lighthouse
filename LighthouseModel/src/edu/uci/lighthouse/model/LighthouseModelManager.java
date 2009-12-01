@@ -95,7 +95,7 @@ public class LighthouseModelManager {
 		return model.getEntity(fqn);
 	}
 	
-	public void saveEventsIntoDatabase(LinkedHashSet<LighthouseEvent> listEvents) throws JPAUtilityException {
+	public void saveEventsIntoDatabase(Collection<LighthouseEvent> listEvents) throws JPAUtilityException {
 		LHEventDAO dao = new LHEventDAO();
 		// The entity events need to come before the relationship events
 		// we could use to loops to handle that
@@ -112,6 +112,7 @@ public class LighthouseModelManager {
 		return entity;
 	}
 	
+	//TODO: Put select methods in another class (think later about that)
 	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(String fqnClazz) {
 		return selectEntitiesInsideClass(new LinkedHashSet<LighthouseEntity>(),fqnClazz);
 	}
@@ -165,6 +166,8 @@ public class LighthouseModelManager {
 
 	/*  PUT THOSE METHODS BELLOW IN THE LighthouseModelUtil.java */
 	
+	//TODO: Put methods MyClass, isStatic and other to another class.
+	
 	/**
 	 * Returns the associate class or <code>null</code> otherwise.
 	 * 
@@ -179,7 +182,7 @@ public class LighthouseModelManager {
 		} else if (e instanceof LighthouseField){
 			classFqn = e.getFullyQualifiedName().replaceAll("(\\.\\w+)\\z", "");
 		} else if (e instanceof LighthouseMethod){
-			classFqn = e.getFullyQualifiedName().replaceAll("\\.[\\<\\w]\\w+[\\>\\w]\\([,\\w\\.]*\\)","");
+			classFqn = e.getFullyQualifiedName().replaceAll("\\.[\\<\\w]*\\w+[\\>\\w]*\\(.*\\)","");
 		}
 		LighthouseEntity c = model.getEntity(classFqn);
 		if (c instanceof LighthouseClass){
