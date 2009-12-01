@@ -29,9 +29,13 @@ public class PushModel {
 	}
 	
 	public void updateModelFromDelta(LighthouseDelta delta) throws JPAUtilityException {   
+	    updateModelFromEvents(delta.getEvents());
+	}
+
+	public void updateModelFromEvents(Collection<LighthouseEvent> listEvents) throws JPAUtilityException {   
 	    LighthouseModelManager LhManager = new LighthouseModelManager(model);
 	    // for each entity event
-	    for (LighthouseEvent event : delta.getEvents()) {
+	    for (LighthouseEvent event : listEvents) {
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
 				logger.debug("updating: " + event.toString());
@@ -39,16 +43,16 @@ public class PushModel {
 			}			
 		}
 	    // for each relationship event
-	    for (LighthouseEvent event : delta.getEvents()) {
+	    for (LighthouseEvent event : listEvents) {
 			Object artifact = event.getArtifact();
 		    if (artifact instanceof LighthouseRelationship) {
 		    	logger.debug("updating: " + event.toString());
 		    	LhManager.addEvent(event);
 		    }
 	    }
-	    LhManager.saveEventsIntoDatabase(delta.getEvents());
+	    LhManager.saveEventsIntoDatabase(listEvents);
 	}
-
+	
 	public Collection<LighthouseEvent> updateCommittedEvents(List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author) throws JPAUtilityException {
 		Collection<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(model, listClazzFqn); 
 		LinkedHashSet<LighthouseEvent> listEventsToCommitt = new LinkedHashSet<LighthouseEvent>();

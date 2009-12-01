@@ -1,12 +1,6 @@
 package edu.uci.lighthouse.core.parser;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import org.apache.log4j.Logger;
@@ -34,21 +28,22 @@ public class JavaCompilerUtil {
 	
 	public static boolean hasErrors(IFile iFile) {
 		boolean result = false;
-		try {
+//		try {
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-			DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
-			StandardJavaFileManager fileManager = compiler
-					.getStandardFileManager(diagnostics, null, null);
-			Iterable<? extends JavaFileObject> compilationUnits = fileManager
-					.getJavaFileObjectsFromStrings(Arrays.asList(iFile
-							.getLocation().toOSString()));
-			JavaCompiler.CompilationTask task = compiler.getTask(null,
-					fileManager, diagnostics, null, null, compilationUnits);
-			result = !task.call();
-			fileManager.close();
-		} catch (IOException e) {
-			logger.error(e);
-		}
+//			DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
+//			StandardJavaFileManager fileManager = compiler
+//					.getStandardFileManager(diagnostics, null, null);
+//			Iterable<? extends JavaFileObject> compilationUnits = fileManager
+//					.getJavaFileObjectsFromStrings(Arrays.asList(iFile
+//							.getLocation().toOSString()));
+//				JavaCompiler.CompilationTask task = compiler.getTask(null,
+//					fileManager, diagnostics, null, null, compilationUnits);
+//			result = !task.call();
+//			fileManager.close();
+//		} catch (IOException e) {
+//			logger.error(e);
+//		}
+		result = compiler.run(null,System.out, null, iFile.getLocation().toOSString()) != 0;
 		return result;
 	}
 }

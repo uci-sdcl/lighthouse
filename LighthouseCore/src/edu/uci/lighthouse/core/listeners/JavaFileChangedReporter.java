@@ -14,11 +14,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaElementDelta;
-import org.eclipse.jdt.core.IProblemRequestor;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.WorkingCopyOwner;
-import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
@@ -26,6 +22,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.BundleContext;
+
+import edu.uci.lighthouse.core.parser.JavaCompilerUtil;
 
 public class JavaFileChangedReporter implements IElementChangedListener, IPluginListener{
 
@@ -40,7 +38,7 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 		JavaCore.addElementChangedListener(this,
 				ElementChangedEvent.POST_CHANGE);
 		logger.debug("Starting JavaFileChangedReporter");
-		findActiveOpenFileInWorkspace();
+		findActiveOpenFileInWorkspace(); //FIXME: find a way to load eclipse workbench first to guarantee the file will be found
 	}
 
 	@Override
@@ -59,9 +57,9 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 			if (editor != null) {
 				IFile file = (IFile) editor.getEditorInput().getAdapter(IFile.class);				
 				if (isJavaFile(file)){
-					ICompilationUnit icu = JavaCore.createCompilationUnitFrom(file);
+//					ICompilationUnit icu = JavaCore.createCompilationUnitFrom(file);
 					openedFiles.add(file);
-					fireOpen(file, hasErrors(icu));
+					fireOpen(file, JavaCompilerUtil.hasErrors(file));
 				}
 			}
 		}
@@ -76,9 +74,9 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 				try {
 					IFile file = (IFile) editor.getEditorInput().getAdapter(IFile.class);
 					if (isJavaFile(file)){
-						ICompilationUnit icu = JavaCore.createCompilationUnitFrom(file);
+//						ICompilationUnit icu = JavaCore.createCompilationUnitFrom(file);
 						openedFiles.add(file);
-						fireOpen(file, hasErrors(icu));
+						fireOpen(file, JavaCompilerUtil.hasErrors(file));
 					}
 				} catch (PartInitException e) {
 					logger.error(e);
@@ -100,55 +98,6 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 		logger.debug(delta);
 		traverseDeltaTree(delta);
 	}
-
-//	private void traverseDeltaTree(IJavaElementDelta delta) {
-//
-//		if (delta.getElement().getElementType() == IJavaElement.COMPILATION_UNIT) {
-//			IWorkspace workspace = ResourcesPlugin.getWorkspace();
-//			ICompilationUnit icu = (ICompilationUnit) delta.getElement();
-//			IFile iFile = workspace.getRoot().getFile(icu.getPath());
-//			try {
-//				boolean hasErrors = hasErrors(icu);
-//				if (!icu.exists()) {
-//					if ("ModalContext".equals(Thread.currentThread().getName())) {
-//						if (delta.getKind() == IJavaElementDelta.REMOVED) {
-//							fireRemoved(iFile, hasErrors);
-//						}
-//					}
-//				} else if (icu.getChildren().length > 0) {
-//					if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_RESOURCE) != 0) {
-//						if (!openedFiles.contains(iFile)) {
-//							fireOpen(iFile, hasErrors);
-//							fireChange(iFile, hasErrors);
-//							if (icu.isWorkingCopy()) {
-//								openedFiles.add(iFile);
-//							} else {
-//								fireClose(iFile, hasErrors);
-//							}
-//						} else {
-//							fireChange(iFile, hasErrors);
-//						}
-//					} else if ((delta.getFlags() & IJavaElementDelta.F_PRIMARY_WORKING_COPY) != 0) {
-//						if (icu.isWorkingCopy()) {
-//							openedFiles.add(iFile);
-//							fireOpen(iFile, hasErrors);
-//						} else {
-//							if (openedFiles.contains(iFile)) {
-//								openedFiles.remove(iFile);
-//								fireClose(iFile, hasErrors);
-//							}
-//						}
-//					}
-//				}
-//			} catch (Exception e) {
-//				logger.error(e);
-//			}
-//		} else {
-//			for (IJavaElementDelta child : delta.getAffectedChildren()) {
-//				traverseDeltaTree(child);
-//			}
-//		}
-//	}
 	
 	private void traverseDeltaTree(IJavaElementDelta delta) {
 		if (delta.getElement().getElementType() == IJavaElement.COMPILATION_UNIT) {
@@ -157,8 +106,7 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 			IFile iFile = workspace.getRoot().getFile(icu.getPath());
 
 			try {
-
-				boolean hasErrors = hasErrors(icu);
+				boolean hasErrors = JavaCompilerUtil.hasErrors(iFile);
 
 				if (!icu.exists()) {
 					if (delta.getKind() == IJavaElementDelta.REMOVED) {
@@ -202,22 +150,6 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 		}
 	}
 	
-
-	
-	// Comentar pq usar iFile e nao icu
-	private boolean hasErrors(ICompilationUnit icu){		
-		WorkingCopyProblemRequestor workingCopy = new WorkingCopyProblemRequestor();
-		try {
-//			ICompilationUnit icu = JavaCore.createCompilationUnitFrom(iFile);
-//			logger.debug("ICU="+icu);
-			icu.getWorkingCopy(workingCopy, null);
-//			workingCopyIcu.reconcile(ICompilationUnit.NO_AST,true, null,null);
-		} catch (JavaModelException e) {
-			logger.error(e);
-		}
-		return workingCopy.hasProblems;
-	}
-	
 	public void addJavaFileStatusListener(IJavaFileStatusListener listener){
 		listeners.add(listener);
 	}
@@ -253,35 +185,4 @@ public class JavaFileChangedReporter implements IElementChangedListener, IPlugin
 			listener.change(iFile, hasErrors);
 		}
 	}	
-	
-	class WorkingCopyProblemRequestor extends WorkingCopyOwner implements IProblemRequestor {
-		
-		boolean hasProblems = false;
-		
-		@Override
-		public void acceptProblem(IProblem problem) {
-			if (problem.isError()) {
-				hasProblems = true;
-			}
-		}
-		
-		@Override
-		public IProblemRequestor getProblemRequestor(
-				ICompilationUnit workingCopy) {
-			return this;
-		}
-
-		@Override
-		public void beginReporting() {
-		}
-
-		@Override
-		public void endReporting() {
-		}
-
-		@Override
-		public boolean isActive() {
-			return true;
-		}		
-	}
 }
