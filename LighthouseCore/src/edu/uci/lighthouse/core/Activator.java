@@ -55,9 +55,9 @@ public class Activator extends AbstractUIPlugin {
 		SVNEventReporter svnReporter = new SVNEventReporter();
 		svnReporter.addSVNEventListener(controller);
 		
+		listeners.add(controller);
 		listeners.add(jReporter);
 		listeners.add(svnReporter);
-		listeners.add(controller);
 	}
 
 	/*
