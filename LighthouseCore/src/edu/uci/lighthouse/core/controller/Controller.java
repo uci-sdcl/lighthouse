@@ -54,9 +54,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void start(BundleContext context) throws Exception {
 		loadPreferences();
-		loadMap(); // FIXME: delete this later. just for demo purpose
+		loadMap();
 		loadModel();
-		(new Thread(this)).start();
+		//(new Thread(this)).start();
 	}
 
 	@Override
@@ -122,17 +122,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 	}
 
-	public synchronized void refreshModelBasedOnWorkingCopy(HashMap<String, Date> workingCopy) {
-		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-		Collection<LighthouseEvent> events = pullModel
-				.executeQueryAfterCheckout(workingCopy);
-		fireModificationsToUI(events);
-	}
-	
 	private void loadModel() {
-		PullModel pullmodel = new PullModel(LighthouseModel.getInstance());
-		pullmodel.loadModel(mapClassFqnToLastRevisionTimestamp);
-		LighthouseModel.getInstance().fireModelChanged();		
+		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+		Collection<LighthouseEvent> events = pullModel.executeQueryCheckout(mapClassFqnToLastRevisionTimestamp);
+		fireModificationsToUI(events);		
 	}
 
 	@Override
@@ -195,31 +188,47 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	}
 	
 	@Override
+	public void removed(IFile iFile, boolean hasErrors) {
+	}
+	
+	@Override
 	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
-		refreshModelBasedOnWorkingCopy(mapClassFqnToLastRevisionTimestamp);
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+		Collection<LighthouseEvent> events = pullModel.executeQueryCheckout(workingCopy);
+		fireModificationsToUI(events);
 	}
 
+	@Override
+	public void update(Map<IFile, ISVNInfo> svnFiles) {
+		// setar a lista de arquivos que foram dados updates
+		// o metodo change vai ser chamado, dai eu nao quero gerar delta
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		LighthouseModel model = LighthouseModel.getInstance();
+		LighthouseModelManager modelManager = new LighthouseModelManager(model); 
+		modelManager.removeArtifactsAndEventsInside(workingCopy.keySet());
+		checkout(svnFiles);
+		// I need to "re-paint" the relationships that point to this incoming class
+		LighthouseModel.getInstance().fireModelChanged();
+		
+	}
+	
 	@Override
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
 		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
 		try {
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance()); 
-			// assuming that there is just one committed time
-			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]); 
-			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
-			pushModel.updateCommittedEvents(
-					getClassesFullyQualifiedName(svnFiles), /*svnCommittedTime*/getTimestamp(), Activator
-							.getDefault().getAuthor().getName());
-			
+			Date svnCommittedTime = getTimestamp();
+			Collection<LighthouseEvent> listEvents = pushModel.updateCommittedEvents( 
+														getClassesFullyQualifiedName(svnFiles), 
+														svnCommittedTime,
+														Activator.getDefault().getAuthor());
+			fireModificationsToUI(listEvents);
 			logger.debug("commitTime[ "+ svnCommittedTime + " ]");
 		} catch (Exception e) {
 			logger.error(e);
 		}
-	}
-
-	@Override
-	public void update(Map<IFile, ISVNInfo> svnFiles) {
 	}
 
 	private HashMap<String, Date> getWorkingCopy(
@@ -282,7 +291,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 		return result;
 	}
-
 	
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		// We need hashmap to avoid repaint the UI multiple times
@@ -337,14 +345,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 	};
 	
-	public synchronized Date getTimestamp(){
+	private synchronized Date getTimestamp(){
 		return new Date();
 	}
 
-	@Override
-	public void removed(IFile iFile, boolean hasErrors) {
-	}
-	
 	/** FIXME: delete this later. just for demo purpose*/
 	private void loadMap() {
 		try {
