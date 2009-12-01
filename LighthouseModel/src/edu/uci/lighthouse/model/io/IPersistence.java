@@ -12,8 +12,8 @@ public interface IPersistence {
 	
 	public void save(String fileName) throws IOException;
 	
-	public void load() throws DocumentException, JPAUtilityException;
+	public void load() throws DocumentException;
 	
-	public void load(String fileName) throws DocumentException, JPAUtilityException;
+	public void load(String fileName) throws DocumentException;
 	
 }

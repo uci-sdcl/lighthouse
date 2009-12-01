@@ -13,9 +13,11 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
+import edu.uci.lighthouse.model.LighthouseRelationship;
 
 public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implements IPersistence {
 
@@ -42,9 +44,17 @@ public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implem
 	}
 
 	private void writeModel(Element root) {
-		Element entities = root.addElement("events");
+		Element eleEntities = root.addElement("entities");
+		for (LighthouseEntity entity : model.getEntities()) {
+			writeEntity(entity, eleEntities);
+		}
+		Element eleRelationships = root.addElement("relationships");
+		for (LighthouseRelationship relationship : model.getRelationships()) {
+			writeRelationship(relationship, eleRelationships);
+		}
+		Element eleEvents = root.addElement("events");
 		for (LighthouseEvent event : model.getListEvents()) {
-			writeEvent(event, entities);
+			writeEvent(event, eleEvents);
 		}
 	}
 	
@@ -58,12 +68,24 @@ public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implem
 	public void load(String fileName) throws DocumentException {
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(new File(fileName));
-		loadModel(document.getRootElement());
+		readModel(document.getRootElement());
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void loadModel(Element root) {
+	private void readModel(Element root) {
 		Element elements;
+		elements = root.element("entities");
+		for (Iterator i = elements.elementIterator(); i.hasNext();) {
+			Element entity = (Element) i.next();
+			LighthouseEntity e = readEntity(entity);
+			new LighthouseModelManager(model).addArtifact(e);
+		}
+		elements = root.element("relationships");
+		for (Iterator i = elements.elementIterator(); i.hasNext();) {
+			Element relationship = (Element) i.next();
+			LighthouseRelationship r = readRelationship(relationship);
+			new LighthouseModelManager(model).addArtifact(r);
+		}
 		elements = root.element("events");
 		for (Iterator i = elements.elementIterator(); i.hasNext();) {
 			Element element = (Element) i.next();
