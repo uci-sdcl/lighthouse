@@ -160,4 +160,8 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		}
 	}
 	
+	public boolean isEmpty(){
+		return listEvents.size() == 0;
+	}
+	
 }
