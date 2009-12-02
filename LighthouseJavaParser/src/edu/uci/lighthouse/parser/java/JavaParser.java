@@ -27,6 +27,7 @@ public class JavaParser implements IParser {
 
 	@Override
 	public void parse(Collection<IFile> files) throws ParserException {
+		SourcererOutput.getInstance().clear();
 		FeatureExtractor extractor = getFeatureExtractor();
 		extractor.extractSourceFiles(files);
 	}

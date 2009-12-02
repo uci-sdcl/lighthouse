@@ -2,7 +2,10 @@ package edu.uci.lighthouse.parser.java;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Set;
 
+import edu.uci.ics.sourcerer.model.Modifier;
 import edu.uci.lighthouse.parser.ParserEntity;
 import edu.uci.lighthouse.parser.ParserRelationship;
 import edu.uci.lighthouse.parser.ParserEntity.EntityType;
@@ -27,7 +30,7 @@ public class SourcererOutput {
 	}
 
 	public void addEntity(String fqn, int modifiers, EntityType entityType) {
-		ParserEntity entity = new ParserEntity(fqn, modifiers, entityType);
+		ParserEntity entity = new ParserEntity(fqn, getModifiers(modifiers), entityType);
 		entities.add(entity);
 	}
 
@@ -45,4 +48,22 @@ public class SourcererOutput {
 		return relationships;
 	}
 
+	/**
+	 * before populate this, we need to clean the list of entities and
+	 * relationships because this is a singleton instance
+	 */
+	public void clear() {
+		entities.clear();
+		relationships.clear();
+	}
+
+	private Collection<String> getModifiers(int modifiers) {
+		Collection<String> resultList = new LinkedList<String>();
+		Set<Modifier> setModifiers = Modifier.convertFromInt(modifiers);
+		for (Modifier utilModifier : setModifiers) {
+			resultList.add(utilModifier.toString());
+		}
+		return resultList;
+	}
+		
 }
