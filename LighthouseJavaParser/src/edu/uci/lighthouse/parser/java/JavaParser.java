@@ -4,41 +4,46 @@ import java.util.Collection;
 
 import org.eclipse.core.resources.IFile;
 
+import edu.uci.ics.sourcerer.extractor.ast.FeatureExtractor;
+import edu.uci.ics.sourcerer.util.io.Logging;
+import edu.uci.ics.sourcerer.util.io.Property;
+import edu.uci.ics.sourcerer.util.io.PropertyManager;
 import edu.uci.lighthouse.parser.IParser;
-import edu.uci.lighthouse.parser.ParserException;
 import edu.uci.lighthouse.parser.ParserEntity;
+import edu.uci.lighthouse.parser.ParserException;
 import edu.uci.lighthouse.parser.ParserRelationship;
 
 public class JavaParser implements IParser {
 
 	@Override
 	public Collection<ParserEntity> getEntities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<IFile> getFiles() {
-		// TODO Auto-generated method stub
-		return null;
+		return SourcererOutput.getInstance().getEntities();
 	}
 
 	@Override
 	public Collection<ParserRelationship> getRelationships() {
-		// TODO Auto-generated method stub
-		return null;
+		return SourcererOutput.getInstance().getRelationships();
 	}
 
 	@Override
-	public void parse() throws ParserException {
-		// TODO Auto-generated method stub
-		
+	public void parse(Collection<IFile> files) throws ParserException {
+		FeatureExtractor extractor = getFeatureExtractor();
+		extractor.extractSourceFiles(files);
 	}
 
-	@Override
-	public void setFiles(Collection<IFile> files) {
-		// TODO Auto-generated method stub
-		
+	private FeatureExtractor getFeatureExtractor() {
+		PropertyManager properties = PropertyManager.getProperties(null);
+		properties.setProperty(Property.ENTITY_WRITER, SourcererEntityWriter.class.getName());
+ 	    properties.setProperty(Property.RELATION_WRITER, SourcererRelationshipWriter.class.getName());
+ 	    
+ 	    String outputPath = "sourcerer.txt";
+ 	    properties.setProperty(Property.OUTPUT, outputPath);
+ 	    
+ 	    FeatureExtractor extractor = new FeatureExtractor();
+ 	    Logging.initializeLogger();		
+		extractor.setOutput(properties);
+ 	    
+		return extractor;
 	}
-
+	
 }
