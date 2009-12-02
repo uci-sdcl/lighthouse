@@ -10,7 +10,7 @@ public interface IParser {
 	
 	public Collection<IFile> getFiles();
 	
-	public void parse() throws ParseException;
+	public void parse() throws ParserException;
 	
 	public Collection<ParserEntity> getEntities();
 	
