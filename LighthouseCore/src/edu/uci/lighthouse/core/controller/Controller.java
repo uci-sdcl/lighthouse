@@ -54,6 +54,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
 	private Set<IFile> classWithErrors = new LinkedHashSet<IFile>();
+//	private Collection<IFile> ignoredFiles = new LinkedHashSet<IFile>(); // Used in update and checkout methods
 	private Date lastDBAccess = null;
 	private boolean threadRunning;
 	private final int threadTimeout = 5000;
@@ -166,74 +167,37 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		/* This code works, however is not optimized. See the other block below. */
 
 		final String classFqn = getClassFullyQualifiedName(iFile);
-		logger.debug("open " + classFqn);
+//		logger.debug("open " + classFqn);
 
-		if (hasErrors) {
-			classWithErrors.add(iFile);
-		}
+//		if (hasErrors) {
+//			classWithErrors.add(iFile);
+//		}
 
 		// if it is a NEW class
-		if (LighthouseModel.getInstance().getEntity(classFqn) == null) {
-			Collection<LighthouseEvent> deltaEvents = foo(Collections.singleton(iFile));
-			PushModel pushModel = new PushModel(
-					LighthouseModel.getInstance());
-			try {
-				pushModel.updateModelFromEvents(deltaEvents);
-			} catch (Exception e) {
-				// TODO: Try to throw up this exception
-				logger.error(e);
-			}
-			fireModificationsToUI(deltaEvents);
-			
-			mapClassFqnToLastRevisionTimestamp.put(classFqn, new Date(0));
-			
+//		if (LighthouseModel.getInstance().getEntity(classFqn) == null) {
+//			Collection<LighthouseEvent> deltaEvents = foo(Collections.singleton(iFile));
+//			PushModel pushModel = new PushModel(
+//					LighthouseModel.getInstance());
 //			try {
-//				final LighthouseFile lhFile = new LighthouseFile();
-//				LighthouseParser parser = new LighthouseParser();
-//				parser.executeInAJob(lhFile, Collections.singleton(iFile),
-//						new IParserAction() {
-//							@Override
-//							public void doAction() {
-//								logger.debug("base: " + classFqn
-//										+ " LHFile entities:"
-//										+ lhFile.getEntities().size());
-//								classBaseVersion.put(classFqn, lhFile);
-//
-//								LighthouseDelta delta = new LighthouseDelta(
-//										Activator.getDefault().getAuthor(),
-//										null, lhFile);
-//								PushModel pushModel = new PushModel(
-//										LighthouseModel.getInstance());
-//								try {
-//									pushModel.updateModelFromDelta(delta);
-//								} catch (Exception e) {
-//									// TODO: Try to throw up this exception
-//									logger.error(e);
-//								}
-//								fireModificationsToUI(delta.getEvents());
-//
-//							}
-//						});
+//				pushModel.updateModelFromEvents(deltaEvents);
 //			} catch (Exception e) {
+//				// TODO: Try to throw up this exception
 //				logger.error(e);
 //			}
-		} else {
+//			fireModificationsToUI(deltaEvents);
+//			
+//			mapClassFqnToLastRevisionTimestamp.put(classFqn, new Date(0));
+//		} else {
 			Thread task = new Thread() {
 				@Override
 				public void run() {
-					Date revisionTime = mapClassFqnToLastRevisionTimestamp
-							.get(classFqn);
-					if (revisionTime != null) {
-						LighthouseFile lhBaseFile = BuildLHBaseFile.execute(
-								LighthouseModel.getInstance(), classFqn,
-								revisionTime, Activator.getDefault()
-										.getAuthor());
-						classBaseVersion.put(classFqn, lhBaseFile);
-					}
+			//Removed the thread because the unopened files. When you try to guarantee the lifecycle (open,change,close) the base version can not
+					LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
+					classBaseVersion.put(classFqn, lhBaseFile);
 				}
 			};
 			task.start();
-		}
+//		}
 		
 		/* The code below is working. However we need to guarantee that the open event is ALWAYS fired for files that are open in the workspace whe eclipse is loading.*/
 		
@@ -281,33 +245,51 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 //		}
 	}
 
+	public LighthouseFile getBaseVersionFromDB(String classFullyQualifiedName) {
+		LighthouseFile result = null;
+		Date revisionTime = mapClassFqnToLastRevisionTimestamp.get(classFullyQualifiedName);
+		if (revisionTime != null) {
+			result = BuildLHBaseFile.execute(LighthouseModel.getInstance(),
+					classFullyQualifiedName, revisionTime, Activator.getDefault().getAuthor());
+		}
+		return result;
+	}
+
 	@Override
 	public void change(final IFile iFile, boolean hasErrors) {
 		// verify if any of the classWithErrors still have errors
 		// than parse the files that does not have errors anymore
 		// and remove the classes from the list classWithErrors
 		
-		if (hasErrors) {
-			classWithErrors.add(iFile);
-		} else {
-			// Remove iFile from the list if it exists, since hasErrors = false
-			classWithErrors.remove(iFile);
-			Collection<IFile> filesWithoutErrors = getFilesWithoutErrors(classWithErrors);
-			classWithErrors.remove(filesWithoutErrors);
+		if (!hasErrors) {
+//			classWithErrors.add(iFile);
+//		} else {
 			
-			Collection<LighthouseEvent> deltaEvents = new LinkedList<LighthouseEvent>(); 
-			deltaEvents.addAll(foo(Collections.singleton(iFile)));
-			deltaEvents.addAll(foo(filesWithoutErrors));
-			
-			PushModel pushModel = new PushModel(LighthouseModel
-					.getInstance());
-			try {
-				pushModel.updateModelFromEvents(deltaEvents);
-			} catch (Exception e) {
-				logger.error(e);
-			}
-			
-			fireModificationsToUI(deltaEvents);
+//			if(ignoredFiles.contains(iFile)){
+//				ignoredFiles.remove(iFile);
+//			} else {	
+				// Remove iFile from the list if it exists, since hasErrors = false
+//				classWithErrors.remove(iFile);
+//				Collection<IFile> filesWithoutErrors = getFilesWithoutErrors(classWithErrors);
+//				classWithErrors.removeAll(filesWithoutErrors);
+				
+//				Collection<LighthouseEvent> deltaEvents = new LinkedList<LighthouseEvent>(); 
+//				deltaEvents.addAll(generateDeltaFromBaseVersion(Collections.singleton(iFile)));
+//				deltaEvents.addAll(generateDeltaFromBaseVersion(filesWithoutErrors));
+			//////
+				Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections.singleton(iFile));
+				
+				// TODO: Think about DB operations in a thread
+				PushModel pushModel = new PushModel(LighthouseModel
+						.getInstance());
+				try {
+					pushModel.updateModelFromEvents(deltaEvents);
+				} catch (Exception e) {
+					logger.error(e);
+				}
+				fireModificationsToUI(deltaEvents);
+				
+//			}
 			
 //			final LinkedHashSet<LighthouseEvent> deltaEvents = new LinkedHashSet<LighthouseEvent>(); 
 //			
@@ -368,32 +350,43 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		return result;
 	}
 	
-	private Collection<LighthouseEvent> foo(Collection<IFile> files) {
+	private Collection<LighthouseEvent> generateDeltaFromBaseVersion(Collection<IFile> files) {
+		return generateDeltaFromBaseVersion(files,false);
+	}
+	
+	private Collection<LighthouseEvent> generateDeltaFromBaseVersion(Collection<IFile> files, boolean force) {
 		final List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
 
 		// Use iterator to be able to remove the IFile in the loop
 		for (IFile file : files) {
 			final String classFqn = getClassFullyQualifiedName(file);
-			try {
-				final LighthouseParser parser = new LighthouseParser();
-				parser.executeInAJob(Collections.singleton(file),
-						new IParserAction() {
-							@Override
-							public void doAction() {
-								LighthouseFile currentLhFile = new LighthouseFile();
-								new LighthouseFileManager(currentLhFile).buildLHFile(parser.getListEntities(), parser.getListRelationships());
-								LighthouseFile lhBaseFile = classBaseVersion.get(classFqn);
-								LighthouseDelta delta = new LighthouseDelta(
-										Activator.getDefault().getAuthor(),
-										lhBaseFile, currentLhFile);
-								classBaseVersion.put(classFqn, currentLhFile);
-								result.addAll(delta.getEvents());
-							}
-						});
-			} catch (ParserException e) {
-				logger.error(e);
+			final LighthouseFile lhBaseFile = classBaseVersion.get(classFqn);
+			if (force || lhBaseFile != null) {
+				try {
+					final LighthouseParser parser = new LighthouseParser();
+					parser.executeInAJob(Collections.singleton(file),
+							new IParserAction() {
+								@Override
+								public void doAction() {
+									LighthouseFile currentLhFile = new LighthouseFile();
+									new LighthouseFileManager(currentLhFile)
+											.buildLHFile(parser
+													.getListEntities(), parser
+													.getListRelationships());
+									LighthouseFile lhBaseFile = classBaseVersion
+											.get(classFqn);
+									LighthouseDelta delta = new LighthouseDelta(
+											Activator.getDefault().getAuthor(),
+											lhBaseFile, currentLhFile);
+									classBaseVersion.put(classFqn,
+											currentLhFile);
+									result.addAll(delta.getEvents());
+								}
+							});
+				} catch (ParserException e) {
+					logger.error(e);
+				}
 			}
-
 		}
 		return result;
 	}
@@ -409,6 +402,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	
 	@Override
 	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
+		// Ignore in the change event these files, once we don't want to generate deltas for other people changes. 
+//		ignoredFiles.addAll(svnFiles.keySet());
+		
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
 		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
@@ -418,6 +414,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	
 	@Override
 	public void update(Map<IFile, ISVNInfo> svnFiles) {
+		// Ignore in the change event these files, once we don't want to generate deltas for other people changes. 
+//		ignoredFiles.addAll(svnFiles.keySet());
+		
 		// setar a lista de arquivos que foram dados updates
 		// o metodo change vai ser chamado, dai eu nao quero gerar delta
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
@@ -580,8 +579,50 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	}
 
 	@Override
-	public void removed(IFile iFile, boolean hasErrors) {
+	public void remove(IFile iFile, boolean hasErrors) {
+		//FIXME: Gambis pra pegar FQN pelo caminho do arquivo. Melhorar depois usando o source folder do projeto
+		String srcFolder = "/src/";
+		String projectName = iFile.getProject().getName();
+		int index = iFile.getFullPath().toOSString().indexOf(projectName);
+		String classFqn = iFile.getFullPath().toOSString().substring(index+projectName.length()+srcFolder.length()).replaceAll("/", ".").replaceAll(".java", "");
+		LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
+		if (lhBaseFile != null) {
 
+			LighthouseDelta delta = new LighthouseDelta(Activator.getDefault()
+					.getAuthor(), lhBaseFile, null);
+
+			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
+			try {
+				pushModel.updateModelFromEvents(delta.getEvents());
+			} catch (Exception e) {
+				logger.error(e);
+			}
+			fireModificationsToUI(delta.getEvents());
+
+		}
+
+	}
+
+	/** The method add happens when a class is added in the workspace or when is checkout a project in a empty workspace. */
+	@Override
+	public void add(IFile iFile, boolean hasErrors) {
+		final String classFqn = getClassFullyQualifiedName(iFile);
+		
+		// It is a new class created by the user. We are assuming that the user creates a class that doesn't contain errors.
+		if (!mapClassFqnToLastRevisionTimestamp.containsKey(classFqn)) {
+			mapClassFqnToLastRevisionTimestamp.put(classFqn, new Date(0));
+			Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
+			// TODO: Think about DB operations in a thread
+			PushModel pushModel = new PushModel(
+					LighthouseModel.getInstance());
+			try {
+				pushModel.updateModelFromEvents(deltaEvents);
+			} catch (Exception e) {
+				// TODO: Try to throw up this exception
+				logger.error(e);
+			}
+			fireModificationsToUI(deltaEvents);
+		}
 	}
 
 //	/** FIXME: delete this later. just for demo purpose */

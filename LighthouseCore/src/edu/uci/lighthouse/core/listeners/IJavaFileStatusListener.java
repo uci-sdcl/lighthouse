@@ -8,7 +8,9 @@ public interface IJavaFileStatusListener {
 	
 	public void close(IFile iFile, boolean hasErrors);
 	
-	public void removed(IFile iFile, boolean hasErrors);
+	public void add(IFile iFile, boolean hasErrors);
+	
+	public void remove(IFile iFile, boolean hasErrors);
 	
 	public void change(IFile iFile, boolean hasErrors);
 	
