@@ -75,22 +75,28 @@ public class LighthouseModelXMLPersistence extends AbstractXMLPersistence implem
 	private void readModel(Element root) {
 		Element elements;
 		elements = root.element("entities");
-		for (Iterator i = elements.elementIterator(); i.hasNext();) {
-			Element entity = (Element) i.next();
-			LighthouseEntity e = readEntity(entity);
-			new LighthouseModelManager(model).addArtifact(e);
+		if (elements!=null) {
+			for (Iterator i = elements.elementIterator(); i.hasNext();) {
+				Element entity = (Element) i.next();
+				LighthouseEntity e = readEntity(entity);
+				new LighthouseModelManager(model).addArtifact(e);
+			}
 		}
 		elements = root.element("relationships");
-		for (Iterator i = elements.elementIterator(); i.hasNext();) {
-			Element relationship = (Element) i.next();
-			LighthouseRelationship r = readRelationship(relationship);
-			new LighthouseModelManager(model).addArtifact(r);
+		if (elements!=null) {
+			for (Iterator i = elements.elementIterator(); i.hasNext();) {
+				Element relationship = (Element) i.next();
+				LighthouseRelationship r = readRelationship(relationship);
+				new LighthouseModelManager(model).addArtifact(r);
+			}
 		}
 		elements = root.element("events");
-		for (Iterator i = elements.elementIterator(); i.hasNext();) {
-			Element element = (Element) i.next();
-			LighthouseEvent event = readEvent(element); 
-			new LighthouseModelManager(model).addEvent(event);
+		if (elements!=null) {
+			for (Iterator i = elements.elementIterator(); i.hasNext();) {
+				Element element = (Element) i.next();
+				LighthouseEvent event = readEvent(element); 
+				new LighthouseModelManager(model).addEvent(event);
+			}
 		}
 	}
 

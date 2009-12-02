@@ -71,16 +71,20 @@ public class LighthouseFileXMLPersistence extends AbstractXMLPersistence impleme
 	private void readModel(Element root) {
 		Element elements;
 		elements = root.element("entities");
-		for (Iterator i = elements.elementIterator(); i.hasNext();) {
-			Element entity = (Element) i.next();
-			LighthouseEntity e = readEntity(entity);
-			new LighthouseFileManager(model).addEntity(e);
+		if (elements!=null) {
+			for (Iterator i = elements.elementIterator(); i.hasNext();) {
+				Element entity = (Element) i.next();
+				LighthouseEntity e = readEntity(entity);
+				new LighthouseFileManager(model).addArtifact(e);
+			}
 		}
 		elements = root.element("relationships");
-		for (Iterator i = elements.elementIterator(); i.hasNext();) {
-			Element relationship = (Element) i.next();
-			LighthouseRelationship r = readRelationship(relationship);
-			new LighthouseFileManager(model).addRelationship(r);
+		if (elements!=null) {
+			for (Iterator i = elements.elementIterator(); i.hasNext();) {
+				Element relationship = (Element) i.next();
+				LighthouseRelationship r = readRelationship(relationship);
+				new LighthouseFileManager(model).addArtifact(r);
+			}
 		}
 	}
 	
