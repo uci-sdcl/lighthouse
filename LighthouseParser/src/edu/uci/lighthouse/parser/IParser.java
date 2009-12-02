@@ -6,11 +6,7 @@ import org.eclipse.core.resources.IFile;
 
 public interface IParser {
 
-	public void setFiles(Collection<IFile> files);
-	
-	public Collection<IFile> getFiles();
-	
-	public void parse() throws ParserException;
+	public void parse(Collection<IFile> files) throws ParserException;
 	
 	public Collection<ParserEntity> getEntities();
 	
