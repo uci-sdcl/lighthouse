@@ -9,7 +9,7 @@ public class Screen
 {
 	
 	int a;
-Bosta bb2;	
+Bosta bb;	
 	// displays a message without a carriage return
    public void displayMessage( String message ) 
    {
