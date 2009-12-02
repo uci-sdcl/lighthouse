@@ -5,7 +5,6 @@ package edu.prenticehall.deitel;
 
 public class Withdrawal extends Transaction
 {
-	int a;
 	
    public Integer amount; // amount to withdraw
    private Keypad keypad; // reference to keypad
