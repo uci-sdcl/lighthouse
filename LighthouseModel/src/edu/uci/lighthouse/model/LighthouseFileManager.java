@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.model;
 
+import java.util.Collection;
+
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 
 
@@ -12,7 +14,7 @@ public class LighthouseFileManager {
 		this.lighthouseFile = lighthouseFileModel; 
 	}
 
-	public LighthouseEntity addEntity(LighthouseEntity newEntity){
+	private LighthouseEntity addEntity(LighthouseEntity newEntity){
 		LighthouseEntity entity = lighthouseModel.getEntity(newEntity.getFullyQualifiedName());
 		if (entity==null) {
 			entity = newEntity;
@@ -21,7 +23,7 @@ public class LighthouseFileManager {
 		return entity;
 	}
 	
-	public LighthouseRelationship addRelationship(LighthouseRelationship newRelationship){
+	private LighthouseRelationship addRelationship(LighthouseRelationship newRelationship){
 		LighthouseRelationship relationship = lighthouseModel.getRelationship(newRelationship);
 		if (relationship == null) {
 			relationship = newRelationship;
@@ -48,14 +50,26 @@ public class LighthouseFileManager {
 		}
 	}
 
-	public void addArtifact(Object artifact) {
+	public Object addArtifact(Object artifact) {
 		if (artifact instanceof LighthouseEntity) {
 			LighthouseEntity entity = (LighthouseEntity) artifact;
-			addEntity(entity);
+			return addEntity(entity);
 		} else if (artifact instanceof LighthouseRelationship) {
 			LighthouseRelationship rel = (LighthouseRelationship) artifact;
+			return addRelationship(rel);
+		} else {
+			return null;
+		}
+	}
+	
+	public LighthouseFile buildLHFile(Collection<LighthouseEntity> listEntities, Collection<LighthouseRelationship> listRel) {
+		for (LighthouseEntity entity : listEntities) {
+			addEntity(entity);
+		}
+		for (LighthouseRelationship rel : listRel) {
 			addRelationship(rel);
-		}		
+		}
+		return lighthouseFile;
 	}
 	
 }

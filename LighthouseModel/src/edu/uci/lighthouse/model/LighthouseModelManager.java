@@ -3,6 +3,7 @@ package edu.uci.lighthouse.model;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -95,6 +96,22 @@ public class LighthouseModelManager {
 		return model.getEntity(fqn);
 	}
 	
+	public Collection<LighthouseEvent> createEventsAndSaveInModel(LighthouseAuthor author, Collection<LighthouseEntity> listEntities, Collection<LighthouseRelationship> listLighthouseRelationships) {
+		Collection<LighthouseEvent> resultList = new LinkedList<LighthouseEvent>();
+		for (LighthouseEntity entity : listEntities) {
+			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,author,entity);
+			addEvent(event);
+			resultList.add(event);
+		}
+		for (LighthouseRelationship rel : listLighthouseRelationships) {
+			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,author,rel);
+			addEvent(event);
+			resultList.add(event);
+		}
+		return resultList;
+	}
+	
+	
 	public void saveEventsIntoDatabase(Collection<LighthouseEvent> listEvents) throws JPAUtilityException {
 		LHEventDAO dao = new LHEventDAO();
 		// The entity events need to come before the relationship events
@@ -164,6 +181,8 @@ public class LighthouseModelManager {
 		}
 	}
 
+	
+	
 	/*  PUT THOSE METHODS BELLOW IN THE LighthouseModelUtil.java */
 	
 	//TODO: Put methods MyClass, isStatic and other to another class.
