@@ -1,5 +1,8 @@
 package edu.uci.lighthouse.parser;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 
 public class ParserEntity {
 
@@ -8,12 +11,12 @@ public class ParserEntity {
 	}
 	
 	private String fqn;
-	private int modifiers;
 	private EntityType type;
-	
-	public ParserEntity(String fqn, int modifiers, EntityType type) {
+	private Collection<String> listModifiers = new LinkedList<String>();
+
+	public ParserEntity(String fqn, Collection<String> listModifiers, EntityType type) {
 		this.fqn = fqn;
-		this.modifiers = modifiers;
+		this.listModifiers = listModifiers;
 		this.type = type;
 	}
 
@@ -21,12 +24,12 @@ public class ParserEntity {
 		return fqn;
 	}
 
-	public int getModifiers() {
-		return modifiers;
-	}
-
 	public EntityType getType() {
 		return type;
+	}
+
+	public Collection<String> getListModifiers() {
+		return listModifiers;
 	}
 	
 }
