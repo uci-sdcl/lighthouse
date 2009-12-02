@@ -2,8 +2,6 @@ package edu.uci.lighthouse.parser;
 
 import java.util.Properties;
 
-
-
 public class ParserFactory {
 
 	private final static String propertiesFile = "/parser.properties";
