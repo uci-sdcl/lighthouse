@@ -38,12 +38,14 @@ import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseFile;
+import edu.uci.lighthouse.model.LighthouseFileManager;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.io.IPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
+import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		IPluginListener, Runnable {
@@ -372,24 +374,25 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// Use iterator to be able to remove the IFile in the loop
 		for (IFile file : files) {
 			final String classFqn = getClassFullyQualifiedName(file);
-			final LighthouseFile currentLhFile = new LighthouseFile();
-
-			LighthouseParser parser = new LighthouseParser();
-			parser.executeInAJob(currentLhFile, Collections.singleton(file),
-					new IParserAction() {
-						@Override
-						public void doAction() {
-							LighthouseFile lhBaseFile = classBaseVersion
-									.get(classFqn);
-							// if (lhBaseFile != null) {
-							LighthouseDelta delta = new LighthouseDelta(
-									Activator.getDefault().getAuthor(),
-									lhBaseFile, currentLhFile);
-							classBaseVersion.put(classFqn, currentLhFile);
-							result.addAll(delta.getEvents());
-							// }
-						}
-					});
+			try {
+				final LighthouseParser parser = new LighthouseParser();
+				parser.executeInAJob(Collections.singleton(file),
+						new IParserAction() {
+							@Override
+							public void doAction() {
+								LighthouseFile currentLhFile = new LighthouseFile();
+								new LighthouseFileManager(currentLhFile).buildLHFile(parser.getListEntities(), parser.getListRelationships());
+								LighthouseFile lhBaseFile = classBaseVersion.get(classFqn);
+								LighthouseDelta delta = new LighthouseDelta(
+										Activator.getDefault().getAuthor(),
+										lhBaseFile, currentLhFile);
+								classBaseVersion.put(classFqn, currentLhFile);
+								result.addAll(delta.getEvents());
+							}
+						});
+			} catch (ParserException e) {
+				logger.error(e);
+			}
 
 		}
 		return result;

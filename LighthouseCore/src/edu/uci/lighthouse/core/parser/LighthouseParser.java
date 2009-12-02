@@ -1,87 +1,146 @@
 package edu.uci.lighthouse.core.parser;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 
-import edu.uci.ics.sourcerer.extractor.ast.FeatureExtractor;
-import edu.uci.ics.sourcerer.util.io.Logging;
-import edu.uci.ics.sourcerer.util.io.Property;
-import edu.uci.ics.sourcerer.util.io.PropertyManager;
-import edu.uci.lighthouse.model.LighthouseAbstractModel;
+import edu.uci.lighthouse.model.LighthouseClass;
+import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseExternalClass;
+import edu.uci.lighthouse.model.LighthouseField;
+import edu.uci.lighthouse.model.LighthouseInterface;
+import edu.uci.lighthouse.model.LighthouseMethod;
+import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.LighthouseModifier;
+import edu.uci.lighthouse.model.LighthouseRelationship;
+import edu.uci.lighthouse.parser.IParser;
+import edu.uci.lighthouse.parser.ParserEntity;
+import edu.uci.lighthouse.parser.ParserException;
+import edu.uci.lighthouse.parser.ParserFactory;
+import edu.uci.lighthouse.parser.ParserRelationship;
+import edu.uci.lighthouse.parser.ParserEntity.EntityType;
+import edu.uci.lighthouse.parser.ParserRelationship.RelationshipType;
 
 public class LighthouseParser {
 
-	private static final String UNRESOLVED = "_UNRESOLVED_.";
+	private static Logger logger = Logger.getLogger(LighthouseParser.class);
 	
-	private FeatureExtractor getFeatureExtractor() {
-		PropertyManager properties = PropertyManager.getProperties(null);
-		properties.setProperty(Property.ENTITY_WRITER, LighthouseEntityWriter.class.getName());
- 	    properties.setProperty(Property.RELATION_WRITER, LighthouseRelationshipWriter.class.getName());
- 	    
- 	    IWorkspace workspace = ResourcesPlugin.getWorkspace();
- 	    String outputPath = workspace.getRoot().getLocationURI().getPath();	    
- 	    properties.setProperty(Property.OUTPUT, outputPath);
- 	    
- 	    FeatureExtractor extractor = new FeatureExtractor();
- 	    Logging.initializeLogger();		
-		extractor.setOutput(properties);
- 	    
-		return extractor;
+	private Collection<LighthouseEntity> listEntities = new LinkedHashSet<LighthouseEntity>();
+	private Collection<LighthouseRelationship> listRelationships = new LinkedHashSet<LighthouseRelationship>();
+	
+	private Map<String, LighthouseEntity> mapEntity = new HashMap<String, LighthouseEntity>();
+	
+	public void execute(Collection<IFile> files) throws ParserException {
+		IParser parser = ParserFactory.getDefaultParser();
+		parser.parse(files);
+		populateAllEntityToModel(parser.getEntities());
+		populateAllRelationshipsToModel(parser.getRelationships());
 	}
 
-	public void execute(LighthouseAbstractModel model, Collection<IFile> files) {
-		FeatureExtractor extractor = getFeatureExtractor();
-
-		extractor.extractSourceFiles(files);
-	    
-		BuilderEntity.getInstance().populateAllEntityToModel(model);
-		BuilderRelationship.getInstance().populateAllRelationshipsToModel(model);
-	}
-
-	public void execute(LighthouseAbstractModel model, IFile file) {
-		execute(model,Collections.singleton(file));
-	} 
-	
-	public void executeInAJob(final LighthouseAbstractModel model, final Collection<IFile> files, final IParserAction action) {
-/*		class ParserJob extends Job {
-			public ParserJob() {
-				super(Messages.getString("LighthouseParser.job.msg"));
-				addJobChangeListener(new JobChangeAdapter() {
-					@Override
-					public void done(IJobChangeEvent event) {
-						action.doAction();
-					}
-				});
-			}
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				execute(model, files);
-				return Status.OK_STATUS;
-			}
-		}
-		ParserJob job = new ParserJob();
-		job.setPriority(Job.SHORT);
-		job.schedule();*/
-		
-		
-		execute(model, files); 
+	public void executeInAJob(final Collection<IFile> files, final IParserAction action) throws ParserException {
+		execute(files);
 		action.doAction();
 	}
-	
-	public void executeInAJob(final LighthouseAbstractModel model, final IFile file, final IParserAction action) {
-		executeInAJob(model, Collections.singleton(file), action);
+
+	public Collection<LighthouseEntity> getListEntities() {
+		return listEntities;
+	}
+
+	public Collection<LighthouseRelationship> getListRelationships() {
+		return listRelationships;
 	}
 	
-	static boolean isEntityUnresolved(String fqn) {
-		if (fqn.indexOf(LighthouseParser.UNRESOLVED) != -1) {
-			return true;
-		} else {
-			return false;
-		}		
+	private void populateAllEntityToModel(Collection<ParserEntity> listParserEntities) {
+		for (ParserEntity parseEntity : listParserEntities) {
+			String fqn = parseEntity.getFqn();
+			Collection<String> modifiers = parseEntity.getListModifiers();
+			EntityType type = parseEntity.getType();
+			LighthouseEntity entity = null;
+			switch (type) {
+			case CLASS:
+				entity = new LighthouseClass(fqn);
+				break;
+			case INTERFACE:
+				entity = new LighthouseInterface(fqn);
+				break;
+			case FIELD:
+				entity = new LighthouseField(fqn);
+				break;
+			case METHOD:
+				entity = new LighthouseMethod(fqn);
+				break;
+			case EXTERNAL_CLASS:
+				entity = new LighthouseExternalClass(fqn);
+				break;
+			}
+			if (entity != null) {
+				addEntity(entity);
+				if (!modifiers.isEmpty()) {
+					addModifiers(entity, modifiers);
+				}
+			} else {
+				logger.error("Parser generated an unknown entity");
+			}
+		}
+	}
+
+	private void populateAllRelationshipsToModel(Collection<ParserRelationship> listParserRelationships) {		
+		for (ParserRelationship parseRelationship : listParserRelationships) {
+			String fqnFrom = parseRelationship.getFrom();
+			String fqnTo = parseRelationship.getTo();
+			RelationshipType type = parseRelationship.getType();
+			LighthouseEntity entityFrom = LighthouseModel.getInstance().getEntity(fqnFrom);
+			LighthouseEntity entityTo = LighthouseModel.getInstance().getEntity(fqnTo);
+			// If entityFrom is null we need to check the entity inside the LighthouseFile(model)
+			if (entityFrom==null) {
+				entityFrom = getEntity(fqnFrom);
+			}
+			// If entityTo is null we need to check the entity inside the LighthouseFile(model)
+			if (entityTo==null) { 
+				entityTo = getEntity(fqnTo);
+				// If entityTo still null, then it is an external class
+				if (entityTo==null) {
+					entityTo = new LighthouseExternalClass(fqnTo);
+					addEntity(entityTo);
+				}
+			}
+			if (entityFrom != null && entityTo != null) {
+				LighthouseRelationship relationship = new LighthouseRelationship(entityFrom,entityTo,getLHRelationshipType(type));
+				addRelationship(relationship);
+			} else {
+				logger.error("Trying to add a Relationship - From: " + entityFrom + ", Type: " + type + ", To: " + entityTo);
+			}
+		}
+	}
+	
+	private LighthouseEntity getEntity(String fqn) {
+		return mapEntity.get(fqn);
+	}
+	
+	private void addEntity(LighthouseEntity entity) {
+		listEntities.add(entity);
+		mapEntity.put(entity.getFullyQualifiedName(),entity);
+	}
+	
+	private void addRelationship(LighthouseRelationship rel) {
+		listRelationships.add(rel);
+	}
+
+	private void addModifiers(LighthouseEntity entity, Collection<String> listModifiers) {
+		for (String strModifier : listModifiers) {
+			LighthouseModifier modifier = new LighthouseModifier(strModifier.toString());
+			LighthouseRelationship relationship = new LighthouseRelationship(entity, modifier, LighthouseRelationship.TYPE.MODIFIED_BY);
+			addEntity(modifier);
+			addRelationship(relationship);
+		}
+	}
+	
+	public LighthouseRelationship.TYPE getLHRelationshipType(RelationshipType type) {
+		return LighthouseRelationship.TYPE.valueOf(type.name());
 	}
 	
 }
