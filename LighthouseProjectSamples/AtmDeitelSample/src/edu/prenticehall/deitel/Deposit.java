@@ -6,6 +6,8 @@ package edu.prenticehall.deitel;
 public class Deposit extends Transaction
 {
 	
+	int f;
+	
    private double amount; // amount to deposit
    private Keypad keypad; // reference to keypad
    private DepositSlot depositSlot; // reference to deposit slot
@@ -68,7 +70,7 @@ public class Deposit extends Transaction
    } // end method execute
 
    // prompt user to enter a deposit amount in cents 
-   private double promptForDepositAmount()
+   public double promptForDepositAmount()
    {
       Screen screen = getScreen(); // get reference to screen
 
