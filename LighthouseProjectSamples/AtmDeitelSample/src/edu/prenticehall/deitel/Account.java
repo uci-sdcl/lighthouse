@@ -11,6 +11,7 @@ public class Account
    private double totalBalance; // funds available + pending deposits
    
    public int b;
+   public int c;
    
    // Account constructor initializes attributes
    public Account( int theAccountNumber, int thePIN, 
