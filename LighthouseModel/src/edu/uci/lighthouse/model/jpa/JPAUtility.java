@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.model.jpa;
 
+import java.util.HashMap;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,6 +18,9 @@ public class JPAUtility {
 	 * Name of persistence unit.
 	 */
 	private static final String PERSISTENCE_UNIT = "LighthousePersistenceUnit";
+
+	// This overrides the property in the persistence.xml file.
+	private static HashMap<String, String> mapDatabaseProperties = new HashMap<String, String>();
 	
 	/**
 	 * Factory that create Entity Manager.
@@ -27,8 +32,7 @@ public class JPAUtility {
 	 */
 	public static EntityManager createEntityManager() {
 		if (factoryEntityManager == null || !factoryEntityManager.isOpen()) {
-			factoryEntityManager = Persistence
-			.createEntityManagerFactory(PERSISTENCE_UNIT);
+			factoryEntityManager = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT,mapDatabaseProperties);
 		}
 		return factoryEntityManager.createEntityManager();
 	}
@@ -90,6 +94,10 @@ public class JPAUtility {
 	public void clear(EntityManager entityManager) {
 		if (entityManager != null && entityManager.isOpen())
 			entityManager.clear();
+	}
+	
+	public static void setMapDatabaseProperties(HashMap<String, String> mapDatabaseProperties) {
+		JPAUtility.mapDatabaseProperties = mapDatabaseProperties;
 	}
 
 }
