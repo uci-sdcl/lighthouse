@@ -2,7 +2,9 @@ package edu.uci.lighthouse.ui.views.actions;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
@@ -31,6 +33,8 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 	
 	private static final String ICON = "/icons/in_others_workspaces.gif";
 	private static final String DESCRIPTION = "Authors";
+	
+	Map<String,AuthorClassFilter> cacheFilters = new HashMap<String,AuthorClassFilter>();
 
 	private static Logger logger = Logger.getLogger(FilterAuthorAction.class);
 	
@@ -53,7 +57,12 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 		try {
 			List<LighthouseAuthor> authors = new LHAuthorDAO().list();
 			for (LighthouseAuthor author : authors) {
-				result.add(new AuthorClassFilter(author.getName()));
+				AuthorClassFilter filter = cacheFilters.get(author.getName());
+				if (filter == null){
+					filter = new AuthorClassFilter(author.getName());
+					cacheFilters.put(author.getName(), filter);
+				}
+				result.add(filter);
 			}
 		} catch (Exception e) {
 			logger.error(e);
