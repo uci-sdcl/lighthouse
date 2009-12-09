@@ -52,60 +52,41 @@ public class PullModel {
 	}
 	
 	public Collection<LighthouseEvent> executeQueryCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
-		HashMap<String,Date> mapEntityTime = new HashMap<String,Date>();
+		logger.info("GET IN: PullModel.executeQueryCheckout()");
 		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		LinkedHashSet<LighthouseEntity> listEntitiesInside = new LinkedHashSet<LighthouseEntity>();
+		LinkedHashSet<LighthouseEvent> eventsToFire = new LinkedHashSet<LighthouseEvent>();
 		for (Map.Entry<String, Date> entry : mapClassFqnToLastRevisionTimestamp.entrySet()) {
 			String fqnClazz = entry.getKey();
 			Date revisionTimestamp = entry.getValue();
 			listEntitiesInside = modelManager.selectEntitiesInsideClass(fqnClazz);
-			mapEntityTime.put(fqnClazz, revisionTimestamp);
-			for (LighthouseEntity fromEntity : listEntitiesInside) {
-				mapEntityTime.put(fromEntity.getFullyQualifiedName(), revisionTimestamp);
+			List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryCheckOut(listEntitiesInside, revisionTimestamp);
+			logger.debug("fqnClazz: " + fqnClazz + "  revisionTimestamp: " + revisionTimestamp + " listEntitiesInside: " + listEntitiesInside.size() + " listEvents: " + listEvents.size());
+			for (LighthouseEvent event : listEvents) {
+				Object artifact = event.getArtifact();
+				if (event.isCommitted() && 	
+					(	(revisionTimestamp.after(event.getCommittedTime())
+						|| revisionTimestamp.equals(event.getCommittedTime()))
+					) ) {
+					if (event.getType()==LighthouseEvent.TYPE.ADD) {
+						if (!LighthouseModelUtil.wasEventRemoved(listEvents,event)) {
+							modelManager.addArtifact(artifact);
+							eventsToFire.add(event);
+						}
+					}
+				} else {
+					if (artifact instanceof LighthouseRelationship) {
+						if (!LighthouseModelUtil.isValidRelationship(artifact, listEntitiesInside)) {
+							continue; // do NOT add relationship
+						}
+					}
+					modelManager.addEvent(event);
+					eventsToFire.add(event);
+				}			
 			}
 		}
-		List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryCheckOut(mapEntityTime);
-		LinkedHashSet<LighthouseEvent> eventsToFire = new LinkedHashSet<LighthouseEvent>();
-		for (LighthouseEvent event : listEvents) {
-			Object artifact = event.getArtifact();
-			Date revisionTime = getArtifactRevisionTime(artifact,mapEntityTime);
-			if (event.isCommitted() && 	
-				(	(revisionTime.after(event.getCommittedTime())
-					|| revisionTime.equals(event.getCommittedTime()))
-				) ) {
-				if (event.getType()==LighthouseEvent.TYPE.ADD) {
-					if (!LighthouseModelUtil.wasEventRemoved(listEvents,event)) {
-						modelManager.addArtifact(artifact);
-						eventsToFire.add(event);
-					}
-				}
-			} else {
-				if (artifact instanceof LighthouseRelationship) {
-					if (!LighthouseModelUtil.isValidRelationship(artifact, listEntitiesInside)) {
-						continue; // do NOT add relationship
-					}
-				}
-				modelManager.addEvent(event);
-				eventsToFire.add(event);
-			}			
-		}
+		logger.info("GET OUT: PullModel.executeQueryCheckout()");
 		return eventsToFire;
-	}
-
-	private Date getArtifactRevisionTime(Object artifact, HashMap<String, Date> mapEntityTime) {
-		Date revisionTime = null;
-		if (artifact instanceof LighthouseEntity) {
-			LighthouseEntity entity = (LighthouseEntity) artifact;
-			revisionTime = mapEntityTime.get(entity.getFullyQualifiedName());
-		} else if (artifact instanceof LighthouseRelationship) {
-			LighthouseRelationship rel = (LighthouseRelationship) artifact;
-			revisionTime = mapEntityTime.get(rel.getFromEntity().getFullyQualifiedName());
-		}
-		if (revisionTime==null) {
-			logger.error("There is one artifact without revisionTime: " + artifact);
-			revisionTime = new Date(0);
-		}
-		return revisionTime;
 	}
 
 }
