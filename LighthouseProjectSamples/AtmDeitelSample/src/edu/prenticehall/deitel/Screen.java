@@ -23,7 +23,7 @@ public class Screen {
 	int i;
 	int l;
 
-	caralho;
+	int b;
 } // end class Screen
 
 /**************************************************************************
