@@ -4,6 +4,10 @@ package edu.prenticehall.deitel;
 // Driver program for the ATM case study
 
 public class ATMCaseStudy {
+	
+	int a;
+	int b;
+	
 	// main method creates and runs the ATM
 	public static void main(String[] args) {
 		ATM theATM = new ATM();
