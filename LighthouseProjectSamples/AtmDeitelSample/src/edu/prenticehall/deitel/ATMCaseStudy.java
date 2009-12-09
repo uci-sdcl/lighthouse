@@ -10,6 +10,9 @@ public class ATMCaseStudy {
 		ATM theATM = new ATM();
 		theATM.run();
 	} // end main
+
+	int i;
+
 } // end class ATMCaseStudy
 
 /**************************************************************************
