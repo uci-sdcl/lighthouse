@@ -26,7 +26,7 @@ import edu.uci.lighthouse.views.filters.IClassFilter;
 
 public class LighthouseRelationshipContentProvider implements IGraphContentProvider, ILighthouseUIModelListener{
 
-	// HashMap used just for speed-up the process. A list could of strings could be used.
+	// HashMap used just for speed-up the process. A list of strings could be used.
 	private HashMap<String,LighthouseClass> cacheConnections = new HashMap<String,LighthouseClass>();
 	private GraphViewer viewer;
 	private enum relType {FROM, TO};
