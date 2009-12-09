@@ -146,10 +146,15 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 
 	@Override
 	public String toString() {
-		return "LighthouseEvent [author=" + author + ", committedTime="
-				+ committedTime + ", isCommitted=" + isCommitted
-				+ ", timestamp=" + timestamp + ", type=" + type
-				+ ", getArtifact()=" + getArtifact() + "]";
+		return 
+		"LighthouseEvent [" 
+		+ "getArtifact()=" + getArtifact()
+		+ ", type=" + type
+		+ ", timestamp=" + timestamp 
+		+ ", committedTime=" + committedTime
+		+ ", isCommitted=" + isCommitted
+		+ ", author=" + author 
+		+ "]";
 	}
 
 	@Override
