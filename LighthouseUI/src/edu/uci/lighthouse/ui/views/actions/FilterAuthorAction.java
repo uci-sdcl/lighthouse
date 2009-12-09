@@ -14,9 +14,11 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.zest.core.widgets.IContainer;
 
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 import edu.uci.lighthouse.ui.LighthouseUIPlugin;
 import edu.uci.lighthouse.ui.views.FilterManager;
 import edu.uci.lighthouse.views.filters.IClassFilter;
@@ -25,7 +27,7 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 	
 	private Menu menu;
 	protected IContainer container;
-	private List<IAction> actions;
+//	private List<IAction> actions;
 	
 	private static final String ICON = "/icons/in_others_workspaces.gif";
 	private static final String DESCRIPTION = "Authors";
@@ -36,7 +38,7 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 		super(null, Action.AS_DROP_DOWN_MENU);
 		this.container = container;
 		init();
-		actions = createActions();
+//		actions = createActions();
 		setMenuCreator(this);
 	}
 	
@@ -48,11 +50,15 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 	
 	protected List<IAction> createActions() {
 		List<IAction> result = new ArrayList<IAction>();
-		//FIXME: Populate with authors from the database
-		result.add(new AuthorClassFilter("Max"));
-		result.add(new AuthorClassFilter("Tiago"));
-		result.add(new AuthorClassFilter("Ana"));
-		result.add(new AuthorClassFilter("Jim"));
+		try {
+			List<LighthouseAuthor> authors = new LHAuthorDAO().list();
+			for (LighthouseAuthor author : authors) {
+				result.add(new AuthorClassFilter(author.getName()));
+			}
+		} catch (Exception e) {
+			logger.error(e);
+		}
+
 		return result;
 	}
 	
@@ -104,15 +110,18 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 
 	@Override
 	public Menu getMenu(Control parent) {
-		if (menu == null) {
+		if (menu != null){
+			menu.dispose();
+		}
+//		if (menu == null) {
 			menu = new Menu(parent);
 			logger.debug("menu instance created.");
-			for (IAction layoutAction : actions) {
+			for (IAction layoutAction : createActions()) {
 				ActionContributionItem item = new ActionContributionItem(
 						layoutAction);
 				item.fill(menu, -1);
 			}
-		}
+//		}
 		return menu;
 	}
 
