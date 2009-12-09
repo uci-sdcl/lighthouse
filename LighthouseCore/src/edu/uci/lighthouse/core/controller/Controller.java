@@ -62,8 +62,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void start(BundleContext context) throws Exception {
 		loadPreferences();
-//		loadMap();
-//		mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
 		loadModel();
 		//(new Thread(this)).start();
 	}
@@ -402,14 +400,15 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	
 	@Override
 	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
-		// Ignore in the change event these files, once we don't want to generate deltas for other people changes. 
+		// Ignore these files inside the change event, once we don't want to generate deltas for other people changes. 
 //		ignoredFiles.addAll(svnFiles.keySet());
-		
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
 		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		Collection<LighthouseEvent> events = pullModel.executeQueryCheckout(workingCopy);
+//		LighthouseModel.getInstance().fireModelChanged();
 		fireModificationsToUI(events);
+		logger.info("Number of events fetched after checkout = " + events.size());
 	}
 	
 	@Override
