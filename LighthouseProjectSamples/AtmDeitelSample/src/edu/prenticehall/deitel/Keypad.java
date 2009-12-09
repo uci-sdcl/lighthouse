@@ -5,6 +5,10 @@ package edu.prenticehall.deitel;
 import java.util.Scanner; // program uses Scanner to obtain user input
 
 public class Keypad {
+	
+	int a;
+	int b;
+	
 	private Scanner input; // reads data from the command line
 
 	// no-argument constructor initializes the Scanner
