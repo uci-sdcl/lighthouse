@@ -26,8 +26,10 @@ import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.JavaFileChangedReporter;
 import edu.uci.lighthouse.core.listeners.SVNEventReporter;
+import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 
@@ -76,6 +78,8 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		
 		logger.debug("Core Started");
 		
+		//FIXME: Think about the right place to put this code
+		JPAUtility.createEntityManager(DatabasePreferences.getDatabaseSettings());
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		
 		// Starting listeners
