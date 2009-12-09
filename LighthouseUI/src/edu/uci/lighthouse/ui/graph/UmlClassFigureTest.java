@@ -289,12 +289,12 @@ public class UmlClassFigureTest extends Panel{
 		case MODIFY:
 			result = ImageFactory.getImage(Icons.EVENT_MODIFY);
 			break;	
-		case CUSTOM:
+		//case CUSTOM:
 //			if (ev instanceof InfluenceEvent){
 //				InfluenceEvent ievt = (InfluenceEvent) ev;
 //				result = ImageFactory.getImage(ievt.getIcon());
 //			}
-			break;
+			//break;
 		}
 
 		if (ev.isCommitted()){
