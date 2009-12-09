@@ -4,6 +4,12 @@ package edu.prenticehall.deitel;
 // Represents a withdrawal ATM transaction
 
 public class Withdrawal extends Transaction {
+	
+	int a;
+	int b;
+	int c;
+	
+	
 	public Integer amount; // amount to withdraw
 	private Keypad keypad; // reference to keypad
 	private CashDispenser cashDispenser; // reference to cash dispenser
