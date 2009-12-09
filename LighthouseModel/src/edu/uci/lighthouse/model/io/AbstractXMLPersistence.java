@@ -85,6 +85,7 @@ public class AbstractXMLPersistence {
 				logger.warn("Trying to parse the Timestamp: " + timestamp);
 			}
 		}
+		// FIXME ADD isCommitted and committedTime
 		event.setTimestamp(timestamp);
 		return event; 
 	}
