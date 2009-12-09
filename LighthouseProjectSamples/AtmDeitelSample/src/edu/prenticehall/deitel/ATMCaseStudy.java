@@ -12,6 +12,7 @@ public class ATMCaseStudy {
 	} // end main
 
 	int i;
+	int j;
 
 } // end class ATMCaseStudy
 
