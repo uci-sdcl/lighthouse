@@ -4,6 +4,11 @@ package edu.prenticehall.deitel;
 // Represents a balance inquiry ATM transaction
 
 public class BalanceInquiry extends Transaction {
+	
+	int a;
+	int b;
+	
+	
 	// BalanceInquiry constructor
 	public BalanceInquiry(int userAccountNumber, Screen atmScreen,
 			BankDatabase atmBankDatabase) {
