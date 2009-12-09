@@ -4,6 +4,9 @@ package edu.prenticehall.deitel;
 // Represents an automated teller machine
 
 public class ATM {
+	
+	int a;
+	
 	private boolean userAuthenticated; // whether user is authenticated
 	private int currentAccountNumber; // current user's account number
 	private Screen screen; // ATM's screen
