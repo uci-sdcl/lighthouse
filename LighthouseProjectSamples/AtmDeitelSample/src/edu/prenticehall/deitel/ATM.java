@@ -8,6 +8,10 @@ public class ATM {
 	int a;
 	int b;
 	
+	public void execute() {
+		
+	}
+	
 	private boolean userAuthenticated; // whether user is authenticated
 	private int currentAccountNumber; // current user's account number
 	private Screen screen; // ATM's screen
