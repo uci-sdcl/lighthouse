@@ -10,9 +10,6 @@ public class Account {
 	int c;
 
 
-	public void execute() {
-		
-	}
 	
 	private int accountNumber; // account number
 	private int pin; // PIN for authentication
