@@ -21,6 +21,7 @@ public class Screen {
 	} // end method displayDollarAmount
 
 	int i;
+	int l;
 
 } // end class Screen
 
