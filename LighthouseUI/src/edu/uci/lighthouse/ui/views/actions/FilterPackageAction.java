@@ -2,7 +2,9 @@ package edu.uci.lighthouse.ui.views.actions;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -12,6 +14,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -36,6 +39,8 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 	private static final String ICON = "$nl$/icons/full/obj16/package_obj.gif";
 	private static final String DESCRIPTION = "Show just modifications";
 	
+	Map<String,PackageFilterAction> cacheFilters = new HashMap<String,PackageFilterAction>();
+	
 	private static Logger logger = Logger.getLogger(FilterModifiedAction.class);
 
 	public FilterPackageAction(IContainer container){
@@ -56,7 +61,12 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 		List<IAction> result = new ArrayList<IAction>();
 		Collection<String> packageNames = getPackageNames();
 		for (String name : packageNames) {
-			result.add(new PackageFilterAction(name));
+			PackageFilterAction filter = cacheFilters.get(name);
+			if (filter == null){
+				filter = new PackageFilterAction(name);
+				cacheFilters.put(name, filter);
+			}
+			result.add(filter);
 		}
 //		result.add(new PackageFilterAction("tiago"));
 		return result;
@@ -73,7 +83,8 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 					try {
 						IPackageFragment[] packageFragments = javaProject.getPackageFragments();
 						for (IPackageFragment packageFragment : packageFragments) {
-							if (packageFragment.isOpen()) {
+							if (packageFragment.getKind() == IPackageFragmentRoot.K_SOURCE && packageFragment.getCompilationUnits().length > 0) {
+								System.out.println(packageFragment.getElementName());
 								result.add(packageFragment.getElementName());
 							}
 						}
