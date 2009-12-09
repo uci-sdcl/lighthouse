@@ -54,5 +54,29 @@
             name="User">
       </page>
    </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+         <menu
+               id="edu.uci.lighthouse.core.menu.root"
+               label="Lighthouse">
+               <command
+               commandId="edu.uci.lighthouse.core.project.import"
+               id="edu.uci.lighthouse.core.import"
+               label="Import Project"
+               style="push">
+         </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="edu.lighthouse.core.commands.ImportHandler"
+            id="edu.uci.lighthouse.core.project.import"
+            name="Import">
+      </command>
+   </extension>
 
 </plugin>
