@@ -6,6 +6,7 @@ package edu.prenticehall.deitel;
 public class ATM {
 	
 	int a;
+	int b;
 	
 	private boolean userAuthenticated; // whether user is authenticated
 	private int currentAccountNumber; // current user's account number
