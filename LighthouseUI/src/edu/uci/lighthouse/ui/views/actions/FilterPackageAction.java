@@ -28,7 +28,7 @@ import edu.uci.lighthouse.views.filters.PackageFilter;
 public class FilterPackageAction  extends Action implements IMenuCreator{
 
 	private Menu menu;
-	private List<IAction> actions;
+//	private List<IAction> actions;
 	
 	//FIXME: Not using container (graph or viewer)
 	protected IContainer container;
@@ -42,7 +42,7 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 		super(null, Action.AS_DROP_DOWN_MENU);
 		this.container = container;
 		init();
-		actions = createActions();
+//		actions = createActions();
 		setMenuCreator(this);
 	}
 	
@@ -120,15 +120,18 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 
 	@Override
 	public Menu getMenu(Control parent) {
-		if (menu == null) {
+		if (menu != null){
+			menu.dispose();
+		}
+//		if (menu == null) {
 			menu = new Menu(parent);
 			logger.debug("menu instance created.");
-			for (IAction layoutAction : actions) {
+			for (IAction layoutAction : createActions()) {
 				ActionContributionItem item = new ActionContributionItem(
 						layoutAction);
 				item.fill(menu, -1);
 			}
-		}
+//		}
 		return menu;
 	}
 
