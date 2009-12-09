@@ -160,6 +160,7 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	public void modelChanged() {
 		logger.info("modelChanged()");
 		viewer.refresh();
+		viewer.getGraphControl().applyLayout();
 	}
 
 	@Override
