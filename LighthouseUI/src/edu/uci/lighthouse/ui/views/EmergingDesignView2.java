@@ -13,6 +13,7 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.ui.views.actions.DiagramModeDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.FilterAuthorAction;
 import edu.uci.lighthouse.ui.views.actions.FilterModifiedAction;
+import edu.uci.lighthouse.ui.views.actions.FilterPackageAction;
 import edu.uci.lighthouse.ui.views.actions.HighlightDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.LayoutDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.LinkWithEditorAction;
@@ -50,6 +51,7 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		getViewSite().getActionBars().getToolBarManager().add(new LayoutDropDownAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new DiagramModeDropDownAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterAuthorAction(viewer.getGraphControl()));
+		getViewSite().getActionBars().getToolBarManager().add(new FilterPackageAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterModifiedAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new ZoomDropDownAction(this));
 
