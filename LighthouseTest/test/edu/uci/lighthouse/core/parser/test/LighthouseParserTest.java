@@ -3,8 +3,10 @@ package edu.uci.lighthouse.core.parser.test;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -30,6 +32,7 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.io.LighthouseFileXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
+import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.util.LHPreference;
 import edu.uci.lighthouse.parser.ParserException;
@@ -39,12 +42,16 @@ import edu.uci.lighthouse.test.util.LighthouseModelTest;
 public class LighthouseParserTest extends TestCase {
 
 	public void testExecuteLighthouseAbstractModelCollectionOfIFile() throws DocumentException, IOException, JPAUtilityException, ParserException {
+		Map<String, String> mapDatabaseProperties = new HashMap<String, String>();
+		mapDatabaseProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+		JPAUtility.createEntityManager(mapDatabaseProperties);
+		
 		LighthouseModelTest xmlModel = new LighthouseModelTest();
 		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
 		
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();		
 		LinkedList<String> listProjects = new LinkedList<String>();
-		listProjects.add("AtmDeitelSample");
+		listProjects.add("LighthouseModel");
 
 		LighthouseModelTest currentModel = new LighthouseModelTest();
 		importEclipseProjectToDatabase(workspace, listProjects, currentModel);
@@ -58,6 +65,10 @@ public class LighthouseParserTest extends TestCase {
 	}
 	
 	public void testParseJustOneFile() throws DocumentException, IOException, JPAUtilityException, ParserException {
+		Map<String, String> mapDatabaseProperties = new HashMap<String, String>();
+		mapDatabaseProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+		JPAUtility.createEntityManager(mapDatabaseProperties);
+		
 		LighthouseModel lhModel = LighthouseModel.getInstance();
 		new LighthouseModelXMLPersistence(lhModel).load(LHTestDataFiles.XML_LH_MODEL);
 		
@@ -79,6 +90,28 @@ public class LighthouseParserTest extends TestCase {
 		assertEquals(0, delta.getEvents().size());
 	}
 
+	public void testImport2Projetcs() throws DocumentException, ParserException, JPAUtilityException {
+
+//		Map<String, String> mapDatabaseProperties = new HashMap<String, String>();
+//		mapDatabaseProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+//		JPAUtility.createEntityManager(mapDatabaseProperties);
+//		
+//		IWorkspace workspace = ResourcesPlugin.getWorkspace();		
+//		LinkedList<String> listProjects = new LinkedList<String>();
+//		listProjects.add("LighthouseModel");
+//		listProjects.add("LighthouseJavaParser");
+//		listProjects.add("LighthouseParser");
+//		listProjects.add("LighthouseCore");
+//		listProjects.add("LighthouseTest");
+//
+//		LighthouseModelTest model = new LighthouseModelTest();
+//		importEclipseProjectToDatabase(workspace, listProjects, model);
+//		
+//		System.out.println("number of events: " + model.getListEvents().size());
+//		System.out.println("end");
+				
+	}
+	
 	private void importEclipseProjectToDatabase(IWorkspace workspace, Collection<String> listEclipseProject, LighthouseModel model) throws ParserException, JPAUtilityException {
 		IProject[] projects = workspace.getRoot().getProjects();
 		final Collection<IFile> files = new LinkedList<IFile>();
@@ -122,7 +155,7 @@ public class LighthouseParserTest extends TestCase {
 		return files;
 	}
 	
-	public LighthouseFile parseJustOneFile(final IWorkspace workspace, Collection<String> listProjects, String fileName) throws JPAUtilityException, ParserException {
+	private LighthouseFile parseJustOneFile(final IWorkspace workspace, Collection<String> listProjects, String fileName) throws JPAUtilityException, ParserException {
 		IProject[] projects = workspace.getRoot().getProjects();
 		for (int i = 0; i < projects.length; i++) {
 			if (listProjects.contains(projects[i].getName())) {
