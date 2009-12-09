@@ -34,5 +34,25 @@
             file="contexts.xml">
       </contexts>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="edu.uci.lighthouse.core.preferences.LighthousePreferences"
+            id="edu.uci.lighthouse.core.preferences"
+            name="Lighthouse">
+      </page>
+      <page
+            category="edu.uci.lighthouse.core.preferences"
+            class="edu.uci.lighthouse.core.preferences.DatabasePreferences"
+            id="edu.uci.lighthouse.core.preferences.database"
+            name="Database">
+      </page>
+      <page
+            category="edu.uci.lighthouse.core.preferences"
+            class="edu.uci.lighthouse.core.preferences.UserPreferences"
+            id="LighthouseCore.page3"
+            name="User">
+      </page>
+   </extension>
 
 </plugin>

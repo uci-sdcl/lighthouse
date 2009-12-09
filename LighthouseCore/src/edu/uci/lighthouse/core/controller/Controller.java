@@ -22,6 +22,8 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.osgi.framework.BundleContext;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
@@ -48,7 +50,7 @@ import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
-		IPluginListener, Runnable {
+		IPluginListener, Runnable, IPropertyChangeListener {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
 	private HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
@@ -57,18 +59,24 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 //	private Collection<IFile> ignoredFiles = new LinkedHashSet<IFile>(); // Used in update and checkout methods
 	private Date lastDBAccess = null;
 	private boolean threadRunning;
+	private boolean threadSuspended;
 	private final int threadTimeout = 5000;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
+		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		
 		loadPreferences();
 		loadModel();
-		//(new Thread(this)).start();
+		(new Thread(this)).start();
+		
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		threadSuspended = false;
 		threadRunning = false;
+		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		savePreferences();
 		saveModel();
 	}
@@ -563,11 +571,20 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void run() {
 		threadRunning = true;
 		while (threadRunning) {
-//			logger.debug("timeout[ " + lastDBAccess + " ]");
-			refreshModelBasedOnLastDBAccess();
+			logger.debug("timeout[ " + lastDBAccess + " ]");
 			// Sleep for the time defined by thread timeout
 			try {
-				Thread.sleep(threadTimeout);
+				try {
+					refreshModelBasedOnLastDBAccess();
+					Thread.sleep(threadTimeout);
+				} catch (RuntimeException e) {
+					threadSuspended = true;
+					synchronized(this) {
+	                    while (threadSuspended) {
+	                        wait();
+	                    }
+	                }
+				}
 			} catch (InterruptedException e) {
 				logger.error(e);
 			}
@@ -623,6 +640,19 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			fireModificationsToUI(deltaEvents);
 		}
 	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if (threadSuspended){
+			synchronized(this) {
+				threadSuspended = false;
+				notify();
+			}
+		}
+		
+	}
+
+
 
 //	/** FIXME: delete this later. just for demo purpose */
 //	private void loadMap() {

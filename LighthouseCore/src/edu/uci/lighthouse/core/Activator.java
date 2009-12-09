@@ -3,7 +3,7 @@ package edu.uci.lighthouse.core;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -12,7 +12,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -20,15 +26,15 @@ import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.JavaFileChangedReporter;
 import edu.uci.lighthouse.core.listeners.SVNEventReporter;
+import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.model.LighthouseAuthor;
-import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.jpa.JPAUtilityException;
-import edu.uci.lighthouse.model.jpa.LHEventDAO;
+import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator extends AbstractUIPlugin implements IPropertyChangeListener {
 
 	private static Logger logger = Logger.getLogger(Activator.class);
 	
@@ -70,10 +76,14 @@ public class Activator extends AbstractUIPlugin {
 		
 		logger.debug("Core Started");
 		
+		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		
 		// Starting listeners
 		for (IPluginListener listener : listeners) {
 			listener.start(context);
 		}
+		
+		
 		
 //		JavaCore.addElementChangedListener(new JavaFileChangedReporter(),
 //				ElementChangedEvent.POST_CHANGE);
@@ -102,6 +112,8 @@ public class Activator extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 //		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 //		workspace.addResourceChangeListener(listener);	
+		
+		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		
 		// Stopping listeners
 		for (IPluginListener listener : listeners) {
@@ -178,10 +190,33 @@ public class Activator extends AbstractUIPlugin {
 	
 	public LighthouseAuthor getAuthor(){
 		if (author == null){
-			//ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin().getSVNClient();
-			author = new LighthouseAuthor("Max");
+			Map<String, String> userSettings = UserPreferences.getUserSettings();
+			String userName = userSettings.get(UserPreferences.USERNAME);
+			if (userName != null && !"".equals(userName)) {
+				author =  new LighthouseAuthor(userName);
+				try {
+					new LHAuthorDAO().save(author);
+				} catch (final JPAUtilityException e) {
+					logger.error(e);
+					Display.getDefault().asyncExec(new Runnable() {
+						public void run() {
+							Shell shell = PlatformUI.getWorkbench()
+							.getActiveWorkbenchWindow().getShell();
+							MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
+						}
+					});
+				}
+			}
 		}
 		return author;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if (UserPreferences.USERNAME.equals(event.getProperty())) {
+			author = null;
+		}
+		
 	}
 
 }
