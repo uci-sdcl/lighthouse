@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IJavaProject;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
@@ -102,6 +103,30 @@ public class PushModel {
 		}
 	}
 	
+	public void importJavaProject(Collection<IJavaProject> javaProjects)
+			throws ParserException, JPAUtilityException {
+		final Collection<IFile> files = new LinkedList<IFile>();
+		for (IJavaProject project : javaProjects) {
+			if (project.isOpen()) {
+				files.addAll(getFilesFromProject(project.getProject()));
+			}
+		}
+		if (files.size() > 0) {
+			LighthouseParser parser = new LighthouseParser();
+			parser.execute(files);
+			Collection<LighthouseEntity> listEntities = parser
+					.getListEntities();
+			Collection<LighthouseRelationship> listLighthouseRel = parser
+					.getListRelationships();
+			LighthouseModelManager modelManager = new LighthouseModelManager(
+					model);
+			Collection<LighthouseEvent> listEvents = modelManager
+					.createEventsAndSaveInModel(Activator.getDefault()
+							.getAuthor(), listEntities, listLighthouseRel);
+			modelManager.saveEventsIntoDatabase(listEvents);
+		}
+	}
+	
 	private Collection<IFile> getFilesFromProject(IProject project) {
 		final Collection<IFile> files = new HashSet<IFile>();
 		try {
@@ -111,6 +136,7 @@ public class PushModel {
 					if (resource.getType() == IResource.FILE
 							&& resource.getFileExtension().equalsIgnoreCase(
 									"java")) {
+						System.out.println((IFile) resource);
 						files.add((IFile) resource);
 						return false;
 					} else {
