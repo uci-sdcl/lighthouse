@@ -31,4 +31,5 @@ Bundle-ClassPath: lib/dom4j-1.6.1.jar,
  lib/hibernate/jta-1.1.jar,
  lib/hibernate/mysql-connector-java-5.1.8-bin.jar,
  lib/hibernate/slf4j-api-1.5.8.jar,
- lib/hibernate/slf4j-log4j12.jar
+ lib/hibernate/slf4j-log4j12.jar,
+ lib/jsch-0.1.42.jar
