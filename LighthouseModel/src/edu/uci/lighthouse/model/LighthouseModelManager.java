@@ -103,18 +103,20 @@ public class LighthouseModelManager {
 		for (LighthouseEntity entity : listEntities) {
 			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,author,entity);
 			event.setCommitted(true);
-			event.setCommittedTime(new Date());
-			event.setTimestamp(new Date());
+			event.setCommittedTime(new Date(0));
+			event.setTimestamp(new Date(0));
 			addEvent(event);
 			resultList.add(event);
+			logger.debug("Add event in model: " + event);
 		}
 		for (LighthouseRelationship rel : listLighthouseRelationships) {
 			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,author,rel);
 			event.setCommitted(true);
-			event.setCommittedTime(new Date());
-			event.setTimestamp(new Date());
+			event.setCommittedTime(new Date(0));
+			event.setTimestamp(new Date(0));
 			addEvent(event);
 			resultList.add(event);
+			logger.debug("Add event in model: " + event);
 		}
 		return resultList;
 	}
@@ -125,6 +127,7 @@ public class LighthouseModelManager {
 		// we could use to loops to handle that
 		for (LighthouseEvent event : listEvents) {
 			dao.save(event);
+			logger.debug("Add event in database: " + event);
 		}
 	}
 	
