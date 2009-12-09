@@ -6,6 +6,7 @@ package edu.prenticehall.deitel;
 public class DepositSlot {
 	
 	int a;
+	int c;
 	int b;
 	
 	// indicates whether envelope was received (always returns true,
