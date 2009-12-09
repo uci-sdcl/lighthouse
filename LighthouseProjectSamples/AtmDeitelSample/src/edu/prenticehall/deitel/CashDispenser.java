@@ -6,7 +6,9 @@ package edu.prenticehall.deitel;
 public class CashDispenser {
 	
 	int a;
-	int b;
+	long b;
+	int c;
+	int d;
 	
 	
 	// the default initial number of bills in the cash dispenser
