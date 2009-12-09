@@ -4,6 +4,10 @@ package edu.prenticehall.deitel;
 // Represents the screen of the ATM
 
 public class Screen {
+	
+	int a;
+	int b;
+	
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
 		System.out.print(message);
