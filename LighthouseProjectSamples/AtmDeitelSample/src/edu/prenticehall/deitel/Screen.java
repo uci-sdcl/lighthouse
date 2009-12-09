@@ -4,7 +4,7 @@ package edu.prenticehall.deitel;
 // Represents the screen of the ATM
 
 public class Screen {
-int A;
+
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
 		System.out.print(message);
@@ -19,9 +19,6 @@ int A;
 	public void displayDollarAmount(double amount) {
 		System.out.printf("$%,.2f", amount);
 	} // end method displayDollarAmount
-
-	int i;
-	int ll2;
 
 } // end class Screen
 

@@ -18,8 +18,6 @@ public class Keypad {
 		return input.nextInt(); // we assume that user enters an integer
 	} // end method getInput
 
-	int i;
-
 } // end class Keypad
 
 /**************************************************************************

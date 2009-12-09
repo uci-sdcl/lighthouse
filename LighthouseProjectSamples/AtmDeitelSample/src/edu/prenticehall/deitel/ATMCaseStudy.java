@@ -11,10 +11,6 @@ public class ATMCaseStudy {
 		theATM.run();
 	} // end main
 
-	int i;
-	int j;
-	int k;
-
 } // end class ATMCaseStudy
 
 /**************************************************************************
