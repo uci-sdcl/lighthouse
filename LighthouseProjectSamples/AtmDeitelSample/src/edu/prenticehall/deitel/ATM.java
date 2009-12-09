@@ -10,7 +10,7 @@ public class ATM {
 	
 	int f;
 	
-	int c;
+	int c; 
 	
 	private boolean userAuthenticated; // whether user is authenticated
 	private int currentAccountNumber; // current user's account number
