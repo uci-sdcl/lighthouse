@@ -8,6 +8,7 @@ public class Withdrawal extends Transaction {
 	int a;
 	int b;
 	int c;
+	int d;
 	
 	
 	public Integer amount; // amount to withdraw
