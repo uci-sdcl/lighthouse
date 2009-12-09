@@ -283,8 +283,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 //				deltaEvents.addAll(generateDeltaFromBaseVersion(Collections.singleton(iFile)));
 //				deltaEvents.addAll(generateDeltaFromBaseVersion(filesWithoutErrors));
 			//////
-				Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections.singleton(iFile));
-				
+			final String classFqn = getClassFullyQualifiedName(iFile);
+			final LighthouseFile lhBaseFile = classBaseVersion.get(classFqn);
+			// change will run only if we have base version 
+			// That is a very good optimization
+			if (lhBaseFile != null) { 
+				Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections
+						.singleton(iFile));
 				// TODO: Think about DB operations in a thread
 				PushModel pushModel = new PushModel(LighthouseModel
 						.getInstance());
@@ -294,7 +299,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					logger.error(e);
 				}
 				fireModificationsToUI(deltaEvents);
-				
+			}
 //			}
 			
 //			final LinkedHashSet<LighthouseEvent> deltaEvents = new LinkedHashSet<LighthouseEvent>(); 
@@ -379,8 +384,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 											.buildLHFile(parser
 													.getListEntities(), parser
 													.getListRelationships());
-									LighthouseFile lhBaseFile = classBaseVersion
-											.get(classFqn);
 									LighthouseDelta delta = new LighthouseDelta(
 											Activator.getDefault().getAuthor(),
 											lhBaseFile, currentLhFile);
@@ -456,6 +459,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 														svnCommittedTime,
 														Activator.getDefault().getAuthor());
 
+			LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance()); 
+			modelManager.removeCommittedEvents(workingCopy.keySet(),svnCommittedTime);
+			
 			fireModificationsToUI(listEvents);
 			logger.debug("commitTime[ "+ svnCommittedTime + " ]");
 
