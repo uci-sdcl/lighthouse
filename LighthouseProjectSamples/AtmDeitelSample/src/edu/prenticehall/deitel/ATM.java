@@ -8,9 +8,9 @@ public class ATM {
 	int a;
 	int b;
 	
-	public void execute() {
-		
-	}
+	int f;
+	
+	int c;
 	
 	private boolean userAuthenticated; // whether user is authenticated
 	private int currentAccountNumber; // current user's account number
