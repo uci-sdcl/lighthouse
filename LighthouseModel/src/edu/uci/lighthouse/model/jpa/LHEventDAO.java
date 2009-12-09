@@ -3,8 +3,8 @@ package edu.uci.lighthouse.model.jpa;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -15,18 +15,19 @@ import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	
 	public List<LighthouseEvent> executeQueryCheckOut(
-			Map<String, Date> parameters) {
-		List<LighthouseEvent> result = null;
-		if (parameters.size()>0) {			
+			LinkedHashSet<LighthouseEntity> listEntitiesInside,
+			Date revisionTime) {
+		List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
+		if (listEntitiesInside.size()>0) {			
 			String strQuery = "SELECT e " + "FROM LighthouseEvent e "
 			+ "WHERE ";
 			strQuery += " ( ";
 			// Get all entities' events
-			for (Map.Entry<String, Date> entry : parameters.entrySet()) {
-				String fqn = entry.getKey();
-				Date timestamp = entry.getValue();
+			for (LighthouseEntity entity : listEntitiesInside) {
+				String fqn = entity.getFullyQualifiedName();
+				fqn = fqn.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String strTimestamp = formatter.format(timestamp);
+				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( ";
 				strQuery += "e.entity" + " = " + "'" + fqn + "'";
 				strQuery += " AND ";
@@ -45,11 +46,11 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 				strQuery += "OR ";
 			}
 			// Get all relationships' events
-			for (Map.Entry<String, Date> entry : parameters.entrySet()) {
-				String fqn = entry.getKey();
-				Date timestamp = entry.getValue();
+			for (LighthouseEntity entity : listEntitiesInside) {
+				String fqn = entity.getFullyQualifiedName();
+				fqn = fqn.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String strTimestamp = formatter.format(timestamp);
+				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( ";
 				strQuery += " ( ";
 				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + fqn + "'";
@@ -77,22 +78,24 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			}
 			strQuery = strQuery.substring(0, strQuery.lastIndexOf("OR"));
 			strQuery += " )";
-			result = executeDynamicQuery(strQuery);
+			List<LighthouseEvent> queryResult = executeDynamicQuery(strQuery);
+			result = (queryResult!=null) ? queryResult : result;
 		}
 		return result;
 	}
 	
 	public List<LighthouseEvent> executeQueryLhBaseFile(
-			LinkedHashSet<LighthouseEntity> listCandidatesInsideEntities,
+			LinkedHashSet<LighthouseEntity> listEntitiesInside,
 			Date revisionTime, LighthouseAuthor author) {
-		List<LighthouseEvent> result = null;
-		if (listCandidatesInsideEntities.size()>0) {			
+		List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
+		if (listEntitiesInside.size()>0) {			
 			String strQuery = "SELECT e " + "FROM LighthouseEvent e "
 			+ "WHERE ";
 			strQuery += " ( ";
 			// Get all entities' events
-			for (LighthouseEntity entity : listCandidatesInsideEntities) {
+			for (LighthouseEntity entity : listEntitiesInside) {
 				String fqn = entity.getFullyQualifiedName();
+				fqn = fqn.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( ";
@@ -117,8 +120,9 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 				strQuery += "OR ";
 			}
 			// Get all relationships' events
-			for (LighthouseEntity entity : listCandidatesInsideEntities) {
+			for (LighthouseEntity entity : listEntitiesInside) {
 				String fqn = entity.getFullyQualifiedName();
+				fqn = fqn.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( ";
@@ -152,7 +156,8 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			}
 			strQuery = strQuery.substring(0, strQuery.lastIndexOf("OR"));
 			strQuery += " )";
-			result = executeDynamicQuery(strQuery);
+			List<LighthouseEvent> queryResult = executeDynamicQuery(strQuery);
+			result = (queryResult!=null) ? queryResult : result;
 		}
 		return result;
 	}
