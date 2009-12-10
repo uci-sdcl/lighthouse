@@ -5,7 +5,7 @@ package edu.prenticehall.deitel;
 
 public class DepositSlot {
 	
-	
+	int f;
 	int a;
 	int c;
 	
@@ -16,7 +16,7 @@ public class DepositSlot {
 		return true; // deposit envelope was received
 	} // end method isEnvelopeReceived
 	
-	
+	int e;
 	int b;
 	int d;
 	
