@@ -69,7 +69,7 @@ public class PullModel {
 						|| revisionTimestamp.equals(event.getCommittedTime()))
 					) ) {
 					if (event.getType()==LighthouseEvent.TYPE.ADD) {
-						if (!LighthouseModelUtil.wasEventRemoved(listEvents,event)) {
+						if (!LighthouseModelUtil.wasCommittedEventRemoved(listEvents,event)) {
 							modelManager.addArtifact(artifact);
 							eventsToFire.add(event);
 						}
