@@ -296,7 +296,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				ignorefilesJustUpdated.remove(iFile);
 				// Update base version - the delta does not matter
 				// it is not working because we are getting the old IFile not the new one
-				generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
+//				generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
+				
+				// I will suppose that the revisionTime was setted in the update event
+				String classFqn =getClassFullyQualifiedName(iFile);
+				LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
+				classBaseVersion.put(classFqn, lhBaseFile);
+				
 			} else {
 //			} else {	
 				// Remove iFile from the list if it exists, since hasErrors = false
@@ -496,13 +502,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			modelManager.removeCommittedEvents(workingCopy.keySet(),svnCommittedTime);
 			
 			fireModificationsToUI(listEvents);
-			logger.debug("commitTime[ "+ svnCommittedTime + " ]");
-
+			logger.debug("Committed ["+ listEvents.size() + "] events " + "with time: " + svnCommittedTime);
 		} catch (Exception e) {
 			logger.error(e);
 		}
 	}
-
 
 	private HashMap<String, Date> getWorkingCopy(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> result = new HashMap<String, Date>();
