@@ -7,7 +7,7 @@ public class DepositSlot {
 	
 	
 	int a;
-	
+	int c;
 	
 	
 	// indicates whether envelope was received (always returns true,
