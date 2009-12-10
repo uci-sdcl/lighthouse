@@ -168,14 +168,6 @@ public class LighthouseModelManager {
 		return listEntitiesInside;
 	}
 	
-	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(List<String> listClazzFqn) {
-		LinkedHashSet<LighthouseEntity> listFromEntities = new LinkedHashSet<LighthouseEntity>();
-		for (String clazzFqn : listClazzFqn) {
-			listFromEntities.addAll(selectEntitiesInsideClass(clazzFqn));			
-		}
-		return listFromEntities;
-	}
-	
 	public void removeArtifactsAndEventsInside(Collection<String> listClazzFqn) {
 		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
 		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
