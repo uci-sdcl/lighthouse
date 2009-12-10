@@ -18,7 +18,7 @@ public class DepositSlot {
 	
 	
 	int b;
-	
+	int d;
 	
 	
 } // end class DepositSlot
