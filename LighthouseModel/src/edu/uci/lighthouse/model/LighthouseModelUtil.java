@@ -24,8 +24,8 @@ public class LighthouseModelUtil {
 		return result;
 	}
 	
-	// used by BuildLHBaseFile and PullModel
-	public static boolean wasEventRemoved(List<LighthouseEvent> listEvents, LighthouseEvent paramEvent) {
+	// used by checkout
+	public static boolean wasCommittedEventRemoved(List<LighthouseEvent> listEvents, LighthouseEvent paramEvent) {
 		for (LighthouseEvent event : listEvents) {
 			if (event.getArtifact().equals(paramEvent.getArtifact())) {
 				if (	event.isCommitted() &&
@@ -33,6 +33,29 @@ public class LighthouseModelUtil {
 						(	event.getCommittedTime().after(paramEvent.getCommittedTime()) ||
 							event.getCommittedTime().equals(paramEvent.getCommittedTime()) ) ) {
 					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	// used by BuildBaseFile
+	public static boolean wasEventRemoved(List<LighthouseEvent> listEvents, LighthouseEvent paramEvent, LighthouseAuthor paramAuthor) {
+		for (LighthouseEvent event : listEvents) {
+			if (event.getArtifact().equals(paramEvent.getArtifact())) {
+				if (event.isCommitted()) {
+					if (event.getType() == LighthouseEvent.TYPE.REMOVE
+							&& (event.getCommittedTime().after(paramEvent.getCommittedTime()) 
+							|| event.getCommittedTime().equals(paramEvent.getCommittedTime()))) {
+						return true;
+					}
+				} else { // if is not committed - take the author in consideration
+					if ( event.getAuthor().equals(paramAuthor)
+							&& event.getType() == LighthouseEvent.TYPE.REMOVE
+							&& (event.getTimestamp().after(paramEvent.getTimestamp()) 
+							|| event.getTimestamp().equals(paramEvent.getTimestamp()))) {
+						return true;
+					}
 				}
 			}
 		}
