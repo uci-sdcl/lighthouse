@@ -161,7 +161,9 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	}
 	
 	public boolean isEmpty(){
-		return listEvents.size() == 0;
+		return (getListEvents().size()== 0
+				&& getEntities().size() == 0
+				&& getRelationships().size() == 0);
 	}
 	
 }
