@@ -5,6 +5,8 @@ package edu.prenticehall.deitel;
 
 public class Screen {
 
+	
+
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
 		System.out.print(message);
@@ -20,7 +22,7 @@ public class Screen {
 		System.out.printf("$%,.2f", amount);
 	} // end method displayDollarAmount
 
-	int b;
+	
 
 } // end class Screen
 
