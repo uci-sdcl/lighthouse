@@ -16,7 +16,7 @@ public class BuildLHBaseFile {
 		if (listEvents!=null && listEvents.size()!=0) {
 			for (LighthouseEvent event : listEvents) {
 				if (event.getType()==LighthouseEvent.TYPE.ADD) {
-					if (!LighthouseModelUtil.wasEventRemoved(listEvents,event)) {
+					if (!LighthouseModelUtil.wasEventRemoved(listEvents,event,author)) {
 						Object artifact = event.getArtifact();
 						if (artifact instanceof LighthouseRelationship) {
 							if (!LighthouseModelUtil.isValidRelationship(artifact, listEntitiesInside)) {
