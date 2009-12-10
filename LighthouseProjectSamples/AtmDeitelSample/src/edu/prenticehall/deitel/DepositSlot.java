@@ -17,7 +17,7 @@ public class DepositSlot {
 	} // end method isEnvelopeReceived
 	
 	
-	
+	int b;
 	
 	
 	
