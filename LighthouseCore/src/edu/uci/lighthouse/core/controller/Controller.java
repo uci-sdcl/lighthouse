@@ -52,7 +52,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		IPluginListener, Runnable, IPropertyChangeListener {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
-	private HashMap<String, Date> mapClassFqnToLastRevisionTimestamp = new HashMap<String, Date>();
+	private static HashMap<String, Date> mapClassToSVNCommittedTime = new HashMap<String, Date>();
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
 	private Set<IFile> classWithErrors = new LinkedHashSet<IFile>();
 	private Collection<IFile> ignorefilesJustUpdated = new LinkedHashSet<IFile>();
@@ -61,12 +61,16 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private boolean threadSuspended;
 	private final int threadTimeout = 5000;
 
+	public static Map<String, Date> getWorkingCopy(){
+		return mapClassToSVNCommittedTime;
+	}
+	
 	@Override
 	public void start(BundleContext context) throws Exception {
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		loadPreferences();
 		loadModel();
-		(new Thread(this)).start();
+//		(new Thread(this)).start();
 	}
 
 	@Override
@@ -91,7 +95,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			final String filename = "lighthouseWorkingCopy.version";
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
 					filename));
-			mapClassFqnToLastRevisionTimestamp = (HashMap<String, Date>) ois
+			mapClassToSVNCommittedTime = (HashMap<String, Date>) ois
 					.readObject();
 			logger.debug("loading " + filename);
 		} catch (Exception e) {
@@ -111,7 +115,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			final String filename = "lighthouseWorkingCopy.version";
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream(filename));
-			oos.writeObject(mapClassFqnToLastRevisionTimestamp);
+			oos.writeObject(mapClassToSVNCommittedTime);
 			logger.debug("saving " + filename);
 		} catch (Exception e) {
 			logger.error(e);
@@ -128,10 +132,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 
 		if (LighthouseModel.getInstance().isEmpty()
-				&& mapClassFqnToLastRevisionTimestamp.size() > 0) {
+				&& mapClassToSVNCommittedTime.size() > 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			Collection<LighthouseEvent> events = pullModel
-					.executeQueryCheckout(mapClassFqnToLastRevisionTimestamp);
+					.executeQueryCheckout(mapClassToSVNCommittedTime);
 			fireModificationsToUI(events);
 		}
 	}
@@ -179,7 +183,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		 * is running Lighthouse. Then, the LighthouseModel will be updated only
 		 * if the user execute a checkout first.
 		 */
-		if (mapClassFqnToLastRevisionTimestamp.size() != 0) {
+		if (mapClassToSVNCommittedTime.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			List<LighthouseEvent> events = pullModel
 					.getNewEventsFromDB(lastDBAccess);
@@ -274,7 +278,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	public LighthouseFile getBaseVersionFromDB(String classFullyQualifiedName) {
 		LighthouseFile result = null;
-		Date revisionTime = mapClassFqnToLastRevisionTimestamp.get(classFullyQualifiedName);
+		Date revisionTime = mapClassToSVNCommittedTime.get(classFullyQualifiedName);
 		if (revisionTime != null) {
 			result = BuildLHBaseFile.execute(LighthouseModel.getInstance(),
 					classFullyQualifiedName, revisionTime, Activator.getDefault().getAuthor());
@@ -459,7 +463,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 //		ignoredFiles.addAll(svnFiles.keySet());
 		
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
-		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
+		mapClassToSVNCommittedTime.putAll(workingCopy);
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		Collection<LighthouseEvent> events = pullModel.executeQueryCheckout(workingCopy);
 		LighthouseModel.getInstance().fireModelChanged();
@@ -477,7 +481,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// setar a lista de arquivos que foram dados updates
 		// o metodo change vai ser chamado, dai eu nao quero gerar delta
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
-		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
+		mapClassToSVNCommittedTime.putAll(workingCopy);
 		
 		LighthouseModel model = LighthouseModel.getInstance();
 		LighthouseModelManager modelManager = new LighthouseModelManager(model); 
@@ -493,7 +497,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
-		mapClassFqnToLastRevisionTimestamp.putAll(workingCopy);
+		mapClassToSVNCommittedTime.putAll(workingCopy);
 		try {
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
 
@@ -702,8 +706,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		final String classFqn = getClassFullyQualifiedName(iFile);
 		
 		// It is a new class created by the user. We are assuming that the user creates a class that doesn't contain errors.
-		if (!mapClassFqnToLastRevisionTimestamp.containsKey(classFqn)) {
-			mapClassFqnToLastRevisionTimestamp.put(classFqn, new Date(0));
+		if (!mapClassToSVNCommittedTime.containsKey(classFqn)) {
+			mapClassToSVNCommittedTime.put(classFqn, new Date(0));
 			Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
 			// TODO: Think about DB operations in a thread
 			PushModel pushModel = new PushModel(
@@ -732,41 +736,5 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private synchronized Date getTimestamp(){
 		return new Date();
 	}
-
-
-//	/** FIXME: delete this later. just for demo purpose */
-//	private void loadMap() {
-//		try {
-//			SimpleDateFormat formatter = new SimpleDateFormat(
-//					"yyyy-MM-dd HH:mm:ss");
-//			Date committedDate = formatter.parse("2009-11-03 20:30:00");
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.Account", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.ATM", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.ATMCaseStudy", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.BalanceInquiry", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.BankDatabase", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.CashDispenser", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.Deposit", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.DepositSlot", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.Keypad", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.Screen", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.Transaction", committedDate);
-//			mapClassFqnToLastRevisionTimestamp.put(
-//					"edu.prenticehall.deitel.Withdrawal", committedDate);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 }
