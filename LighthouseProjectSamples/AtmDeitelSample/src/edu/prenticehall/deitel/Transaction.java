@@ -5,6 +5,8 @@ package edu.prenticehall.deitel;
 
 public abstract class Transaction {
 	
+	int nilmax;
+	
 	
 	private int accountNumber; // indicates account involved
 	private Screen screen; // ATM's screen
