@@ -10,6 +10,9 @@ public class Keypad {
 	int moura;
 	int teo;
 	
+	
+	int tiago;
+	
 	int a;
 	int h;
 	
