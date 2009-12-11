@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
@@ -33,9 +34,10 @@ public class PullModel {
 	 * @param lastDBaccessTime Last time that we accessed the database
 	 * @return 
 	 * */
-	public List<LighthouseEvent>  getNewEventsFromDB(Date lastDBaccessTime) {
+	public List<LighthouseEvent>  getNewEventsFromDB(Date lastDBaccessTime, LighthouseAuthor author) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("timestamp", lastDBaccessTime);
+		parameters.put("author", author);
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
 		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		for (LighthouseEvent event : listEvents) {
