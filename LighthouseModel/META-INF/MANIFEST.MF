@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.swt;bundle-version="3.4.2",
 Export-Package: edu.uci.lighthouse.model,
  edu.uci.lighthouse.model.io,
  edu.uci.lighthouse.model.jpa,
+ edu.uci.lighthouse.model.repository,
  edu.uci.lighthouse.model.util,
  javax.persistence,
  org.dom4j
