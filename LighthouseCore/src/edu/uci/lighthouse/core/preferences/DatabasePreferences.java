@@ -1,7 +1,9 @@
 package edu.uci.lighthouse.core.preferences;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -19,7 +21,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import edu.uci.lighthouse.core.Activator;
-import edu.uci.lighthouse.core.util.JPAConnectionUtility;
+import edu.uci.lighthouse.model.jpa.JPAUtility;
 
 public class DatabasePreferences extends PreferencePage implements
 IWorkbenchPreferencePage{
@@ -80,11 +82,14 @@ IWorkbenchPreferencePage{
 	
 	@Override
 	protected void performApply() {
+		// Need to store the preferences before testing connect.
 		super.performApply();
-		if (JPAConnectionUtility.canConnect()){
+		
+		try {
+			JPAUtility.canConnect(getDatabaseSettings());
 			MessageDialog.openInformation(getShell(), "Database Connection", "The connection is working properly!");
-		} else {
-			MessageDialog.openError(getShell(), "Database Connection", "Imposible to connect to server. Please, check your connection settings.");
+		} catch (SQLException e) {
+			MessageDialog.openError(getShell(), "Database Connection", e.getMessage());
 		}
 	}
 
@@ -211,15 +216,15 @@ IWorkbenchPreferencePage{
 		return group;
 	}
 	
-	public static Map<String,String> getDatabaseSettings(){
-		Map<String,String> dbSettings = new HashMap<String,String>();
+	public static Properties getDatabaseSettings(){
+		Properties dbSettings = new Properties();
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		
 		String connUrl = "jdbc:mysql://"+store.getString(DB_HOST)+":"+store.getString(DB_PORT)+"/"+store.getString(DB_DATABASE);
-		
-		dbSettings.put("hibernate.connection.url", connUrl);
-		dbSettings.put("hibernate.connection.username", store.getString(DB_USERNAME));
-		dbSettings.put("hibernate.connection.password", store.getString(DB_PASSWD));
+		dbSettings.setProperty("hibernate.connection.url", connUrl);
+		dbSettings.setProperty("hibernate.connection.username", store.getString(DB_USERNAME));
+		dbSettings.setProperty("hibernate.connection.password", store.getString(DB_PASSWD));
+		dbSettings.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
 		
 		return dbSettings;
 	}
