@@ -17,6 +17,8 @@
 		<class>edu.uci.lighthouse.model.LighthouseEvent</class>
 		<class>edu.uci.lighthouse.model.LighthouseAuthor</class>
 
+		<class>edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent</class>
+
 		<properties>
 			<!-- <property name="hibernate.show_sql" value="true" /> -->
 			<property name="hibernate.format_sql" value="true" />
