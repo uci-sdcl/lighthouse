@@ -44,23 +44,7 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		}
 		return instance;
 	}
-	
-//	// only ModelManager is allowed to call this method
-//	final synchronized void addEvent2(LighthouseEvent event) {
-//		Object artifact = event.getArtifact();
-//		if (artifact!=null) {
-//			LinkedHashSet<LighthouseEvent> listArtifactEvents = mapArtifactEvents.get(artifact);
-//			if (listArtifactEvents==null) {
-//				listArtifactEvents = new LinkedHashSet<LighthouseEvent>();
-//			}
-//			listArtifactEvents.add(event);
-//			mapArtifactEvents.put(artifact,listArtifactEvents);
-//			listEvents.add(event);
-//		} else {
-//			logger.warn("Artifact is null: " + event.toString());
-//		}
-//	}
-	
+
 	final synchronized void addEvent(LighthouseEvent event) {
 		Object artifact = event.getArtifact();
 		if (artifact!=null) {
