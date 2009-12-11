@@ -12,6 +12,7 @@ import javax.persistence.PersistenceException;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -205,30 +206,38 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 
 	public void saveListEvents(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAUtilityException {
 		EntityManager entityManager = null;
+		if (monitor == null){
+			monitor = new NullProgressMonitor();
+		}
 		try {
+			monitor.beginTask("Saving in the database...", listEvents.size());
 			entityManager = JPAUtility.createEntityManager();
 			JPAUtility.beginTransaction(entityManager);
 			// for each entity event
+			final int INC = (int)(listEvents.size() * 0.025);
+			int i = 0;
 			for (LighthouseEvent event : listEvents) {
 				Object artifact = event.getArtifact();
 				if (artifact instanceof LighthouseEntity) {
 					entityManager.merge(event);
-					if (monitor != null) {
-						monitor.worked(1);
+					if (i % INC == 0) {
+						monitor.worked(INC);
 					}
 					logger.debug("Add event in database: " + event);
 				}
+				i++;
 			}
 			// for each relationship event
 			for (LighthouseEvent event : listEvents) {
 				Object artifact = event.getArtifact();
 				if (artifact instanceof LighthouseRelationship) {
 					entityManager.merge(event);
-					if (monitor != null) {
-						monitor.worked(1);
+					if (i % INC == 0) {
+						monitor.worked(INC);
 					}
 					logger.debug("Add event in database: " + event);
 				}
+				i++;
 			}
 			JPAUtility.commitTransaction(entityManager);
 			JPAUtility.closeEntityManager(entityManager);
@@ -237,6 +246,8 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			throw new JPAUtilityException("Error trying to save/update the event", e.fillInStackTrace());
 		} catch (RuntimeException e) {
 			throw new JPAUtilityException("Error with database connection", e.fillInStackTrace());
+		} finally {
+			monitor.done();
 		}
 	}
 	
