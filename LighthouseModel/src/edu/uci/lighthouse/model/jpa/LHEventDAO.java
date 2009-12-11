@@ -1,10 +1,17 @@
 package edu.uci.lighthouse.model.jpa;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+
+import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -13,6 +20,8 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
+	
+	private static Logger logger = Logger.getLogger(LHEventDAO.class);
 	
 	public List<LighthouseEvent> executeQueryCheckOut(
 			LinkedHashSet<LighthouseEntity> listEntitiesInside,
@@ -192,6 +201,43 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		command = command.substring(0, command.lastIndexOf("OR"));
 		command += " )";
 		executeUpdateQuery(command);
+	}
+
+	public void saveListEvents(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAUtilityException {
+		EntityManager entityManager = null;
+		try {
+			entityManager = JPAUtility.createEntityManager();
+			JPAUtility.beginTransaction(entityManager);
+			// for each entity event
+			for (LighthouseEvent event : listEvents) {
+				Object artifact = event.getArtifact();
+				if (artifact instanceof LighthouseEntity) {
+					entityManager.merge(event);
+					if (monitor != null) {
+						monitor.worked(1);
+					}
+					logger.debug("Add event in database: " + event);
+				}
+			}
+			// for each relationship event
+			for (LighthouseEvent event : listEvents) {
+				Object artifact = event.getArtifact();
+				if (artifact instanceof LighthouseRelationship) {
+					entityManager.merge(event);
+					if (monitor != null) {
+						monitor.worked(1);
+					}
+					logger.debug("Add event in database: " + event);
+				}
+			}
+			JPAUtility.commitTransaction(entityManager);
+			JPAUtility.closeEntityManager(entityManager);
+		} catch (PersistenceException e) {
+			JPAUtility.rollbackTransaction(entityManager);
+			throw new JPAUtilityException("Error trying to save/update the event", e.fillInStackTrace());
+		} catch (RuntimeException e) {
+			throw new JPAUtilityException("Error with database connection", e.fillInStackTrace());
+		}
 	}
 	
 }
