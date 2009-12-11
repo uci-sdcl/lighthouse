@@ -13,18 +13,26 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import edu.uci.lighthouse.core.controller.PushModel;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.parser.ParserException;
 
 public class ImportHandler extends AbstractHandler {
 
@@ -53,34 +61,43 @@ public class ImportHandler extends AbstractHandler {
 				try{ 
 				monitor.beginTask("Importing files...", javaFiles.size());
 				PushModel pushModel = new PushModel(LighthouseModel.getInstance());
+				// Parsing files
+				monitor.subTask("Parsing Java files...");
 				Collection<LighthouseEvent> listEvents = pushModel.ParseJavaFiles(javaFiles);
-				pushModel.saveEventsInDatabase(listEvents, new SubProgressMonitor(monitor, javaFiles.size(),SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK));
-//					if (monitor.isCanceled()) return Status.CANCEL_STATUS;
-				} catch (Exception e) {
+				// Saving in the Database (it has its own monitor).
+				monitor.subTask("Saving data to the database...");
+				pushModel.saveEventsInDatabase(listEvents, new SubProgressMonitor(monitor,javaFiles.size()));
+				//TODO: Rollback model changes
+				LighthouseModel.getInstance().fireModelChanged();
+				} catch (JPAUtilityException e) {
 					//TODO: UI
+				} catch (ParserException e) {
+					e.printStackTrace();
 				} finally {
 					monitor.done();
 				}
 				return Status.OK_STATUS;
 			}
 		};
+		job.addJobChangeListener(new JobChangeAdapter() {
+			@Override
+			public void done(final IJobChangeEvent event) {
+				Display.getDefault().syncExec(new Runnable() {
+					public void run() {
+						Shell shell = PlatformUI.getWorkbench()
+								.getActiveWorkbenchWindow().getShell();
+						if (event.getResult() != Status.CANCEL_STATUS && !event.getResult().isOK()) {
+							MessageDialog
+									.openError(shell, "Database Connection",
+											"Imposible to connect to server. Please, check your connection settings.");
+						}
+					}
+				});
+			}
+		});
 		job.setUser(true);
 		job.schedule();
-		
-		
-		// FIXME
-////		Shell shell = PlatformUI.getWorkbench()
-////		.getActiveWorkbenchWindow().getShell();
-//		
-//		PushModel pushModel = new PushModel(LighthouseModel.getInstance());
-//		try {
-//			pushModel.importJavaFiles(javaFiles);
-//			LighthouseModel.getInstance().fireModelChanged();
-////			MessageDialog.openInformation(shell,"Lighthouse", "Project imported successfully!");
-//		} catch (Exception e) {
-////			MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
-//		}
-//		
+
 		return null;
 	}
 	

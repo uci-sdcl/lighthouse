@@ -96,7 +96,7 @@ public class PushModel {
 			Collection<LighthouseEvent> listEvents = modelManager
 					.createEventsAndSaveInLhModel(Activator.getDefault()
 							.getAuthor(), listEntities, listLighthouseRel);
-			model.fireModelChanged();
+//			model.fireModelChanged();
 			return listEvents;
 		}
 		return null;
