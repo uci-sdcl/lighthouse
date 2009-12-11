@@ -11,6 +11,8 @@ public class Keypad {
 	int h;
 	
 	
+	int z;
+	
 	private Scanner input; // reads data from the command line
 
 	// no-argument constructor initializes the Scanner
