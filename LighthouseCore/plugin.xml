@@ -88,5 +88,9 @@
             name="Import">
       </command>
    </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup></startup>
+   </extension>
 
 </plugin>
