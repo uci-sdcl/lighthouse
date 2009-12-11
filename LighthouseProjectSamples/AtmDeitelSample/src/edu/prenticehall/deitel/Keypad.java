@@ -8,7 +8,7 @@ public class Keypad {
 	
 	int nilmax;
 	int moura;
-	
+	int teo;
 	
 	int a;
 	int h;
