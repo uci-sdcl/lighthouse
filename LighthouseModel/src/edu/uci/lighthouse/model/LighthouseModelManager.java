@@ -11,9 +11,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
-import edu.uci.lighthouse.model.jpa.LHEventDAO;
 import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
 import edu.uci.lighthouse.model.util.UtilModifiers;
 
@@ -119,16 +117,6 @@ public class LighthouseModelManager {
 			logger.debug("Add event in model: " + event);
 		}
 		return resultList;
-	}
-	
-	public void saveEventsIntoDatabase(Collection<LighthouseEvent> listEvents) throws JPAUtilityException {
-		LHEventDAO dao = new LHEventDAO();
-		// The entity events need to come before the relationship events
-		// we could use to loops to handle that
-		for (LighthouseEvent event : listEvents) {
-			dao.save(event);
-			logger.debug("Add event in database: " + event);
-		}
 	}
 	
 	public LighthouseEntity getEntityFromDatabase(String fqn) {
