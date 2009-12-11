@@ -64,11 +64,11 @@ public class ImportHandler extends AbstractHandler {
 				// Parsing files
 				monitor.subTask("Parsing Java files...");
 				Collection<LighthouseEvent> listEvents = pushModel.ParseJavaFiles(javaFiles);
-				LighthouseModel.getInstance().fireModelChanged();
 				// Saving in the Database (it has its own monitor).
 				monitor.subTask("Saving data to the database...");
 				pushModel.saveEventsInDatabase(listEvents, new SubProgressMonitor(monitor,javaFiles.size()));
 				//TODO: Rollback model changes
+				LighthouseModel.getInstance().fireModelChanged();
 				} catch (JPAUtilityException e) {
 					//TODO: UI
 				} catch (ParserException e) {
