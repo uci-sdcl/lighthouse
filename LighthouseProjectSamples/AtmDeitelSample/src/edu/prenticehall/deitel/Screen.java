@@ -6,6 +6,7 @@ package edu.prenticehall.deitel;
 public class Screen {
 
 	int paco;
+	int novo;
 
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
