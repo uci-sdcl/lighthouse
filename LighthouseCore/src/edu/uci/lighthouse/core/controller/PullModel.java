@@ -28,16 +28,6 @@ public class PullModel {
 		
 	}
 	
-	private void updateLighthouseModel(List<LighthouseEvent> listEvents) {
-		if (listEvents.size() > 0){
-			logger.debug("Updating model: "+listEvents);
-		}
-		LighthouseModelManager modelManager = new LighthouseModelManager(model);
-		for (LighthouseEvent event : listEvents) {
-			modelManager.addEvent(event);
-		}
-	}
-
 	/**
 	 * Timeout procedure will get all new events (timestamp > lastDBaccessTime)
 	 * @param lastDBaccessTime Last time that we accessed the database
@@ -47,7 +37,10 @@ public class PullModel {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("timestamp", lastDBaccessTime);
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
-		updateLighthouseModel(listEvents);
+		LighthouseModelManager modelManager = new LighthouseModelManager(model);
+		for (LighthouseEvent event : listEvents) {
+			modelManager.addEvent(event);
+		}
 		return listEvents;
 	}
 	
