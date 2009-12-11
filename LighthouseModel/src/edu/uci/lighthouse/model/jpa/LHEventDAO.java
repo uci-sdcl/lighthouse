@@ -13,6 +13,7 @@ import javax.persistence.PersistenceException;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -217,6 +218,9 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			final int INC = (int)(listEvents.size() * 0.025);
 			int i = 0;
 			for (LighthouseEvent event : listEvents) {
+				if (monitor.isCanceled()) {
+					throw new OperationCanceledException();
+				}
 				Object artifact = event.getArtifact();
 				if (artifact instanceof LighthouseEntity) {
 					entityManager.merge(event);
@@ -229,6 +233,9 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			}
 			// for each relationship event
 			for (LighthouseEvent event : listEvents) {
+				if (monitor.isCanceled()){
+					throw new OperationCanceledException();
+				}
 				Object artifact = event.getArtifact();
 				if (artifact instanceof LighthouseRelationship) {
 					entityManager.merge(event);
@@ -241,6 +248,9 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			}
 			JPAUtility.commitTransaction(entityManager);
 			JPAUtility.closeEntityManager(entityManager);
+		} catch (OperationCanceledException e) {
+			JPAUtility.rollbackTransaction(entityManager);
+			throw e;
 		} catch (PersistenceException e) {
 			JPAUtility.rollbackTransaction(entityManager);
 			throw new JPAUtilityException("Error trying to save/update the event", e.fillInStackTrace());
