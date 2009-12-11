@@ -4,25 +4,20 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.IJobChangeEvent;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
@@ -63,7 +58,7 @@ public class PushModel {
 		    	LhManager.addEvent(event);
 		    }
 	    }
-	    jobToSaveEvents(listEvents);
+	    saveEventsInDatabase(listEvents,null);
 	}
 	
 	public Collection<LighthouseEvent> updateCommittedEvents(List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author) throws JPAUtilityException {
@@ -82,57 +77,32 @@ public class PushModel {
 		return listEventsToCommitt;
 	}
 	
-	public Collection<LighthouseEvent> importJavaFiles(Collection<IFile> javaFiles)
+	public Collection<LighthouseEvent> ParseJavaFiles(Collection<IFile> javaFiles)
 			throws ParserException, JPAUtilityException {
 		if (javaFiles.size() > 0) {
 			LighthouseParser parser = new LighthouseParser();
 			parser.execute(javaFiles);
-			Collection<LighthouseEntity> listEntities = parser
-					.getListEntities();
-			Collection<LighthouseRelationship> listLighthouseRel = parser
-					.getListRelationships();
-			LighthouseModelManager modelManager = new LighthouseModelManager(
-					model);
+			Collection<LighthouseEntity> listEntities = parser.getListEntities();
+			// set SVN time as newDate(1969-12-31 16:00:00)
+			Map<String, Date> mapClassToSVNCommittedTime = Controller.getWorkingCopy();
+			for (LighthouseEntity entity : listEntities) {
+				if (entity instanceof LighthouseClass 
+						|| entity instanceof LighthouseInterface) {
+					mapClassToSVNCommittedTime.put(entity.getFullyQualifiedName(), new Date(0));
+				}
+			}
+			Collection<LighthouseRelationship> listLighthouseRel = parser.getListRelationships();
+			LighthouseModelManager modelManager = new LighthouseModelManager(model);
 			Collection<LighthouseEvent> listEvents = modelManager
-					.createEventsAndSaveInModel(Activator.getDefault()
+					.createEventsAndSaveInLhModel(Activator.getDefault()
 							.getAuthor(), listEntities, listLighthouseRel);
-			jobToSaveEvents(listEvents);
+			model.fireModelChanged();
 			return listEvents;
 		}
 		return null;
 	}
-	
-	public void jobToSaveEvents(final Collection<LighthouseEvent> listEvents) throws JPAUtilityException {
-		final Job job = new Job("Saving to the database...") {
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				try{ 
-				monitor.beginTask("Total", listEvents.size());
-				saveEventsInDatabase(listEvents, monitor);
-				if (monitor.isCanceled()) return Status.CANCEL_STATUS;
-				} catch (JPAUtilityException e) {
-					return Status.CANCEL_STATUS;
-				} finally {
-					monitor.done();
-				}
-				return Status.OK_STATUS;
-			}
-		};
-//		job.addJobChangeListener(new JobChangeAdapter() {
-//	        public void done(IJobChangeEvent event) {
-//	        	Shell shell = PlatformUI.getWorkbench()
-//	    		.getActiveWorkbenchWindow().getShell();
-//	        if (event.getResult().isOK())
-//	        	MessageDialog.openInformation(shell,"Lighthouse", "Project imported successfully!");
-//	           else
-//	        	MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
-//	        }
-//	     });
-		job.setUser(true);
-		job.schedule();
-	}
 
-	private void saveEventsInDatabase(final Collection<LighthouseEvent> listEvents,	IProgressMonitor monitor) throws JPAUtilityException {
+	public void saveEventsInDatabase(final Collection<LighthouseEvent> listEvents,	IProgressMonitor monitor) throws JPAUtilityException {
 		LHEventDAO dao = new LHEventDAO();
 		dao.saveListEvents(listEvents,monitor);		
 	}
