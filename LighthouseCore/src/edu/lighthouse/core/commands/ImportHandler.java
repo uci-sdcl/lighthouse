@@ -9,6 +9,11 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -18,6 +23,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import edu.uci.lighthouse.core.controller.PushModel;
+import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
 
 public class ImportHandler extends AbstractHandler {
@@ -28,7 +34,7 @@ public class ImportHandler extends AbstractHandler {
 		IStructuredSelection selection = (IStructuredSelection) HandlerUtil
 		.getActiveMenuSelection(event);
 		
-		Collection<IFile> javaFiles = new ArrayList<IFile>();
+		final Collection<IFile> javaFiles = new ArrayList<IFile>();
 		
 		for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
 			Object itemSelected =  iterator.next();
@@ -41,18 +47,40 @@ public class ImportHandler extends AbstractHandler {
 			}
 		}
 		
-//		Shell shell = PlatformUI.getWorkbench()
-//		.getActiveWorkbenchWindow().getShell();
+		final Job job = new Job("Importing Project") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				try{ 
+				monitor.beginTask("Importing files...", javaFiles.size());
+				PushModel pushModel = new PushModel(LighthouseModel.getInstance());
+				Collection<LighthouseEvent> listEvents = pushModel.ParseJavaFiles(javaFiles);
+				pushModel.saveEventsInDatabase(listEvents, new SubProgressMonitor(monitor, javaFiles.size(),SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK));
+//					if (monitor.isCanceled()) return Status.CANCEL_STATUS;
+				} catch (Exception e) {
+					//TODO: UI
+				} finally {
+					monitor.done();
+				}
+				return Status.OK_STATUS;
+			}
+		};
+		job.setUser(true);
+		job.schedule();
 		
-		PushModel pushModel = new PushModel(LighthouseModel.getInstance());
-		try {
-			pushModel.importJavaFiles(javaFiles);
-			LighthouseModel.getInstance().fireModelChanged();
-//			MessageDialog.openInformation(shell,"Lighthouse", "Project imported successfully!");
-		} catch (Exception e) {
-//			MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
-		}
 		
+		// FIXME
+////		Shell shell = PlatformUI.getWorkbench()
+////		.getActiveWorkbenchWindow().getShell();
+//		
+//		PushModel pushModel = new PushModel(LighthouseModel.getInstance());
+//		try {
+//			pushModel.importJavaFiles(javaFiles);
+//			LighthouseModel.getInstance().fireModelChanged();
+////			MessageDialog.openInformation(shell,"Lighthouse", "Project imported successfully!");
+//		} catch (Exception e) {
+////			MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
+//		}
+//		
 		return null;
 	}
 	
