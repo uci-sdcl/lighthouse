@@ -1,7 +1,11 @@
 package edu.uci.lighthouse.model.jpa;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -98,4 +102,17 @@ public class JPAUtility {
 			entityManager.clear();
 	}
 	
+	public static void canConnect(Properties dbSettings) throws SQLException {
+		
+		String url = dbSettings.getProperty("hibernate.connection.url");
+		String username = dbSettings
+				.getProperty("hibernate.connection.username");
+		String password = dbSettings
+				.getProperty("hibernate.connection.password");
+
+		// Class.forName(dbSettings.getProperty("hibernate.connection.driver_class"));
+		Connection conn = DriverManager.getConnection(url, username, password);
+		conn.close();
+
+	}
 }
