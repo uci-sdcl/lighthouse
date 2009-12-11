@@ -118,16 +118,16 @@ public class PushModel {
 				return Status.OK_STATUS;
 			}
 		};
-		job.addJobChangeListener(new JobChangeAdapter() {
-	        public void done(IJobChangeEvent event) {
-	        	Shell shell = PlatformUI.getWorkbench()
-	    		.getActiveWorkbenchWindow().getShell();
-	        if (event.getResult().isOK())
-	        	MessageDialog.openInformation(shell,"Lighthouse", "Project imported successfully!");
-	           else
-	        	MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
-	        }
-	     });
+//		job.addJobChangeListener(new JobChangeAdapter() {
+//	        public void done(IJobChangeEvent event) {
+//	        	Shell shell = PlatformUI.getWorkbench()
+//	    		.getActiveWorkbenchWindow().getShell();
+//	        if (event.getResult().isOK())
+//	        	MessageDialog.openInformation(shell,"Lighthouse", "Project imported successfully!");
+//	           else
+//	        	MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
+//	        }
+//	     });
 		job.setUser(true);
 		job.schedule();
 	}
