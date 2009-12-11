@@ -96,25 +96,25 @@ public class LighthouseModelManager {
 	}
 	
 	/** Used to import a new project in the database*/
-	public Collection<LighthouseEvent> createEventsAndSaveInModel(LighthouseAuthor author, Collection<LighthouseEntity> listEntities, Collection<LighthouseRelationship> listLighthouseRelationships) {
+	public Collection<LighthouseEvent> createEventsAndSaveInLhModel(LighthouseAuthor author, Collection<LighthouseEntity> listEntities, Collection<LighthouseRelationship> listLighthouseRelationships) {
 		Collection<LighthouseEvent> resultList = new LinkedList<LighthouseEvent>();
 		for (LighthouseEntity entity : listEntities) {
 			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,author,entity);
 			event.setCommitted(true);
 			event.setCommittedTime(new Date(0));
 			event.setTimestamp(new Date(0));
-			addEvent(event);
+			addArtifact(entity);
 			resultList.add(event);
-			logger.debug("Add event in model: " + event);
+			logger.debug("Add entity in model: " + entity);
 		}
 		for (LighthouseRelationship rel : listLighthouseRelationships) {
 			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,author,rel);
 			event.setCommitted(true);
 			event.setCommittedTime(new Date(0));
 			event.setTimestamp(new Date(0));
-			addEvent(event);
+			addArtifact(rel);
 			resultList.add(event);
-			logger.debug("Add event in model: " + event);
+			logger.debug("Add relationship in model: " + rel);
 		}
 		return resultList;
 	}
