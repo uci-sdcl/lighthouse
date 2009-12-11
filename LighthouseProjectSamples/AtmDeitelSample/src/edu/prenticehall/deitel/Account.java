@@ -5,6 +5,8 @@ package edu.prenticehall.deitel;
 
 public class Account {
 	
+	int nilmax;
+	
 	
 	private int accountNumber; // account number
 	private int pin; // PIN for authentication
