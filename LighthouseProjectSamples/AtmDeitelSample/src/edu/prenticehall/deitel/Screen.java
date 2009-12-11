@@ -7,7 +7,15 @@ public class Screen {
 
 	int paco;
 	int novo;
+	int nilmax;
+	int max;
+	int moura;
 
+	int a;
+	
+	int g;
+	
+	
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
 		System.out.print(message);
