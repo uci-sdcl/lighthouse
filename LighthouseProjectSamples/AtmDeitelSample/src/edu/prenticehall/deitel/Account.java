@@ -5,6 +5,8 @@ package edu.prenticehall.deitel;
 
 public class Account {
 	
+	int r;
+	
 	private int accountNumber; // account number
 	private int pin; // PIN for authentication
 	private double availableBalance; // funds available for withdrawal
