@@ -5,7 +5,6 @@ package edu.prenticehall.deitel;
 
 public class DepositSlot {
 	
-	int f;
 	int a;
 	int c;
 	
