@@ -215,7 +215,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			entityManager = JPAUtility.createEntityManager();
 			JPAUtility.beginTransaction(entityManager);
 			// for each entity event
-			final int INC = (int)(listEvents.size() * 0.025);
+			final int INC = (int)(listEvents.size() * 0.025) + 1; // (+1) avoid division by zero
 			int i = 0;
 			for (LighthouseEvent event : listEvents) {
 				if (monitor.isCanceled()) {
