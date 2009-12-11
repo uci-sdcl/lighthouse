@@ -59,7 +59,7 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 	
 	/** Type of the event. */
 	public static enum TYPE {
-		ADD, REMOVE, MODIFY
+		ADD, REMOVE, MODIFY, CUSTOM
 	}
 
 	private TYPE type;	
