@@ -169,8 +169,10 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 		return result;
 	}
 
-	// TODO I removed the timestamp from the equals() because I had some
+	// TODO I removed the "timestamp" from the equals() because I had some
 	// problems to compare 2 EQUAL models that was generated in different times
+	// The "isCommitted" and "committedTime" is not here because they can be updated,
+	// but that does not mean that this is a new event
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -203,17 +205,4 @@ public class LighthouseEvent /*implements Comparable<LighthouseEvent>*/ {
 		return true;
 	}
 
-//	@Override
-//	public int compareTo(LighthouseEvent evt) {
-//		if (this.equals(evt)){
-//			return 0;
-//		} else {
-//			int dateCompare = this.getTimestamp().compareTo(evt.getTimestamp());
-//			if (dateCompare == 0){
-//				return 1;
-//			}
-//		}
-//		return 1;
-//	}
-	
 }
