@@ -45,6 +45,7 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.io.IPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
+import edu.uci.lighthouse.model.jpa.JPAUtilityException;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
 import edu.uci.lighthouse.parser.ParserException;
 
@@ -70,7 +71,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		loadPreferences();
 		loadModel();
-//		(new Thread(this)).start();
+		(new Thread(this)).start();
 	}
 
 	@Override
@@ -153,7 +154,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void run() {
 		threadRunning = true;
 		while (threadRunning) {
-			logger.debug("timeout[ " + lastDBAccess + " ]");
 			// Sleep for the time defined by thread timeout
 			try {
 				try {
@@ -186,8 +186,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		if (mapClassToSVNCommittedTime.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			List<LighthouseEvent> events = pullModel
-					.getNewEventsFromDB(lastDBAccess);
+					.getNewEventsFromDB(lastDBAccess,Activator.getDefault().getAuthor());
 			fireModificationsToUI(events);
+			logger.debug("timeout: " + lastDBAccess);
+			if (events.size()!=0) {
+				logger.debug("timeout[ " + lastDBAccess + " ] brought: [" + events.size() + "] events");
+			}
 			lastDBAccess = getTimestamp();
 		}
 	}
@@ -470,7 +474,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		logger.info("Number of events fetched after checkout = " + events.size());
 		
 		// Insert the CHECKOUT event in the database
-		insertRepositoryEvent(svnFiles, LighthouseRepositoryEvent.TYPE.CHECKOUT, new Date());
+		try {
+			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
+					svnFiles, LighthouseRepositoryEvent.TYPE.CHECKOUT,
+					new Date());
+		} catch (JPAUtilityException e) {
+			logger.error(e.fillInStackTrace());
+		}
 	}
 	
 	@Override
@@ -491,7 +501,14 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		checkout(svnFiles);
 
 		// Insert the UPDATE event in the database
-		insertRepositoryEvent(svnFiles, LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
+		// Insert the CHECKOUT event in the database
+		try {
+			new PushModel(LighthouseModel.getInstance())
+					.saveRepositoryEvent(svnFiles,
+							LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
+		} catch (JPAUtilityException e) {
+			logger.error(e.fillInStackTrace());
+		}
 	}
 	
 	@Override
@@ -517,37 +534,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			logger.debug("Committed ["+ listEvents.size() + "] events " + "with time: " + svnCommittedTime);
 			
 			// Insert the CHECKIN event in the database
-			insertRepositoryEvent(svnFiles, LighthouseRepositoryEvent.TYPE.CHECKIN, svnCommittedTime);
-
+			pushModel.saveRepositoryEvent(svnFiles,
+					LighthouseRepositoryEvent.TYPE.CHECKIN, new Date());
 		} catch (Exception e) {
 			logger.error(e);
 		}
 	}
-
-	private void insertRepositoryEvent(Map<IFile, ISVNInfo> svnFiles, 
-			LighthouseRepositoryEvent.TYPE type,
-			Date date
-			) {
-
-		/* We make this to navigate the class names and their
-		 * properties in the same order when calling 
-		 * methods getClassesFullyQualifiedName and
-		 * getFilesRevisionNumbers
-		 */
-		IFile [] iFiles = svnFiles.keySet().toArray(new IFile[0]);
-		
-		PushRepositoryEvents pushRepositoryEvents = new PushRepositoryEvents();
-		try {
-		pushRepositoryEvents.saveEvent(
-				getClassesFullyQualifiedNameInOrder(svnFiles, iFiles), 
-				Activator.getDefault().getAuthor(), 
-				type, date, getFilesRevisionNumbersInOrder(svnFiles, iFiles));
-		} catch (Exception e) {
-			logger.error(e);
-		}
-
-	}
-
 
 	private HashMap<String, Date> getWorkingCopy(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> result = new HashMap<String, Date>();
@@ -573,31 +565,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		return result;
 	}
 
-	private List<String> getClassesFullyQualifiedNameInOrder(
-			Map<IFile, ISVNInfo> svnFiles, IFile [] iFiles) {
-		LinkedList<String> result = new LinkedList<String>();
-		for (IFile iFile : iFiles) {
-			String fqn = getClassFullyQualifiedName(iFile);
-			if (fqn != null) {
-				result.add(fqn);
-			}
-		}
-		return result;
-	}
-
-	private List<Number> getFilesRevisionNumbersInOrder(
-			Map<IFile, ISVNInfo> svnFiles, IFile [] iFiles) {
-		LinkedList<Number> result = new LinkedList<Number>();
-		for (IFile iFile : iFiles) {
-			Number svnRevisionNumber = svnFiles.get(iFile).getRevision().getNumber();
-			if (svnRevisionNumber != null) {
-				result.add(svnRevisionNumber);
-			}
-		}
-		return result;
-	}
-
-	private String getClassFullyQualifiedName(IFile iFile) {
+	public static String getClassFullyQualifiedName(IFile iFile) {
 		String result = null;
 		try {
 			/*
