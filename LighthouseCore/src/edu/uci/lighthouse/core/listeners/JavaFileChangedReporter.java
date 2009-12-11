@@ -156,10 +156,11 @@ public class JavaFileChangedReporter implements IResourceChangeListener, IElemen
 	
 	private void traverseDeltaTree(IJavaElementDelta delta) {
 		if (delta.getElement().getElementType() == IJavaElement.COMPILATION_UNIT) {
-			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+//			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			ICompilationUnit icu = (ICompilationUnit) delta.getElement();
-			IFile iFile = workspace.getRoot().getFile(icu.getPath());
-			if (icu.getResource().exists()) {
+			IFile iFile = (IFile)icu.getResource();
+//			IFile iFile = workspace.getRoot().getFile(icu.getPath());
+			if (iFile.exists()) {
 				try {
 					boolean hasErrors = IMarker.SEVERITY_ERROR == icu
 							.getResource().findMaxProblemSeverity(
@@ -287,8 +288,10 @@ public class JavaFileChangedReporter implements IResourceChangeListener, IElemen
 		public boolean visit(IResourceDelta delta) throws CoreException {
 			IResource resource = delta.getResource();	
 			if(isJavaFile(delta.getResource())){
-				IWorkspace workspace = ResourcesPlugin.getWorkspace();
-				IFile iFile = workspace.getRoot().getFile(resource.getFullPath());
+//				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+//				IFile iFile = workspace.getRoot().getFile(resource.getFullPath());
+				IFile iFile = (IFile)resource;
+
 				
 				boolean hasErrors = false;
 				if (resource.exists()){
