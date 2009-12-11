@@ -7,6 +7,8 @@ import java.util.Scanner; // program uses Scanner to obtain user input
 public class Keypad {
 	
 	int nilmax;
+	int moura;
+	
 	
 	int a;
 	int h;
