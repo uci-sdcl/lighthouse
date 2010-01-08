@@ -16,6 +16,7 @@ import org.eclipse.zest.core.widgets.IContainer;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.GridLayoutAlgorithm;
+import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
@@ -48,6 +49,8 @@ public class LayoutDropDownAction extends DropDownAction {
 		result.add(new LayoutAction(new TreeLayoutAlgorithm(style)));
 		result.add(new LayoutAction(new RadialLayoutAlgorithm(style)));
 		result.add(new LayoutAction(new GridLayoutAlgorithm(style)));
+//		result.add(new LayoutAction(new PackageLayoutAlgorithm(style)));
+//		result.add(new LayoutAction(new HorizontalShift(style)));
 		return result;
 	}
 	

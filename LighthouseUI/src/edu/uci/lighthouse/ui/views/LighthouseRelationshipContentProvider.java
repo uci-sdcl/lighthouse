@@ -22,7 +22,6 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
-import edu.uci.lighthouse.views.filters.IClassFilter;
 
 public class LighthouseRelationshipContentProvider implements IGraphContentProvider, ILighthouseUIModelListener{
 
