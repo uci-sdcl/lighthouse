@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
+import javax.persistence.PersistenceException;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -30,7 +32,7 @@ import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 
 /**
@@ -79,7 +81,8 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		logger.debug("Core Started");
 		
 		//FIXME: Think about the right place to put this code
-		JPAUtility.createEntityManager(DatabasePreferences.getDatabaseSettings());
+		JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
+		
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		
 		// Starting listeners
@@ -124,11 +127,13 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 			listener.stop(context);
 		}
 		
+		JPAUtility.shutdownEntityManagerFactory();
+		
 		plugin = null;
 		super.stop(context);
 	}
 	
-	private void createLighthouseModel(final IWorkspace workspace) throws JPAUtilityException{
+	private void createLighthouseModel(final IWorkspace workspace) throws JPAException{
 //		IProject[] projects = workspace.getRoot().getProjects();
 //		final Collection<IFile> files = new LinkedList<IFile>();
 //		for (int i = 0; i < projects.length; i++) {
@@ -192,24 +197,13 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 	
-	public LighthouseAuthor getAuthor(){
+	public LighthouseAuthor getAuthor() throws JPAException{
 		if (author == null){
 			Map<String, String> userSettings = UserPreferences.getUserSettings();
 			String userName = userSettings.get(UserPreferences.USERNAME);
 			if (userName != null && !"".equals(userName)) {
 				author =  new LighthouseAuthor(userName);
-				try {
-					new LHAuthorDAO().save(author);
-				} catch (final JPAUtilityException e) {
-					logger.error(e);
-					Display.getDefault().asyncExec(new Runnable() {
-						public void run() {
-							Shell shell = PlatformUI.getWorkbench()
-							.getActiveWorkbenchWindow().getShell();
-							MessageDialog.openError(shell,"Database Connection", "Imposible to connect to server. Please, check your connection settings.");
-						}
-					});
-				}
+				new LHAuthorDAO().save(author);
 			}
 		}
 		return author;
