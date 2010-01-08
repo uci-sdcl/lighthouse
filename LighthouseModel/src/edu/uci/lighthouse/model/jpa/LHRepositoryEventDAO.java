@@ -14,7 +14,7 @@ public class LHRepositoryEventDAO extends AbstractDAO<LighthouseRepositoryEvent,
 	private static Logger logger = Logger.getLogger(LHRepositoryEventDAO.class);
 	
 	public void saveRepositoryEvents(
-			Collection<LighthouseRepositoryEvent> listRepEvents) throws JPAUtilityException {
+			Collection<LighthouseRepositoryEvent> listRepEvents) throws JPAException {
 		EntityManager entityManager = null;
 		try {
 			entityManager = JPAUtility.createEntityManager();
@@ -27,9 +27,9 @@ public class LHRepositoryEventDAO extends AbstractDAO<LighthouseRepositoryEvent,
 			JPAUtility.closeEntityManager(entityManager);
 		} catch (PersistenceException e) {
 			JPAUtility.rollbackTransaction(entityManager);
-			throw new JPAUtilityException("Error trying to save/update the repository event", e.fillInStackTrace());
+			throw new JPAException("Error trying to save/update the repository event", e.fillInStackTrace());
 		} catch (RuntimeException e) {
-			throw new JPAUtilityException("Error with database connection", e.fillInStackTrace());
+			throw new JPAException("Error with database connection", e.fillInStackTrace());
 		}
 		
 	}
