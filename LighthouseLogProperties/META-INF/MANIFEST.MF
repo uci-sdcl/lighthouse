@@ -1,7 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: LighthouseLogProperties
-Bundle-SymbolicName: LighthouseLogProperties
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: Lighthouse Log4J Properties Plug-in
+Bundle-SymbolicName: edu.uci.lighthouse.log4j.properties
+Bundle-Version: 1.0.0
 Fragment-Host: org.apache.log4j;bundle-version="1.2.13"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: UC Irvine
