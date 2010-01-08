@@ -45,9 +45,9 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	
 	/**
 	 * @param query
-	 * @throws JPAUtilityException 
+	 * @throws JPAException 
 	 * */
-	public void executeUpdateQuery(String strQuery) throws JPAUtilityException;
+	public void executeUpdateQuery(String strQuery) throws JPAException;
 	
 	/**
 	 * Return an instance of <code>T</code> using the key <code>pk</code>
@@ -63,13 +63,13 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 * @return T
 	 * @throws JPAUpdateException
 	 */
-	public T save(T entity) throws JPAUtilityException;
+	public T save(T entity) throws JPAException;
 	
 	/**
 	 * Remove an instance of <code>T</code>> from the data base.
 	 * @param entity
 	 * @throws JPADeleteException
 	 */
-	public void remove(T entity) throws JPAUtilityException;
+	public void remove(T entity) throws JPAException;
 	
 }
