@@ -71,6 +71,7 @@ IWorkbenchPreferencePage{
 		
 		chkTunnel = new Button(composite, SWT.CHECK);
 		chkTunnel.setText("Connect using SSH tunnel");
+		chkTunnel.setEnabled(false);
 		
 		Composite sshComposite = getSSHComposite(composite);
 		sshComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -195,23 +196,31 @@ IWorkbenchPreferencePage{
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Host:");
+		label.setEnabled(false);
 		sshHost = new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshHost.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sshHost.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Username:");
+		label.setEnabled(false);
 		sshUser = new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshUser.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sshUser.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Password:");
+		label.setEnabled(false);
 		sshPassword = new Text(group, SWT.SINGLE | SWT.BORDER | SWT.PASSWORD);
 		sshPassword.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sshPassword.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Port:");
+		label.setEnabled(false);
 		sshPort =new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshPort.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		sshPort.setEnabled(false);
 		
 		return group;
 	}
