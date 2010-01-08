@@ -62,7 +62,7 @@ public class SSHTunneling {
 	}
 
 	public void testUpdateModelFromDelta() throws DocumentException,
-			IOException, JPAUtilityException {
+			IOException, JPAException {
 
 	}
 
