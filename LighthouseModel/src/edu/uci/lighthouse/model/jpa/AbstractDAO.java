@@ -96,7 +96,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		return result;
 	}
 	
-	public synchronized void executeUpdateQuery(String strQuery) throws JPAUtilityException {
+	public synchronized void executeUpdateQuery(String strQuery) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		try {
 			Query query = entityManager.createQuery(strQuery);
@@ -105,7 +105,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			JPAUtility.commitTransaction(entityManager);
 		}	catch (RuntimeException e) {
 			e.printStackTrace();
-			throw new JPAUtilityException("Error trying to execute update the entity: " + strQuery, e.fillInStackTrace());
+			throw new JPAException("Error trying to execute update the entity: " + strQuery, e.fillInStackTrace());
 		}
 		JPAUtility.closeEntityManager(entityManager);
 	}
@@ -117,7 +117,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		return result;
 	}
 
-	public synchronized T save(T entity) throws JPAUtilityException {
+	public synchronized T save(T entity) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		T result;
 		try {
@@ -125,8 +125,8 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			result = entityManager.merge(entity);
 			JPAUtility.commitTransaction(entityManager);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
-			throw new JPAUtilityException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
+//			e.printStackTrace();
+			throw new JPAException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
 		}
 		JPAUtility.closeEntityManager(entityManager);
 		return result;
@@ -134,7 +134,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 
 	/* (non-Javadoc)
 	 */
-	public synchronized void remove(T entity) throws JPAUtilityException {
+	public synchronized void remove(T entity) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		try {
 			JPAUtility.beginTransaction(entityManager);
@@ -142,7 +142,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			entityManager.remove(toRemove);
 			JPAUtility.commitTransaction(entityManager);
 		} catch (Exception e) {
-			throw new JPAUtilityException("Error trying to remove the entity: " + entity, e.fillInStackTrace());
+			throw new JPAException("Error trying to remove the entity: " + entity, e.fillInStackTrace());
 		}
 		JPAUtility.closeEntityManager(entityManager);
 	}
