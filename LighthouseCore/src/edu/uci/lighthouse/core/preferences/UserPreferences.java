@@ -2,6 +2,7 @@ package edu.uci.lighthouse.core.preferences;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -11,7 +12,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import edu.uci.lighthouse.core.Activator;
-import edu.uci.lighthouse.model.LighthouseAuthor;
 
 public class UserPreferences extends FieldEditorPreferencePage implements
 IWorkbenchPreferencePage {
@@ -48,12 +48,10 @@ IWorkbenchPreferencePage {
 		return super.performOk();
 	}
 	
-	public static Map<String, String> getUserSettings(){
-		Map<String, String> userSettings = new HashMap<String,String>();
+	public static Properties getUserSettings(){
+		Properties userSettings = new Properties();
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		
-		userSettings.put(USERNAME,store.getString(USERNAME));
-		
+		userSettings.setProperty(USERNAME,store.getString(USERNAME));
 		return userSettings;
 	}
 }
