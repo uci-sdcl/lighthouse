@@ -177,7 +177,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		return result;
 	}
 
-	public void updateCommittedEvents(LinkedHashSet<LighthouseEvent> listEventsToCommitt, Date svnCommittedTime) throws JPAUtilityException {
+	public void updateCommittedEvents(LinkedHashSet<LighthouseEvent> listEventsToCommitt, Date svnCommittedTime) throws JPAException {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String strCommittedTime = formatter.format(svnCommittedTime);
 		String command = 	"UPDATE LighthouseEvent e " +
@@ -205,7 +205,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		executeUpdateQuery(command);
 	}
 
-	public void saveListEvents(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAUtilityException {
+	public void saveListEvents(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAException {
 		EntityManager entityManager = null;
 		if (monitor == null){
 			monitor = new NullProgressMonitor();
@@ -253,9 +253,9 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			throw e;
 		} catch (PersistenceException e) {
 			JPAUtility.rollbackTransaction(entityManager);
-			throw new JPAUtilityException("Error trying to save/update the event", e.fillInStackTrace());
+			throw new JPAException("Error trying to save/update the event", e.fillInStackTrace());
 		} catch (RuntimeException e) {
-			throw new JPAUtilityException("Error with database connection", e.fillInStackTrace());
+			throw new JPAException("Error with database connection", e.fillInStackTrace());
 		} finally {
 			monitor.done();
 		}
