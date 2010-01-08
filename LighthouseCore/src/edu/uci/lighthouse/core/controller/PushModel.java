@@ -24,7 +24,7 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
 import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 import edu.uci.lighthouse.model.jpa.LHRepositoryEventDAO;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
@@ -40,11 +40,11 @@ public class PushModel {
 		this.model = model;
 	}
 	
-	public void updateModelFromDelta(LighthouseDelta delta) throws JPAUtilityException {   
+	public void updateModelFromDelta(LighthouseDelta delta) throws JPAException {   
 	    updateModelFromEvents(delta.getEvents());
 	}
 
-	public void updateModelFromEvents(Collection<LighthouseEvent> listEvents) throws JPAUtilityException {   
+	public void updateModelFromEvents(Collection<LighthouseEvent> listEvents) throws JPAException {   
 	    LighthouseModelManager LhManager = new LighthouseModelManager(model);
 	    // for each entity event
 	    for (LighthouseEvent event : listEvents) {
@@ -65,7 +65,7 @@ public class PushModel {
 	    saveEventsInDatabase(listEvents,null);
 	}
 	
-	public Collection<LighthouseEvent> updateCommittedEvents(List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author) throws JPAUtilityException {
+	public Collection<LighthouseEvent> updateCommittedEvents(List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author) throws JPAException {
 		Collection<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(model, listClazzFqn); 
 		LinkedHashSet<LighthouseEvent> listEventsToCommitt = new LinkedHashSet<LighthouseEvent>();
 		for (LighthouseEvent event : listEvents) {
@@ -82,7 +82,7 @@ public class PushModel {
 	}
 	
 	public Collection<LighthouseEvent> ParseJavaFiles(Collection<IFile> javaFiles)
-			throws ParserException, JPAUtilityException {
+			throws ParserException, JPAException {
 		if (javaFiles.size() > 0) {
 			LighthouseParser parser = new LighthouseParser();
 			parser.execute(javaFiles);
@@ -105,7 +105,7 @@ public class PushModel {
 		return null;
 	}
 
-	public void saveEventsInDatabase(final Collection<LighthouseEvent> listEvents,	IProgressMonitor monitor) throws JPAUtilityException {
+	public void saveEventsInDatabase(final Collection<LighthouseEvent> listEvents,	IProgressMonitor monitor) throws JPAException {
 		LHEventDAO dao = new LHEventDAO();
 		dao.saveListEvents(listEvents,monitor);		
 	}
@@ -113,7 +113,7 @@ public class PushModel {
 	public void saveRepositoryEvent(Map<IFile, ISVNInfo> svnFiles, 
 			LighthouseRepositoryEvent.TYPE type,
 			Date eventTime
-			) throws JPAUtilityException {
+			) throws JPAException {
 
 		/* We make this to navigate the class names and their
 		 * properties in the same order when calling 
