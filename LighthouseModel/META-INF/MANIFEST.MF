@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: LighthouseModel
-Bundle-SymbolicName: LighthouseModel
+Bundle-Name: Lighthouse MetaModel Plug-in
+Bundle-SymbolicName: edu.uci.lighthouse.model
 Bundle-Version: 1.0.0
 Require-Bundle: org.eclipse.swt;bundle-version="3.4.2",
  org.junit;bundle-version="3.8.2",
@@ -36,3 +36,4 @@ Bundle-ClassPath: lib/dom4j-1.6.1.jar,
  lib/hibernate/slf4j-log4j12.jar,
  lib/jsch-0.1.42.jar
 Import-Package: com.jcraft.jsch
+Bundle-Vendor: UC Irvine
