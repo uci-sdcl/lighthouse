@@ -1,26 +1,13 @@
 package edu.uci.lighthouse.core;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
-
-import javax.persistence.PersistenceException;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceVisitor;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -31,8 +18,8 @@ import edu.uci.lighthouse.core.listeners.SVNEventReporter;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.model.LighthouseAuthor;
-import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 
 /**
@@ -43,12 +30,11 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	private static Logger logger = Logger.getLogger(Activator.class);
 	
 	// The plug-in ID
-	public static final String PLUGIN_ID = "lighthouse-core"; 
+	public static final String PLUGIN_ID = "edu.uci.lighthouse.core"; 
 
 	// The shared instance
 	private static Activator plugin;
 	
-//	IResourceChangeListener listener;
 	Collection<IPluginListener> listeners = new LinkedList<IPluginListener>();
 	
 	private LighthouseAuthor author;
@@ -89,27 +75,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		for (IPluginListener listener : listeners) {
 			listener.start(context);
 		}
-		
-		
-		
-//		JavaCore.addElementChangedListener(new JavaFileChangedReporter(),
-//				ElementChangedEvent.POST_CHANGE);
 
-//		IWorkspace workspace = ResourcesPlugin.getWorkspace();		
-//		createLighthouseModel(workspace);
-		
-//		new PullModel().run();
-				
-/*
-		IResourceChangeListener listener = new IResourceChangeListener() {
-			public void resourceChanged(IResourceChangeEvent event) {
-				IResourceDelta delta = event.getDelta();
-				System.out.println("Resource:"+event.getDelta().getKind()+" "+delta.getResource().getLocationURI().getPath()+"("+(delta.getResource().getType()==IResource.FILE )+")");
-			}
-		};
-		workspace.addResourceChangeListener(listener,IResourceChangeEvent.POST_CHANGE);		
-		JavaCore.addElementChangedListener(new JavaChangeReporter(), ElementChangedEvent.POST_CHANGE);
-		*/
 	}
 
 	/*
@@ -117,9 +83,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-//		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-//		workspace.addResourceChangeListener(listener);	
-		
+
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		
 		// Stopping listeners
@@ -133,50 +97,6 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		super.stop(context);
 	}
 	
-	private void createLighthouseModel(final IWorkspace workspace) throws JPAException{
-//		IProject[] projects = workspace.getRoot().getProjects();
-//		final Collection<IFile> files = new LinkedList<IFile>();
-//		for (int i = 0; i < projects.length; i++) {
-//			if (projects[i].isOpen()) {
-//				files.addAll(getFilesFromProject(projects[i]));
-//			}
-//		}
-//		if (files.size()>0) {
-//			LighthouseParser parser = new LighthouseParser();
-//			final LighthouseModel lighthouseModel = LighthouseModel.getInstance();
-//			parser.executeInAJob(lighthouseModel,files, new IParserAction() {
-//				@Override
-//				public void doAction() throws JPAUtilityException {
-//					new LighthouseModelManagerPersistence(lighthouseModel).saveAllIntoDataBase();
-//					lighthouseModel.fireModelChanged();
-//					final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();;
-//					//listener = new FileChangedListener(window);
-//					workspace.addResourceChangeListener(listener);						
-//				}
-//			}); 
-//		}		
-	}
-	
-	private Collection<IFile> getFilesFromProject(IProject project) {
-		final Collection<IFile> files = new HashSet<IFile>();
-		try {
-			project.getFolder("src").accept(new IResourceVisitor() {
-				@Override
-				public boolean visit(IResource resource) throws CoreException {
-					if (resource.getType() == IResource.FILE && resource.getFileExtension().equalsIgnoreCase("java")) {
-						files.add((IFile) resource);
-						return false;
-					} else {
-						return true;
-					}
-				}
-			});
-		} catch (CoreException e) {
-			// TODO handle exception
-		}
-		return files;
-	}
-
 	/**
 	 * Returns the shared instance
 	 *
@@ -199,8 +119,8 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	
 	public LighthouseAuthor getAuthor() throws JPAException{
 		if (author == null){
-			Map<String, String> userSettings = UserPreferences.getUserSettings();
-			String userName = userSettings.get(UserPreferences.USERNAME);
+			Properties userSettings = UserPreferences.getUserSettings();
+			String userName = userSettings.getProperty(UserPreferences.USERNAME);
 			if (userName != null && !"".equals(userName)) {
 				author =  new LighthouseAuthor(userName);
 				new LHAuthorDAO().save(author);
@@ -214,7 +134,5 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		if (UserPreferences.USERNAME.equals(event.getProperty())) {
 			author = null;
 		}
-		
 	}
-
 }
