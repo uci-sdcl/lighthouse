@@ -31,7 +31,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import edu.uci.lighthouse.core.controller.PushModel;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class ImportHandler extends AbstractHandler {
@@ -69,7 +69,7 @@ public class ImportHandler extends AbstractHandler {
 				pushModel.saveEventsInDatabase(listEvents, new SubProgressMonitor(monitor,javaFiles.size()));
 				//TODO: Rollback model changes
 				LighthouseModel.getInstance().fireModelChanged();
-				} catch (JPAUtilityException e) {
+				} catch (JPAException e) {
 					//TODO: UI
 				} catch (ParserException e) {
 					e.printStackTrace();
