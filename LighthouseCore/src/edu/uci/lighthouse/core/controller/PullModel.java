@@ -16,6 +16,7 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
 import edu.uci.lighthouse.model.LighthouseRelationship;
+import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class PullModel {
@@ -33,8 +34,9 @@ public class PullModel {
 	 * Timeout procedure will get all new events (timestamp > lastDBaccessTime)
 	 * @param lastDBaccessTime Last time that we accessed the database
 	 * @return 
+	 * @throws JPAException 
 	 * */
-	public List<LighthouseEvent>  getNewEventsFromDB(Date lastDBaccessTime, LighthouseAuthor author) {
+	public List<LighthouseEvent>  getNewEventsFromDB(Date lastDBaccessTime, LighthouseAuthor author) throws JPAException {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("timestamp", lastDBaccessTime);
 		parameters.put("author", author);
@@ -46,7 +48,7 @@ public class PullModel {
 		return listEvents;
 	}
 	
-	public Collection<LighthouseEvent> executeQueryCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) {
+	public Collection<LighthouseEvent> executeQueryCheckout(HashMap<String, Date> mapClassFqnToLastRevisionTimestamp) throws JPAException {
 		logger.info("GET IN: PullModel.executeQueryCheckout()");
 		LighthouseModelManager modelManager = new LighthouseModelManager(model);
 		LinkedHashSet<LighthouseEntity> listEntitiesInside = new LinkedHashSet<LighthouseEntity>();

@@ -16,10 +16,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -32,6 +40,8 @@ import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.ISVNEventListener;
 import edu.uci.lighthouse.core.parser.IParserAction;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
+import edu.uci.lighthouse.core.preferences.DatabasePreferences;
+import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.model.BuildLHBaseFile;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseDelta;
@@ -45,7 +55,8 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.io.IPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
-import edu.uci.lighthouse.model.jpa.JPAUtilityException;
+import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
 import edu.uci.lighthouse.parser.ParserException;
 
@@ -135,9 +146,14 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		if (LighthouseModel.getInstance().isEmpty()
 				&& mapClassToSVNCommittedTime.size() > 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
-			Collection<LighthouseEvent> events = pullModel
-					.executeQueryCheckout(mapClassToSVNCommittedTime);
-			fireModificationsToUI(events);
+			try {
+				Collection<LighthouseEvent> events = pullModel
+						.executeQueryCheckout(mapClassToSVNCommittedTime);
+				fireModificationsToUI(events);
+			} catch (JPAException e) {
+				logger.error(e);
+				UserDialog.openError(e.getMessage());
+			}
 		}
 	}
 	
@@ -166,6 +182,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	                        wait();
 	                    }
 	                }
+				} catch (JPAException e) {
+					//FIXME: Remove stack trace
+					e.printStackTrace();
 				}
 			} catch (InterruptedException e) {
 				logger.error(e);
@@ -176,8 +195,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	/**
 	 * Refresh the LighthouseModel with new events from database and fire this
 	 * changes to the UI.
+	 * @throws JPAException 
 	 */
-	public synchronized void refreshModelBasedOnLastDBAccess() {
+	public synchronized void refreshModelBasedOnLastDBAccess() throws JPAException {
 		/*
 		 * If the map's size == 0, it means that it is the first time that user
 		 * is running Lighthouse. Then, the LighthouseModel will be updated only
@@ -199,88 +219,24 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void open(final IFile iFile, boolean hasErrors) {
 
-		/* This code works, however is not optimized. See the other block below. */
-
 		final String classFqn = getClassFullyQualifiedName(iFile);
-//		logger.debug("open " + classFqn);
-
-//		if (hasErrors) {
-//			classWithErrors.add(iFile);
-//		}
-
-		// if it is a NEW class
-//		if (LighthouseModel.getInstance().getEntity(classFqn) == null) {
-//			Collection<LighthouseEvent> deltaEvents = foo(Collections.singleton(iFile));
-//			PushModel pushModel = new PushModel(
-//					LighthouseModel.getInstance());
-//			try {
-//				pushModel.updateModelFromEvents(deltaEvents);
-//			} catch (Exception e) {
-//				// TODO: Try to throw up this exception
-//				logger.error(e);
-//			}
-//			fireModificationsToUI(deltaEvents);
-//			
-//			mapClassFqnToLastRevisionTimestamp.put(classFqn, new Date(0));
-//		} else {
 			Thread task = new Thread() {
 				@Override
 				public void run() {
 			//Removed the thread because the unopened files. When you try to guarantee the lifecycle (open,change,close) the base version can not
-					LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
-					classBaseVersion.put(classFqn, lhBaseFile);
+					try {
+						LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
+						classBaseVersion.put(classFqn, lhBaseFile);
+					} catch (JPAException e) {
+						logger.error(e);
+						UserDialog.openError(e.getMessage());
+					}
 				}
 			};
 			task.start();
-//		}
-		
-		/* The code below is working. However we need to guarantee that the open event is ALWAYS fired for files that are open in the workspace whe eclipse is loading.*/
-		
-//		final String classFqn = getClassFullyQualifiedName(iFile);
-//		logger.debug("open "+classFqn);
-//			
-//		if (hasErrors) {
-//			Date revisionTime = mapClassFqnToLastRevisionTimestamp.get(classFqn);
-//			if (revisionTime!= null) {
-//				LighthouseFile lhBaseFile = BuildLHBaseFile.execute(LighthouseModel.getInstance(), classFqn, revisionTime, Activator.getDefault().getAuthor());
-//				classBaseVersion.put(classFqn,lhBaseFile);
-//			}
-//			classWithErrors.add(iFile);
-//		} else {
-//				try {
-//				final LighthouseFile lhFile = new LighthouseFile();
-//				LighthouseParser parser = new LighthouseParser();
-//				parser.executeInAJob(lhFile, Collections.singleton(iFile),
-//				new IParserAction() {
-//					@Override
-//					public void doAction() {
-//						logger.debug("base: " + classFqn
-//								+ " LHFile entities:"
-//								+ lhFile.getEntities().size());
-//						classBaseVersion.put(classFqn, lhFile);
-//						
-//						// if it is a NEW class
-//						if (LighthouseModel.getInstance().getEntity(classFqn) == null) {
-//							LighthouseDelta delta = new LighthouseDelta(Activator.getDefault().getAuthor(),null,lhFile);
-//							PushModel pushModel = new PushModel(LighthouseModel
-//									.getInstance());
-//							try {
-//								pushModel.updateModelFromDelta(delta);
-//							} catch (Exception e) {
-//								// TODO: Try to throw up this exception
-//								logger.error(e);
-//							}
-//							fireModificationsToUI(delta.getEvents());
-//						}
-//					}
-//				});
-//			} catch (Exception e) {
-//				logger.error(e);
-//			}
-//		}
 	}
 
-	public LighthouseFile getBaseVersionFromDB(String classFullyQualifiedName) {
+	public LighthouseFile getBaseVersionFromDB(String classFullyQualifiedName) throws JPAException {
 		LighthouseFile result = null;
 		Date revisionTime = mapClassToSVNCommittedTime.get(classFullyQualifiedName);
 		if (revisionTime != null) {
@@ -297,8 +253,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// and remove the classes from the list classWithErrors
 		
 		if (!hasErrors) {
-//			classWithErrors.add(iFile);
-//		} else {
 			
 			if(ignorefilesJustUpdated.contains(iFile)) {
 				// event change was invoked without a merge problem
@@ -309,89 +263,36 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				
 				// I will suppose that the revisionTime was setted in the update event
 				String classFqn =getClassFullyQualifiedName(iFile);
-				LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
-				classBaseVersion.put(classFqn, lhBaseFile);
+				try {
+					LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
+					classBaseVersion.put(classFqn, lhBaseFile);
+				} catch (JPAException e) {
+					logger.error(e);
+					UserDialog.openError(e.getMessage());
+				}
+				
 				
 			} else {
-//			} else {	
-				// Remove iFile from the list if it exists, since hasErrors = false
-//				classWithErrors.remove(iFile);
-//				Collection<IFile> filesWithoutErrors = getFilesWithoutErrors(classWithErrors);
-//				classWithErrors.removeAll(filesWithoutErrors);
-				
-//				Collection<LighthouseEvent> deltaEvents = new LinkedList<LighthouseEvent>(); 
-//				deltaEvents.addAll(generateDeltaFromBaseVersion(Collections.singleton(iFile)));
-//				deltaEvents.addAll(generateDeltaFromBaseVersion(filesWithoutErrors));
-			//////
-//			final String classFqn = getClassFullyQualifiedName(iFile);
-//			final LighthouseFile lhBaseFile = classBaseVersion.get(classFqn);
-//			// change will run only if we have base version 
-//			// That is a very good optimization
-//			if (lhBaseFile != null) { 
-				
-				Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections
-						.singleton(iFile));
-				logger.debug("Event change generated delta events: " + deltaEvents.size());
 				// TODO: Think about DB operations in a thread
-				PushModel pushModel = new PushModel(LighthouseModel
-						.getInstance());
+				
 				try {
+					Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections
+							.singleton(iFile));
+					logger.debug("Event change generated delta events: " + deltaEvents.size());
+					PushModel pushModel = new PushModel(LighthouseModel
+							.getInstance());
 					pushModel.updateModelFromEvents(deltaEvents);
+					//FIXME: This implies if some error happen, the UI is not going to be updated. Check with Nilmax to see if this the behavior that we want.
+					fireModificationsToUI(deltaEvents);
 				} catch (Exception e) {
 					logger.error(e);
+					UserDialog.openError(e.getMessage());
 				}
-				fireModificationsToUI(deltaEvents);
 			
 			}
-//			}
-//			}
-			
-//			final LinkedHashSet<LighthouseEvent> deltaEvents = new LinkedHashSet<LighthouseEvent>(); 
-//			
-//			// Use iterator to be able to remove the IFile in the loop
-//			for (Iterator<IFile> itFile = classWithErrors.iterator(); itFile.hasNext();) {
-//				IFile javaFile = itFile.next();
-//				boolean hasError = JavaCompilerUtil.hasErrors(javaFile);
-//				logger.debug("File: "+javaFile+" hasError: "+hasError);
-//				if (!hasError){
-//					itFile.remove();
-//					
-//					// TODO: Verify if it is suitable to put the try block in another method
-//					try {
-//						final String classFqn = getClassFullyQualifiedName(javaFile);
-//						final LighthouseFile currentLhFile = new LighthouseFile();
-//						LighthouseParser parser = new LighthouseParser();
-//						parser.executeInAJob(currentLhFile, Collections
-//								.singleton(iFile), new IParserAction() {
-//							@Override
-//							public void doAction() {
-//								LighthouseFile lhBaseFile = classBaseVersion
-//										.get(classFqn);
-//								
-//								if (lhBaseFile != null) {
-//									LighthouseDelta delta = new LighthouseDelta(Activator
-//											.getDefault().getAuthor(), lhBaseFile,
-//											currentLhFile);
-//									PushModel pushModel = new PushModel(LighthouseModel
-//											.getInstance());
-//									try {
-//										pushModel.updateModelFromDelta(delta);
-//									} catch (Exception e) {
-//										logger.error(e);
-//									}
-//									// Updates the current base version
-//									classBaseVersion.put(classFqn, currentLhFile);
-//									deltaEvents.addAll(delta.getEvents());
-//								}
-//							}
-//						});
-//					} catch (Exception e) {
-//						logger.error(e);
-//					}
-//				}
-//			}
 			
 		} else { // if file with error
+			// FIXME: we are calling this if block in the algorithm for both error/no erros. A better approach will put them outside the main if. Check this later.
 			if (ignorefilesJustUpdated.contains(iFile)) {
 				// it is a merge conflict, next time that event change will be invoked 
 				// we are going to have just two situation:
@@ -401,17 +302,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			}
 		}
 	}
-	
-//	private Collection<IFile> getFilesWithoutErrors(Collection<IFile> files){
-//		LinkedList<IFile> result = new LinkedList<IFile>();
-//		for (Iterator<IFile> itFile = files.iterator(); itFile.hasNext();) {
-//			IFile file = itFile.next();
-//			if (!JavaCompilerUtil.hasErrors(file)) {
-//				result.add(file);
-//			}
-//		}
-//		return result;
-//	}
 	
 	private Collection<LighthouseEvent> generateDeltaFromBaseVersion(Collection<IFile> files) {
 		return generateDeltaFromBaseVersion(files,false);
@@ -430,22 +320,27 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					parser.executeInAJob(Collections.singleton(file),
 							new IParserAction() {
 								@Override
-								public void doAction() {
+								public void doAction() throws ParserException {
 									LighthouseFile currentLhFile = new LighthouseFile();
 									new LighthouseFileManager(currentLhFile)
 											.buildLHFile(parser
 													.getListEntities(), parser
 													.getListRelationships());
-									LighthouseDelta delta = new LighthouseDelta(
-											Activator.getDefault().getAuthor(),
-											lhBaseFile, currentLhFile);
-									classBaseVersion.put(classFqn,
-											currentLhFile);
-									result.addAll(delta.getEvents());
+									try {
+										LighthouseDelta delta = new LighthouseDelta(
+													Activator.getDefault().getAuthor(),
+													lhBaseFile, currentLhFile);
+										classBaseVersion.put(classFqn,
+												currentLhFile);
+										result.addAll(delta.getEvents());
+									} catch (JPAException e) {
+										throw new ParserException(e);
+									}
 								}
 							});
 				} catch (ParserException e) {
 					logger.error(e);
+					UserDialog.openError(e.getMessage());
 				}
 			}
 		}
@@ -469,17 +364,19 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
+		try {
 		Collection<LighthouseEvent> events = pullModel.executeQueryCheckout(workingCopy);
 		LighthouseModel.getInstance().fireModelChanged();
 		logger.info("Number of events fetched after checkout = " + events.size());
 		
 		// Insert the CHECKOUT event in the database
-		try {
+	
 			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
 					svnFiles, LighthouseRepositoryEvent.TYPE.CHECKOUT,
 					new Date());
-		} catch (JPAUtilityException e) {
-			logger.error(e.fillInStackTrace());
+		} catch (JPAException e) {
+			logger.error(e);
+			UserDialog.openError(e.getMessage());
 		}
 	}
 	
@@ -506,8 +403,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			new PushModel(LighthouseModel.getInstance())
 					.saveRepositoryEvent(svnFiles,
 							LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
-		} catch (JPAUtilityException e) {
-			logger.error(e.fillInStackTrace());
+		} catch (JPAException e) {
+			logger.error(e);
 		}
 	}
 	
@@ -536,8 +433,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			// Insert the CHECKIN event in the database
 			pushModel.saveRepositoryEvent(svnFiles,
 					LighthouseRepositoryEvent.TYPE.CHECKIN, new Date());
-		} catch (Exception e) {
+		} catch (JPAException e) {
 			logger.error(e);
+			UserDialog.openError(e.getMessage());
 		}
 	}
 
@@ -645,29 +543,33 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void remove(IFile iFile, boolean hasErrors) {
-		//FIXME: Gambis pra pegar FQN pelo caminho do arquivo. Melhorar depois usando o source folder do projeto
+		// FIXME: Gambis pra pegar FQN pelo caminho do arquivo. Melhorar depois
+		// usando o source folder do projeto
 		String srcFolder = "/src/";
 		String projectName = iFile.getProject().getName();
 		int index = iFile.getFullPath().toOSString().indexOf(projectName);
-		String classFqn = iFile.getFullPath().toOSString().substring(index+projectName.length()+srcFolder.length()).replaceAll("/", ".").replaceAll(".java", "");
-		LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
-		if (lhBaseFile != null) {
+		String classFqn = iFile.getFullPath().toOSString().substring(
+				index + projectName.length() + srcFolder.length()).replaceAll(
+				"/", ".").replaceAll(".java", "");
 
-			LighthouseDelta delta = new LighthouseDelta(Activator.getDefault()
-					.getAuthor(), lhBaseFile, null);
+		try {
+			LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
+			if (lhBaseFile != null) {
 
-			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
-			try {
+				LighthouseDelta delta = new LighthouseDelta(Activator
+						.getDefault().getAuthor(), lhBaseFile, null);
+
+				PushModel pushModel = new PushModel(LighthouseModel
+						.getInstance());
 				pushModel.updateModelFromEvents(delta.getEvents());
-			} catch (Exception e) {
-				logger.error(e);
+				fireModificationsToUI(delta.getEvents());
 			}
-			fireModificationsToUI(delta.getEvents());
-
+		} catch (JPAException e) {
+			logger.error(e);
+			UserDialog.openError(e.getMessage());
 		}
-
 	}
-
+	
 	/** The method add happens when a class is added in the workspace or when is checkout a project in a empty workspace. */
 	@Override
 	public void add(IFile iFile, boolean hasErrors) {
@@ -676,29 +578,35 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// It is a new class created by the user. We are assuming that the user creates a class that doesn't contain errors.
 		if (!mapClassToSVNCommittedTime.containsKey(classFqn)) {
 			mapClassToSVNCommittedTime.put(classFqn, new Date(0));
-			Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
 			// TODO: Think about DB operations in a thread
-			PushModel pushModel = new PushModel(
-					LighthouseModel.getInstance());
 			try {
+				Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
+				PushModel pushModel = new PushModel(
+						LighthouseModel.getInstance());
 				pushModel.updateModelFromEvents(deltaEvents);
+				fireModificationsToUI(deltaEvents);
 			} catch (Exception e) {
 				// TODO: Try to throw up this exception
 				logger.error(e);
+				UserDialog.openError(e.getMessage());
 			}
-			fireModificationsToUI(deltaEvents);
 		}
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (threadSuspended){
-			synchronized(this) {
-				threadSuspended = false;
-				notify();
+		try{
+			//FIXME: Check this line
+			JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
+			if (threadSuspended){
+				synchronized(this) {
+					threadSuspended = false;
+					notify();
+				}
 			}
+		} catch (JPAException e){
+			logger.error(e);
 		}
-		
 	}
 
 	private synchronized Date getTimestamp(){

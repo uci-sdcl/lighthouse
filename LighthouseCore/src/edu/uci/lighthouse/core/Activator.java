@@ -83,7 +83,6 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		
 		// Stopping listeners

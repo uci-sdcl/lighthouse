@@ -57,28 +57,37 @@ public class JavaFileChangedReporter implements IResourceChangeListener, IElemen
 		JavaCore.removeElementChangedListener(this);
 	}
 	
-	private void findActiveOpenFileInWorkspace(){
-		IWorkbenchWindow window = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow();
-		IWorkbenchPage[] pages = window.getPages();
-		logger.debug("pages length: "+pages.length);
-		for (IWorkbenchPage page : pages) {
-			IEditorPart editor = page.getActiveEditor();
-			logger.debug("editor: "+editor);
-			if (editor != null) {
-				IFile file = (IFile) editor.getEditorInput().getAdapter(IFile.class);				
-				if (isJavaFile(file)){
-//					ICompilationUnit icu = JavaCore.createCompilationUnitFrom(file);
-//					openedFiles.add(file);
-					try {
-						boolean hasErrors = IMarker.SEVERITY_ERROR == file.findMaxProblemSeverity(IMarker.PROBLEM, true, IResource.DEPTH_INFINITE);
-						fireOpen(file, hasErrors);
-					} catch (CoreException e) {
-						logger.error(e);
+	private void findActiveOpenFileInWorkspace() {
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				IWorkbenchWindow window = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow();
+				IWorkbenchPage[] pages = window.getPages();
+				logger.debug("pages length: " + pages.length);
+				for (IWorkbenchPage page : pages) {
+					IEditorPart editor = page.getActiveEditor();
+					logger.debug("editor: " + editor);
+					if (editor != null) {
+						IFile file = (IFile) editor.getEditorInput()
+								.getAdapter(IFile.class);
+						if (isJavaFile(file)) {
+							// ICompilationUnit icu =
+							// JavaCore.createCompilationUnitFrom(file);
+							// openedFiles.add(file);
+							try {
+								boolean hasErrors = IMarker.SEVERITY_ERROR == file
+										.findMaxProblemSeverity(
+												IMarker.PROBLEM, true,
+												IResource.DEPTH_INFINITE);
+								fireOpen(file, hasErrors);
+							} catch (CoreException e) {
+								logger.error(e);
+							}
+						}
 					}
 				}
 			}
-		}
+		});
 	}
 
 	private void findOpenFilesInWorkspace() {
