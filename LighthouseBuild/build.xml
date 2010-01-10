@@ -3,7 +3,7 @@
 
  <property file="build.properties" id="local.properties" />
 	
-  <target name="all" depends="clean" />	
+  <target name="all" depends="patch.projects" />	
 	
 	<target name="clean" depends="clean.config.files,clean.database" />	
 	
