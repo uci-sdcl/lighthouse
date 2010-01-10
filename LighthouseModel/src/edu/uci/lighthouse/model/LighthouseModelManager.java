@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
+import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
 import edu.uci.lighthouse.model.util.UtilModifiers;
@@ -119,7 +120,7 @@ public class LighthouseModelManager {
 		return resultList;
 	}
 	
-	public LighthouseEntity getEntityFromDatabase(String fqn) {
+	public LighthouseEntity getEntityFromDatabase(String fqn) throws JPAException {
 		LighthouseEntity entity = getEntity(fqn);
 		if (entity==null) {
 			entity = new LHEntityDAO().get(fqn);
@@ -128,7 +129,7 @@ public class LighthouseModelManager {
 	}
 	
 	//TODO: Put select methods in another class (think later about that)
-	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(String fqnClazz) {
+	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(String fqnClazz) throws JPAException {
 		return selectEntitiesInsideClass(new LinkedHashSet<LighthouseEntity>(),fqnClazz);
 	}
 	
@@ -136,8 +137,9 @@ public class LighthouseModelManager {
 	 * Going to the database to return the entities inside a class
 	 * Recursive method
 	 * @param listEntitiesInside should be a new LinkedHashSet()
+	 * @throws JPAException 
 	 * */ 
-	private LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(LinkedHashSet<LighthouseEntity> listEntitiesInside, String fqnClazz) {
+	private LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(LinkedHashSet<LighthouseEntity> listEntitiesInside, String fqnClazz) throws JPAException {
 		LighthouseClass clazz = new LighthouseClass(fqnClazz);
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);

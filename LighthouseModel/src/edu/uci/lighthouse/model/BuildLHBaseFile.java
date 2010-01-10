@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
 public class BuildLHBaseFile {
 
-	public static LighthouseFile execute(LighthouseModel lhModel, String fqnClazz, Date revisionTime, LighthouseAuthor author) {
+	public static LighthouseFile execute(LighthouseModel lhModel, String fqnClazz, Date revisionTime, LighthouseAuthor author) throws JPAException {
 		LighthouseFile lhFile = new LighthouseFile();
 		LighthouseFileManager fileManager = new LighthouseFileManager(lhFile);
 		LinkedHashSet<LighthouseEntity> listEntitiesInside = new LighthouseModelManager(lhModel).selectEntitiesInsideClass(fqnClazz);
