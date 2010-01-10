@@ -27,7 +27,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	
 	public List<LighthouseEvent> executeQueryCheckOut(
 			LinkedHashSet<LighthouseEntity> listEntitiesInside,
-			Date revisionTime) {
+			Date revisionTime) throws JPAException {
 		List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
 		if (listEntitiesInside.size()>0) {			
 			String strQuery = "SELECT e " + "FROM LighthouseEvent e "
@@ -97,7 +97,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	
 	public List<LighthouseEvent> executeQueryLhBaseFile(
 			LinkedHashSet<LighthouseEntity> listEntitiesInside,
-			Date revisionTime, LighthouseAuthor author) {
+			Date revisionTime, LighthouseAuthor author) throws JPAException {
 		List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
 		if (listEntitiesInside.size()>0) {			
 			String strQuery = "SELECT e " + "FROM LighthouseEvent e "

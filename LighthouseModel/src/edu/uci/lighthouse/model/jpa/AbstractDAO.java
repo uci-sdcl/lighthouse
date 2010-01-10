@@ -30,7 +30,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	}
 	
 	@SuppressWarnings("unchecked")
-	public synchronized List<T> list() {
+	public synchronized List<T> list() throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		List<T> result = entityManager.createQuery(
 				"select entity from " + entityClass.getSimpleName() + " entity")
@@ -41,7 +41,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
  
 	@SuppressWarnings("unchecked")
 	public synchronized List<T> executeNamedQuery(String nameQuery,
-			Map<String, Object> parameters) {
+			Map<String, Object> parameters) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
@@ -60,7 +60,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	}
 
 	@SuppressWarnings("unchecked")
-	public synchronized List<T> executeNamedQuery(String nameQuery, Object[] parameters) {
+	public synchronized List<T> executeNamedQuery(String nameQuery, Object[] parameters) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {
@@ -85,10 +85,11 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 	 * 
 	 * @param parameters
 	 * @return
+	 * @throws JPAException 
 	 * @throws JPAQueryException
 	 */
 	@SuppressWarnings("unchecked")
-	public synchronized List<T> executeDynamicQuery(String strQuery) {
+	public synchronized List<T> executeDynamicQuery(String strQuery) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createQuery(strQuery);
 		List result = query.getResultList();
@@ -110,7 +111,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		JPAUtility.closeEntityManager(entityManager);
 	}
 	
-	public synchronized T get(PK pk) {
+	public synchronized T get(PK pk) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		T result = entityManager.find(entityClass, pk);
 		JPAUtility.closeEntityManager(entityManager);

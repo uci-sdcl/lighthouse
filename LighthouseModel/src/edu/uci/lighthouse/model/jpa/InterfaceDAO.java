@@ -14,8 +14,9 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	/**
 	 * List all tuple of a particular entity
 	 * @return
+	 * @throws JPAException 
 	 */
-	public List<T> list();
+	public List<T> list() throws JPAException;
 	
 	/**
 	 * Return a list of <code>T</code> from a
@@ -23,9 +24,10 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 * @param query
 	 * @param parameters query parameters
 	 * @return
+	 * @throws JPAException 
 	 */
 	public List<T> executeNamedQuery(String query,
-			Map<String, Object> parameters);
+			Map<String, Object> parameters) throws JPAException;
 	
 	/**
 	 * Return a list of <code>T</code> from a
@@ -33,15 +35,17 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 * @param query
 	 * @param parameters query parameters
 	 * @return
+	 * @throws JPAException 
 	 */
-	public List<T> executeNamedQuery(String query, Object[] parameters);
+	public List<T> executeNamedQuery(String query, Object[] parameters) throws JPAException;
 	
 	/**
 	 * Execute query that are dynamically build using the parameters
 	 * @param parameters
 	 * @return
+	 * @throws JPAException 
 	 */
-	public List<T> executeDynamicQuery(String strQuery);
+	public List<T> executeDynamicQuery(String strQuery) throws JPAException;
 	
 	/**
 	 * @param query
@@ -53,8 +57,9 @@ public interface InterfaceDAO<T, PK extends Serializable> {
 	 * Return an instance of <code>T</code> using the key <code>pk</code>
 	 * @param pk
 	 * @return
+	 * @throws JPAException 
 	 */
-	public T get(PK pk);
+	public T get(PK pk) throws JPAException;
 	
 	/**
 	 * Save and UPDATE an instance of <code>T</code> in the database.

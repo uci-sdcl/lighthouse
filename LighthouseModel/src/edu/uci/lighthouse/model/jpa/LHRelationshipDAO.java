@@ -16,7 +16,7 @@ public class LHRelationshipDAO extends AbstractDAO<LighthouseRelationship, LHRel
 	
 	@SuppressWarnings("unchecked")
 	public List<LighthouseEntity> executeNamedQueryGetFromEntityFqn(String nameQuery,
-			Map<String, Object> parameters) {
+			Map<String, Object> parameters) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		Query query = entityManager.createNamedQuery(nameQuery);
 		if (parameters != null) {

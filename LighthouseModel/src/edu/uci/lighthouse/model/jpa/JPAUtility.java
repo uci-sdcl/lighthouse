@@ -36,14 +36,16 @@ public class JPAUtility {
 	
 	private static Logger logger = Logger.getLogger(JPAUtility.class);
 	
-	public static void initializeEntityManagerFactory(Properties dbSettings) throws JPAException{
+	public static void initializeEntityManagerFactory(Properties dbSettings)
+			throws JPAException {
 		logger.info("initializing EntityManagerFactory...");
 		try {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT,dbSettings);
-		cacheFactory.add(factory);
-		// Just change the reference if no RuntimeException is throw 
-		factoryEntityManager = factory;
-		} catch (RuntimeException e){
+			EntityManagerFactory factory = Persistence
+					.createEntityManagerFactory(PERSISTENCE_UNIT, dbSettings);
+			cacheFactory.add(factory);
+			// Just change the reference if no RuntimeException is throw
+			factoryEntityManager = factory;
+		} catch (RuntimeException e) {
 			throw new JPAException(e);
 		}
 	}
@@ -59,7 +61,10 @@ public class JPAUtility {
 		}
 	}
 	
-	public static EntityManager createEntityManager() {
+	public static EntityManager createEntityManager() throws JPAException {
+		if (factoryEntityManager == null || !factoryEntityManager.isOpen()) {
+			initializeEntityManagerFactory(new Properties());
+		}
 		return factoryEntityManager.createEntityManager();
 	}
 	
