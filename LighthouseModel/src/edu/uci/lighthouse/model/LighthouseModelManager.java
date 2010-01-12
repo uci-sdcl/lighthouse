@@ -23,8 +23,6 @@ import edu.uci.lighthouse.model.util.UtilModifiers;
  * 
  * All the methods are static.
  * 
- * @author tproenca
- * 
  */
 public class LighthouseModelManager {
 	
@@ -57,7 +55,7 @@ public class LighthouseModelManager {
 		return newRelationship;
 	}
 	
-	/** Need this method for add ExternalClass and Modifiers in the LHBaseFile
+	/** Need this method for add the Entities: ExternalClass and Modifiers in the LHBaseFile
 	 * because they have not TYPE.INSIDE relationship */
 	private void handleEntitiesNotInsideClass(
 			LighthouseRelationship relationship) {
@@ -81,6 +79,12 @@ public class LighthouseModelManager {
 		model.addEvent(event);
 	}
 	
+	/**
+	 * @param artifact
+	 * 		{@link LighthouseEntity}
+	 * 		OR
+	 * 		{@link LighthouseRelationship}
+	 * */
 	public Object addArtifact(Object artifact) {
 		if (artifact instanceof LighthouseEntity) {
 			LighthouseEntity entity = addEntity((LighthouseEntity) artifact);
@@ -96,16 +100,23 @@ public class LighthouseModelManager {
 		return model.getEntity(fqn);
 	}
 	
-	/** Used to import a new project in the database*/
+	/** 
+	 * Used to import a new project in the database
+	 * 
+	 * After parsing a new Project we end up having a list of entities and a list of relationship.
+	 * Then we need to populate the LighthouseModel with events based in those lists.
+	 * This method is responsible to create such events, and add then in the model.
+	 * 
+	 * */
 	public Collection<LighthouseEvent> createEventsAndSaveInLhModel(LighthouseAuthor author, Collection<LighthouseEntity> listEntities, Collection<LighthouseRelationship> listLighthouseRelationships) {
-		Collection<LighthouseEvent> resultList = new LinkedList<LighthouseEvent>();
+		Collection<LighthouseEvent> listEvents = new LinkedList<LighthouseEvent>();
 		for (LighthouseEntity entity : listEntities) {
 			LighthouseEvent event = new LighthouseEvent(LighthouseEvent.TYPE.ADD,author,entity);
 			event.setCommitted(true);
 			event.setCommittedTime(new Date(0));
 			event.setTimestamp(new Date(0));
 			addArtifact(entity);
-			resultList.add(event);
+			listEvents.add(event);
 			logger.debug("Add entity in model: " + entity);
 		}
 		for (LighthouseRelationship rel : listLighthouseRelationships) {
@@ -114,11 +125,47 @@ public class LighthouseModelManager {
 			event.setCommittedTime(new Date(0));
 			event.setTimestamp(new Date(0));
 			addArtifact(rel);
-			resultList.add(event);
+			listEvents.add(event);
 			logger.debug("Add relationship in model: " + rel);
 		}
-		return resultList;
+		return listEvents;
 	}
+
+	/**
+	 * Remove Artifacts that are inside of the list of classes,
+	 * and also remove the Events related to those Artifacts
+	 * */
+	public void removeArtifactsAndEvents(Collection<String> listClazzFqn) {
+		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
+		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
+		LinkedHashSet<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsByListEntityAndRel(model, listEntity, listRel);
+		for (LighthouseEvent event : listEvents) {
+			model.removeEvent(event);
+		}
+		for (LighthouseRelationship rel : listRel) {
+			model.removeRelationship(rel);
+		}
+		for (LighthouseEntity entity : listEntity) {
+			model.removeEntity(entity);
+		}
+	}
+
+	public void removeCommittedEvents(Collection<String> listClazzFqn, Date eventTime) {
+		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
+		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
+		LinkedHashSet<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsByListEntityAndRel(model, listEntity, listRel);
+		for (LighthouseEvent event : listEvents) {
+			if (event.isCommitted()) {
+				// If I am allowed to commit, it is supposed that I am working on the last version,
+				// so I can remove every committed event, because all of them will be in the past
+				model.removeEvent(event);
+			}
+		}
+	}
+	
+	
+	//TODO: Put those methods in another class (think later about that)
+
 	
 	public LighthouseEntity getEntityFromDatabase(String fqn) throws JPAException {
 		LighthouseEntity entity = getEntity(fqn);
@@ -128,7 +175,6 @@ public class LighthouseModelManager {
 		return entity;
 	}
 	
-	//TODO: Put select methods in another class (think later about that)
 	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(String fqnClazz) throws JPAException {
 		return selectEntitiesInsideClass(new LinkedHashSet<LighthouseEntity>(),fqnClazz);
 	}
@@ -158,33 +204,7 @@ public class LighthouseModelManager {
 		return listEntitiesInside;
 	}
 	
-	public void removeArtifactsAndEventsInside(Collection<String> listClazzFqn) {
-		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
-		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
-		LinkedHashSet<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(model, listEntity, listRel);
-		for (LighthouseEvent event : listEvents) {
-			model.removeEvent(event);
-		}
-		for (LighthouseRelationship rel : listRel) {
-			model.removeRelationship(rel);
-		}
-		for (LighthouseEntity entity : listEntity) {
-			model.removeEntity(entity);
-		}
-	}
-
-	public void removeCommittedEvents(Collection<String> listClazzFqn, Date eventTime) {
-		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
-		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
-		LinkedHashSet<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(model, listEntity, listRel);
-		for (LighthouseEvent event : listEvents) {
-			if (event.isCommitted()) {
-				// If I am allowed to commit, it is supposed that I am working on the last version,
-				// so I can remove every committed event, because all of them will be in the past
-				model.removeEvent(event);
-			}
-		}
-	}
+	
 	
 	/*  PUT THOSE METHODS BELLOW IN THE LighthouseModelUtil.java */
 	
