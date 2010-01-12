@@ -316,7 +316,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 								public void doAction() throws ParserException {
 									LighthouseFile currentLhFile = new LighthouseFile();
 									new LighthouseFileManager(currentLhFile)
-											.buildLHFile(parser
+											.populateLHFile(parser
 													.getListEntities(), parser
 													.getListRelationships());
 									try {
@@ -387,7 +387,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		LighthouseModel model = LighthouseModel.getInstance();
 		LighthouseModelManager modelManager = new LighthouseModelManager(model); 
 		
-		modelManager.removeArtifactsAndEventsInside(workingCopy.keySet());
+		modelManager.removeArtifactsAndEvents(workingCopy.keySet());
 		
 		checkout(svnFiles);
 
