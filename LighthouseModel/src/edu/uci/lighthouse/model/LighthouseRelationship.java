@@ -5,10 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-
-
 /**
- *  
+ * Select the REL.FROM entity, by using REL.TYPE and REL.TO
  * */
 @NamedQueries ({
 	@NamedQuery(name = "LighthouseRelationship.findFromEntityByTypeAndToEntity",
@@ -17,11 +15,9 @@ import javax.persistence.NamedQuery;
 						"WHERE rel.primaryKey.type = :relType " +
 						"AND rel.primaryKey.to = :toEntity")
 })
+
 /**
- * Represents a relationship between two entities.
- * 
- * @author nilmax
- * 
+ * Represents a relationship between 2 entities.
  */
 @Entity
 public class LighthouseRelationship {
@@ -35,12 +31,12 @@ public class LighthouseRelationship {
 	}
 
 	/**
-	 * Creates a relationship between from and to entities.
+	 * Creates a relationship between FROM and TO entities.
 	 * 
 	 * @param from
-	 *            an entity
+	 *            {@link LighthouseEntity}
 	 * @param to
-	 *            other entity
+	 *            {@link LighthouseEntity}
 	 */
 	public LighthouseRelationship(LighthouseEntity from, LighthouseEntity to,
 			TYPE type) {
@@ -59,16 +55,16 @@ public class LighthouseRelationship {
 	}
 	
 	/**
-	 * Returns the from entity of the relationship.
+	 * Returns the FROM entity of the relationship.
 	 * 
-	 * @return the from <code>Entity</code> instance
+	 * @return the FROM <code>Entity</code> instance
 	 */
 	public LighthouseEntity getFromEntity() {
 		return this.primaryKey.getFrom();
 	}
 
 	/**
-	 * Sets the from entity of the relationship.
+	 * Sets the FROM entity of the relationship.
 	 * 
 	 * @param from
 	 *            an <code>Entity</code> instance
@@ -78,16 +74,16 @@ public class LighthouseRelationship {
 	}
 
 	/**
-	 * Returns the to entity of the relationship.
+	 * Returns the TO entity of the relationship.
 	 * 
-	 * @return the to <code>Entity</code> instance
+	 * @return the TO <code>Entity</code> instance
 	 */
 	public LighthouseEntity getToEntity() {
 		return this.primaryKey.getTo();
 	}
 
 	/**
-	 * Sets the from entity of the relationship.
+	 * Sets the FROM entity of the relationship.
 	 * 
 	 * @param to
 	 *            an <code>Entity</code> instance
@@ -97,24 +93,27 @@ public class LighthouseRelationship {
 	}
 
 	/**
-	 * Returns the from entity of the relationship.
+	 * Returns the TYPE of the relationship.
 	 * 
-	 * @return the from <code>Entity</code> instance
+	 * @return {@link LighthouseRelationship.TYPE}
 	 */
 	public TYPE getType() {
 		return this.primaryKey.getType();
 	}
 
 	/**
-	 * Sets the from entity of the relationship.
+	 * Sets the TYPE of the relationship.
 	 * 
-	 * @param from
-	 *            an <code>Entity</code> instance
+	 * @param type
+	 *            {@link LighthouseRelationship.TYPE}
 	 */
 	public void setType(TYPE type) {
 		this.primaryKey.setType(type);
 	}
 
+	/**
+	 * @return FROM + TYPE + TO
+	 * */
 	@Override
 	public String toString() {
 		String from = this.primaryKey.getFrom().getFullyQualifiedName();
@@ -123,6 +122,9 @@ public class LighthouseRelationship {
 		return " " + from + " " + typeOfRelationship + " " + to;
 	}
 
+	/**
+	 * @return TO + TYPE + FROM
+	 * */
 	public String toStringInverse() {
 		String from = this.primaryKey.getFrom().getFullyQualifiedName();
 		TYPE typeOfRelationship = this.getType();
