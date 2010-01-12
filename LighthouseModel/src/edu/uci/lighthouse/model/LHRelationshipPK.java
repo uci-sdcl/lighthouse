@@ -8,20 +8,20 @@ import javax.persistence.OneToOne;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 
+/**
+ * It is the primary key of LighthouseRelationship class
+ * */
 @Embeddable
 public class LHRelationshipPK implements Serializable {
 
 	private static final long serialVersionUID = -6866797359642111841L;
 
-	/** From entity. */
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseEntity from;
 
-	/** To entity. */
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseEntity to;
 
-	/** */
 	private TYPE type;
 
 	public LHRelationshipPK() {
