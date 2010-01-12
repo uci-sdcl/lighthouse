@@ -66,14 +66,14 @@ public class PullModel {
 						|| revisionTimestamp.equals(event.getCommittedTime()))
 					) ) {
 					if (event.getType()==LighthouseEvent.TYPE.ADD) {
-						if (!LighthouseModelUtil.wasCommittedEventRemoved(listEvents,event)) {
+						if (!LighthouseModelUtil.wasEventRemoved(listEvents,event,null)) {
 							modelManager.addArtifact(artifact);
 							eventsToFire.add(event);
 						}
 					}
 				} else {
 					if (artifact instanceof LighthouseRelationship) {
-						if (!LighthouseModelUtil.isValidRelationship(artifact, listEntitiesInside)) {
+						if (!LighthouseModelUtil.isValidRelationship((LighthouseRelationship) artifact, listEntitiesInside)) {
 							continue; // do NOT add relationship
 						}
 					}
