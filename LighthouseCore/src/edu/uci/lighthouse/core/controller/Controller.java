@@ -16,18 +16,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -149,12 +141,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			try {
 				Collection<LighthouseEvent> events = pullModel
 						.executeQueryCheckout(mapClassToSVNCommittedTime);
-				fireModificationsToUI(events);
 			} catch (JPAException e) {
 				logger.error(e);
 				UserDialog.openError(e.getMessage());
 			}
 		}
+		// Show the events in the UI.
+		LighthouseModel.getInstance().fireModelChanged();
 	}
 	
 	private void saveModel(){
@@ -352,8 +345,9 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		final String classFqn = getClassFullyQualifiedName(iFile);
 		if (hasErrors) {
 			classWithErrors.add(iFile);
-		} 
-		classBaseVersion.remove(classFqn);
+		} else {
+			classBaseVersion.remove(classFqn);
+		}
 	}
 	
 	@Override
@@ -577,6 +571,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		
 		// It is a new class created by the user. We are assuming that the user creates a class that doesn't contain errors.
 		if (!mapClassToSVNCommittedTime.containsKey(classFqn)) {
+			/* We have to put the classFqn in this map in order to show the event in the UI.*/
 			mapClassToSVNCommittedTime.put(classFqn, new Date(0));
 			// TODO: Think about DB operations in a thread
 			try {
