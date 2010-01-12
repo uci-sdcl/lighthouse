@@ -9,38 +9,10 @@
             id="LighthouseUI">
       </category>
       <view
-            name="Sample UI View"
-            icon="icons/sample.gif"
-            category="LighthouseUI"
-            class="edu.uci.lighthouse.ui.views.SampleUIView"
-            id="edu.uci.lighthouse.ui.views.SampleUIView">
-      </view>
-      <view
-            category="LighthouseUI"
-            class="edu.uci.lighthouse.ui.views.EmergingDesignView"
-            id="LighthouseUI.EmergingDesignView"
-            name="Emerging Design View"
-            restorable="true">
-      </view>
-      <view
-            category="LighthouseUI"
-            class="edu.uci.lighthouse.ui.views.ImpactView"
-            id="LighthouseUI.ImpactView"
-            name="ImpactView"
-            restorable="true">
-      </view>
-      <view
-            category="LighthouseUI"
-            class="edu.uci.lighthouse.ui.views.JDTView"
-            id="LighthouseUI.jdtview"
-            name="JDT View"
-            restorable="true">
-      </view>
-      <view
             category="LighthouseUI"
             class="edu.uci.lighthouse.ui.views.EmergingDesignView2"
             id="LighthouseUI.EmergingDesignView2"
-            name="EmergingDesignView2"
+            name="EmergingDesignView"
             restorable="true">
       </view>
    </extension>
