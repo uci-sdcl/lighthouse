@@ -169,7 +169,11 @@ public class UmlClassFigureTest extends Panel{
 						|| (level == LEVEL.THREE && events.size() > 0)) {
 
 					// Image label
-					StyledLabel label = new StyledLabel(e[i].getShortName(),
+					String caption = e[i].getShortName();
+					if (caption.trim().contains("<init>()")){
+						caption = caption.trim().replace("<init>", umlClass.getShortName());
+					}
+					StyledLabel label = new StyledLabel(caption,
 							getEntityIcon(e[i]));
 					if (isRemoved(e[i])) {
 						label.setForegroundColor(ColorFactory.gray);
