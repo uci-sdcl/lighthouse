@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -8,36 +9,30 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 
+
 /**
- * Represents the Lighthouse Model.
+ * Represents a Lighthouse Model, in which it has:
  * 
- * A model contains a list of entities. Entities can be associated through
- * relationships.
+ * - List of Entities (from LighthouseAbstractModel)
+ * - List of Relationships (from LighthouseAbstractModel)
+ * - List of Events
  * 
- * @author tproenca
- * 
- */
+ * */
 public class LighthouseModel extends LighthouseAbstractModel {
 
 	private static Logger logger = Logger.getLogger(LighthouseAbstractModel.class);
 	
-	/** Model instance. */
 	private static LighthouseModel instance;
 
-	/** Associate an artifact(entity or relationship) with a list of events. */
+	/** Associate an Artifact(Entity or Relationship) with a list of events. */
 	private HashMap<Object, LinkedHashSet<LighthouseEvent>> mapArtifactEvents = new HashMap<Object, LinkedHashSet<LighthouseEvent>>();
 	
-	/** LIst of all events*/
+	/** List of all events*/
 	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
 	
 	protected LighthouseModel() {
 	}
 	
-	/**
-	 * Returns the Lighthouse Model instance.
-	 * 
-	 * @return the model instance
-	 */
 	public static LighthouseModel getInstance() {
 		if (instance == null) {
 			instance = new LighthouseModel();
@@ -79,8 +74,15 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		}
 	}
 	
-	/**I changed the return to LinkedHashSet to invoke the removeAll() - demo propose (svnUpdate)*/
-	public LinkedHashSet<LighthouseEvent> getEvents(Object artifact){
+	/**
+	 * Get events related with a given Artifact
+	 * 
+	 * @param artifact
+	 * 		{@link LighthouseEntity}
+	 * 		OR
+	 * 		{@link LighthouseRelationship} 	
+	 * */
+	public Collection<LighthouseEvent> getEvents(Object artifact){
 		LinkedHashSet<LighthouseEvent> result = mapArtifactEvents.get(artifact);
 		return result != null ? result : new LinkedHashSet<LighthouseEvent>();
 	}
@@ -89,7 +91,9 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		return listEvents;
 	}
 	
-	/** List of listeners */
+	
+	// Handle Listeners...
+
 	private List<ILighthouseModelListener> listeners = new ArrayList<ILighthouseModelListener>();
 
 	public void addModelListener(ILighthouseModelListener listener) {
