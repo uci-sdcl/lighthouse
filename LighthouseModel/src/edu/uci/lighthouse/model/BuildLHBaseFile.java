@@ -20,7 +20,7 @@ public class BuildLHBaseFile {
 					if (!LighthouseModelUtil.wasEventRemoved(listEvents,event,author)) {
 						Object artifact = event.getArtifact();
 						if (artifact instanceof LighthouseRelationship) {
-							if (!LighthouseModelUtil.isValidRelationship(artifact, listEntitiesInside)) {
+							if (!LighthouseModelUtil.isValidRelationship((LighthouseRelationship) artifact, listEntitiesInside)) {
 								continue; // do NOT add relationship
 							}
 						}
