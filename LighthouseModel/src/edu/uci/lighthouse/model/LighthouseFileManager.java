@@ -16,7 +16,7 @@ public class LighthouseFileManager {
 
 	private LighthouseEntity addEntity(LighthouseEntity newEntity){
 		LighthouseEntity entity = lighthouseModel.getEntity(newEntity.getFullyQualifiedName());
-		if (entity==null) {
+		if (entity == null) {
 			entity = newEntity;
 		}
 		lighthouseFile.addEntity(entity);
@@ -28,13 +28,13 @@ public class LighthouseFileManager {
 		if (relationship == null) {
 			relationship = newRelationship;
 		}
-		handleEntitiesNotInsideClass(relationship);		
+		handleEntitiesNotInsideClass(relationship);
 		lighthouseFile.addRelationship(relationship);
 		return newRelationship;
 	}
 
-	/** Need this method for add ExternalClass and Modifiers in the LHBaseFile
-	 * because they have not TYPE.INSIDE relationship */
+	/** Need this method for add the Entities: ExternalClass and Modifiers in the LHBaseFile,
+	 * because they have not the TYPE.INSIDE relationship */
 	private void handleEntitiesNotInsideClass(
 			LighthouseRelationship relationship) {
 		LighthouseEntity fromEntity = relationship.getFromEntity();
@@ -50,6 +50,12 @@ public class LighthouseFileManager {
 		}
 	}
 
+	/**
+	 * @param artifact
+	 * 		{@link LighthouseEntity}
+	 * 		OR
+	 * 		{@link LighthouseRelationship}
+	 * */
 	public Object addArtifact(Object artifact) {
 		if (artifact instanceof LighthouseEntity) {
 			LighthouseEntity entity = (LighthouseEntity) artifact;
@@ -62,7 +68,7 @@ public class LighthouseFileManager {
 		}
 	}
 	
-	public LighthouseFile buildLHFile(Collection<LighthouseEntity> listEntities, Collection<LighthouseRelationship> listRel) {
+	public LighthouseFile populateLHFile(Collection<LighthouseEntity> listEntities, Collection<LighthouseRelationship> listRel) {
 		for (LighthouseEntity entity : listEntities) {
 			addEntity(entity);
 		}
