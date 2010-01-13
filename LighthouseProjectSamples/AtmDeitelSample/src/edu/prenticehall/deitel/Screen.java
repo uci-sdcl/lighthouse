@@ -5,7 +5,7 @@ package edu.prenticehall.deitel;
 
 public class Screen {
 
-	int novo;
+	int novo = 1;
 	int nilmax;
 	int max;
 	int moura;
