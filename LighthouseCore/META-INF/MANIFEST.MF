@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Lighthouse Core Plug-in
 Bundle-SymbolicName: edu.uci.lighthouse.core;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: edu.uci.lighthouse.core.Activator
 Export-Package: edu.uci.lighthouse.core;
