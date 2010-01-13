@@ -19,7 +19,6 @@ public class Keypad {
 	} // end method getInput
 
 	
-	int c;
 	
 	
 	
