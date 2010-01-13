@@ -123,8 +123,7 @@ IWorkbenchPreferencePage{
 		dbPassword.setText(store.getString(DB_PASSWD));
 		dbDatabase.setText(store.getString(DB_DATABASE));
 		dbPort.setText(store.getString(DB_PORT));
-		
-		
+				
 		chkTunnel.setSelection(store.getBoolean(USES_TUNNEL));
 
 		sshHost.setText(store.getString(SSH_HOST));
@@ -136,11 +135,11 @@ IWorkbenchPreferencePage{
 	@Override
 	protected void performDefaults() {
 
-		dbHost.setText("");
+		dbHost.setText("127.0.0.1");
 		dbUsername.setText("");
 		dbPassword.setText("");
-		dbDatabase.setText("");
-		dbPort.setText("");
+		dbDatabase.setText("lighthouse");
+		dbPort.setText("3306");
 		
 		chkTunnel.setSelection(false);
 
