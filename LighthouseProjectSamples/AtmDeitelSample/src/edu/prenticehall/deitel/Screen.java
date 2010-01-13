@@ -20,7 +20,6 @@ public class Screen {
 		System.out.printf("$%,.2f", amount);
 	} // end method displayDollarAmount
 
-	int b;
 
 } // end class Screen
 
