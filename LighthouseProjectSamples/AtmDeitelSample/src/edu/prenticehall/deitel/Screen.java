@@ -5,21 +5,6 @@ package edu.prenticehall.deitel;
 
 public class Screen {
 
-	int novo = 1;
-	int nil;
-	int nilmax;
-	int max;
-	int moura;
-
-	int cc = 3;
-	
-	int y;
-	
-	int a;
-	
-	int g;
-	
-	
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
 		System.out.print(message);
