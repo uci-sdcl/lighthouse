@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.ui.IStartup;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -25,7 +26,7 @@ import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin implements IPropertyChangeListener {
+public class Activator extends AbstractUIPlugin implements IPropertyChangeListener, IStartup {
 
 	private static Logger logger = Logger.getLogger(Activator.class);
 	
@@ -133,5 +134,10 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		if (UserPreferences.USERNAME.equals(event.getProperty())) {
 			author = null;
 		}
+	}
+
+	@Override
+	public void earlyStartup() {
+		logger.debug("CoreStartup earlyStartup...");
 	}
 }
