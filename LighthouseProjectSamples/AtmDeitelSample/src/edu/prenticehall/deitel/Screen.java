@@ -11,6 +11,8 @@ public class Screen {
 	int max;
 	int moura;
 
+	int cc = 3;
+	
 	int y;
 	
 	int a;
