@@ -4,9 +4,6 @@ package edu.prenticehall.deitel;
 // Represents the bank account information database 
 
 public class BankDatabase {
-
-	int e;
-	int f;
 	
 	private Account accounts[]; // array of Accounts
 
