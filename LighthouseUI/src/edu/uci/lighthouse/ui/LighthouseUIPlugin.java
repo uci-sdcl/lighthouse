@@ -28,7 +28,7 @@ public class LighthouseUIPlugin extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 		//FIXME calling core explicitily
-		edu.uci.lighthouse.core.Activator.getDefault();
+//		edu.uci.lighthouse.core.Activator.getDefault();
 	}
 
 	/*
