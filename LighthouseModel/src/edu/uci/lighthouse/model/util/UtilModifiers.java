@@ -1,7 +1,17 @@
 package edu.uci.lighthouse.model.util;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
+
+import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.LighthouseModifier;
+import edu.uci.lighthouse.model.LighthouseRelationship;
+
 public enum UtilModifiers {
-	PUBLIC, PRIVATE, PROTECTED, STATIC, FINAL, SYNCHRONIZED, VOLATILE, TRANSIENT, NATIVE, ABSTRACT, STRICTFP;
+	PUBLIC, PRIVATE, PROTECTED, DEFAULT, STATIC, FINAL, SYNCHRONIZED, VOLATILE, TRANSIENT, NATIVE, ABSTRACT, STRICTFP;
 	
 	public String toString() {
 		return name().toLowerCase();
@@ -50,4 +60,46 @@ public enum UtilModifiers {
 	public static boolean isStrictfp(String fqn) {
 	    return (STRICTFP.toString().equals(fqn));
 	}	
+	
+	/**
+	 * Returns the visibility of the entity. The values can be PUBLIC,
+	 * PROTECTED, PRIVATE or DEFAULT.
+	 */
+	public static UtilModifiers getVisibility(LighthouseEntity e) {
+		UtilModifiers result = DEFAULT;
+		Date lastTimestamp = new Date(0);
+		Collection<LighthouseRelationship> list = LighthouseModel.getInstance()
+				.getRelationshipsFrom(e);
+		for (LighthouseRelationship r : list) {
+			if (r.getToEntity() instanceof LighthouseModifier) {
+				Collection<LighthouseEvent> events = LighthouseModel
+						.getInstance().getEvents(r);
+				for (LighthouseEvent event : events) {
+					if (lastTimestamp.before(event.getTimestamp())) {
+						lastTimestamp = event.getTimestamp();
+						UtilModifiers modifier = UtilModifiers.valueOf(r.getToEntity().getFullyQualifiedName().toUpperCase());
+						if (modifier == PUBLIC || modifier == PROTECTED || modifier == PRIVATE){
+							result = modifier;
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	public static Collection<UtilModifiers> getModifiers(LighthouseEntity e){
+		Collection<UtilModifiers> result = new LinkedList<UtilModifiers>();
+		Collection<LighthouseRelationship> list = LighthouseModel.getInstance()
+		.getRelationshipsFrom(e);
+		for (LighthouseRelationship r : list) {
+			if (r.getToEntity() instanceof LighthouseModifier) {
+				UtilModifiers modifier = UtilModifiers.valueOf(r.getToEntity().getFullyQualifiedName().toUpperCase());
+				if (modifier != PUBLIC || modifier != PROTECTED || modifier != PRIVATE){
+					result.add(modifier);
+				}
+			}
+		}
+		return result;
+	}
 }
