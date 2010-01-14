@@ -5,6 +5,9 @@ package edu.prenticehall.deitel;
 
 public class BankDatabase {
 
+	int e;
+	int f;
+	
 	private Account accounts[]; // array of Accounts
 
 	// no-argument BankDatabase constructor initializes accounts
