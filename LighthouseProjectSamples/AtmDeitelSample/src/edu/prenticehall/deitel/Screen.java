@@ -5,6 +5,8 @@ package edu.prenticehall.deitel;
 
 public class Screen {
 
+	int aa;
+	
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
 		System.out.print(message);
