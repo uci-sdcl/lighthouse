@@ -32,6 +32,7 @@ import edu.uci.lighthouse.model.LighthouseField;
 import edu.uci.lighthouse.model.LighthouseMethod;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
+import edu.uci.lighthouse.model.util.UtilModifiers;
 import edu.uci.lighthouse.ui.LighthouseUIPlugin;
 import edu.uci.lighthouse.ui.graph.IUmlClass.LEVEL;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
@@ -245,40 +246,87 @@ public class UmlClassFigureTest extends Panel{
 	
 	private Image getEntityIcon(LighthouseEntity e){
 		ImageDescriptor descriptor = null;
-		LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel.getInstance());
+		UtilModifiers modifier = UtilModifiers.getVisibility(e);
 		if (e instanceof LighthouseField) {
-			if (manager.isPublic(e)) {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_PUBLIC);
-			} else if (manager.isPrivate(e)) {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_PRIVATE);
-			} else if (manager.isProtected(e)) {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_PROTECTED);
-			} else {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_DEFAULT);
+			if (modifier == UtilModifiers.PUBLIC) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_FIELD_PUBLIC);
+			} else if (modifier == UtilModifiers.PRIVATE) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_FIELD_PRIVATE);
+			} else if (modifier == UtilModifiers.PROTECTED) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_FIELD_PROTECTED);
+			} else if (modifier == UtilModifiers.DEFAULT) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_FIELD_DEFAULT);
 			}
 		} else if (e instanceof LighthouseMethod) {
-			if (manager.isPublic(e)) {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_PUBLIC);
-			} else if (manager.isPrivate(e)) {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_PRIVATE);
-			} else if (manager.isProtected(e)) {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_PROTECTED);
-			} else {
-				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_DEFAULT);
+			if (modifier == UtilModifiers.PUBLIC) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_OBJS_PUBLIC);
+			} else if (modifier == UtilModifiers.PRIVATE) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_OBJS_PRIVATE);
+			} else if (modifier == UtilModifiers.PROTECTED) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_OBJS_PROTECTED);
+			} else if (modifier == UtilModifiers.DEFAULT) {
+				descriptor = JavaUI.getSharedImages().getImageDescriptor(
+						ISharedImages.IMG_OBJS_DEFAULT);
 			}
 		}
+		
+		Collection<UtilModifiers> modifiers = UtilModifiers.getModifiers(e);
+		
 		int flags = 0;
-		if (manager.isStatic(e)){
+		if (modifiers.contains(UtilModifiers.STATIC)){
 			flags |= JavaElementImageDescriptor.STATIC;			
 		}
-		if (manager.isSynchronized(e)){
+		if (modifiers.contains(UtilModifiers.SYNCHRONIZED)){
 			flags |= JavaElementImageDescriptor.SYNCHRONIZED;
 		}
-		if (manager.isFinal(e)){
+		if (modifiers.contains(UtilModifiers.FINAL)){
 			flags |= JavaElementImageDescriptor.FINAL;
 		}
 		descriptor= new JavaElementImageDescriptor(descriptor, flags, JavaElementImageProvider.BIG_SIZE);
 		return JavaPlugin.getImageDescriptorRegistry().get(descriptor);
+		
+//		ImageDescriptor descriptor = null;
+//		LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel.getInstance());
+//		if (e instanceof LighthouseField) {
+//			if (manager.isPublic(e)) {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_PUBLIC);
+//			} else if (manager.isPrivate(e)) {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_PRIVATE);
+//			} else if (manager.isProtected(e)) {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_PROTECTED);
+//			} else {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_FIELD_DEFAULT);
+//			}
+//		} else if (e instanceof LighthouseMethod) {
+//			if (manager.isPublic(e)) {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_PUBLIC);
+//			} else if (manager.isPrivate(e)) {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_PRIVATE);
+//			} else if (manager.isProtected(e)) {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_PROTECTED);
+//			} else {
+//				descriptor = JavaUI.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_DEFAULT);
+//			}
+//		}
+//		int flags = 0;
+//		if (manager.isStatic(e)){
+//			flags |= JavaElementImageDescriptor.STATIC;			
+//		}
+//		if (manager.isSynchronized(e)){
+//			flags |= JavaElementImageDescriptor.SYNCHRONIZED;
+//		}
+//		if (manager.isFinal(e)){
+//			flags |= JavaElementImageDescriptor.FINAL;
+//		}
+//		descriptor= new JavaElementImageDescriptor(descriptor, flags, JavaElementImageProvider.BIG_SIZE);
+//		return JavaPlugin.getImageDescriptorRegistry().get(descriptor);
 	}
 	
 	private Image getEventIcon(LighthouseEvent ev){
