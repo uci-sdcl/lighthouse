@@ -411,7 +411,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 			// assuming that there is just one committed time
 			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]);
-			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
+			Date svnCommittedTime = new Date();// FIXME svnInfo[0].getLastChangedDate();
 			
 			Collection<LighthouseEvent> listEvents = pushModel.updateCommittedEvents( 
 														getClassesFullyQualifiedName(svnFiles), 
@@ -423,6 +423,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			
 			fireModificationsToUI(listEvents);
 			logger.debug("Committed ["+ listEvents.size() + "] events " + "with time: " + svnCommittedTime);
+			logger.debug("*************************************local time: " + new Date());
 			
 			// Insert the CHECKIN event in the database
 			pushModel.saveRepositoryEvent(svnFiles,
