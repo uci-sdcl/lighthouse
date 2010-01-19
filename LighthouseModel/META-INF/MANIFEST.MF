@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Lighthouse MetaModel Plug-in
 Bundle-SymbolicName: edu.uci.lighthouse.model
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.swt;bundle-version="3.4.2",
  org.junit;bundle-version="3.8.2",
  org.apache.log4j;bundle-version="1.2.13",
