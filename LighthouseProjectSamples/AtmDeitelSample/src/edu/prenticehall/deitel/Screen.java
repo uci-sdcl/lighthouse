@@ -7,6 +7,8 @@ public class Screen {
 
 	int a;
 	
+	private Keypad k;
+	
 	// displays a message without a carriage return
 	public void displayMessage(String message) {
 		System.out.print(message);
