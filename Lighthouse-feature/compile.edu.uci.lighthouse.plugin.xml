@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Compile edu.uci.lighthouse.plugin" default="main">
+	<target name="main">
+		<ant antfile="build.xml" dir="../LighthouseLogProperties" target="build.jars"/>
+		<ant antfile="build.xml" dir="../LighthouseModel" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.draw2d" target="build.jars"/>
+		<ant antfile="build.xml" dir="../LighthouseParser" target="build.jars"/>
+		<ant antfile="build.xml" dir="../LighthouseJavaParser" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.zest.core" target="build.jars"/>
+		<ant antfile="build.xml" dir="../LighthouseCore" target="build.jars"/>
+		<ant antfile="build.xml" dir="../LighthouseUI" target="build.jars"/>
+	</target>
+</project>
