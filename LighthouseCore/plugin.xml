@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="edu.uci.lighthouse.core.preferences.LighthousePreferences"
+            id="edu.uci.lighthouse.core.preferences"
+            name="Lighthouse">
+      </page>
+      <page
+            category="edu.uci.lighthouse.core.preferences"
+            class="edu.uci.lighthouse.core.preferences.DatabasePreferences"
+            id="edu.uci.lighthouse.core.preferences.database"
+            name="Database">
+      </page>
+      <page
+            category="edu.uci.lighthouse.core.preferences"
+            class="edu.uci.lighthouse.core.preferences.UserPreferences"
+            id="LighthouseCore.page3"
+            name="User">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+         <menu
+               id="edu.uci.lighthouse.core.menu.root"
+               label="Lighthouse">
+               <command
+               commandId="edu.uci.lighthouse.core.project.import"
+               id="edu.uci.lighthouse.core.import"
+               label="Import Project"
+               style="push">
+                  <visibleWhen>
+                     <with
+                           variable="activeMenuSelection">
+                        <iterate>
+                           <adapt
+                                 type="org.eclipse.jdt.core.IJavaProject">
+                           </adapt>
+                        </iterate>
+                     </with>
+                  </visibleWhen>
+         </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="edu.lighthouse.core.commands.ImportHandler"
+            id="edu.uci.lighthouse.core.project.import"
+            name="Import">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup></startup>
+   </extension>
+
+</plugin>
