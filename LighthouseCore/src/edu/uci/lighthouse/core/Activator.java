@@ -8,7 +8,9 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -77,6 +79,8 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 			listener.start(context);
 		}
 
+		//NEW
+
 	}
 
 	/*
@@ -122,8 +126,9 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 			Properties userSettings = UserPreferences.getUserSettings();
 			String userName = userSettings.getProperty(UserPreferences.USERNAME);
 			if (userName != null && !"".equals(userName)) {
-				author =  new LighthouseAuthor(userName);
-				new LHAuthorDAO().save(author);
+				LighthouseAuthor user =  new LighthouseAuthor(userName);
+				new LHAuthorDAO().save(user);
+				author = user;
 			}
 		}
 		return author;
