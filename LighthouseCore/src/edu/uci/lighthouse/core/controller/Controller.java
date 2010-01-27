@@ -20,9 +20,18 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.action.ControlContribution;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
@@ -34,7 +43,9 @@ import edu.uci.lighthouse.core.parser.IParserAction;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.UserDialog;
+import edu.uci.lighthouse.core.util.WorkbenchUtility;
 import edu.uci.lighthouse.model.BuildLHBaseFile;
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -60,10 +71,14 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
 	private Set<IFile> classWithErrors = new LinkedHashSet<IFile>();
 	private Collection<IFile> ignorefilesJustUpdated = new LinkedHashSet<IFile>();
+	private IStatusLineManager status;
 	private Date lastDBAccess = null;
 	private boolean threadRunning;
 	private boolean threadSuspended;
 	private final int threadTimeout = 5000;
+	private Image dbOk;
+	private Image dbError;
+	private Label statusLabel;
 
 	public static Map<String, Date> getWorkingCopy(){
 		return mapClassToSVNCommittedTime;
@@ -74,6 +89,27 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		loadPreferences();
 		loadModel();
+		///
+		dbOk = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/debugtt_obj.gif").createImage();
+		dbError = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/threadt_obj.gif").createImage();
+		
+		final IStatusLineManager status = WorkbenchUtility.getStatusLineManager();
+		status.add(new ControlContribution("teste"){
+			@Override
+			protected Control createControl(Composite parent) {
+				Image image = threadSuspended ? dbError : dbOk;
+				statusLabel = new Label(parent, SWT.NONE);
+				statusLabel.setImage(image);
+				return statusLabel;
+			}
+		});
+		Display.getDefault().syncExec(new Runnable(){
+			@Override
+			public void run() {
+				status.update(false);
+			}
+		});
+		///
 		(new Thread(this)).start();
 	}
 
@@ -168,17 +204,23 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				try {
 					refreshModelBasedOnLastDBAccess();
 					Thread.sleep(threadTimeout);
-				} catch (RuntimeException e) {
+				} catch (Exception e) {
+					// Database exceptions are RuntimeExceptions
+					Display.getDefault().syncExec(new Runnable(){
+						@Override
+						public void run() {
+							statusLabel.setImage(dbError);
+						}
+					});
 					threadSuspended = true;
 					synchronized(this) {
 	                    while (threadSuspended) {
 	                        wait();
 	                    }
 	                }
-				} catch (JPAException e) {
-					//FIXME: Remove stack trace
-					e.printStackTrace();
-				}
+				} /*catch (JPAException e) {
+					logger.error(e,e);
+				}*/
 			} catch (InterruptedException e) {
 				logger.error(e);
 			}
@@ -191,6 +233,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	 * @throws JPAException 
 	 */
 	public synchronized void refreshModelBasedOnLastDBAccess() throws JPAException {
+		LighthouseAuthor author = Activator.getDefault().getAuthor();
 		/*
 		 * If the map's size == 0, it means that it is the first time that user
 		 * is running Lighthouse. Then, the LighthouseModel will be updated only
@@ -199,7 +242,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		if (mapClassToSVNCommittedTime.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			List<LighthouseEvent> events = pullModel
-					.getNewEventsFromDB(lastDBAccess,Activator.getDefault().getAuthor());
+					.getNewEventsFromDB(lastDBAccess,author);
 			fireModificationsToUI(events);
 			//logger.debug("timeout: " + lastDBAccess);
 			if (events.size()!=0) {
@@ -597,6 +640,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
 			if (threadSuspended){
 				synchronized(this) {
+					Display.getDefault().syncExec(new Runnable(){
+						@Override
+						public void run() {
+							statusLabel.setImage(dbOk);
+						}
+					});
 					threadSuspended = false;
 					notify();
 				}
