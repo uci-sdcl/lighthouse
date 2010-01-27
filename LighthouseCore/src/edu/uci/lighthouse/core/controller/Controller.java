@@ -201,7 +201,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			List<LighthouseEvent> events = pullModel
 					.getNewEventsFromDB(lastDBAccess,Activator.getDefault().getAuthor());
 			fireModificationsToUI(events);
-			logger.debug("timeout: " + lastDBAccess);
+			//logger.debug("timeout: " + lastDBAccess);
 			if (events.size()!=0) {
 				logger.debug("timeout[ " + lastDBAccess + " ] brought: [" + events.size() + "] events");
 			}
