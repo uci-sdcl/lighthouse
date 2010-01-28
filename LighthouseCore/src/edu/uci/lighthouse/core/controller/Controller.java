@@ -20,18 +20,10 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.jface.action.ControlContribution;
-import org.eclipse.jface.action.IStatusLineManager;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
@@ -43,7 +35,7 @@ import edu.uci.lighthouse.core.parser.IParserAction;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.UserDialog;
-import edu.uci.lighthouse.core.util.WorkbenchUtility;
+import edu.uci.lighthouse.core.widgets.StatusWidget;
 import edu.uci.lighthouse.model.BuildLHBaseFile;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
@@ -71,14 +63,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
 	private Set<IFile> classWithErrors = new LinkedHashSet<IFile>();
 	private Collection<IFile> ignorefilesJustUpdated = new LinkedHashSet<IFile>();
-	private IStatusLineManager status;
 	private Date lastDBAccess = null;
 	private boolean threadRunning;
 	private boolean threadSuspended;
 	private final int threadTimeout = 5000;
-	private Image dbOk;
-	private Image dbError;
-	private Label statusLabel;
 
 	public static Map<String, Date> getWorkingCopy(){
 		return mapClassToSVNCommittedTime;
@@ -89,27 +77,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		loadPreferences();
 		loadModel();
-		///
-		dbOk = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/debugtt_obj.gif").createImage();
-		dbError = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/threadt_obj.gif").createImage();
-		
-		final IStatusLineManager status = WorkbenchUtility.getStatusLineManager();
-		status.add(new ControlContribution("teste"){
-			@Override
-			protected Control createControl(Composite parent) {
-				Image image = threadSuspended ? dbError : dbOk;
-				statusLabel = new Label(parent, SWT.NONE);
-				statusLabel.setImage(image);
-				return statusLabel;
-			}
-		});
-		Display.getDefault().syncExec(new Runnable(){
-			@Override
-			public void run() {
-				status.update(false);
-			}
-		});
-		///
 		(new Thread(this)).start();
 	}
 
@@ -139,7 +106,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					.readObject();
 			logger.debug("loading " + filename);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 
@@ -158,7 +125,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			oos.writeObject(mapClassToSVNCommittedTime);
 			logger.debug("saving " + filename);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 
@@ -168,7 +135,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		try {
 			mos.load();
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 
 		if (LighthouseModel.getInstance().isEmpty()
@@ -178,7 +145,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				Collection<LighthouseEvent> events = pullModel
 						.executeQueryCheckout(mapClassToSVNCommittedTime);
 			} catch (JPAException e) {
-				logger.error(e);
+				logger.error(e,e);
 				UserDialog.openError(e.getMessage());
 			}
 		}
@@ -191,7 +158,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			IPersistence mos = new LighthouseModelXMLPersistence(LighthouseModel.getInstance());
 			mos.save();
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 	
@@ -206,12 +173,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					Thread.sleep(threadTimeout);
 				} catch (Exception e) {
 					// Database exceptions are RuntimeExceptions
-					Display.getDefault().syncExec(new Runnable(){
-						@Override
-						public void run() {
-							statusLabel.setImage(dbError);
-						}
-					});
+					StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 					threadSuspended = true;
 					synchronized(this) {
 	                    while (threadSuspended) {
@@ -222,7 +184,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					logger.error(e,e);
 				}*/
 			} catch (InterruptedException e) {
-				logger.error(e);
+				logger.error(e,e);
 			}
 		}
 	};
@@ -264,7 +226,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 						LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
 						classBaseVersion.put(classFqn, lhBaseFile);
 					} catch (JPAException e) {
-						logger.error(e);
+						logger.error(e,e);
 						UserDialog.openError(e.getMessage());
 					}
 				}
@@ -303,7 +265,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
 					classBaseVersion.put(classFqn, lhBaseFile);
 				} catch (JPAException e) {
-					logger.error(e);
+					logger.error(e,e);
 					UserDialog.openError(e.getMessage());
 				}
 				
@@ -321,7 +283,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					//FIXME: This implies if some error happen, the UI is not going to be updated. Check with Nilmax to see if this the behavior that we want.
 					fireModificationsToUI(deltaEvents);
 				} catch (Exception e) {
-					logger.error(e);
+					logger.error(e,e);
 					UserDialog.openError(e.getMessage());
 				}
 			
@@ -375,7 +337,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 								}
 							});
 				} catch (ParserException e) {
-					logger.error(e);
+					logger.error(e,e);
 					UserDialog.openError(e.getMessage());
 				}
 			}
@@ -412,7 +374,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					svnFiles, LighthouseRepositoryEvent.TYPE.CHECKOUT,
 					new Date());
 		} catch (JPAException e) {
-			logger.error(e);
+			logger.error(e,e);
 			UserDialog.openError(e.getMessage());
 		}
 	}
@@ -441,7 +403,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					.saveRepositoryEvent(svnFiles,
 							LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
 		} catch (JPAException e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 	
@@ -473,7 +435,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			pushModel.saveRepositoryEvent(svnFiles,
 					LighthouseRepositoryEvent.TYPE.CHECKIN, new Date());
 		} catch (JPAException e) {
-			logger.error(e);
+			logger.error(e,e);
 			UserDialog.openError(e.getMessage());
 		}
 	}
@@ -534,7 +496,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					".java", "");
 			result += "." + fileNameWithoutExtension;
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 
 		return result;
@@ -604,7 +566,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				fireModificationsToUI(delta.getEvents());
 			}
 		} catch (JPAException e) {
-			logger.error(e);
+			logger.error(e,e);
 			UserDialog.openError(e.getMessage());
 		}
 	}
@@ -627,7 +589,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				fireModificationsToUI(deltaEvents);
 			} catch (Exception e) {
 				// TODO: Try to throw up this exception
-				logger.error(e);
+				logger.error(e,e);
 				UserDialog.openError(e.getMessage());
 			}
 		}
@@ -640,18 +602,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
 			if (threadSuspended){
 				synchronized(this) {
-					Display.getDefault().syncExec(new Runnable(){
-						@Override
-						public void run() {
-							statusLabel.setImage(dbOk);
-						}
-					});
+					StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 					threadSuspended = false;
 					notify();
 				}
 			}
 		} catch (JPAException e){
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 
