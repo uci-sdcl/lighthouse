@@ -74,7 +74,7 @@ public class JavaFileChangedReporter implements IResourceChangeListener,
 			IResourceDelta delta = event.getDelta();
 			delta.accept(new JavaFileResourceDeltaVisitor());
 		} catch (CoreException e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 
@@ -100,7 +100,7 @@ public class JavaFileChangedReporter implements IResourceChangeListener,
 												IResource.DEPTH_INFINITE);
 								fireOpen(file, hasErrors);
 							} catch (CoreException e) {
-								logger.error(e);
+								logger.error(e,e);
 							}
 						}
 					}
@@ -138,7 +138,7 @@ public class JavaFileChangedReporter implements IResourceChangeListener,
 						}
 					}
 				} catch (Exception e) {
-					logger.error(e);
+					logger.error(e,e);
 				}
 			}
 		} else {

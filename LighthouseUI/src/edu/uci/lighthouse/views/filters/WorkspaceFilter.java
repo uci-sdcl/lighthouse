@@ -58,7 +58,7 @@ public class WorkspaceFilter extends ViewerFilter{
 						
 						}
 					} catch (PartInitException e) {
-						logger.error(e);
+						logger.error(e,e);
 					}
 				}
 			}
@@ -112,7 +112,7 @@ public class WorkspaceFilter extends ViewerFilter{
 					".java", "");
 			result += "."+fileNameWithoutExtension;			
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 		return result;
 	}

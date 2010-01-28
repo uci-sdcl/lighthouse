@@ -113,7 +113,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 				trunksCounter--;
 			}
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 
@@ -210,7 +210,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 			ISVNInfo info = svnAdapter.getInfo(file);
 			result = info.getUrl();
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 		return result;
 	}

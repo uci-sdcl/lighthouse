@@ -75,10 +75,10 @@ public class ImportHandler extends AbstractHandler {
 				//TODO: Rollback model changes
 				LighthouseModel.getInstance().fireModelChanged();
 				} catch (final JPAException e) {
-					logger.error(e);
+					logger.error(e,e);
 					UserDialog.openError("JPAException: "+e.getMessage());
 				} catch (final ParserException e) {
-					logger.error(e);
+					logger.error(e,e);
 					UserDialog.openError("ParserException: "+e.getMessage());
 				} finally {
 					monitor.done();

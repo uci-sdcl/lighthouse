@@ -65,7 +65,7 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 				result.add(filter);
 			}
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 
 		return result;

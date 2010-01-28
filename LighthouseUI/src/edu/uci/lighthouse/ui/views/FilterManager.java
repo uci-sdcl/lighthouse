@@ -65,7 +65,7 @@ public class FilterManager {
 	public static FilterManager getInstance(){
 		if (instance == null){
 			RuntimeException e = new RuntimeException("FilterManager instance not created.");
-			logger.error(e);
+			logger.error(e,e);
 			throw e;
 		}
 		return instance;

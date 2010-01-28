@@ -89,7 +89,7 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 							}
 						}
 					} catch (Exception e) {
-						logger.error(e);
+						logger.error(e,e);
 					}
 				}
 			}
