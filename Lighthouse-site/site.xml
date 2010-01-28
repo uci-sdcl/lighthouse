@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <description name="Lighthouse Update Site" url="http://calico.ics.uci.edu/~lighthouse/updates">
-      Description
-   </description>
-   <feature url="features/edu.uci.lighthouse.plugin_1.0.0.jar" id="edu.uci.lighthouse.plugin" version="1.0.0"/>
-</site>
