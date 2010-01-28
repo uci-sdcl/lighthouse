@@ -47,6 +47,29 @@
             </command>
          </menu>
       </menuContribution>
+      <group
+            id="edu.uci.lighthouse.core.group.status"
+            separatorsVisible="true">
+         <location>
+            <bar
+                  type="trim">
+            </bar>
+            <order
+                  position="before"
+                  relativeTo="status">
+            </order>
+         </location>
+      </group>
+      <widget
+            class="edu.uci.lighthouse.core.widgets.StatusWidget"
+            id="edu.uci.lighthouse.core.widgets.status">
+         <location>
+            <bar
+                  path="edu.uci.lighthouse.core.group.status"
+                  type="trim">
+            </bar>
+         </location>
+      </widget>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
