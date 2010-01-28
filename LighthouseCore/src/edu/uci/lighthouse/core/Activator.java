@@ -136,9 +136,9 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (UserPreferences.USERNAME.equals(event.getProperty())) {
+//		if (UserPreferences.USERNAME.equals(event.getProperty())) {
 			author = null;
-		}
+//		}
 	}
 
 	@Override

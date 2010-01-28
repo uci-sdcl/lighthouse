@@ -609,6 +609,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			}
 		} catch (JPAException e){
 			logger.error(e,e);
+			StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 		}
 	}
 
