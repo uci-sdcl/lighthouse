@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/edu.uci.lighthouse.plugin_1.0.0.jar" id="edu.uci.lighthouse.plugin" version="1.0.0">
+      <category name="edu.uci.lighthouse.site.category.collaboration"/>
+   </feature>
+   <category-def name="edu.uci.lighthouse.site.category.collaboration" label="Collaboration"/>
+</site>
