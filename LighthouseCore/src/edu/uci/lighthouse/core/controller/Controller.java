@@ -142,8 +142,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				&& mapClassToSVNCommittedTime.size() > 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			try {
-				Collection<LighthouseEvent> events = pullModel
-						.executeQueryCheckout(mapClassToSVNCommittedTime);
+				pullModel.executeQueryCheckout(mapClassToSVNCommittedTime);
 			} catch (JPAException e) {
 				logger.error(e,e);
 				UserDialog.openError(e.getMessage());
@@ -373,7 +372,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
 					svnFiles, LighthouseRepositoryEvent.TYPE.CHECKOUT,
 					new Date());
-		} catch (JPAException e) {
+		} catch (Exception e) {
 			logger.error(e,e);
 			UserDialog.openError(e.getMessage());
 		}
@@ -402,7 +401,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			new PushModel(LighthouseModel.getInstance())
 					.saveRepositoryEvent(svnFiles,
 							LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
-		} catch (JPAException e) {
+		} catch (Exception e) {
 			logger.error(e,e);
 		}
 	}
@@ -434,7 +433,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			// Insert the CHECKIN event in the database
 			pushModel.saveRepositoryEvent(svnFiles,
 					LighthouseRepositoryEvent.TYPE.CHECKIN, new Date());
-		} catch (JPAException e) {
+		} catch (Exception e) {
 			logger.error(e,e);
 			UserDialog.openError(e.getMessage());
 		}
@@ -565,7 +564,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				pushModel.updateModelFromEvents(delta.getEvents());
 				fireModificationsToUI(delta.getEvents());
 			}
-		} catch (JPAException e) {
+		} catch (Exception e) {
 			logger.error(e,e);
 			UserDialog.openError(e.getMessage());
 		}
