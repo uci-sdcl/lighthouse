@@ -81,7 +81,7 @@ public class PushModel {
 		return listEventsToCommitt;
 	}
 	
-	public Collection<LighthouseEvent> ParseJavaFiles(Collection<IFile> javaFiles)
+	public Collection<LighthouseEvent> parseJavaFiles(Collection<IFile> javaFiles)
 			throws ParserException, JPAException {
 		if (javaFiles.size() > 0) {
 			LighthouseParser parser = new LighthouseParser();
