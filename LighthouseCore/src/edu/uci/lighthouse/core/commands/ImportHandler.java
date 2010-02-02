@@ -1,6 +1,5 @@
 package edu.uci.lighthouse.core.commands;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -77,10 +76,6 @@ public class ImportHandler extends AbstractHandler {
 				} catch (final ParserException e) {
 					logger.error(e,e);
 					UserDialog.openError("ParserException: "+e.getMessage());
-				} catch (IOException e) {
-					logger.error(e,e);
-					UserDialog.openError("IOException: "+e.getMessage());
-					logger.error(e,e);
 				} finally {
 					monitor.done();
 				}
