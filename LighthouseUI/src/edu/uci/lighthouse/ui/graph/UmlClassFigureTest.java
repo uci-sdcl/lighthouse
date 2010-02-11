@@ -171,7 +171,7 @@ public class UmlClassFigureTest extends Panel{
 
 					// Image label
 					String caption = e[i].getShortName();
-					if (caption.trim().contains("<init>()")){
+					if (caption.trim().contains("<init>")){
 						caption = caption.trim().replace("<init>", umlClass.getShortName());
 					}
 					StyledLabel label = new StyledLabel(caption,
