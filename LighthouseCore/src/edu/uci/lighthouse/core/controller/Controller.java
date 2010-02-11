@@ -494,10 +494,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			String fileNameWithoutExtension = iFile.getName().replaceAll(
 					".java", "");
 			result += "." + fileNameWithoutExtension;
+			/* Append the project Name to the fqn */
+			result = iFile.getProject().getName() + "." + result;
 		} catch (Exception e) {
 			logger.error(e,e);
 		}
-
+		
 		return result;
 	}
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
@@ -551,6 +553,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		String classFqn = iFile.getFullPath().toOSString().substring(
 				index + projectName.length() + srcFolder.length()).replaceAll(
 				"/", ".").replaceAll(".java", "");
+		classFqn = projectName + "." + classFqn;
 
 		try {
 			LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
