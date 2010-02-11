@@ -127,14 +127,17 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 //			case ADD:
 //				viewer.addNode(aClass);
 //				break;
-			case ADD: case MODIFY: case REMOVE:
+			case ADD: case MODIFY: 
 				Animation.markBegin();
 				GraphUtils.rebuildFigure((GraphNode) item);
 				Animation.run(150);
 				break;
-/*			case REMOVE:
-				viewer.removeNode(aClass);
-				break;*/
+			case REMOVE:
+				LighthouseModel model = LighthouseModel.getInstance();
+				if (!model.containsEntity(aClass.getFullyQualifiedName())) {
+					viewer.removeNode(aClass);
+				}
+				break;
 			}
 		} else {
 			switch (type) {
