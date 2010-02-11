@@ -125,7 +125,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			oos.writeObject(mapClassToSVNCommittedTime);
 			logger.debug("saving " + filename);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		try {
 			mos.load();
 		} catch (Exception e) {
-			logger.error(e,e);
+			logger.error(e);
 		}
 
 		if (LighthouseModel.getInstance().isEmpty()
