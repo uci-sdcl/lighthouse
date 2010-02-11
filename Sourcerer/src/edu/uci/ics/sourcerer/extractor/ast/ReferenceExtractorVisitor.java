@@ -6,6 +6,9 @@ import java.util.Deque;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -100,6 +103,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 import org.eclipse.jdt.core.dom.WildcardType;
+import org.eclipse.jdt.internal.core.SourceType;
 
 import edu.uci.ics.sourcerer.extractor.io.ICommentWriter;
 import edu.uci.ics.sourcerer.extractor.io.IEntityWriter;
@@ -160,15 +164,25 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
       }
     }
     fileWriter.writeFile(compilationUnitPath, errorCount);
+    StringBuilder fqn = new StringBuilder(getProjectName(node.getJavaElement()));
     if (node.getPackage() != null) {
-      fqnStack.push(node.getPackage().getName().getFullyQualifiedName(), Entity.PACKAGE);
+      fqn.append("."+node.getPackage().getName().getFullyQualifiedName());
     }
+    fqnStack.push(fqn.toString(), Entity.PACKAGE);
     for (ASTNode comment : (List<ASTNode>)node.getCommentList()) {
       if (comment.getParent() == null) {
         comment.accept(this);
       }
     }
     return true;
+  }
+  
+  private String getProjectName(IJavaElement element){
+	 String result = "";
+	 if (element != null && element.getJavaProject() != null){
+		 result = element.getJavaProject().getElementName();
+	 }
+	 return result;
   }
 
   @Override
@@ -1455,6 +1469,30 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
   }
 
   private String getTypeFqn(ITypeBinding binding) {
+	  String typeFqn = getTypeFqnRecursive(binding);
+	  if (!"_ERROR_".equals(typeFqn)) {
+		  
+		  if (binding.getJavaElement() != null && binding.getJavaElement().getJavaProject() != null) {
+			  try {
+				IType type = binding.getJavaElement().getJavaProject().findType(typeFqn);
+				if (type instanceof SourceType) {
+					StringBuilder fqn = new StringBuilder(getProjectName(binding.getJavaElement()));
+					  if (!"".equals(fqn.toString())){
+						  fqn.append(".");  
+					  }
+					  fqn.append(typeFqn);  
+					  System.out.println(fqn);
+					  return fqn.toString();
+				}
+			} catch (JavaModelException e) {
+				e.printStackTrace();
+			}
+		  }
+	  }
+	  return typeFqn;
+  }
+  
+  private String getTypeFqnRecursive(ITypeBinding binding) {
     if (binding == null) {
       return "_ERROR_";
     } else if (binding.isTypeVariable()) {
@@ -1463,14 +1501,14 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
       return binding.getQualifiedName();
     } else if (binding.isArray()) {
       if (2 * binding.getDimensions() > BRACKETS.length()) {
-        StringBuilder builder = new StringBuilder(getTypeFqn(binding.getElementType()));
+        StringBuilder builder = new StringBuilder(getTypeFqnRecursive(binding.getElementType()));
         for (int i = 0; i < binding.getDimensions(); i++) {
           builder.append("[]");
         }
         logger.log(Level.WARNING, "Really long array! " + builder.toString() + " from " + compilationUnitPath);
         return builder.toString();
       } else {
-        return getTypeFqn(binding.getElementType()) + BRACKETS.substring(0, 2 * binding.getDimensions());
+        return getTypeFqnRecursive(binding.getElementType()) + BRACKETS.substring(0, 2 * binding.getDimensions());
       }
     } else if (binding.isAnonymous()) {
       String fqn = binding.getBinaryName();
@@ -1486,7 +1524,7 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
           // TODO fix this!
           return fqnStack.getAnonymousClassFqn() + binding.getName();
         } else {
-          return getTypeFqn(binding.getDeclaringClass()) + "$" + binding.getName();
+          return getTypeFqnRecursive(binding.getDeclaringClass()) + "$" + binding.getName();
         }
       } else {
         return fqn;
@@ -1497,7 +1535,7 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
         logger.log(Level.SEVERE, "Parametrized type erasure is a parametrized type: " + binding.getQualifiedName());
         fqn.append("_UNRESOLVED_." + binding.getQualifiedName());
       } else {
-        fqn.append(getTypeFqn(binding.getErasure()));
+        fqn.append(getTypeFqnRecursive(binding.getErasure()));
       }
       
       fqn.append("<");
@@ -1509,7 +1547,7 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
           fqn.append(",");
         }
         try {
-          fqn.append(getTypeFqn(arg));
+          fqn.append(getTypeFqnRecursive(arg));
         } catch (NullPointerException e) {
           logger.log(Level.FINE, "Eclipse NPE bug in parametrized type");
           fqn.append("_ERROR_");              
@@ -1522,11 +1560,11 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
       if (bound == null) {
         return "<?>";
       } else {
-        return "<?" + (binding.isUpperbound() ? "+" : "-") + getTypeFqn(bound) + ">";
+        return "<?" + (binding.isUpperbound() ? "+" : "-") + getTypeFqnRecursive(bound) + ">";
       }
     } else {
       if (binding.isMember()) {
-        return getTypeFqn(binding.getDeclaringClass()) + "$" + binding.getName();
+        return getTypeFqnRecursive(binding.getDeclaringClass()) + "$" + binding.getName();
       } else {
         if (binding.getName().equals("null")) {
           return "null";
