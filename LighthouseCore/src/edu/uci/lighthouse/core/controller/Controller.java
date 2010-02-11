@@ -56,7 +56,7 @@ import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
-		IPluginListener, Runnable, IPropertyChangeListener {
+IPluginListener, Runnable, IPropertyChangeListener {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
 	private static HashMap<String, Date> mapClassToSVNCommittedTime = new HashMap<String, Date>();
@@ -71,7 +71,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public static Map<String, Date> getWorkingCopy(){
 		return mapClassToSVNCommittedTime;
 	}
-	
+
 	@Override
 	public void start(BundleContext context) throws Exception {
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
@@ -93,7 +93,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void loadPreferences() {
 		String prefix = Activator.PLUGIN_ID;
 		IPreferenceStore prefStore = Activator.getDefault()
-				.getPreferenceStore();
+		.getPreferenceStore();
 
 		lastDBAccess = new Date(prefStore.getLong(prefix + "lastDBAccess"));
 		logger.debug("loading lastDBAccess=" + lastDBAccess);
@@ -103,7 +103,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
 					filename));
 			mapClassToSVNCommittedTime = (HashMap<String, Date>) ois
-					.readObject();
+			.readObject();
 			logger.debug("loading " + filename);
 		} catch (Exception e) {
 			logger.error(e);
@@ -113,7 +113,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void savePreferences() {
 		String prefix = Activator.PLUGIN_ID;
 		IPreferenceStore prefStore = Activator.getDefault()
-				.getPreferenceStore();
+		.getPreferenceStore();
 
 		prefStore.setValue(prefix + "lastDBAccess", lastDBAccess.getTime());
 		logger.debug("saving lastDBAccess=" + lastDBAccess);
@@ -151,7 +151,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// Show the events in the UI.
 		LighthouseModel.getInstance().fireModelChanged();
 	}
-	
+
 	private void saveModel(){
 		try {
 			IPersistence mos = new LighthouseModelXMLPersistence(LighthouseModel.getInstance());
@@ -160,7 +160,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			logger.error(e,e);
 		}
 	}
-	
+
 	@Override
 	public void run() {
 		threadRunning = true;
@@ -175,10 +175,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 					threadSuspended = true;
 					synchronized(this) {
-	                    while (threadSuspended) {
-	                        wait();
-	                    }
-	                }
+						while (threadSuspended) {
+							wait();
+						}
+					}
 				} /*catch (JPAException e) {
 					logger.error(e,e);
 				}*/
@@ -187,7 +187,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			}
 		}
 	};
-	
+
 	/**
 	 * Refresh the LighthouseModel with new events from database and fire this
 	 * changes to the UI.
@@ -203,9 +203,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		if (mapClassToSVNCommittedTime.size() != 0) {
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			List<LighthouseEvent> events = pullModel
-					.getNewEventsFromDB(lastDBAccess,author);
+			.getNewEventsFromDB(lastDBAccess,author);
 			fireModificationsToUI(events);
-			//logger.debug("timeout: " + lastDBAccess);
 			if (events.size()!=0) {
 				logger.debug("timeout[ " + lastDBAccess + " ] brought: [" + events.size() + "] events");
 			}
@@ -217,20 +216,20 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void open(final IFile iFile, boolean hasErrors) {
 
 		final String classFqn = getClassFullyQualifiedName(iFile);
-			Thread task = new Thread() {
-				@Override
-				public void run() {
-			//Removed the thread because the unopened files. When you try to guarantee the lifecycle (open,change,close) the base version can not
-					try {
-						LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
-						classBaseVersion.put(classFqn, lhBaseFile);
-					} catch (JPAException e) {
-						logger.error(e,e);
-						UserDialog.openError(e.getMessage());
-					}
+		Thread task = new Thread() {
+			@Override
+			public void run() {
+				//Removed the thread because the unopened files. When you try to guarantee the lifecycle (open,change,close) the base version can not
+				try {
+					LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
+					classBaseVersion.put(classFqn, lhBaseFile);
+				} catch (JPAException e) {
+					logger.error(e,e);
+					UserDialog.openError(e.getMessage());
 				}
-			};
-			task.start();
+			}
+		};
+		task.start();
 	}
 
 	public LighthouseFile getBaseVersionFromDB(String classFullyQualifiedName) throws JPAException {
@@ -248,16 +247,16 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// verify if any of the classWithErrors still have errors
 		// than parse the files that does not have errors anymore
 		// and remove the classes from the list classWithErrors
-		
+
 		if (!hasErrors) {
-			
+
 			if(ignorefilesJustUpdated.contains(iFile)) {
 				// event change was invoked without a merge problem
 				ignorefilesJustUpdated.remove(iFile);
 				// Update base version - the delta does not matter
 				// it is not working because we are getting the old IFile not the new one
-//				generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
-				
+				//				generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
+
 				// I will suppose that the revisionTime was setted in the update event
 				String classFqn =getClassFullyQualifiedName(iFile);
 				try {
@@ -267,27 +266,31 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					logger.error(e,e);
 					UserDialog.openError(e.getMessage());
 				}
-				
-				
+
+
 			} else {
 				// TODO: Think about DB operations in a thread
-				
+
 				try {
 					Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections
 							.singleton(iFile));
-					logger.debug("Event change generated delta events: " + deltaEvents.size());
+					if (deltaEvents.size()==0) {
+						logger.error("We have a change event without delta elements (delta==0)");
+					} else {
+						logger.debug("Event change generated delta events: " + deltaEvents.size());
+					}
 					PushModel pushModel = new PushModel(LighthouseModel
 							.getInstance());
-					pushModel.updateModelFromEvents(deltaEvents);
+					pushModel.updateDatabaseFromEvents(deltaEvents);
 					//FIXME: This implies if some error happen, the UI is not going to be updated. Check with Nilmax to see if this the behavior that we want.
 					fireModificationsToUI(deltaEvents);
 				} catch (Exception e) {
 					logger.error(e,e);
 					UserDialog.openError(e.getMessage());
 				}
-			
+
 			}
-			
+
 		} else { // if file with error
 			// FIXME: we are calling this if block in the algorithm for both error/no erros. A better approach will put them outside the main if. Check this later.
 			if (ignorefilesJustUpdated.contains(iFile)) {
@@ -299,11 +302,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			}
 		}
 	}
-	
+
 	private Collection<LighthouseEvent> generateDeltaFromBaseVersion(Collection<IFile> files) {
 		return generateDeltaFromBaseVersion(files,false);
 	}
-	
+
 	private Collection<LighthouseEvent> generateDeltaFromBaseVersion(Collection<IFile> files, boolean force) {
 		final List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
 
@@ -316,25 +319,25 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					final LighthouseParser parser = new LighthouseParser();
 					parser.executeInAJob(Collections.singleton(file),
 							new IParserAction() {
-								@Override
-								public void doAction() throws ParserException {
-									LighthouseFile currentLhFile = new LighthouseFile();
-									new LighthouseFileManager(currentLhFile)
-											.populateLHFile(parser
-													.getListEntities(), parser
-													.getListRelationships());
-									try {
-										LighthouseDelta delta = new LighthouseDelta(
-													Activator.getDefault().getAuthor(),
-													lhBaseFile, currentLhFile);
-										classBaseVersion.put(classFqn,
-												currentLhFile);
-										result.addAll(delta.getEvents());
-									} catch (JPAException e) {
-										throw new ParserException(e);
-									}
-								}
-							});
+						@Override
+						public void doAction() throws ParserException {
+							LighthouseFile currentLhFile = new LighthouseFile();
+							new LighthouseFileManager(currentLhFile)
+							.populateLHFile(parser
+									.getListEntities(), parser
+									.getListRelationships());
+							try {
+								LighthouseDelta delta = new LighthouseDelta(
+										Activator.getDefault().getAuthor(),
+										lhBaseFile, currentLhFile);
+								classBaseVersion.put(classFqn,
+										currentLhFile);
+								result.addAll(delta.getEvents());
+							} catch (JPAException e) {
+								throw new ParserException(e);
+							}
+						}
+					});
 				} catch (ParserException e) {
 					logger.error(e,e);
 					UserDialog.openError(e.getMessage());
@@ -353,22 +356,21 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			classBaseVersion.remove(classFqn);
 		}
 	}
-	
+
 	@Override
 	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
 		// Ignore these files inside the change event, once we don't want to generate deltas for other people changes. 
-//		ignoredFiles.addAll(svnFiles.keySet());
-		
+		//		ignoredFiles.addAll(svnFiles.keySet());
+
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		try {
-		Collection<LighthouseEvent> events = pullModel.executeQueryCheckout(workingCopy);
-		LighthouseModel.getInstance().fireModelChanged();
-		logger.info("Number of events fetched after checkout = " + events.size());
-		
-		// Insert the CHECKOUT event in the database
-	
+			Collection<LighthouseEvent> events = pullModel.executeQueryCheckout(workingCopy);
+			LighthouseModel.getInstance().fireModelChanged();
+			logger.info("Number of events fetched after checkout = " + events.size());
+
+			// Insert the CHECKOUT event in the database
 			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
 					svnFiles, LighthouseRepositoryEvent.TYPE.CHECKOUT,
 					new Date());
@@ -377,7 +379,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			UserDialog.openError(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public void update(Map<IFile, ISVNInfo> svnFiles) {
 		// Ignore in the change event these files, once we don't want to generate deltas for other people changes. 
@@ -387,25 +389,25 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// o metodo change vai ser chamado, dai eu nao quero gerar delta
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
-		
+
 		LighthouseModel model = LighthouseModel.getInstance();
 		LighthouseModelManager modelManager = new LighthouseModelManager(model); 
-		
+
 		modelManager.removeArtifactsAndEvents(workingCopy.keySet());
-		
+
 		checkout(svnFiles);
 
 		// Insert the UPDATE event in the database
 		// Insert the CHECKOUT event in the database
 		try {
 			new PushModel(LighthouseModel.getInstance())
-					.saveRepositoryEvent(svnFiles,
-							LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
+			.saveRepositoryEvent(svnFiles,
+					LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
 		} catch (Exception e) {
 			logger.error(e,e);
 		}
 	}
-	
+
 	@Override
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
@@ -415,21 +417,21 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 			// assuming that there is just one committed time
 			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]);
-//			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
+			//			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
 			//FIXME: Synchronization problem
 			Date svnCommittedTime = new Date();
-			
+
 			Collection<LighthouseEvent> listEvents = pushModel.updateCommittedEvents( 
-														getClassesFullyQualifiedName(svnFiles), 
-														svnCommittedTime,
-														Activator.getDefault().getAuthor());
+					getClassesFullyQualifiedName(svnFiles), 
+					svnCommittedTime,
+					Activator.getDefault().getAuthor());
 
 			LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance()); 
 			modelManager.removeCommittedEvents(workingCopy.keySet(),svnCommittedTime);
-			
+
 			fireModificationsToUI(listEvents);
 			logger.debug("Committed ["+ listEvents.size() + "] events " + "with time: " + svnCommittedTime);
-			
+
 			// Insert the CHECKIN event in the database
 			pushModel.saveRepositoryEvent(svnFiles,
 					LighthouseRepositoryEvent.TYPE.CHECKIN, new Date());
@@ -499,7 +501,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		} catch (Exception e) {
 			logger.error(e,e);
 		}
-		
+
 		return result;
 	}
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
@@ -519,7 +521,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				LighthouseModelManager manager = new LighthouseModelManager(
 						model);
 				LighthouseClass klass = manager
-						.getMyClass((LighthouseEntity) artifact);
+				.getMyClass((LighthouseEntity) artifact);
 				if (klass != null) {
 					// Never overwrite the ADD event
 					if (!mapClassEvent.containsKey(klass)) {
@@ -552,19 +554,19 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		int index = iFile.getFullPath().toOSString().indexOf(projectName);
 		String classFqn = iFile.getFullPath().toOSString().substring(
 				index + projectName.length() + srcFolder.length()).replaceAll(
-				"/", ".").replaceAll(".java", "");
+						"/", ".").replaceAll(".java", "");
 		classFqn = projectName + "." + classFqn;
 
 		try {
 			LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
 			if (lhBaseFile != null) {
-
+				mapClassToSVNCommittedTime.remove(classFqn);
 				LighthouseDelta delta = new LighthouseDelta(Activator
 						.getDefault().getAuthor(), lhBaseFile, null);
 
 				PushModel pushModel = new PushModel(LighthouseModel
 						.getInstance());
-				pushModel.updateModelFromEvents(delta.getEvents());
+				pushModel.updateDatabaseFromEvents(delta.getEvents());
 				fireModificationsToUI(delta.getEvents());
 			}
 		} catch (Exception e) {
@@ -572,12 +574,12 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			UserDialog.openError(e.getMessage());
 		}
 	}
-	
+
 	/** The method add happens when a class is added in the workspace or when is checkout a project in a empty workspace. */
 	@Override
 	public void add(IFile iFile, boolean hasErrors) {
 		final String classFqn = getClassFullyQualifiedName(iFile);
-		
+
 		// It is a new class created by the user. We are assuming that the user creates a class that doesn't contain errors.
 		if (!mapClassToSVNCommittedTime.containsKey(classFqn)) {
 			/* We have to put the classFqn in this map in order to show the event in the UI.*/
@@ -587,7 +589,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				Collection<LighthouseEvent> deltaEvents = generateDeltaFromBaseVersion(Collections.singleton(iFile),true);
 				PushModel pushModel = new PushModel(
 						LighthouseModel.getInstance());
-				pushModel.updateModelFromEvents(deltaEvents);
+				pushModel.updateDatabaseFromEvents(deltaEvents);
 				fireModificationsToUI(deltaEvents);
 			} catch (Exception e) {
 				// TODO: Try to throw up this exception
