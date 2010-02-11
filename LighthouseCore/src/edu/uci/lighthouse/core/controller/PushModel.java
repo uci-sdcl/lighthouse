@@ -16,7 +16,6 @@ import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
-import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseInterface;
@@ -40,28 +39,8 @@ public class PushModel {
 		this.model = model;
 	}
 	
-	public void updateModelFromDelta(LighthouseDelta delta) throws JPAException {   
-	    updateModelFromEvents(delta.getEvents());
-	}
-
-	public void updateModelFromEvents(Collection<LighthouseEvent> listEvents) throws JPAException {   
-	    LighthouseModelManager LhManager = new LighthouseModelManager(model);
-	    // for each entity event
-	    for (LighthouseEvent event : listEvents) {
-			Object artifact = event.getArtifact();
-			if (artifact instanceof LighthouseEntity) {
-				logger.debug("updating: " + event.toString());
-				LhManager.addEvent(event);
-			}			
-		}
-	    // for each relationship event
-	    for (LighthouseEvent event : listEvents) {
-			Object artifact = event.getArtifact();
-		    if (artifact instanceof LighthouseRelationship) {
-		    	logger.debug("updating: " + event.toString());
-		    	LhManager.addEvent(event);
-		    }
-	    }
+	public void updateDatabaseFromEvents(Collection<LighthouseEvent> listEvents) throws JPAException {   
+		new UpdateLighthouseModel(model).updateByEvents(listEvents);
 	    saveEventsInDatabase(listEvents,null);
 	}
 	
@@ -161,6 +140,5 @@ public class PushModel {
 		}
 		return result;
 	}
-	
 	
 }

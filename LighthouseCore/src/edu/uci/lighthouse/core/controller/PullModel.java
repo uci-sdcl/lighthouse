@@ -41,10 +41,16 @@ public class PullModel {
 		parameters.put("timestamp", lastDBaccessTime);
 		parameters.put("author", author);
 		List<LighthouseEvent> listEvents = new LHEventDAO().executeNamedQuery("LighthouseEvent.findByTimestamp", parameters);
-		LighthouseModelManager modelManager = new LighthouseModelManager(model);
-		for (LighthouseEvent event : listEvents) {
-			modelManager.addEvent(event);
+		
+//		LighthouseModelManager modelManager = new LighthouseModelManager(model);
+//		for (LighthouseEvent event : listEvents) {
+//			modelManager.addEvent(event);
+//		}
+		
+		if (listEvents.size()>0) {
+			new UpdateLighthouseModel(model).updateByEvents(listEvents);
 		}
+		
 		return listEvents;
 	}
 	
