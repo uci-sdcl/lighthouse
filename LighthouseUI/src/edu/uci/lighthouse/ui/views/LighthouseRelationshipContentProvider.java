@@ -197,7 +197,7 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 		logger.info("createNodes()");
 		//LighthouseModel model = (LighthouseModel) viewer.getInput();
 		for (LighthouseClass aClass : model.getAllClasses()) {
-			if (!filterEntity(aClass)){
+			if (showEntity(aClass)){
 			viewer.addNode(aClass);
 			}
 		}
@@ -209,16 +209,19 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	}
 	
 
-	protected boolean filterEntity(LighthouseEntity entity) {
+	protected boolean showEntity(LighthouseEntity entity) {
 		// TODO Optimize the algorithm
+		boolean result = false;
 		LighthouseModel model = LighthouseModel.getInstance();
-		
 		ViewerFilter[] filters = FilterManager.getInstance().getViewerFilters();
 		for (ViewerFilter filter: filters){
 			boolean selected = filter.select(viewer, model, entity);
-			if (!selected) {
-				return true;
-			}
+//			if (selected) {
+				result |= selected;
+//			}
+		}
+		if (filters.length == 0){
+			result = true;
 		}
 		
 //		IClassFilter[] filters = FilterManager.getInstance().getClassFilters();
@@ -231,6 +234,6 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 //				return true;
 //			}
 //		}
-		return false;
+		return result;
 	}
 }

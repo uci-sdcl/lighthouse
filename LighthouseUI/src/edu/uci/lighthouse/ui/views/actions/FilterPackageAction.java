@@ -2,20 +2,14 @@ package edu.uci.lighthouse.ui.views.actions;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -25,6 +19,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.zest.core.widgets.IContainer;
 
+import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.ui.views.FilterManager;
 import edu.uci.lighthouse.views.filters.PackageFilter;
 
@@ -40,6 +35,8 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 	private static final String DESCRIPTION = "Show just modifications";
 	
 	Map<String,PackageFilterAction> cacheFilters = new HashMap<String,PackageFilterAction>();
+	
+	private static final String DEFAULT_PACKAGE = "(default package)";
 	
 	private static Logger logger = Logger.getLogger(FilterModifiedAction.class);
 
@@ -71,7 +68,15 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 //		result.add(new PackageFilterAction("tiago"));
 		return result;
 	}
+
+	private Collection<String> getPackageNames(){
+		LighthouseModel model = LighthouseModel.getInstance();
+		List<String> result = new LinkedList<String>(model.getPackageNames());
+		Collections.sort(result);
+		return result;
+	}
 	
+	/*
 	private Collection<String> getPackageNames(){
 		Set<String> result = new TreeSet<String>();
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();	
@@ -103,12 +108,15 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 //		}
 		return result;
 	}
-	
+	*/
 	private final class PackageFilterAction extends Action{
 		PackageFilter filter;
 		public PackageFilterAction(String packageName){
 			super(packageName,Action.AS_CHECK_BOX);
 			filter = new PackageFilter(packageName);
+			if ("".equals(packageName)){
+				setText(DEFAULT_PACKAGE);
+			}
 		}
 		@Override
 		public void run() {

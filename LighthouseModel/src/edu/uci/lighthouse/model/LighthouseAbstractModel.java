@@ -20,11 +20,25 @@ public abstract class LighthouseAbstractModel {
 
 	/** Indexed by FromEntity. */
 	private HashMap<String, LinkedHashSet<LighthouseRelationship>> relationshipsFrom = new HashMap<String, LinkedHashSet<LighthouseRelationship>>();
+	
+	private LinkedHashSet<String> packageNames = new LinkedHashSet<String>();
+	
+	private LinkedHashSet<String> projectNames = new LinkedHashSet<String>();
+	
+	private LinkedHashSet<LighthouseClass> classes = new LinkedHashSet<LighthouseClass>();
 
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
 	final synchronized void addEntity(LighthouseEntity entity) {
+		/* We are interested just in classes and interfaces that belongs our project. External classes are not included. */
+		if (entity instanceof LighthouseClass || entity instanceof LighthouseInterface) {
+			packageNames.add(entity.getPackageName());
+			projectNames.add(entity.getProjectName());
+			if (entity instanceof LighthouseClass){
+				classes.add((LighthouseClass)entity);
+			}
+		}
 		entities.put(entity.getFullyQualifiedName(), entity);
 	}
 
@@ -32,9 +46,15 @@ public abstract class LighthouseAbstractModel {
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
 	final synchronized void removeEntity(LighthouseEntity entity) {
+		/* Is not necessary remove project and package names since the list is populated everytime Lighthouse runs.*/
+		classes.remove(entity);
 		entities.remove(entity.getFullyQualifiedName());
 	}
-
+	
+	public Collection<String> getPackageNames(){
+		return packageNames;
+	}
+	
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
@@ -102,13 +122,14 @@ public abstract class LighthouseAbstractModel {
 	}
 
 	public Collection<LighthouseClass> getAllClasses() {
-		LinkedList<LighthouseClass> list = new LinkedList<LighthouseClass>();
-		for (LighthouseEntity e : entities.values()) {
-			if (e instanceof LighthouseClass) {
-				list.add((LighthouseClass) e);
-			}
-		}
-		return list;
+//		LinkedList<LighthouseClass> list = new LinkedList<LighthouseClass>();
+//		for (LighthouseEntity e : entities.values()) {
+//			if (e instanceof LighthouseClass) {
+//				list.add((LighthouseClass) e);
+//			}
+//		}
+//		return list;
+		return classes;
 	}
 
 	public Collection<LighthouseEntity> getEntities() {

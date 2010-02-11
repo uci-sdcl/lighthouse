@@ -21,6 +21,16 @@ public abstract class LighthouseEntity {
 	protected LighthouseEntity() {
 	}
 
+	public String getProjectName() {
+		return fullyQualifiedName.replaceAll("\\..*", "");
+	}
+	
+	public String getPackageName(){
+		//FIXME: Right now this method just work for classes and interfaces.
+		String result = getFullyQualifiedName().replace("."+getShortName(), "").replace(getProjectName()+".", "");
+		return result.equals(getProjectName()) ? "" : result;
+	}
+	
 	public String getFullyQualifiedName() {
 		return fullyQualifiedName;
 	}
