@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.ui.views.actions;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.draw2d.IFigure;
@@ -62,6 +63,46 @@ public class OpenInEditorAction extends ContributionItem implements MouseListene
 	}
 	
 	private void showInEditor(LighthouseEntity e) {
+		LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel
+				.getInstance());
+		LighthouseClass c = manager.getMyClass(e);
+		if (c != null) {
+			try {
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				IProject project = workspace.getRoot().getProject(c.getProjectName());
+				IJavaProject javaProject = JavaCore.create(project);
+				String classFqn = c.getFullyQualifiedName().replace(c.getProjectName()+".","");
+				IType type = javaProject.findType(classFqn);
+				if (type != null) {
+					IJavaElement target = (IJavaElement) type;
+					IJavaElement[] elements = new IJavaElement[0];
+					if (e instanceof LighthouseMethod) {
+						elements = type.getMethods();
+					} else if (e instanceof LighthouseField) {
+						elements = type.getFields();
+					} 
+					String shortName = e.getShortName();
+					if (shortName.contains("<init>")){
+						shortName = shortName.replace("<init>", c.getShortName());
+					}
+					shortName = shortName.replaceAll("[\\<\\(].*", "");
+					for (IJavaElement element : elements){
+						System.out.println("shortname: "+shortName + " java:"+element.getElementName());
+						if (element.getElementName().equals(shortName)){
+							target = element;
+							break;
+						}
+					}
+					IEditorPart javaEditor = JavaUI
+					.openInEditor(target);
+				}
+			} catch (Exception ex) {
+				logger.error(ex,ex);
+			}
+		}
+	}
+	
+	private void showInEditor2(LighthouseEntity e) {
 		LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel
 				.getInstance());
 		LighthouseClass c = manager.getMyClass(e);
