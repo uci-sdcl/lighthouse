@@ -249,12 +249,15 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			JPAUtility.commitTransaction(entityManager);
 			JPAUtility.closeEntityManager(entityManager);
 		} catch (OperationCanceledException e) {
+			logger.error(e,e);
 			JPAUtility.rollbackTransaction(entityManager);
 			throw e;
 		} catch (PersistenceException e) {
+			logger.error(e,e);
 			JPAUtility.rollbackTransaction(entityManager);
 			throw new JPAException("Error trying to save/update the event", e.fillInStackTrace());
 		} catch (RuntimeException e) {
+			logger.error(e,e);
 			throw new JPAException("Error with database connection", e.fillInStackTrace());
 		} finally {
 			monitor.done();
