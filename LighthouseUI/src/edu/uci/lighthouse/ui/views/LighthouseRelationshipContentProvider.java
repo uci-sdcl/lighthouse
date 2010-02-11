@@ -136,6 +136,10 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 				LighthouseModel model = LighthouseModel.getInstance();
 				if (!model.containsEntity(aClass.getFullyQualifiedName())) {
 					viewer.removeNode(aClass);
+				} else {
+					Animation.markBegin();
+					GraphUtils.rebuildFigure((GraphNode) item);
+					Animation.run(150);
 				}
 				break;
 			}
