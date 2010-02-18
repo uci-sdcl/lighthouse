@@ -2,12 +2,9 @@ package edu.uci.lighthouse.hiperwall;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.ImageLoader;
+import javax.imageio.ImageIO;
+
 
 /**
  * Author: Alex Taubman
@@ -16,33 +13,81 @@ public class SaveAsJPEG {
 	public static void main(String[] args) {
 
 		try {
-			ImageData[] images;
+			
 
-			Image picture = new Image(null,
-					"C:\\Users\\Imryel\\Pictures\\turtle.jpg");
+			File loadFile = new File("C:\\Users\\Imryel\\Desktop\\hiper.jpg");
 
-			SplitImage splitter = new SplitImage();
-			BufferedImage picture2 = splitter.convertToAWT(picture
-					.getImageData());
+			//BufferedImage picture2 = splitter.convertToAWT(picture
+			//		.getImageData());
 
+			//load file
+			BufferedImage picture = ImageIO.read(loadFile);
+
+			System.out.println("1");
+			
+			BufferedImage picture2 = ImageIO.read(loadFile);
+
+			System.out.println("2");
+			
+			BufferedImage picture3 = ImageIO.read(loadFile);
+			
+			System.out.println("3");
+			
 			// hard coded number of images to split into
-			int row = 5;
-			int column = 10;
-			images = splitter.split(picture2, row, column);
+			int row = 1;
+			int column = 1;
+			BufferedImage[] images = new BufferedImage[row*column];
+			
+			//create row*column Threads
+			Thread[] threads = new Thread[row*column];
+			
+			//save access to the Split Images
+			SplitImage[] splitImages = new SplitImage[row*column];
+			
+			//create threads
+			int num = 0;
+			for (int i = 0; i < row; i++)
+			{
+				for (int j = 0; j < column; j++)
+				{
+					splitImages[num] = new SplitImage(picture,column,row,j,i);
+					threads[num] = new Thread(splitImages[num]);
+					num++;
+				}
+			}
+			//run threads
+			for (int i=0; i < row*column; i++)
+			{
+				threads[i].start();
+			}
+			
+			//give time for threads to finish
+			Thread.sleep(5000);
+			
+			//collect image data
+			int num1 = 0;
+			for (int i=0; i < row*column; i++)
+			{
+				images[num1] = splitImages[num1].getImage();
+				num1++;
+			}
+						
 			System.out.println(images.length);
 
 			// ImageFigure figure = new ImageFigure(picture);
 
-			ImageLoader loader = new ImageLoader();
+			//ImageLoader loader = new ImageLoader();
+			
+			//save images
 			String fileName = "C:\\Users\\Imryel\\Desktop\\PicturesHere\\picture";
 			for (int i = 0; i < row * column; i++) {
-				loader.data = new ImageData[] { images[i] };
 				String finalFileName = fileName + "" + i + ".jpg";
 				System.out.println(finalFileName);
-				File file = new File(finalFileName);
-				file.createNewFile();
-				FileOutputStream fos = new FileOutputStream(file);
-				loader.save(fos, SWT.IMAGE_JPEG);
+				File saveFile = new File(finalFileName);
+				saveFile.createNewFile();
+				ImageIO.write(images[i],"jpg",saveFile);
+				//FileOutputStream fos = new FileOutputStream(file);
+				//loader.save(fos, SWT.IMAGE_JPEG);
 				fileName = "C:\\Users\\Imryel\\Desktop\\PicturesHere\\picture";
 			}
 
