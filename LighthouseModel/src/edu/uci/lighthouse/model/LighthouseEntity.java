@@ -11,7 +11,7 @@ import javax.persistence.InheritanceType;
 public abstract class LighthouseEntity {
 
 	@Id
-	@Column(columnDefinition = "VARCHAR(500)")
+	@Column(columnDefinition = "VARCHAR(300)")
 	private String fullyQualifiedName = "";
 
 	public LighthouseEntity(String fqn) {
