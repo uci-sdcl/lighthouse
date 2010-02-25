@@ -182,7 +182,7 @@ IWorkbenchPreferencePage{
 		dbPassword.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
 		label = new Label(group, SWT.NONE);
-		label.setText("Dabase:");
+		label.setText("Database:");
 		dbDatabase = new Text(group, SWT.SINGLE | SWT.BORDER);
 		dbDatabase.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		
