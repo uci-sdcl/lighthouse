@@ -2,7 +2,7 @@
 <feature
       id="edu.uci.lighthouse.plugin"
       label="Lighthouse Plug-in"
-      version="1.0.0"
+      version="1.0.1"
       provider-name="UC Irvine"
       plugin="edu.uci.lighthouse.core">
 
@@ -124,6 +124,13 @@
          download-size="0"
          install-size="0"
          version="1.2.13.v200903072027"
+         unpack="false"/>
+
+   <plugin
+         id="org.tmatesoft.svnkit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
