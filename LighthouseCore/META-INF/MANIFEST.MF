@@ -18,3 +18,5 @@ Require-Bundle: org.eclipse.ui;bundle-version="3.4.0",
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: edu.uci.lighthouse.core.controller
+Bundle-ClassPath: .,
+ lib/jsch-0.1.42.jar

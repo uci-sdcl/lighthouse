@@ -8,9 +8,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -20,6 +18,9 @@ import edu.uci.lighthouse.core.listeners.JavaFileChangedReporter;
 import edu.uci.lighthouse.core.listeners.SVNEventReporter;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.preferences.UserPreferences;
+import edu.uci.lighthouse.core.util.SSHTunnel;
+import edu.uci.lighthouse.core.util.UserDialog;
+import edu.uci.lighthouse.core.util.WorkbenchUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
@@ -41,6 +42,8 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	Collection<IPluginListener> listeners = new LinkedList<IPluginListener>();
 	
 	private LighthouseAuthor author;
+	
+	private SSHTunnel sshTunnel;
 	
 	/**
 	 * The constructor
@@ -69,9 +72,18 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		
 		logger.debug("Core Started");
 		
+		//This code exist here just for test purposes. We delete the preferences to simulate the behavior when the user first open lighthouse
+//		UserPreferences.clear();
+//		DatabasePreferences.clear();
+		System.out.println("tunnel");
+		sshTunnel = new SSHTunnel(DatabasePreferences.getAllSettings());
+		if (DatabasePreferences.isConnectingUsingSSH()) {
+			sshTunnel.start(context);
+		}
+		System.out.println("db");
 		//FIXME: Think about the right place to put this code
 		JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
-		
+		System.out.println("done");
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		
 		// Starting listeners
@@ -96,6 +108,8 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		}
 		
 		JPAUtility.shutdownEntityManagerFactory();
+		
+		sshTunnel.stop(context);
 		
 		plugin = null;
 		super.stop(context);
@@ -123,12 +137,11 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	
 	public LighthouseAuthor getAuthor() throws JPAException{
 		if (author == null){
-			Properties userSettings = UserPreferences.getUserSettings();
-			String userName = userSettings.getProperty(UserPreferences.USERNAME);
-			if (userName != null && !"".equals(userName)) {
-				LighthouseAuthor user =  new LighthouseAuthor(userName);
-				new LHAuthorDAO().save(user);
-				author = user;
+			String userName = getUsername();
+			if ("".equals(userName)){
+				WorkbenchUtility.openPreferences();
+			} else {
+				author = new LighthouseAuthor(userName);
 			}
 		}
 		return author;
@@ -136,9 +149,29 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-//		if (UserPreferences.USERNAME.equals(event.getProperty())) {
-			author = null;
-//		}
+		// Username has changed
+		try {
+			if (UserPreferences.USERNAME.equals(event.getProperty())) {
+				String userName = getUsername();
+				if (!"".equals(userName)) {
+					LighthouseAuthor user = new LighthouseAuthor(userName);
+					new LHAuthorDAO().save(user);
+					author = user;
+				}
+			}
+		} catch (JPAException e) {
+			UserDialog.openError(e.getMessage());
+		}
+	}
+	
+	private String getUsername(){
+		String result = "";
+		Properties userSettings = UserPreferences.getUserSettings();
+		String userName = userSettings.getProperty(UserPreferences.USERNAME);
+		if (userName != null) {
+			result = userName;
+		}
+		return result;
 	}
 
 	@Override

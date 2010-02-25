@@ -1,8 +1,6 @@
 package edu.uci.lighthouse.core.preferences;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -21,6 +19,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import edu.uci.lighthouse.core.Activator;
+import edu.uci.lighthouse.core.util.SSHTunnel;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 
 public class DatabasePreferences extends PreferencePage implements
@@ -71,7 +70,7 @@ IWorkbenchPreferencePage{
 		
 		chkTunnel = new Button(composite, SWT.CHECK);
 		chkTunnel.setText("Connect using SSH tunnel");
-		chkTunnel.setEnabled(false);
+//		chkTunnel.setEnabled(false);
 		
 		Composite sshComposite = getSSHComposite(composite);
 		sshComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -87,9 +86,18 @@ IWorkbenchPreferencePage{
 		super.performApply();
 		
 		try {
+			SSHTunnel tunnel = null;
+			if (isConnectingUsingSSH()) {
+				tunnel = new SSHTunnel(getAllSettings());
+				tunnel.setLocalPort(12346);
+				tunnel.start(null);
+			}
 			JPAUtility.canConnect(getDatabaseSettings());
+			if (tunnel != null) {
+				tunnel.stop(null);
+			}
 			MessageDialog.openInformation(getShell(), "Database Connection", "The connection is working properly!");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			MessageDialog.openError(getShell(), "Database Connection", e.getMessage());
 		}
 	}
@@ -136,17 +144,17 @@ IWorkbenchPreferencePage{
 	protected void performDefaults() {
 
 		dbHost.setText("127.0.0.1");
-		dbUsername.setText("");
-		dbPassword.setText("");
+		dbUsername.setText("lighthouse");
+		dbPassword.setText("light99");
 		dbDatabase.setText("lighthouse");
 		dbPort.setText("3306");
 		
-		chkTunnel.setSelection(false);
+		chkTunnel.setSelection(true);
 
-		sshHost.setText("");
-		sshUser.setText("");
-		sshPassword.setText("");
-		sshPort.setText("");
+		sshHost.setText("calico.ics.uci.edu");
+		sshUser.setText("lighthouse");
+		sshPassword.setText("light99");
+		sshPort.setText("22");
 		
 		super.performDefaults();
 	}
@@ -198,28 +206,28 @@ IWorkbenchPreferencePage{
 		label.setEnabled(false);
 		sshHost = new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshHost.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sshHost.setEnabled(false);
+//		sshHost.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Username:");
 		label.setEnabled(false);
 		sshUser = new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshUser.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sshUser.setEnabled(false);
+//		sshUser.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Password:");
 		label.setEnabled(false);
 		sshPassword = new Text(group, SWT.SINGLE | SWT.BORDER | SWT.PASSWORD);
 		sshPassword.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sshPassword.setEnabled(false);
+//		sshPassword.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Port:");
 		label.setEnabled(false);
 		sshPort =new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshPort.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		sshPort.setEnabled(false);
+//		sshPort.setEnabled(false);
 		
 		return group;
 	}
@@ -237,14 +245,26 @@ IWorkbenchPreferencePage{
 		return dbSettings;
 	}
 	
-	public static Map<String, String> getSSHTunnelSettings(){
-		Map<String,String> sshTunnelSettings = new HashMap<String,String>();
+	public static Properties getAllSettings(){
+		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+		Properties settings = new Properties();
+		settings.setProperty(DB_HOST, store.getString(DB_HOST));
+		settings.setProperty(DB_PORT, store.getString(DB_PORT));
+		settings.setProperty(DB_DATABASE, store.getString(DB_DATABASE));
+		settings.setProperty(DB_USERNAME, store.getString(DB_USERNAME));
+		settings.setProperty(DB_PASSWD, store.getString(DB_PASSWD));
+		settings.putAll(getSSHTunnelSettings());
+		return settings;
+	}
+	
+	public static Properties getSSHTunnelSettings(){
+		Properties sshTunnelSettings = new Properties();
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		
-		sshTunnelSettings.put(SSH_HOST, store.getString(SSH_HOST));
-		sshTunnelSettings.put(SSH_USERNAME, store.getString(SSH_USERNAME));
-		sshTunnelSettings.put(SSH_PASSWD, store.getString(SSH_PASSWD));
-		sshTunnelSettings.put(SSH_PORT, store.getString(SSH_PORT));
+		sshTunnelSettings.setProperty(SSH_HOST, store.getString(SSH_HOST));
+		sshTunnelSettings.setProperty(SSH_USERNAME, store.getString(SSH_USERNAME));
+		sshTunnelSettings.setProperty(SSH_PASSWD, store.getString(SSH_PASSWD));
+		sshTunnelSettings.setProperty(SSH_PORT, store.getString(SSH_PORT));
 		
 		return sshTunnelSettings;
 	}
@@ -252,5 +272,22 @@ IWorkbenchPreferencePage{
 	public static boolean isConnectingUsingSSH(){
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		return store.getBoolean(USES_TUNNEL);
+	}
+	
+	public static void clear() {
+		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+
+		store.setValue(DB_HOST, "");
+		store.setValue(DB_USERNAME, "");
+		store.setValue(DB_PASSWD, "");
+		store.setValue(DB_DATABASE, "");
+		store.setValue(DB_PORT, "");
+
+		store.setValue(USES_TUNNEL, "");
+
+		store.setValue(SSH_HOST, "");
+		store.setValue(SSH_USERNAME, "");
+		store.setValue(SSH_PASSWD, "");
+		store.setValue(SSH_PORT, "");
 	}
 }
