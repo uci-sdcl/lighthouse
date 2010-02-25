@@ -1481,7 +1481,6 @@ public class ReferenceExtractorVisitor extends ASTVisitor {
 						  fqn.append(".");  
 					  }
 					  fqn.append(typeFqn);  
-					  System.out.println(fqn);
 					  return fqn.toString();
 				}
 			} catch (JavaModelException e) {
