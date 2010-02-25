@@ -1,6 +1,5 @@
 package edu.uci.lighthouse.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -11,7 +10,7 @@ import javax.persistence.InheritanceType;
 public abstract class LighthouseEntity {
 
 	@Id
-	@Column(columnDefinition = "VARCHAR(300)")
+//	@Column(columnDefinition = "VARCHAR(300)")
 	private String fullyQualifiedName = "";
 
 	public LighthouseEntity(String fqn) {
