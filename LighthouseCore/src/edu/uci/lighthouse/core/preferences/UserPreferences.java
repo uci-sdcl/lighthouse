@@ -1,7 +1,5 @@
 package edu.uci.lighthouse.core.preferences;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -33,8 +31,6 @@ IWorkbenchPreferencePage {
 
 	@Override
 	protected void createFieldEditors() {
-//		StringFieldEditor feName = new StringFieldEditor("name","Name:",getFieldEditorParent());
-//		addField(feName);
 		SVNUsername = new StringFieldEditor(USERNAME,"Username:",getFieldEditorParent());
 		addField(SVNUsername); 
 	}
@@ -53,5 +49,10 @@ IWorkbenchPreferencePage {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		userSettings.setProperty(USERNAME,store.getString(USERNAME));
 		return userSettings;
+	}
+	
+	public static void clear() {
+		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+		store.setValue(USERNAME, "");
 	}
 }

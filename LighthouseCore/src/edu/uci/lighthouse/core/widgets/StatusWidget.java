@@ -2,6 +2,8 @@ package edu.uci.lighthouse.core.widgets;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -11,6 +13,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.menus.AbstractWorkbenchTrimWidget;
 import org.eclipse.ui.menus.IWorkbenchWidget;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+import edu.uci.lighthouse.core.util.WorkbenchUtility;
 
 public class StatusWidget extends AbstractWorkbenchTrimWidget implements
 		IWorkbenchWidget {
@@ -49,6 +53,11 @@ public class StatusWidget extends AbstractWorkbenchTrimWidget implements
 		imageLabel = new Label(composite, SWT.NONE);
 		imageLabel.setImage(dbOk);
 		imageLabel.setToolTipText("Connected");
+		imageLabel.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				WorkbenchUtility.openPreferences();
+			}});
 	}
 	
 	public void setStatus(final IStatus status){

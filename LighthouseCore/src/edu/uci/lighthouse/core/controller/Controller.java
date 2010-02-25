@@ -145,7 +145,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 				pullModel.executeQueryCheckout(mapClassToSVNCommittedTime);
 			} catch (JPAException e) {
 				logger.error(e,e);
-				UserDialog.openError(e.getMessage());
+				//UserDialog.openError(e.getMessage());
 			}
 		}
 		// Show the events in the UI.
@@ -194,13 +194,13 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	 * @throws JPAException 
 	 */
 	public synchronized void refreshModelBasedOnLastDBAccess() throws JPAException {
-		LighthouseAuthor author = Activator.getDefault().getAuthor();
 		/*
 		 * If the map's size == 0, it means that it is the first time that user
 		 * is running Lighthouse. Then, the LighthouseModel will be updated only
 		 * if the user execute a checkout first.
 		 */
 		if (mapClassToSVNCommittedTime.size() != 0) {
+			LighthouseAuthor author = Activator.getDefault().getAuthor();
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			List<LighthouseEvent> events = pullModel
 			.getNewEventsFromDB(lastDBAccess,author);
@@ -225,7 +225,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					classBaseVersion.put(classFqn, lhBaseFile);
 				} catch (JPAException e) {
 					logger.error(e,e);
-					UserDialog.openError(e.getMessage());
+					//UserDialog.openError(e.getMessage());
 				}
 			}
 		};
@@ -264,7 +264,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					classBaseVersion.put(classFqn, lhBaseFile);
 				} catch (JPAException e) {
 					logger.error(e,e);
-					UserDialog.openError(e.getMessage());
+					//UserDialog.openError(e.getMessage());
 				}
 
 
@@ -286,7 +286,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					fireModificationsToUI(deltaEvents);
 				} catch (Exception e) {
 					logger.error(e,e);
-					UserDialog.openError(e.getMessage());
+					//UserDialog.openError(e.getMessage());
 				}
 
 			}
@@ -340,7 +340,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					});
 				} catch (ParserException e) {
 					logger.error(e,e);
-					UserDialog.openError(e.getMessage());
+					//UserDialog.openError(e.getMessage());
 				}
 			}
 		}
@@ -376,7 +376,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					new Date());
 		} catch (Exception e) {
 			logger.error(e,e);
-			UserDialog.openError(e.getMessage());
+			//UserDialog.openError(e.getMessage());
 		}
 	}
 
@@ -437,7 +437,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					LighthouseRepositoryEvent.TYPE.CHECKIN, new Date());
 		} catch (Exception e) {
 			logger.error(e,e);
-			UserDialog.openError(e.getMessage());
+			//UserDialog.openError(e.getMessage());
 		}
 	}
 
@@ -571,7 +571,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			}
 		} catch (Exception e) {
 			logger.error(e,e);
-			UserDialog.openError(e.getMessage());
+			//UserDialog.openError(e.getMessage());
 		}
 	}
 
@@ -594,7 +594,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			} catch (Exception e) {
 				// TODO: Try to throw up this exception
 				logger.error(e,e);
-				UserDialog.openError(e.getMessage());
+				//UserDialog.openError(e.getMessage());
 			}
 		}
 	}
