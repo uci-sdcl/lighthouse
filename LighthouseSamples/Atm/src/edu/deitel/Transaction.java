@@ -1,5 +1,7 @@
 package edu.deitel;
 
+import java.util.Date;
+
 // Transaction.java
 // Abstract superclass Transaction represents an ATM transaction
 
@@ -31,14 +33,13 @@ public abstract class Transaction
 	} // end method getScreen
 
 	// return reference to bank database
-	public BankDatabase getBankDatabase() throws ATMException
+	public BankDatabase getBankDatabase() 
 	{
-		
 		return bankDatabase;
 	} // end method getBankDatabase
 
 	// perform the transaction (overridden by each subclass)
-	abstract public void execute() throws ATMException;
+	abstract public void execute();
 } // end class Transaction
 
 

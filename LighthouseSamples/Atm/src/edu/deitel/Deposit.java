@@ -24,7 +24,7 @@ public class Deposit extends Transaction
 	} // end Deposit constructor
 
 	// perform transaction
-	public void execute() throws ATMException
+	public void execute() 
 	{
 		BankDatabase bankDatabase = getBankDatabase(); // get reference
 		Screen screen = getScreen(); // get reference
