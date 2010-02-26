@@ -21,14 +21,6 @@ public abstract class LighthouseEntity {
 	@Id
 	private String id = "";
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	@Column(columnDefinition = "VARCHAR(500)")
 	private String fullyQualifiedName = "";
 
@@ -63,6 +55,14 @@ public abstract class LighthouseEntity {
 		return result.equals(getProjectName()) ? "" : result;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	protected void setId(String id) {
+		this.id = id;
+	}
+	
 	public String getFullyQualifiedName() {
 		return fullyQualifiedName;
 	}
