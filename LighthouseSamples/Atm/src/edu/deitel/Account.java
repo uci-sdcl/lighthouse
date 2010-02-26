@@ -5,6 +5,8 @@ package edu.deitel;
 
 public class Account 
 {
+	int a;
+	
 	private int accountNumber; // account number
 	private int pin; // PIN for authentication
 	private double availableBalance; // funds available for withdrawal
