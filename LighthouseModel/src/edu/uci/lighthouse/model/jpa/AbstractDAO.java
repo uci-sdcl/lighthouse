@@ -143,6 +143,7 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			entityManager.remove(toRemove);
 			JPAUtility.commitTransaction(entityManager);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new JPAException("Error trying to remove the entity: " + entity, e.fillInStackTrace());
 		}
 		JPAUtility.closeEntityManager(entityManager);

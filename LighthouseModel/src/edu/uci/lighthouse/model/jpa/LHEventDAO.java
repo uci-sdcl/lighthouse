@@ -35,16 +35,16 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			strQuery += " ( ";
 			// Get all entities' events
 			for (LighthouseEntity entity : listEntitiesInside) {
-				String fqn = entity.getFullyQualifiedName();
-				fqn = fqn.replaceAll("\\,", "\\\\,");
+				String id = entity.getId();
+				id = id.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( ";
-				strQuery += "e.entity" + " = " + "'" + fqn + "'";
+				strQuery += "e.entity" + " = " + "'" + id + "'";
 				strQuery += " AND ";
 				strQuery += "e.timestamp" + " >= " + "'" + strTimestamp + "'";
 				strQuery += " ) OR ( ( ";
-				strQuery += "e.entity" + " = " + "'" + fqn + "'";
+				strQuery += "e.entity" + " = " + "'" + id + "'";
 				strQuery += " AND ";
 				strQuery += "e.isCommitted" + " = " + true;
 				strQuery += " AND ";
@@ -58,23 +58,23 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			}
 			// Get all relationships' events
 			for (LighthouseEntity entity : listEntitiesInside) {
-				String fqn = entity.getFullyQualifiedName();
-				fqn = fqn.replaceAll("\\,", "\\\\,");
+				String id = entity.getId();
+				id = id.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( ";
 				strQuery += " ( ";
-				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
 				strQuery += " OR ";
-				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + id + "'";
 				strQuery += " ) ";
 				strQuery += " AND ";
 				strQuery += "e.timestamp" + " >= " + "'" + strTimestamp + "'";
 				strQuery += " ) OR ( ( ";
 				strQuery += " ( ";
-				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
 				strQuery += " OR ";
-				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + id + "'";
 				strQuery += " ) ";
 				strQuery += " AND ";
 				strQuery += "e.isCommitted" + " = " + true;
@@ -105,12 +105,12 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			strQuery += " ( ";
 			// Get all entities' events
 			for (LighthouseEntity entity : listEntitiesInside) {
-				String fqn = entity.getFullyQualifiedName();
-				fqn = fqn.replaceAll("\\,", "\\\\,");
+				String id = entity.getId();
+				id = id.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( (";
-				strQuery += "e.entity" + " = " + "'" + fqn + "'";
+				strQuery += "e.entity" + " = " + "'" + id + "'";
 				strQuery += " AND ";
 				strQuery += "e.isCommitted" + " = " + false;
 				strQuery += " AND ";
@@ -120,7 +120,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 				strQuery += " OR ";
 				strQuery += "e.type" + " = " + TYPE.REMOVE.ordinal();
 				strQuery += " ) ) OR ( ( ";
-				strQuery += "e.entity" + " = " + "'" + fqn + "'";
+				strQuery += "e.entity" + " = " + "'" + id + "'";
 				strQuery += " AND ";
 				strQuery += "e.isCommitted" + " = " + true;
 				strQuery += " AND ";
@@ -134,15 +134,15 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			}
 			// Get all relationships' events
 			for (LighthouseEntity entity : listEntitiesInside) {
-				String fqn = entity.getFullyQualifiedName();
-				fqn = fqn.replaceAll("\\,", "\\\\,");
+				String id = entity.getId();
+				id = id.replaceAll("\\,", "\\\\,");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String strTimestamp = formatter.format(revisionTime);
 				strQuery += " ( ( ";
 				strQuery += " ( ";
-				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
 				strQuery += " OR ";
-				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + id + "'";
 				strQuery += " ) ";
 				strQuery += " AND ";
 				strQuery += "e.isCommitted" + " = " + false;
@@ -154,9 +154,9 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 				strQuery += "e.type" + " = " + TYPE.REMOVE.ordinal();
 				strQuery += " ) ) OR ( ( ";
 				strQuery += " ( ";
-				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
 				strQuery += " OR ";
-				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + fqn + "'";
+				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + id + "'";
 				strQuery += " ) ";
 				strQuery += " AND ";
 				strQuery += "e.isCommitted" + " = " + true;
@@ -189,12 +189,12 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
 				LighthouseEntity entity = (LighthouseEntity) artifact;
-				command += "e.entity.fullyQualifiedName = '" + entity.getFullyQualifiedName() + "' ";
+				command += "e.entity.id = '" + entity.getId() + "' ";
 			} else if (artifact instanceof LighthouseRelationship) {
 				command += " ( ";
 				LighthouseRelationship rel = (LighthouseRelationship) artifact;
-				command+= "e.relationship.primaryKey.from = " + "'" + rel.getFromEntity().getFullyQualifiedName() + "' AND ";
-				command+= "e.relationship.primaryKey.to = " + "'" + rel.getToEntity().getFullyQualifiedName() + "' AND ";
+				command+= "e.relationship.primaryKey.from = " + "'" + rel.getFromEntity().getId() + "' AND ";
+				command+= "e.relationship.primaryKey.to = " + "'" + rel.getToEntity().getId() + "' AND ";
 				command+= "e.relationship.primaryKey.type = " + "'" + rel.getType().ordinal() + "' ";
 				command += " )";
 			}
