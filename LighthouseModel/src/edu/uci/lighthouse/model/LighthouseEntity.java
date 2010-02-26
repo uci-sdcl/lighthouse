@@ -12,6 +12,8 @@ import javax.persistence.InheritanceType;
 
 import org.apache.log4j.Logger;
 
+import edu.uci.lighthouse.model.util.LHStringUtil;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class LighthouseEntity {
@@ -27,21 +29,13 @@ public abstract class LighthouseEntity {
 	public LighthouseEntity(String fqn) {
 		this.fullyQualifiedName = fqn;
 		try {
-			this.id = getMD5Hash(fqn);
+			this.id = LHStringUtil.getMD5Hash(fqn);
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(e,e);
 		}
 	}
 
 	protected LighthouseEntity() {
-	}
-
-	private String getMD5Hash(String s) throws NoSuchAlgorithmException {
-		MessageDigest m = MessageDigest.getInstance("MD5");
-		byte[] data = s.getBytes();
-		m.update(data, 0, data.length);
-		BigInteger i = new BigInteger(1, m.digest());
-		return String.format("%1$032X", i);
 	}
 
 	public String getProjectName() {

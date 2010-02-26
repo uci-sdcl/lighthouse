@@ -14,6 +14,7 @@ import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
+import edu.uci.lighthouse.model.util.LHStringUtil;
 import edu.uci.lighthouse.model.util.UtilModifiers;
 
 /**
@@ -170,7 +171,11 @@ public class LighthouseModelManager {
 	public LighthouseEntity getEntityFromDatabase(String fqn) throws JPAException {
 		LighthouseEntity entity = getEntity(fqn);
 		if (entity==null) {
-			entity = new LHEntityDAO().get(fqn);
+			try {
+				entity = new LHEntityDAO().get(LHStringUtil.getMD5Hash(fqn));
+			} catch (Exception e) {
+				logger.error(e,e);
+			}
 		}
 		return entity;
 	}
