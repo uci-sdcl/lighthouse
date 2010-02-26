@@ -1,35 +1,68 @@
 package edu.uci.lighthouse.model;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import org.apache.log4j.Logger;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class LighthouseEntity {
 
+	private static Logger logger = Logger.getLogger(LighthouseEntity.class);
+	
 	@Id
-//	@Column(columnDefinition = "VARCHAR(300)")
+	private String id = "";
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Column(columnDefinition = "VARCHAR(500)")
 	private String fullyQualifiedName = "";
 
 	public LighthouseEntity(String fqn) {
 		this.fullyQualifiedName = fqn;
+		try {
+			this.id = getMD5Hash(fqn);
+		} catch (NoSuchAlgorithmException e) {
+			logger.error(e,e);
+		}
 	}
 
 	protected LighthouseEntity() {
 	}
 
+	private String getMD5Hash(String s) throws NoSuchAlgorithmException {
+		MessageDigest m = MessageDigest.getInstance("MD5");
+		byte[] data = s.getBytes();
+		m.update(data, 0, data.length);
+		BigInteger i = new BigInteger(1, m.digest());
+		return String.format("%1$032X", i);
+	}
+
 	public String getProjectName() {
 		return fullyQualifiedName.replaceAll("\\..*", "");
 	}
-	
-	public String getPackageName(){
-		//FIXME: Right now this method just work for classes and interfaces.
-		String result = getFullyQualifiedName().replace("."+getShortName(), "").replace(getProjectName()+".", "");
+
+	public String getPackageName() {
+		// FIXME: Right now this method just work for classes and interfaces.
+		String result = getFullyQualifiedName().replace("." + getShortName(),
+				"").replace(getProjectName() + ".", "");
 		return result.equals(getProjectName()) ? "" : result;
 	}
-	
+
 	public String getFullyQualifiedName() {
 		return fullyQualifiedName;
 	}
@@ -51,7 +84,7 @@ public abstract class LighthouseEntity {
 	public String toString() {
 		return getFullyQualifiedName();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
