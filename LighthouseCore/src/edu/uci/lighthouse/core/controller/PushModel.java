@@ -24,6 +24,7 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 import edu.uci.lighthouse.model.jpa.LHRepositoryEventDAO;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
@@ -56,7 +57,9 @@ public class PushModel {
 				}
 			}
 		}
-		new LHEventDAO().updateCommittedEvents(listEventsToCommitt, svnCommittedTime);
+//		FIXME remove the following line
+//		new LHEventDAO().updateCommittedEvents(listEventsToCommitt, svnCommittedTime);
+		saveEventsInDatabase(listEventsToCommitt,null);
 		return listEventsToCommitt;
 	}
 	
