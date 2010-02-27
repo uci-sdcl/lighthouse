@@ -43,7 +43,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	
 	private LighthouseAuthor author;
 	
-	private SSHTunnel sshTunnel;
+//	private SSHTunnel sshTunnel;
 	
 	/**
 	 * The constructor
@@ -75,15 +75,13 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		//This code exist here just for test purposes. We delete the preferences to simulate the behavior when the user first open lighthouse
 //		UserPreferences.clear();
 //		DatabasePreferences.clear();
-		System.out.println("tunnel");
-		sshTunnel = new SSHTunnel(DatabasePreferences.getAllSettings());
-		if (DatabasePreferences.isConnectingUsingSSH()) {
-			sshTunnel.start(context);
-		}
-		System.out.println("db");
+
+		//		sshTunnel = new SSHTunnel(DatabasePreferences.getAllSettings());
+//		if (DatabasePreferences.isConnectingUsingSSH()) {
+//			sshTunnel.start(context);
+//		}
 		//FIXME: Think about the right place to put this code
 		JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
-		System.out.println("done");
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		
 		// Starting listeners
@@ -109,7 +107,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		
 		JPAUtility.shutdownEntityManagerFactory();
 		
-		sshTunnel.stop(context);
+//		sshTunnel.stop(context);
 		
 		plugin = null;
 		super.stop(context);

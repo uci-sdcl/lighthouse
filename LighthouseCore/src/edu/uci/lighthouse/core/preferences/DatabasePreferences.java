@@ -70,7 +70,7 @@ IWorkbenchPreferencePage{
 		
 		chkTunnel = new Button(composite, SWT.CHECK);
 		chkTunnel.setText("Connect using SSH tunnel");
-//		chkTunnel.setEnabled(false);
+		chkTunnel.setEnabled(false);
 		
 		Composite sshComposite = getSSHComposite(composite);
 		sshComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -86,16 +86,16 @@ IWorkbenchPreferencePage{
 		super.performApply();
 		
 		try {
-			SSHTunnel tunnel = null;
-			if (isConnectingUsingSSH()) {
-				tunnel = new SSHTunnel(getAllSettings());
-				tunnel.setLocalPort(12346);
-				tunnel.start(null);
-			}
+//			SSHTunnel tunnel = null;
+//			if (isConnectingUsingSSH()) {
+//				tunnel = new SSHTunnel(getAllSettings());
+//				tunnel.setLocalPort(12346);
+//				tunnel.start(null);
+//			}
 			JPAUtility.canConnect(getDatabaseSettings());
-			if (tunnel != null) {
-				tunnel.stop(null);
-			}
+//			if (tunnel != null) {
+//				tunnel.stop(null);
+//			}
 			MessageDialog.openInformation(getShell(), "Database Connection", "The connection is working properly!");
 		} catch (Exception e) {
 			MessageDialog.openError(getShell(), "Database Connection", e.getMessage());
@@ -149,12 +149,12 @@ IWorkbenchPreferencePage{
 		dbDatabase.setText("lighthouse");
 		dbPort.setText("3306");
 		
-		chkTunnel.setSelection(true);
+		chkTunnel.setSelection(false);
 
-		sshHost.setText("calico.ics.uci.edu");
-		sshUser.setText("lighthouse");
-		sshPassword.setText("light99");
-		sshPort.setText("22");
+		sshHost.setText("");
+		sshUser.setText("");
+		sshPassword.setText("");
+		sshPort.setText("");
 		
 		super.performDefaults();
 	}
@@ -206,28 +206,28 @@ IWorkbenchPreferencePage{
 		label.setEnabled(false);
 		sshHost = new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshHost.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//		sshHost.setEnabled(false);
+		sshHost.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Username:");
 		label.setEnabled(false);
 		sshUser = new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshUser.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//		sshUser.setEnabled(false);
+		sshUser.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Password:");
 		label.setEnabled(false);
 		sshPassword = new Text(group, SWT.SINGLE | SWT.BORDER | SWT.PASSWORD);
 		sshPassword.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//		sshPassword.setEnabled(false);
+		sshPassword.setEnabled(false);
 		
 		label = new Label(group, SWT.NONE);
 		label.setText("Port:");
 		label.setEnabled(false);
 		sshPort =new Text(group, SWT.SINGLE | SWT.BORDER);
 		sshPort.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//		sshPort.setEnabled(false);
+		sshPort.setEnabled(false);
 		
 		return group;
 	}
