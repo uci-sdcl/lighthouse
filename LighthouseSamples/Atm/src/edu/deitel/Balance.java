@@ -2,6 +2,8 @@ package edu.deitel;
 
 public class Balance extends Transaction {
 
+	int a;
+	
 	int d;
 	
 	public Balance(int userAccountNumber, Screen atmScreen,
