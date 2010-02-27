@@ -143,7 +143,7 @@ IWorkbenchPreferencePage{
 	@Override
 	protected void performDefaults() {
 
-		dbHost.setText("127.0.0.1");
+		dbHost.setText("calico.ics.uci.edu");
 		dbUsername.setText("lighthouse");
 		dbPassword.setText("light99");
 		dbDatabase.setText("lighthouse");
