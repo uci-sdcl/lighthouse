@@ -33,18 +33,13 @@ public abstract class Transaction
 	} // end method getScreen
 
 	// return reference to bank database
-	public BankDatabase getBankDatabase() throws ATMException 
+	public BankDatabase getBankDatabase() 
 	{
-		Date date = new Date();
-		if (date.getHours() > 8 && date.getHours() < 20) {
-			return bankDatabase;
-		} else {
-			throw new ATMException("Overtime transaction");
-		}
+		return bankDatabase;
 	} // end method getBankDatabase
 
 	// perform the transaction (overridden by each subclass)
-	abstract public void execute() throws ATMException;
+	abstract public void execute();
 } // end class Transaction
 
 

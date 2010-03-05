@@ -26,7 +26,7 @@ public class Withdrawal extends Transaction
 	} // end Withdrawal constructor
 
 	// perform transaction
-	public void execute() throws ATMException 
+	public void execute()  
 	{
 		boolean cashDispensed = false; // cash was not dispensed yet
 		double availableBalance; // amount available for withdrawal
