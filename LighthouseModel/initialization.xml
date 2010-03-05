@@ -1,0 +1,35 @@
+<!--
+  This is the ANT file for building the model component.
+
+       all               	- execute all the tasks.
+       compile.component 	- compiles all the source code for this component.
+       make.dist         	- create a jar file and copy it to the core project
+       clean             	- delete all files from compile
+-->
+<project name="LighthouseModel" default="all" basedir=".">	
+	<!-- set global properties for this build -->
+ <property file="initialization.properties" id="local.properties" />
+	
+  <target name="all" depends="clean" />	
+	
+	<target name="clean" depends="clean.config.files,clean.database" />	
+	
+  <target name="clean.config.files"
+        description="clean up" >
+    <!-- Delete the ${build.dir} and ${dist.dir} directory trees -->
+  	<delete file="${eclipse.files.dir}/lighthouseWorkingCopy.version"/>
+  	<delete file="${eclipse.files.dir}/lighthouse-model.xml"/>
+  </target>
+
+	<target name="clean.database">
+		<sql classpath="./lib/hibernate/mysql-connector-java-5.1.8-bin.jar"
+		driver="com.mysql.jdbc.Driver"
+		url="${host}"
+		userid="${username}"
+		password="${password}">
+			drop database lighthouse;
+			create database lighthouse;
+		</sql>
+	</target> 	
+  	
+ </project>

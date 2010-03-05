@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Lighthouse Core Plug-in
+Bundle-SymbolicName: edu.uci.lighthouse.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: edu.uci.lighthouse.core.Activator
+Bundle-Vendor: UC Irvine
+Require-Bundle: org.eclipse.ui;bundle-version="3.4.0",
+ org.eclipse.core.runtime;bundle-version="3.4.0",
+ org.eclipse.jdt.core;bundle-version="3.4.0",
+ org.eclipse.core.resources;bundle-version="3.4.0",
+ org.apache.log4j;bundle-version="1.2.13",
+ edu.uci.lighthouse.model;bundle-version="1.0.0",
+ edu.uci.lighthouse.parser;bundle-version="1.0.0",
+ org.tigris.subversion.subclipse.core;bundle-version="1.6.5",
+ org.tigris.subversion.subclipse.ui;bundle-version="1.6.5",
+ org.eclipse.team.core;bundle-version="3.4.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: edu.uci.lighthouse.core.controller
+Bundle-ClassPath: .,
+ lib/jsch-0.1.42.jar

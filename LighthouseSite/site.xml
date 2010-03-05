@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.sun.jna_3.2.3.jar" id="com.sun.jna" version="3.2.3">
+      <category name="lh.subclipse"/>
+   </feature>
+   <feature url="features/com.collabnet.subversion.merge.feature_2.0.0.jar" id="com.collabnet.subversion.merge.feature" version="2.0.0">
+      <category name="lh.subclipse"/>
+   </feature>
+   <feature url="features/org.tigris.subversion.clientadapter.feature_1.6.6.jar" id="org.tigris.subversion.clientadapter.feature" version="1.6.6">
+      <category name="lh.subclipse"/>
+   </feature>
+   <feature url="features/org.tigris.subversion.clientadapter.javahl.feature_1.6.9.jar" id="org.tigris.subversion.clientadapter.javahl.feature" version="1.6.9">
+      <category name="lh.subclipse"/>
+   </feature>
+   <feature url="features/org.tigris.subversion.clientadapter.svnkit.feature_1.6.6.jar" id="org.tigris.subversion.clientadapter.svnkit.feature" version="1.6.6">
+      <category name="lh.subclipse"/>
+   </feature>
+   <feature url="features/org.tigris.subversion.subclipse_1.6.6.jar" id="org.tigris.subversion.subclipse" version="1.6.6">
+      <category name="lh.subclipse"/>
+   </feature>
+   <feature url="features/org.tigris.subversion.subclipse.graph.feature_1.0.7.jar" id="org.tigris.subversion.subclipse.graph.feature" version="1.0.7">
+      <category name="lh.subclipse"/>
+   </feature>
+   <feature url="features/edu.uci.lighthouse.plugin_1.0.1.jar" id="edu.uci.lighthouse.plugin" version="1.0.1">
+      <category name="lh.collaboration"/>
+   </feature>
+   <category-def name="lh.collaboration" label="Collaboration"/>
+   <category-def name="lh.subclipse" label="Subclipse (required)"/>
+</site>
