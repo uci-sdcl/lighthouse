@@ -23,35 +23,7 @@
    </url>
 
    <includes
-         id="org.tigris.subversion.subclipse"
-         version="0.0.0"/>
-
-   <includes
-         id="org.tigris.subversion.clientadapter.feature"
-         version="0.0.0"/>
-
-   <includes
          id="org.eclipse.zest.sdk"
-         version="0.0.0"/>
-
-   <includes
-         id="org.tigris.subversion.clientadapter.javahl.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="com.collabnet.subversion.merge.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="com.sun.jna"
-         version="0.0.0"/>
-
-   <includes
-         id="org.tigris.subversion.clientadapter.svnkit.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.tigris.subversion.subclipse.graph.feature"
          version="0.0.0"/>
 
    <requires>
