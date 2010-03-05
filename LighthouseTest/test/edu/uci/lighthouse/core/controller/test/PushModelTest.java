@@ -7,11 +7,9 @@ import junit.framework.TestCase;
 
 import org.dom4j.DocumentException;
 
-import edu.uci.lighthouse.core.controller.PushModel;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.model.io.LHDeltaXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
@@ -30,10 +28,10 @@ public class PushModelTest extends TestCase {
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();
-		new LHDeltaXMLPersistence(xmlDelta).load(LHTestDataFiles.XML_DELTA_ATM_CLASS);
+		//new LHDeltaXMLPersistence(xmlDelta).load(LHTestDataFiles.XML_DELTA_ATM_CLASS);
 		
 		// Update Model
-		new PushModel(xmlModel).updateModelFromDelta(xmlDelta);
+		//new PushModel(xmlModel).updateModelFromDelta(xmlDelta);
 		
 		List<LighthouseEvent> listEvents = new LHEventDAO().list();
 		LighthouseModelTest databaseModel = new LighthouseModelTest();
