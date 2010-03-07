@@ -23,9 +23,14 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IDecoratorManager;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.handlers.IHandlerService;
 
 import edu.uci.lighthouse.core.controller.PushModel;
+import edu.uci.lighthouse.core.decorators.LighthouseProjectLabelDecorator;
 import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
@@ -39,10 +44,10 @@ public class ImportHandler extends AbstractHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-
+		
 		IStructuredSelection selection = (IStructuredSelection) HandlerUtil
 		.getActiveMenuSelection(event);
-
+		
 		final Collection<IFile> javaFiles = new ArrayList<IFile>();
 
 		for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
@@ -69,6 +74,7 @@ public class ImportHandler extends AbstractHandler {
 					monitor.subTask("Saving data to the database...");
 					pushModel.saveEventsInDatabase(listEvents, new SubProgressMonitor(monitor,javaFiles.size()));
 					//TODO: Rollback model changes
+					updateProjectIcon();
 					LighthouseModel.getInstance().fireModelChanged();
 				} catch (final JPAException e) {
 					logger.error(e,e);
@@ -94,6 +100,15 @@ public class ImportHandler extends AbstractHandler {
 		job.schedule();
 
 		return null;
+	}
+	
+	private void updateProjectIcon() {
+		Display.getDefault().asyncExec(new Runnable(){
+			@Override
+			public void run() {
+				IDecoratorManager dManager = PlatformUI.getWorkbench().getDecoratorManager();
+				dManager.update(LighthouseProjectLabelDecorator.DECORATOR_ID);
+			}});
 	}
 
 	private Collection<IFile> getFilesFromJavaProject(IJavaProject jProject){
