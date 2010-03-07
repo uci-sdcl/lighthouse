@@ -400,6 +400,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// ignoredFiles.addAll(svnFiles.keySet());
 
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		System.out.println();
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		try {
@@ -512,7 +513,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	}
 
 	public static String getClassFullyQualifiedName(IFile iFile) {
-		String result = null;
+		String result = "";
 		try {
 			/*
 			 * When the Java file is out of sync with eclipse, get the fully
@@ -520,6 +521,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			 * to do this manually, reading the file from the file system and
 			 * parsing it.
 			 */
+			String packageName = null;
 			BufferedReader d = new BufferedReader(new InputStreamReader(
 					new FileInputStream(iFile.getLocation().toOSString())));
 			while (d.ready()) {
@@ -528,7 +530,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					String[] tokens = line.split("package\\s+|;");
 					for (String token : tokens) {
 						if (token.matches("[\\w\\.]+")) {
-							result = token;
+							packageName = token;
 							break;
 						}
 					}
@@ -541,9 +543,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			 */
 			String fileNameWithoutExtension = iFile.getName().replaceAll(
 					".java", "");
-			result += "." + fileNameWithoutExtension;
-			/* Append the project Name to the fqn */
-			result = iFile.getProject().getName() + "." + result;
+			if (packageName == null) {
+				result = iFile.getProject().getName() + "." + fileNameWithoutExtension;
+			} else {
+				result = iFile.getProject().getName() + "." + packageName + "." + fileNameWithoutExtension;
+			}
 		} catch (Exception e) {
 			logger.error(e, e);
 		}
@@ -693,12 +697,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	private synchronized Date getTimestamp() {
 		return new Date();
-	}
-
-	@Override
-	public void conflict(Map<IFile, ISVNInfo> svnFiles) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
