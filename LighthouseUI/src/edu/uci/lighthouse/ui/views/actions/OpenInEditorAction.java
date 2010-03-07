@@ -72,6 +72,7 @@ public class OpenInEditorAction extends ContributionItem implements MouseListene
 				IProject project = workspace.getRoot().getProject(c.getProjectName());
 				IJavaProject javaProject = JavaCore.create(project);
 				String classFqn = c.getFullyQualifiedName().replace(c.getProjectName()+".","");
+				classFqn = classFqn.replaceAll("\\$.*", "");
 				IType type = javaProject.findType(classFqn);
 				if (type != null) {
 					IJavaElement target = (IJavaElement) type;
@@ -87,7 +88,7 @@ public class OpenInEditorAction extends ContributionItem implements MouseListene
 					}
 					shortName = shortName.replaceAll("[\\<\\(].*", "");
 					for (IJavaElement element : elements){
-						System.out.println("shortname: "+shortName + " java:"+element.getElementName());
+						logger.debug("shortname:"+shortName + " java:"+element.getElementName());
 						if (element.getElementName().equals(shortName)){
 							target = element;
 							break;
