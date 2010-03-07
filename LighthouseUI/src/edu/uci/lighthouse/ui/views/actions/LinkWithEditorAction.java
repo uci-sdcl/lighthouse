@@ -4,12 +4,19 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
-import org.eclipse.zest.core.widgets.IContainer;
 
+import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.ui.LighthouseUIPlugin;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 import edu.uci.lighthouse.ui.views.IEditorSelectionListener;
@@ -17,17 +24,19 @@ import edu.uci.lighthouse.ui.views.IEditorSelectionListener;
 public class LinkWithEditorAction extends Action implements
 		IEditorSelectionListener {
 
-	protected IContainer container;
+	// protected IContainer container;
+	private GraphViewer viewer;
 	private IFile selectedFile;
+	private GraphNode lastHightlightedNode;
 
 	private static final String ICON = "/icons/synced.gif";
 	private static final String DESCRIPTION = "Link with editor";
 
 	private static Logger logger = Logger.getLogger(LinkWithEditorAction.class);
 
-	public LinkWithEditorAction(IContainer container) {
+	public LinkWithEditorAction(GraphViewer viewer) {
 		super(null, IAction.AS_CHECK_BOX);
-		this.container = container;
+		this.viewer = viewer;
 		init();
 	}
 
@@ -43,13 +52,16 @@ public class LinkWithEditorAction extends Action implements
 		if (isChecked()) {
 			highlightClassInDiagram(selectedFile);
 		} else {
-			unhighlightAll();
+//			unhighlightAll();
+			lastHightlightedNode.setBackgroundColor(ColorFactory.classBackground);
+			lastHightlightedNode = null;
 		}
 	}
 
+	@Deprecated
 	private void highlightClassInDiagram(String classShortName) {
 		logger.debug("shortName: " + classShortName);
-		for (Iterator itNodes = container.getNodes().iterator(); itNodes
+		for (Iterator itNodes = viewer.getGraphControl().getNodes().iterator(); itNodes
 				.hasNext();) {
 			GraphNode node = (GraphNode) itNodes.next();
 			if (!isSelected(node)) {
@@ -63,20 +75,45 @@ public class LinkWithEditorAction extends Action implements
 	}
 
 	private void highlightClassInDiagram(IFile classFile) {
-		highlightClassInDiagram(classFile.getName().replaceAll(".java", ""));
+		// highlightClassInDiagram(classFile.getName().replaceAll(".java", ""));
+		IJavaElement jFile = JavaCore.create(classFile);
+		if (jFile instanceof ICompilationUnit) {
+			IType type = ((ICompilationUnit) jFile).findPrimaryType();
+			String fqn = jFile.getJavaProject().getElementName() + "."
+					+ type.getFullyQualifiedName();
+			LighthouseEntity entity = LighthouseModel.getInstance().getEntity(
+					fqn);
+			if (entity != null) {
+				GraphItem gItem = viewer.findGraphItem(entity);
+				if (gItem instanceof GraphNode
+						&& !gItem.equals(lastHightlightedNode)) {
+					GraphNode node = (GraphNode) gItem;
+					node.setBackgroundColor(ColorFactory.classLinkWithEditor);
+					if (lastHightlightedNode != null) {
+						lastHightlightedNode
+								.setBackgroundColor(ColorFactory.classBackground);
+					}
+					lastHightlightedNode = node;
+				}
+			}
+		}
 	}
 
+	@Deprecated
 	private void unhighlightAll() {
 		highlightClassInDiagram("");
 	}
-	
-	private boolean isSelected(GraphNode node){
-		logger.info("isSelected: "+container.getGraph().getSelection().indexOf(node) != -1+" ("+node.isSelected()+"");
-		return container.getGraph().getSelection().indexOf(node) != -1;
+
+	private boolean isSelected(GraphNode node) {
+		logger.info("isSelected: "
+				+ String.valueOf(viewer.getGraphControl().getSelection().indexOf(
+						node) != -1) + " (" + node.isSelected() + ")");
+		return viewer.getGraphControl().getSelection().indexOf(node) != -1;
 	}
 
 	@Override
 	public void selectionChanged(IFile editedFile) {
+		logger.info("selectionChanged");
 		if (isChecked()) {
 			highlightClassInDiagram(editedFile);
 		}
