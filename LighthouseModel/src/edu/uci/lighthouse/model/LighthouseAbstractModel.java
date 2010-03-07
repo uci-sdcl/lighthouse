@@ -55,6 +55,10 @@ public abstract class LighthouseAbstractModel {
 		return packageNames;
 	}
 	
+	public Collection<String> getProjectNames(){
+		return projectNames;
+	}
+	
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
