@@ -43,4 +43,14 @@ public interface ISVNEventListener {
 	 */
 	public void commit(Map<IFile, ISVNInfo> svnFiles);
 
+	/**
+	 * Is called when the happens conflict in the source files. Returns a map
+	 * associating the files with the SVN related information.
+	 * 
+	 * @param svnFiles
+	 *            a map associating a <code>IFile</code> with
+	 *            <code>ISVNInfo</code>
+	 */
+	public void conflict(Map<IFile, ISVNInfo> svnFiles);
+
 }

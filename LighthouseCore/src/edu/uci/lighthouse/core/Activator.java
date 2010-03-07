@@ -13,12 +13,12 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import edu.uci.lighthouse.core.controller.Controller;
+import edu.uci.lighthouse.core.controller.SVNRecorder;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.JavaFileChangedReporter;
 import edu.uci.lighthouse.core.listeners.SVNEventReporter;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.preferences.UserPreferences;
-import edu.uci.lighthouse.core.util.SSHTunnel;
 import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -56,6 +56,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		
 		SVNEventReporter svnReporter = new SVNEventReporter();
 		svnReporter.addSVNEventListener(controller);
+		svnReporter.addSVNEventListener(new SVNRecorder());
 		
 		listeners.add(controller);
 		listeners.add(jReporter);

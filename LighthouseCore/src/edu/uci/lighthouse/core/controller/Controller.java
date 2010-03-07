@@ -21,8 +21,6 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -36,6 +34,7 @@ import edu.uci.lighthouse.core.listeners.ISVNEventListener;
 import edu.uci.lighthouse.core.parser.IParserAction;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
+import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.core.widgets.StatusWidget;
 import edu.uci.lighthouse.model.BuildLHBaseFile;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -53,7 +52,6 @@ import edu.uci.lighthouse.model.io.IPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
-import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
@@ -264,7 +262,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// verify if any of the classWithErrors still have errors
 		// than parse the files that does not have errors anymore
 		// and remove the classes from the list classWithErrors
-		if (belongsToImportedProjects(iFile)) {
+		if (ModelUtility.belongsToImportedProjects(iFile)) {
 			if (!hasErrors) {
 
 				if (ignorefilesJustUpdated.contains(iFile)) {
@@ -489,7 +487,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	private HashMap<String, Date> getWorkingCopy(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> result = new HashMap<String, Date>();
 		for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
-			if (belongsToImportedProjects(entry.getKey())) {
+			if (ModelUtility.belongsToImportedProjects(entry.getKey())) {
 				String fqn = getClassFullyQualifiedName(entry.getKey());
 				if (fqn != null) {
 					ISVNInfo svnInfo = entry.getValue();
@@ -598,7 +596,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void remove(IFile iFile, boolean hasErrors) {
-		if (belongsToImportedProjects(iFile)) {
+		if (ModelUtility.belongsToImportedProjects(iFile)) {
 			// FIXME: Gambis pra pegar FQN pelo caminho do arquivo. Melhorar
 			// depois
 			// usando o source folder do projeto
@@ -636,7 +634,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void add(IFile iFile, boolean hasErrors) {
 
-		if (belongsToImportedProjects(iFile)) {
+		if (ModelUtility.belongsToImportedProjects(iFile)) {
 			final String classFqn = getClassFullyQualifiedName(iFile);
 
 			// It is a new class created by the user. We are assuming that the
@@ -664,18 +662,6 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 	}
 
-	private boolean belongsToImportedProjects(IFile iFile) {
-		IJavaElement jFile = JavaCore.create(iFile);
-		if (jFile != null) {
-			String projectName = jFile.getJavaProject().getElementName();
-			LighthouseModel model = LighthouseModel.getInstance();
-			if (model.getProjectNames().contains(projectName)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		try {
@@ -697,6 +683,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	private synchronized Date getTimestamp() {
 		return new Date();
+	}
+
+	@Override
+	public void conflict(Map<IFile, ISVNInfo> svnFiles) {
+		
 	}
 
 }

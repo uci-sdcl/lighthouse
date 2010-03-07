@@ -31,7 +31,7 @@ public class LighthouseRepositoryEvent {
 	private Long versionAffected;
 
 	public enum TYPE {
-		CHECKIN, CHECKOUT, UPDATE, REVERT
+		CHECKIN, CHECKOUT, UPDATE, REVERT, CONFLICT
 	};
 	private TYPE type;
 

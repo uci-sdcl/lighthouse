@@ -31,6 +31,8 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 									// external references to other SVN trunks
 	private List<Trunk> trunks = new Vector<Trunk>();
 	private int command;
+	
+	private List<File> conflictingFiles = new LinkedList<File>();
 
 	private static Logger logger = Logger.getLogger(SVNEventReporter.class);
 
@@ -80,6 +82,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 				trunks.get(trunksCounter).svnRevision = svnRevision;
 
 				Map<IFile, ISVNInfo> svnFiles = new HashMap<IFile, ISVNInfo>();
+				Map<IFile, ISVNInfo> svnConflictingFiles = new HashMap<IFile, ISVNInfo>();
 
 				for (Trunk trunk : trunks) {
 					for (File file : trunk) {
@@ -89,6 +92,9 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 								gerSVNUrlFromFile(file), trunk.svnRevision,
 								trunk.svnRevision);
 						svnFiles.put(iFile, svnInfo);
+						if (conflictingFiles.contains(file)) {
+							svnConflictingFiles.put(iFile, svnInfo);
+						}
 					}
 				}
 
@@ -107,6 +113,10 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 						break;
 					}
 				}
+				
+				if (svnConflictingFiles.size() > 0) {
+					fireConflict(svnConflictingFiles);	
+				}
 
 			} else {
 				trunks.get(trunksCounter).svnRevision = svnRevision;
@@ -121,6 +131,10 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 	public void logError(String arg0) {
 		pluginConsoleListener.logError(arg0);
 		logger.debug("logError: " + arg0);
+		String[] tokens = arg0.split("\\s+");
+		if (tokens.length > 1 && "C".equals(tokens[0])) {
+			conflictingFiles.add(new File(tokens[1]));
+		}
 	}
 
 	@Override
@@ -159,6 +173,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 		trunksCounter = 0;
 		trunks.clear();
 		trunks.add(new Trunk());
+		conflictingFiles.clear();
 	}
 
 	public void addSVNEventListener(ISVNEventListener listener) {
@@ -187,6 +202,13 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 		logger.info("update: " + svnFiles.size() + " files");
 		for (ISVNEventListener listener : listeners) {
 			listener.update(svnFiles);
+		}
+	}
+	
+	protected void fireConflict(Map<IFile, ISVNInfo> svnFiles) {
+		logger.info("conflict: " + svnFiles.size() + " files");
+		for (ISVNEventListener listener : listeners) {
+			listener.conflict(svnFiles);
 		}
 	}
 
