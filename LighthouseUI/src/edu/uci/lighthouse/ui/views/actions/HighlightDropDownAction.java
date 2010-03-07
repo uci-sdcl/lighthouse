@@ -28,6 +28,7 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 	private Menu menu;
 	protected IContainer container;
 	private List<IAction> actions;
+	/* We need this to know what have been selected previously. */
 	private Collection<GraphNode> selectedNodes;
 	
 	private static final String ICON = "$nl$/icons/elcl16/highlight.gif";
@@ -66,9 +67,9 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 		@Override
 		public void run() {
 			if (isChecked()) {
-				highlightNodes(container.getGraph().getSelection());
+				highlightNodes(getSelectedGraphNodes());
 			} else {
-				unhighlightNodes(container.getGraph().getSelection());
+				unhighlightNodes(getSelectedGraphNodes());
 			}
 		}
 	}
@@ -80,30 +81,34 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 		@Override
 		public void run() {
 			if (isChecked()) {
-				highlightConnections(selectedNodes);
+				highlightConnections(getSelectedGraphNodes());
 			} else {
-				unhighlightConnections(selectedNodes);
+				unhighlightConnections(getSelectedGraphNodes());
 			}
 		}
 	}
 	
-	private void updateFigures(Collection nodes, boolean highlight) {
-		for (Iterator itNodes = nodes.iterator(); itNodes.hasNext();) {
-			GraphNode node = (GraphNode) itNodes.next();
-			IFigure figure = node.getNodeFigure();
+	private void updateFigures(Collection<GraphNode> nodes, boolean highlight) {
+		for (GraphNode node : nodes) {
+//			IFigure figure = node.getNodeFigure();
+			if (!isLinkedWithEditor(node)) {
 			if (highlight) {
-				figure.setBackgroundColor(ColorFactory.classHighlight);
+				node.setBackgroundColor(ColorFactory.classHighlight);
 				logger.debug("highlight: "+node);
 			} else {
-				figure.setBackgroundColor(ColorFactory.classBackground);
+				node.setBackgroundColor(ColorFactory.classBackground);
 				logger.debug("unhighlight: "+node);
+			}
 			}
 		}
 	}
 	
-	private void updateConnections(Collection relationships, boolean highlight){
-		for (Iterator itConnections = relationships.iterator(); itConnections.hasNext();) {
-			GraphConnection connection = (GraphConnection) itConnections.next();
+	private boolean isLinkedWithEditor(GraphNode node){
+		return node.getBackgroundColor().equals(ColorFactory.classLinkWithEditor);
+	}
+	
+	private void updateConnections(Collection<GraphConnection> relationships, boolean highlight){
+		for (GraphConnection connection : relationships) {
 			if (highlight){
 				connection.highlight();
 			} else {
@@ -112,25 +117,23 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 		}
 	}
 	
-	private void unhighlightNodes(Collection nodes){
+	private void unhighlightNodes(Collection<GraphNode> nodes){
 		updateFigures(nodes,false);
 	}
 	
-	private void highlightNodes(Collection nodes){
+	private void highlightNodes(Collection<GraphNode> nodes){
 		updateFigures(nodes,true);
 	}
 	
-	private void highlightConnections(Collection nodes){
-		for (Iterator itNodes = nodes.iterator(); itNodes.hasNext();) {
-			GraphNode node = (GraphNode) itNodes.next();
+	private void highlightConnections(Collection<GraphNode> nodes){
+		for (GraphNode node : nodes) {
 			updateConnections(node.getSourceConnections(), true);
 			updateConnections(node.getTargetConnections(), true);
 		}
 	}
 	
-	private void unhighlightConnections(Collection nodes){
-		for (Iterator itNodes = nodes.iterator(); itNodes.hasNext();) {
-			GraphNode node = (GraphNode) itNodes.next();
+	private void unhighlightConnections(Collection<GraphNode> nodes){
+		for (GraphNode node : nodes) {
 			updateConnections(node.getSourceConnections(), false);
 			updateConnections(node.getTargetConnections(), false);
 		}
@@ -168,6 +171,17 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 	}
+	
+	public Collection<GraphNode> getSelectedGraphNodes(){
+		LinkedList<GraphNode> result = new LinkedList<GraphNode>();
+		for (Iterator itSelection = container.getGraph().getSelection().iterator(); itSelection.hasNext();) {
+			Object selection =  itSelection.next();
+			if (selection instanceof GraphNode) {
+				result.add((GraphNode) selection);
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
@@ -175,7 +189,7 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 		unhighlightNodes(selectedNodes);
 		unhighlightConnections(selectedNodes);
 		selectedNodes.clear();
-		selectedNodes.addAll(container.getGraph().getSelection());
+		selectedNodes.addAll(getSelectedGraphNodes());
 		if (e.item instanceof GraphNode){
 			for (IAction action : actions) {
 				action.run();
