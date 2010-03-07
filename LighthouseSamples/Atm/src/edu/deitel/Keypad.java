@@ -9,6 +9,7 @@ public class Keypad
 	int a;
 	
 	int g;
+	int bb;
 	
 	private Scanner input; // reads data from the command line
 
