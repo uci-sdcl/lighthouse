@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.zest.core.viewers.EntityConnectionData;
 
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -20,14 +21,18 @@ public class ViewModifiedFilter extends ViewerFilter{
 		if (element instanceof LighthouseClass) {
 			LighthouseClass aClass = (LighthouseClass) element;
 			return classHasEvents(aClass);
-		} else if (element instanceof LighthouseRelationship){
+		} else if (element instanceof LighthouseRelationship || element instanceof EntityConnectionData){
+			/* Not seeing purpose to keep this code. If find a situation that is need, please relate it here. */
+			/*
 			LighthouseRelationship relationship = (LighthouseRelationship) element;
 			LighthouseModelManager modelManager = new LighthouseModelManager((LighthouseModel) parentElement);
 			//FIXME: get from class cache
 			LighthouseClass classFrom = modelManager.getMyClass(relationship.getFromEntity());
 			LighthouseClass classTo = modelManager.getMyClass(relationship.getToEntity());
 			return classHasEvents(classFrom) && classHasEvents(classTo);
-		}
+			*/
+			return true;
+		} 
 		return false;
 	}
 

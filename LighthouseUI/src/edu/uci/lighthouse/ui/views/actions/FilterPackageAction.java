@@ -3,7 +3,6 @@ package edu.uci.lighthouse.ui.views.actions;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +16,7 @@ import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.zest.core.widgets.IContainer;
+import org.eclipse.zest.core.viewers.GraphViewer;
 
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.ui.views.FilterManager;
@@ -29,20 +28,23 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 //	private List<IAction> actions;
 	
 	//FIXME: Not using container (graph or viewer)
-	protected IContainer container;
+//	protected IContainer container;
+	protected GraphViewer viewer;
 	
 	private static final String ICON = "$nl$/icons/full/obj16/package_obj.gif";
 	private static final String DESCRIPTION = "Show just modifications";
 	
-	Map<String,PackageFilterAction> cacheFilters = new HashMap<String,PackageFilterAction>();
+	// Required to allow the dynamic menu be checked.
+	private Map<String,PackageFilterAction> cachedActions = new HashMap<String,PackageFilterAction>();
+	private PackageFilter filter = new PackageFilter();
 	
 	private static final String DEFAULT_PACKAGE = "(default package)";
 	
 	private static Logger logger = Logger.getLogger(FilterModifiedAction.class);
 
-	public FilterPackageAction(IContainer container){
+	public FilterPackageAction(GraphViewer viewer){
 		super(null, Action.AS_DROP_DOWN_MENU);
-		this.container = container;
+		this.viewer = viewer;
 		init();
 //		actions = createActions();
 		setMenuCreator(this);
@@ -58,14 +60,13 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 		List<IAction> result = new ArrayList<IAction>();
 		Collection<String> packageNames = getPackageNames();
 		for (String name : packageNames) {
-			PackageFilterAction filter = cacheFilters.get(name);
-			if (filter == null){
-				filter = new PackageFilterAction(name);
-				cacheFilters.put(name, filter);
+			PackageFilterAction action = cachedActions.get(name);
+			if (action == null){
+				action = new PackageFilterAction(name);
+				cachedActions.put(name, action);
 			}
-			result.add(filter);
+			result.add(action);
 		}
-//		result.add(new PackageFilterAction("tiago"));
 		return result;
 	}
 
@@ -110,20 +111,31 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 	}
 	*/
 	private final class PackageFilterAction extends Action{
-		PackageFilter filter;
+//		PackageFilter filter;
 		public PackageFilterAction(String packageName){
 			super(packageName,Action.AS_CHECK_BOX);
-			filter = new PackageFilter(packageName);
+//			filter = new PackageFilter(packageName);
 			if ("".equals(packageName)){
 				setText(DEFAULT_PACKAGE);
 			}
 		}
 		@Override
 		public void run() {
-			if (isChecked()) {				
-				FilterManager.getInstance().addViewerFilter(filter);
+			String packageName = getText() == DEFAULT_PACKAGE? "" : getText();
+			if (isChecked()) {		
+				filter.addPackageName(packageName);
+				if (filter.numberOfPackages() == 1) {
+					FilterManager.getInstance().addViewerFilter(filter);
+				} else if (filter.numberOfPackages() > 0){
+					viewer.refresh();
+				}
 			} else {
-				FilterManager.getInstance().removeViewerFilter(filter);
+				filter.removePackageName(packageName);
+				if (filter.numberOfPackages() == 0) {
+					FilterManager.getInstance().removeViewerFilter(filter);
+				} else {
+					viewer.refresh();
+				}
 			}
 		}
 	}
