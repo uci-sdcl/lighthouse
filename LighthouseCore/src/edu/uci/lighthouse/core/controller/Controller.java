@@ -468,7 +468,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 			LighthouseModelManager modelManager = new LighthouseModelManager(
 					LighthouseModel.getInstance());
-			modelManager.removeCommittedEvents(workingCopy.keySet(),
+			modelManager.removeCommittedEventsAndArtifacts(workingCopy.keySet(),
 					svnCommittedTime);
 
 			fireModificationsToUI(listEvents);
