@@ -151,7 +151,7 @@ public class LighthouseModelManager {
 		}
 	}
 
-	public void removeCommittedEvents(Collection<String> listClazzFqn, Date eventTime) {
+	public void removeCommittedEventsAndArtifacts(Collection<String> listClazzFqn, Date eventTime) {
 		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
 		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
 		LinkedHashSet<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsByListEntityAndRel(model, listEntity, listRel);
@@ -159,7 +159,11 @@ public class LighthouseModelManager {
 			if (event.isCommitted()) {
 				// If I am allowed to commit, it is supposed that I am working on the last version,
 				// so I can remove every committed event, because all of them will be in the past
-				model.removeEvent(event);
+				if (event.getType()==LighthouseEvent.TYPE.REMOVE) {
+					model.removeEventAndArtifact(event);
+				} else {
+					model.removeEvent(event);
+				}
 			}
 		}
 	}
