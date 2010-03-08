@@ -5,6 +5,11 @@ package edu.deitel;
 
 public class DepositSlot 
 {
+	
+	class Max {
+		int g;
+	}
+	
 	// indicates whether envelope was received (always returns true, 
 	// because this is only a software simulation of a real deposit slot)
 	public boolean isEnvelopeReceived()
