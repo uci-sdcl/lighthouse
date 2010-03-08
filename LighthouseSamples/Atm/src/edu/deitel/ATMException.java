@@ -6,6 +6,7 @@ public class ATMException extends Exception {
 		int g;
 	}
 	
+	
 	private static final long serialVersionUID = 1L;
 
 	public ATMException(String message) {
