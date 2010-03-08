@@ -1,21 +1,22 @@
-### Eclipse Workspace Patch 1.0
-#P org.eclipse.zest.core
 Index: src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java
 ===================================================================
 RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java,v
 retrieving revision 1.16
 diff -u -r1.16 AbstractStructuredGraphViewer.java
 --- src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java	4 May 2009 05:20:33 -0000	1.16
-+++ src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java	12 Dec 2009 07:42:26 -0000
-@@ -24,6 +24,7 @@
++++ src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java	8 Mar 2010 07:23:35 -0000
+@@ -24,7 +24,10 @@
  import org.eclipse.swt.events.DisposeEvent;
  import org.eclipse.swt.widgets.Widget;
  import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
++import org.eclipse.zest.core.viewers.EntityConnectionData;
 +import org.eclipse.zest.core.viewers.IFigureProvider;
  import org.eclipse.zest.core.viewers.IGraphContentProvider;
++import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
  import org.eclipse.zest.core.widgets.CGraphNode;
  import org.eclipse.zest.core.widgets.ConstraintAdapter;
-@@ -651,7 +652,8 @@
+ import org.eclipse.zest.core.widgets.Graph;
+@@ -651,7 +654,8 @@
  				getLayoutAlgorithm().removeRelationship(relationship.getLayoutRelationship());
  			}
  			// remove the relationship from the model
@@ -25,7 +26,7 @@ diff -u -r1.16 AbstractStructuredGraphViewer.java
  		}
  	}
  
-@@ -663,9 +665,14 @@
+@@ -663,9 +667,14 @@
  	 */
  	public void addNode(Object element) {
  		if (nodesMap.get(element) == null) {
@@ -43,13 +44,52 @@ diff -u -r1.16 AbstractStructuredGraphViewer.java
  		}
  	}
  
+@@ -686,7 +695,7 @@
+ 				getLayoutAlgorithm().removeRelationships(node.getTargetConnections());
+ 			}
+ 			// remove the node and it's connections from the model
+-			node.dispose();
++			removeGraphModelNode(element);
+ 		}
+ 	}
+ 
+@@ -724,6 +733,9 @@
+ 				Object dest = content.getDestination(connection);
+ 				// create the new relationship
+ 				modelFactory.createConnection(getGraphControl(), connection, source, dest);
++			} else if (modelFactory.getContentProvider() instanceof IGraphEntityContentProvider) {
++				EntityConnectionData connData = (EntityConnectionData) connection;
++				modelFactory.createConnection(getGraphControl(), connData, connData.source, connData.dest);
+ 			} else {
+ 				throw new UnsupportedOperationException();
+ 			}
+Index: src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java
+===================================================================
+RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java,v
+retrieving revision 1.8
+diff -u -r1.8 GraphModelEntityFactory.java
+--- src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java	31 Mar 2009 16:39:23 -0000	1.8
++++ src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java	8 Mar 2010 07:23:36 -0000
+@@ -81,9 +81,9 @@
+ 			Object data = entities[i];
+ 
+ 			// If this element is filtered, continue to the next one.
+-			if (filterElement(inputElement, data)) {
+-				continue;
+-			}
++//			if (filterElement(inputElement, data)) {
++//				continue;
++//			}
+ 			Object[] related = ((IGraphEntityContentProvider) getContentProvider()).getConnectedTo(data);
+ 
+ 			if (related != null) {
 Index: src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java
 ===================================================================
 RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java,v
 retrieving revision 1.13
 diff -u -r1.13 AbstractStylingModelFactory.java
 --- src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java	24 Jul 2009 19:13:37 -0000	1.13
-+++ src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java	12 Dec 2009 07:42:26 -0000
++++ src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java	8 Mar 2010 07:23:36 -0000
 @@ -43,6 +43,7 @@
  	private int connectionStyle;
  	private int nodeStyle;
@@ -129,7 +169,7 @@ RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/e
 retrieving revision 1.6
 diff -u -r1.6 IStylingGraphModelFactory.java
 --- src/org/eclipse/zest/core/viewers/internal/IStylingGraphModelFactory.java	12 Sep 2007 20:44:39 -0000	1.6
-+++ src/org/eclipse/zest/core/viewers/internal/IStylingGraphModelFactory.java	12 Dec 2009 07:42:26 -0000
++++ src/org/eclipse/zest/core/viewers/internal/IStylingGraphModelFactory.java	8 Mar 2010 07:23:36 -0000
 @@ -1,15 +1,15 @@
  /*******************************************************************************
 - * Copyright 2005-2006, CHISEL Group, University of Victoria, Victoria, BC, Canada.
@@ -190,7 +230,7 @@ RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/e
 retrieving revision 1.6
 diff -u -r1.6 GraphModelFactory.java
 --- src/org/eclipse/zest/core/viewers/internal/GraphModelFactory.java	31 Mar 2009 16:39:23 -0000	1.6
-+++ src/org/eclipse/zest/core/viewers/internal/GraphModelFactory.java	12 Dec 2009 07:42:26 -0000
++++ src/org/eclipse/zest/core/viewers/internal/GraphModelFactory.java	8 Mar 2010 07:23:36 -0000
 @@ -83,7 +83,7 @@
  					// just create the node for the source
  					if (source != null) {
@@ -215,7 +255,7 @@ RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/META-INF/
 retrieving revision 1.30
 diff -u -r1.30 MANIFEST.MF
 --- META-INF/MANIFEST.MF	24 Jul 2009 19:14:05 -0000	1.30
-+++ META-INF/MANIFEST.MF	12 Dec 2009 07:42:25 -0000
++++ META-INF/MANIFEST.MF	8 Mar 2010 07:23:35 -0000
 @@ -10,6 +10,7 @@
   org.eclipse.draw2d;visibility:=reexport
  Eclipse-LazyStart: false
