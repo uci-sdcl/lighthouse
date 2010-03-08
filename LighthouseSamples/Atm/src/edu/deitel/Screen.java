@@ -6,6 +6,18 @@ package edu.deitel;
 public class Screen
 {
 
+	public class Nilmax {
+		
+	}
+	
+	private class Moura {
+		int r;
+	}
+	
+	int h;
+	
+	int k;
+	
 	// displays a message without a carriage return
 	public void displayMessage( String message ) 
 	{
