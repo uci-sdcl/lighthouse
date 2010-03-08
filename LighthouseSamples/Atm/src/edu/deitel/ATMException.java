@@ -2,12 +2,10 @@ package edu.deitel;
 
 public class ATMException extends Exception {
 
-	class Andre {
-		int g;
-	}
 	
 
-	int e;
+	
+	int h;
 	
 	
 	private static final long serialVersionUID = 1L;
