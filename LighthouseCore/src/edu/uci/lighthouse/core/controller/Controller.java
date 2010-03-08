@@ -222,8 +222,6 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 	@Override
 	public void open(final IFile iFile, boolean hasErrors) {
-
-		final String classFqn = ModelUtility.getClassFullyQualifiedName(iFile);
 		Thread task = new Thread() {
 			@Override
 			public void run() {
@@ -231,6 +229,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 				// to guarantee the lifecycle (open,change,close) the base
 				// version can not
 				try {
+					final String classFqn = ModelUtility.getClassFullyQualifiedName(iFile);
 					LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
 					classBaseVersion.put(classFqn, lhBaseFile);
 				} catch (JPAException e) {
