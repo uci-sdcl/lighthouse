@@ -11,6 +11,7 @@ import org.eclipse.zest.layouts.algorithms.GridLayoutAlgorithm;
 
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.ui.views.actions.DiagramModeDropDownAction;
+import edu.uci.lighthouse.ui.views.actions.FilterActiveClassAction;
 import edu.uci.lighthouse.ui.views.actions.FilterAuthorAction;
 import edu.uci.lighthouse.ui.views.actions.FilterModifiedAction;
 import edu.uci.lighthouse.ui.views.actions.FilterPackageAction;
@@ -45,6 +46,8 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		
 		//FIXME: Erase EditorListener and put everything in LinkWithEditorAction
 		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer);
+		FilterActiveClassAction activeClassAction = new FilterActiveClassAction(viewer);
+		editorListener.addEditorSelectionListener(activeClassAction);
 		editorListener.addEditorSelectionListener(linkAction);
 		
 		getViewSite().getActionBars().getToolBarManager().add(linkAction);
@@ -54,6 +57,7 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		getViewSite().getActionBars().getToolBarManager().add(new FilterAuthorAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterPackageAction(viewer));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterModifiedAction(viewer.getGraphControl()));
+		getViewSite().getActionBars().getToolBarManager().add(activeClassAction);
 		getViewSite().getActionBars().getToolBarManager().add(new ZoomDropDownAction(this));
 
 		//FIXME: Change this to a decorator
