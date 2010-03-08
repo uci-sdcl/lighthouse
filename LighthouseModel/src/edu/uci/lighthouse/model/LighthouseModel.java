@@ -21,18 +21,18 @@ import org.eclipse.swt.widgets.Display;
 public class LighthouseModel extends LighthouseAbstractModel {
 
 	private static Logger logger = Logger.getLogger(LighthouseAbstractModel.class);
-	
+
 	private static LighthouseModel instance;
 
 	/** Associate an Artifact(Entity or Relationship) with a list of events. */
 	private HashMap<Object, LinkedHashSet<LighthouseEvent>> mapArtifactEvents = new HashMap<Object, LinkedHashSet<LighthouseEvent>>();
-	
+
 	/** List of all events*/
 	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
-	
+
 	protected LighthouseModel() {
 	}
-	
+
 	public static LighthouseModel getInstance() {
 		if (instance == null) {
 			instance = new LighthouseModel();
@@ -63,17 +63,27 @@ public class LighthouseModel extends LighthouseAbstractModel {
 			logger.warn("Artifact is null: " + event.toString());
 		}
 	}
-	
+
 	final synchronized void removeEvent(LighthouseEvent event) {
+		listEvents.remove(event);
 		Object artifact = event.getArtifact();
 		if (artifact!=null) {
 			mapArtifactEvents.remove(artifact);
-			listEvents.remove(event);
 		} else {
 			logger.warn("Artifact is null: " + event.toString());
 		}
 	}
-	
+
+	final synchronized void removeEventAndArtifact(LighthouseEvent event) {
+		removeEvent(event);
+		Object artifact = event.getArtifact();
+		if (artifact instanceof LighthouseEntity) {
+			removeEntity((LighthouseEntity) artifact);
+		} else if (artifact instanceof LighthouseRelationship) {
+			removeRelationship((LighthouseRelationship) artifact);
+		}
+	}
+
 	/**
 	 * Get events related with a given Artifact
 	 * 
@@ -86,12 +96,12 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		LinkedHashSet<LighthouseEvent> result = mapArtifactEvents.get(artifact);
 		return result != null ? result : new LinkedHashSet<LighthouseEvent>();
 	}
-	
+
 	public LinkedHashSet<LighthouseEvent> getListEvents() {
 		return listEvents;
 	}
-	
-	
+
+
 	// Handle Listeners...
 
 	private List<ILighthouseModelListener> listeners = new ArrayList<ILighthouseModelListener>();
@@ -147,11 +157,11 @@ public class LighthouseModel extends LighthouseAbstractModel {
 			}
 		}
 	}
-	
+
 	public boolean isEmpty(){
 		return (getListEvents().size()== 0
 				&& getEntities().size() == 0
 				&& getRelationships().size() == 0);
 	}
-	
+
 }
