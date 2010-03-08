@@ -1,10 +1,8 @@
 package edu.uci.lighthouse.core.controller;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collection;
@@ -55,7 +53,7 @@ import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
-		IPluginListener, Runnable, IPropertyChangeListener {
+IPluginListener, Runnable, IPropertyChangeListener {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
 	private static HashMap<String, Date> mapClassToSVNCommittedTime = new HashMap<String, Date>();
@@ -90,7 +88,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		threadSuspended = false;
 		threadRunning = false;
 		Activator.getDefault().getPreferenceStore()
-				.removePropertyChangeListener(this);
+		.removePropertyChangeListener(this);
 		savePreferences();
 		saveModel();
 	}
@@ -99,7 +97,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void loadPreferences() {
 		String prefix = Activator.PLUGIN_ID;
 		IPreferenceStore prefStore = Activator.getDefault()
-				.getPreferenceStore();
+		.getPreferenceStore();
 
 		lastDBAccess = new Date(prefStore.getLong(prefix + "lastDBAccess"));
 		logger.debug("loading lastDBAccess=" + lastDBAccess);
@@ -109,7 +107,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
 					filename));
 			mapClassToSVNCommittedTime = (HashMap<String, Date>) ois
-					.readObject();
+			.readObject();
 			logger.debug("loading " + filename);
 		} catch (Exception e) {
 			logger.error(e);
@@ -119,7 +117,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	public void savePreferences() {
 		String prefix = Activator.PLUGIN_ID;
 		IPreferenceStore prefStore = Activator.getDefault()
-				.getPreferenceStore();
+		.getPreferenceStore();
 
 		prefStore.setValue(prefix + "lastDBAccess", lastDBAccess.getTime());
 		logger.debug("saving lastDBAccess=" + lastDBAccess);
@@ -202,7 +200,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	 * @throws JPAException
 	 */
 	public synchronized void refreshModelBasedOnLastDBAccess()
-			throws JPAException {
+	throws JPAException {
 		/*
 		 * If the map's size == 0, it means that it is the first time that user
 		 * is running Lighthouse. Then, the LighthouseModel will be updated only
@@ -225,7 +223,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void open(final IFile iFile, boolean hasErrors) {
 
-		final String classFqn = getClassFullyQualifiedName(iFile);
+		final String classFqn = ModelUtility.getClassFullyQualifiedName(iFile);
 		Thread task = new Thread() {
 			@Override
 			public void run() {
@@ -245,14 +243,14 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	}
 
 	public LighthouseFile getBaseVersionFromDB(String classFullyQualifiedName)
-			throws JPAException {
+	throws JPAException {
 		LighthouseFile result = null;
 		Date revisionTime = mapClassToSVNCommittedTime
-				.get(classFullyQualifiedName);
+		.get(classFullyQualifiedName);
 		if (revisionTime != null) {
 			result = BuildLHBaseFile.execute(LighthouseModel.getInstance(),
 					classFullyQualifiedName, revisionTime, Activator
-							.getDefault().getAuthor());
+					.getDefault().getAuthor());
 		}
 		return result;
 	}
@@ -262,7 +260,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// verify if any of the classWithErrors still have errors
 		// than parse the files that does not have errors anymore
 		// and remove the classes from the list classWithErrors
-		if (ModelUtility.belongsToImportedProjects(iFile)) {
+		if (ModelUtility.belongsToImportedProjects(iFile, false)) {
 			if (!hasErrors) {
 
 				if (ignorefilesJustUpdated.contains(iFile)) {
@@ -277,7 +275,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 					// I will suppose that the revisionTime was setted in the
 					// update
 					// event
-					String classFqn = getClassFullyQualifiedName(iFile);
+					String classFqn = ModelUtility.getClassFullyQualifiedName(iFile);
 					try {
 						LighthouseFile lhBaseFile = getBaseVersionFromDB(classFqn);
 						classBaseVersion.put(classFqn, lhBaseFile);
@@ -294,11 +292,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 								.singleton(iFile));
 						if (deltaEvents.size() == 0) {
 							logger
-									.error("We have a change event without delta elements (delta==0)");
+							.error("We have a change event without delta elements (delta==0)");
 						} else {
 							logger
-									.debug("Event change generated delta events: "
-											+ deltaEvents.size());
+							.debug("Event change generated delta events: "
+									+ deltaEvents.size());
 						}
 						PushModel pushModel = new PushModel(LighthouseModel
 								.getInstance());
@@ -345,33 +343,33 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 		// Use iterator to be able to remove the IFile in the loop
 		for (IFile file : files) {
-			final String classFqn = getClassFullyQualifiedName(file);
+			final String classFqn = ModelUtility.getClassFullyQualifiedName(file);
 			final LighthouseFile lhBaseFile = classBaseVersion.get(classFqn);
 			if (force || lhBaseFile != null) {
 				try {
 					final LighthouseParser parser = new LighthouseParser();
 					parser.executeInAJob(Collections.singleton(file),
 							new IParserAction() {
-								@Override
-								public void doAction() throws ParserException {
-									LighthouseFile currentLhFile = new LighthouseFile();
-									new LighthouseFileManager(currentLhFile)
-											.populateLHFile(parser
-													.getListEntities(), parser
-													.getListRelationships());
-									try {
-										LighthouseDelta delta = new LighthouseDelta(
-												Activator.getDefault()
-														.getAuthor(),
-												lhBaseFile, currentLhFile);
-										classBaseVersion.put(classFqn,
-												currentLhFile);
-										result.addAll(delta.getEvents());
-									} catch (JPAException e) {
-										throw new ParserException(e);
-									}
-								}
-							});
+						@Override
+						public void doAction() throws ParserException {
+							LighthouseFile currentLhFile = new LighthouseFile();
+							new LighthouseFileManager(currentLhFile)
+							.populateLHFile(parser
+									.getListEntities(), parser
+									.getListRelationships());
+							try {
+								LighthouseDelta delta = new LighthouseDelta(
+										Activator.getDefault()
+										.getAuthor(),
+										lhBaseFile, currentLhFile);
+								classBaseVersion.put(classFqn,
+										currentLhFile);
+								result.addAll(delta.getEvents());
+							} catch (JPAException e) {
+								throw new ParserException(e);
+							}
+						}
+					});
 				} catch (ParserException e) {
 					logger.error(e, e);
 					// UserDialog.openError(e.getMessage());
@@ -383,7 +381,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void close(IFile iFile, boolean hasErrors) {
-		final String classFqn = getClassFullyQualifiedName(iFile);
+		final String classFqn = ModelUtility.getClassFullyQualifiedName(iFile);
 		if (hasErrors) {
 			classWithErrors.add(iFile);
 		} else {
@@ -397,13 +395,13 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		// generate deltas for other people changes.
 		// ignoredFiles.addAll(svnFiles.keySet());
 
-		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles, true);
 		System.out.println();
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		try {
 			Collection<LighthouseEvent> events = pullModel
-					.executeQueryCheckout(workingCopy);
+			.executeQueryCheckout(workingCopy);
 			LighthouseModel.getInstance().fireModelChanged();
 			logger.info("Number of events fetched after checkout = "
 					+ events.size());
@@ -426,7 +424,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 		// setar a lista de arquivos que foram dados updates
 		// o metodo change vai ser chamado, dai eu nao quero gerar delta
-		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles, false);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 
 		LighthouseModel model = LighthouseModel.getInstance();
@@ -449,7 +447,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {
-		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles);
+		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles, false);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 		try {
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
@@ -461,10 +459,10 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 			Date svnCommittedTime = new Date();
 
 			Collection<LighthouseEvent> listEvents = pushModel
-					.updateCommittedEvents(
-							getClassesFullyQualifiedName(svnFiles),
-							svnCommittedTime, Activator.getDefault()
-									.getAuthor());
+			.updateCommittedEvents(
+					ModelUtility.getClassesFullyQualifiedName(svnFiles),
+					svnCommittedTime, Activator.getDefault()
+					.getAuthor());
 
 			LighthouseModelManager modelManager = new LighthouseModelManager(
 					LighthouseModel.getInstance());
@@ -484,11 +482,11 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		}
 	}
 
-	private HashMap<String, Date> getWorkingCopy(Map<IFile, ISVNInfo> svnFiles) {
+	private HashMap<String, Date> getWorkingCopy(Map<IFile, ISVNInfo> svnFiles, boolean checkDatabase) {
 		HashMap<String, Date> result = new HashMap<String, Date>();
 		for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
-			if (ModelUtility.belongsToImportedProjects(entry.getKey())) {
-				String fqn = getClassFullyQualifiedName(entry.getKey());
+			if (ModelUtility.belongsToImportedProjects(entry.getKey(), checkDatabase)) {
+				String fqn = ModelUtility.getClassFullyQualifiedName(entry.getKey());
 				if (fqn != null) {
 					ISVNInfo svnInfo = entry.getValue();
 					result.put(fqn, svnInfo.getLastChangedDate());
@@ -498,60 +496,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 		return result;
 	}
 
-	private List<String> getClassesFullyQualifiedName(
-			Map<IFile, ISVNInfo> svnFiles) {
-		LinkedList<String> result = new LinkedList<String>();
-		for (IFile iFile : svnFiles.keySet()) {
-			String fqn = getClassFullyQualifiedName(iFile);
-			if (fqn != null) {
-				result.add(fqn);
-			}
-		}
-		return result;
-	}
 
-	public static String getClassFullyQualifiedName(IFile iFile) {
-		String result = "";
-		try {
-			/*
-			 * When the Java file is out of sync with eclipse, get the fully
-			 * qualified name from ICompilationUnit doesn't work. So we decide
-			 * to do this manually, reading the file from the file system and
-			 * parsing it.
-			 */
-			String packageName = null;
-			BufferedReader d = new BufferedReader(new InputStreamReader(
-					new FileInputStream(iFile.getLocation().toOSString())));
-			while (d.ready()) {
-				String line = d.readLine();
-				if (line.contains("package")) {
-					String[] tokens = line.split("package\\s+|;");
-					for (String token : tokens) {
-						if (token.matches("[\\w\\.]+")) {
-							packageName = token;
-							break;
-						}
-					}
-					break;
-				}
-			}
-			/*
-			 * Java files should have at least one class with the same name of
-			 * the file
-			 */
-			String fileNameWithoutExtension = iFile.getName().replaceAll(
-					".java", "");
-			if (packageName == null) {
-				result = iFile.getProject().getName() + "." + fileNameWithoutExtension;
-			} else {
-				result = iFile.getProject().getName() + "." + packageName + "." + fileNameWithoutExtension;
-			}
-		} catch (Exception e) {
-			logger.error(e, e);
-		}
-
-		return result;
-	}
 
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		// We need hashmap to avoid repaint the UI multiple times
@@ -570,7 +515,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 				LighthouseModelManager manager = new LighthouseModelManager(
 						model);
 				LighthouseClass klass = manager
-						.getMyClass((LighthouseEntity) artifact);
+				.getMyClass((LighthouseEntity) artifact);
 				if (klass != null) {
 					// Never overwrite the ADD event
 					if (!mapClassEvent.containsKey(klass)) {
@@ -596,7 +541,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void remove(IFile iFile, boolean hasErrors) {
-		if (ModelUtility.belongsToImportedProjects(iFile)) {
+		if (ModelUtility.belongsToImportedProjects(iFile, false)) {
 			// FIXME: Gambis pra pegar FQN pelo caminho do arquivo. Melhorar
 			// depois
 			// usando o source folder do projeto
@@ -634,8 +579,8 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 	@Override
 	public void add(IFile iFile, boolean hasErrors) {
 
-		if (ModelUtility.belongsToImportedProjects(iFile)) {
-			final String classFqn = getClassFullyQualifiedName(iFile);
+		if (ModelUtility.belongsToImportedProjects(iFile, false)) {
+			final String classFqn = ModelUtility.getClassFullyQualifiedName(iFile);
 
 			// It is a new class created by the user. We are assuming that the
 			// user creates a class that doesn't contain errors.
@@ -687,7 +632,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 
 	@Override
 	public void conflict(Map<IFile, ISVNInfo> svnFiles) {
-		
+
 	}
 
 }

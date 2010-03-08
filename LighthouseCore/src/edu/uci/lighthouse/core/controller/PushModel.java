@@ -14,6 +14,7 @@ import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
+import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -24,7 +25,6 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAException;
-import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 import edu.uci.lighthouse.model.jpa.LHRepositoryEventDAO;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
@@ -124,7 +124,7 @@ public class PushModel {
 			Map<IFile, ISVNInfo> svnFiles, IFile [] iFiles) {
 		LinkedList<String> result = new LinkedList<String>();
 		for (IFile iFile : iFiles) {
-			String fqn = Controller.getClassFullyQualifiedName(iFile);
+			String fqn = ModelUtility.getClassFullyQualifiedName(iFile);
 			if (fqn != null) {
 				result.add(fqn);
 			}

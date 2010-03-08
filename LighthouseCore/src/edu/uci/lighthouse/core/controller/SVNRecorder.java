@@ -25,7 +25,7 @@ public class SVNRecorder implements ISVNEventListener {
 			// Assure we are recording just files those were imported previously.
 			Map<IFile, ISVNInfo> files = new HashMap<IFile, ISVNInfo>();
 			for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
-				if (ModelUtility.belongsToImportedProjects(entry.getKey())){
+				if (ModelUtility.belongsToImportedProjects(entry.getKey(), false)){
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
@@ -43,7 +43,7 @@ public class SVNRecorder implements ISVNEventListener {
 			// Assure we are recording just files those were imported previously.
 			Map<IFile, ISVNInfo> files = new HashMap<IFile, ISVNInfo>();
 			for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
-				if (ModelUtility.belongsToImportedProjects(entry.getKey())){
+				if (ModelUtility.belongsToImportedProjects(entry.getKey(), false)){
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
@@ -61,7 +61,7 @@ public class SVNRecorder implements ISVNEventListener {
 			// Assure we are recording just files those were imported previously.
 			Map<IFile, ISVNInfo> files = new HashMap<IFile, ISVNInfo>();
 			for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
-				if (ModelUtility.belongsToImportedProjects(entry.getKey())){
+				if (ModelUtility.belongsToImportedProjects(entry.getKey(), false)){
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
@@ -79,7 +79,7 @@ public class SVNRecorder implements ISVNEventListener {
 			// Assure we are recording just files those were imported previously.
 			Map<IFile, ISVNInfo> files = new HashMap<IFile, ISVNInfo>();
 			for (Entry<IFile, ISVNInfo> entry : svnFiles.entrySet()) {
-				if (ModelUtility.belongsToImportedProjects(entry.getKey())){
+				if (ModelUtility.belongsToImportedProjects(entry.getKey(), false)){
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
