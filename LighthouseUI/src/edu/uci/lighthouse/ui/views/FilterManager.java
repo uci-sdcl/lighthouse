@@ -46,8 +46,17 @@ public class FilterManager {
 	}
 
 	public void addViewerFilter(ViewerFilter filter){
-		//FIXME verify if already exists
-		viewer.addFilter(filter);
+		boolean contains = false;
+		ViewerFilter[] filters = viewer.getFilters();
+		for (ViewerFilter viewerFilter : filters) {
+			if (viewerFilter.equals(filter)) {
+				contains = true;
+				break;
+			}
+		}
+		if (!contains) {
+			viewer.addFilter(filter);
+		} 
 	}
 	
 	public void removeViewerFilter(ViewerFilter filter){

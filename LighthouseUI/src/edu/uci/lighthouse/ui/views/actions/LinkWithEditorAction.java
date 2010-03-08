@@ -53,7 +53,9 @@ public class LinkWithEditorAction extends Action implements
 			highlightClassInDiagram(selectedFile);
 		} else {
 //			unhighlightAll();
-			lastHightlightedNode.setBackgroundColor(ColorFactory.classBackground);
+			if (!lastHightlightedNode.isDisposed()) {
+				lastHightlightedNode.setBackgroundColor(ColorFactory.classBackground);
+			}
 			lastHightlightedNode = null;
 		}
 	}
@@ -89,7 +91,7 @@ public class LinkWithEditorAction extends Action implements
 						&& !gItem.equals(lastHightlightedNode)) {
 					GraphNode node = (GraphNode) gItem;
 					node.setBackgroundColor(ColorFactory.classLinkWithEditor);
-					if (lastHightlightedNode != null) {
+					if (lastHightlightedNode != null && !lastHightlightedNode.isDisposed()) {
 						lastHightlightedNode
 								.setBackgroundColor(ColorFactory.classBackground);
 					}

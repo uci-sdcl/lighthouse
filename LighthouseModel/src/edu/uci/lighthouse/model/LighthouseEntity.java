@@ -25,12 +25,7 @@ public abstract class LighthouseEntity {
 	private String fullyQualifiedName = "";
 
 	public LighthouseEntity(String fqn) {
-		this.fullyQualifiedName = fqn;
-		try {
-			this.id = LHStringUtil.getMD5Hash(fqn);
-		} catch (NoSuchAlgorithmException e) {
-			logger.error(e,e);
-		}
+		setFullyQualifiedName(fqn);
 	}
 
 	protected LighthouseEntity() {
@@ -61,6 +56,11 @@ public abstract class LighthouseEntity {
 
 	protected void setFullyQualifiedName(String fullyQualifiedName) {
 		this.fullyQualifiedName = fullyQualifiedName;
+		try {
+			this.id = LHStringUtil.getMD5Hash(fullyQualifiedName);
+		} catch (NoSuchAlgorithmException e) {
+			logger.error(e,e);
+		}
 	}
 
 	public String getShortName() {

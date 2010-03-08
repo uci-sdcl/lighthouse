@@ -91,7 +91,7 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 	private void updateFigures(Collection<GraphNode> nodes, boolean highlight) {
 		for (GraphNode node : nodes) {
 //			IFigure figure = node.getNodeFigure();
-			if (!isLinkedWithEditor(node)) {
+			if (!isLinkedWithEditor(node)&&!node.isDisposed()) {
 			if (highlight) {
 				node.setBackgroundColor(ColorFactory.classHighlight);
 				logger.debug("highlight: "+node);

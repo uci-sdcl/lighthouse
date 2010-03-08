@@ -35,7 +35,8 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		//Create the FilterManager instance
 		filterManager = new FilterManager(viewer);
 		
-		viewer.setContentProvider(new LighthouseRelationshipContentProvider());
+//		viewer.setContentProvider(new LighthouseRelationshipContentProvider());
+		viewer.setContentProvider(new LighthouseEntityContentProvider());
 		viewer.setLabelProvider(new LighthouseLabelProvider());
 		viewer.setLayoutAlgorithm(new GridLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));		
 		viewer.setInput(LighthouseModel.getInstance());
@@ -43,7 +44,7 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 
 		
 		//FIXME: Erase EditorListener and put everything in LinkWithEditorAction
-		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer.getGraphControl());
+		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer);
 		editorListener.addEditorSelectionListener(linkAction);
 		
 		getViewSite().getActionBars().getToolBarManager().add(linkAction);
@@ -51,7 +52,7 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		getViewSite().getActionBars().getToolBarManager().add(new LayoutDropDownAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new DiagramModeDropDownAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterAuthorAction(viewer.getGraphControl()));
-		getViewSite().getActionBars().getToolBarManager().add(new FilterPackageAction(viewer.getGraphControl()));
+		getViewSite().getActionBars().getToolBarManager().add(new FilterPackageAction(viewer));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterModifiedAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new ZoomDropDownAction(this));
 

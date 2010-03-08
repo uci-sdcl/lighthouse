@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -20,7 +21,7 @@ import org.eclipse.swt.widgets.Display;
  * */
 public class LighthouseModel extends LighthouseAbstractModel {
 
-	private static Logger logger = Logger.getLogger(LighthouseAbstractModel.class);
+	private static Logger logger = Logger.getLogger(LighthouseModel.class);
 
 	private static LighthouseModel instance;
 
@@ -30,6 +31,8 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	/** List of all events*/
 	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
 
+	private HashMap<LighthouseClass, LinkedHashSet<LighthouseClass>> classRelationships = new HashMap<LighthouseClass, LinkedHashSet<LighthouseClass>>();
+	
 	protected LighthouseModel() {
 	}
 
@@ -38,6 +41,47 @@ public class LighthouseModel extends LighthouseAbstractModel {
 			instance = new LighthouseModel();
 		}
 		return instance;
+	}
+
+	@Override
+	protected synchronized void addRelationship(LighthouseRelationship rel) {
+		super.addRelationship(rel);
+		LighthouseModelManager manager = new LighthouseModelManager(this);
+		LighthouseClass fromClass = manager.getMyClass(rel.getFromEntity());
+		LighthouseClass toClass = manager.getMyClass(rel.getToEntity());
+		if (fromClass != null && toClass != null && !fromClass.equals(toClass)) {
+			LinkedHashSet<LighthouseClass> listRelationships = classRelationships.get(fromClass);
+			if (listRelationships == null){
+				listRelationships = new LinkedHashSet<LighthouseClass>();
+				classRelationships.put(fromClass, listRelationships);
+			}
+			listRelationships.add(toClass);
+		}
+//			else {
+//			if (!fromClass.equals(toClass)){
+//			logger.debug("addRelationship - fromClass:"+fromClass+" toClass:"+toClass+" ("+rel.getFromEntity().getFullyQualifiedName()+"->"+rel.getToEntity().getFullyQualifiedName()+")");
+//			}
+//		}
+	}
+	
+	//FIXME: Find a better method name
+	public Collection<LighthouseClass> getConnectTo(LighthouseClass aClass){
+		LinkedHashSet<LighthouseClass> list = classRelationships.get(aClass);
+		return list != null ? list : new LinkedList<LighthouseClass>();
+	}
+
+	@Override
+	protected synchronized void removeRelationship(LighthouseRelationship rel) {
+		super.removeRelationship(rel);
+		LighthouseModelManager manager = new LighthouseModelManager(this);
+		LighthouseClass fromClass = manager.getMyClass(rel.getFromEntity());
+		LighthouseClass toClass = manager.getMyClass(rel.getToEntity());
+		if (fromClass != null && toClass != null && !fromClass.equals(toClass) ) {
+			LinkedHashSet<LighthouseClass> listRelationships = classRelationships.get(fromClass);
+			if (listRelationships != null){
+				listRelationships.remove(toClass);
+			}
+		}
 	}
 
 	final synchronized void addEvent(LighthouseEvent event) {

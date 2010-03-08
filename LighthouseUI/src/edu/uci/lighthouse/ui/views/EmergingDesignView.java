@@ -123,7 +123,7 @@ public class EmergingDesignView extends ThumbnailView implements ILighthouseMode
 		//
 		createActions();
 		hookPullDownMenu();
-		LinkWithEditorAction link = new LinkWithEditorAction(graph);
+		LinkWithEditorAction link = new LinkWithEditorAction(null);
 		getViewSite().getActionBars().getToolBarManager().add(link);
 		//action = new LayoutDropDownAction(graph);
 		getViewSite().getActionBars().getToolBarManager().add(new LayoutDropDownAction(graph));

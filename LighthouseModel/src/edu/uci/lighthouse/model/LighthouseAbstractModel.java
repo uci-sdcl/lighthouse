@@ -62,7 +62,7 @@ public abstract class LighthouseAbstractModel {
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
-	final synchronized void addRelationship(LighthouseRelationship rel) {
+	protected synchronized void addRelationship(LighthouseRelationship rel) {
 		LinkedHashSet<LighthouseRelationship> listFrom = relationshipsFrom
 				.get(rel.getFromEntity().getFullyQualifiedName());
 		LinkedHashSet<LighthouseRelationship> listTo = relationshipsTo.get(rel
@@ -84,7 +84,7 @@ public abstract class LighthouseAbstractModel {
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
-	final synchronized void removeRelationship(LighthouseRelationship rel) {
+	protected synchronized void removeRelationship(LighthouseRelationship rel) {
 		Collection<LighthouseRelationship> listTo = relationshipsTo.get(rel
 				.getToEntity().getFullyQualifiedName());
 		if (listTo != null) {
