@@ -60,6 +60,9 @@ public class LighthouseModelUtil {
 		for (LighthouseRelationship rel : listRelInside) {
 			LighthouseEntity entity = rel.getFromEntity();
 			listEntity.add(entity);
+			if (entity instanceof LighthouseClass) {
+				listEntity.addAll(getEntitiesInsideClass(model,entity));
+			}
 		}
 		return listEntity;
 	}
