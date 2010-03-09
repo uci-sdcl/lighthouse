@@ -60,7 +60,9 @@ public class UpdateLighthouseModel {
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseRelationship) {
 				logger.debug("updating: " + event.toString());
-				LhManager.addEvent(event);
+				if (event.getType()==TYPE.ADD) {
+					LhManager.addEvent(event);	
+				}
 			}
 		}
 		LhManager.removeArtifactsAndEvents(listClassesToRemove);
