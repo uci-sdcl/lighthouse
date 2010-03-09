@@ -47,12 +47,13 @@ public class UpdateLighthouseModel {
 							listClassesToRemove.add(fqn);
 						}
 					}
-					if (artifact instanceof LighthouseRelationship) {
-						LighthouseRelationship rel = (LighthouseRelationship) artifact;
-						LhManager.removeRelationship(rel);
-					}
 				}
-			}			
+			} else if (artifact instanceof LighthouseRelationship) {
+				if (event.getType()==TYPE.REMOVE) {
+					LighthouseRelationship rel = (LighthouseRelationship) artifact;
+					LhManager.removeRelationship(rel);
+				}
+			}
 		}
 		// for each relationship event
 		for (LighthouseEvent event : listEvents) {
