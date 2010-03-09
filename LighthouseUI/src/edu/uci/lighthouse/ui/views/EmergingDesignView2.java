@@ -14,6 +14,7 @@ import edu.uci.lighthouse.ui.views.actions.DiagramModeDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.FilterActiveClassAction;
 import edu.uci.lighthouse.ui.views.actions.FilterAuthorAction;
 import edu.uci.lighthouse.ui.views.actions.FilterModifiedAction;
+import edu.uci.lighthouse.ui.views.actions.FilterOpenEditorAction;
 import edu.uci.lighthouse.ui.views.actions.FilterPackageAction;
 import edu.uci.lighthouse.ui.views.actions.HighlightDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.LayoutDropDownAction;
@@ -47,7 +48,9 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		//FIXME: Erase EditorListener and put everything in LinkWithEditorAction
 		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer);
 		FilterActiveClassAction activeClassAction = new FilterActiveClassAction(viewer);
+		FilterOpenEditorAction openEditorAction = new FilterOpenEditorAction(viewer);
 		editorListener.addEditorSelectionListener(activeClassAction);
+		editorListener.addEditorSelectionListener(openEditorAction);
 		editorListener.addEditorSelectionListener(linkAction);
 		
 		getViewSite().getActionBars().getToolBarManager().add(linkAction);
@@ -58,6 +61,7 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		getViewSite().getActionBars().getToolBarManager().add(new FilterPackageAction(viewer));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterModifiedAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(activeClassAction);
+		getViewSite().getActionBars().getToolBarManager().add(openEditorAction);
 		getViewSite().getActionBars().getToolBarManager().add(new ZoomDropDownAction(this));
 
 		//FIXME: Change this to a decorator

@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.views.filters;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -8,7 +9,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -19,28 +20,20 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 
-public class ActiveClassFilter extends ViewerFilter {
-
+public class OpenEditorFilter extends ViewerFilter{
+	
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		if (element instanceof LighthouseClass) {
-			LighthouseClass aClass = getLighthouseClassFromEditor();
-			if (aClass != null) {
-				if (aClass.equals(element)
+			Collection<LighthouseClass> aClasses = getLighthouseClassesFromEditor();
+			for (LighthouseClass aClass : aClasses) {
+				if (aClass.equals(element) 
 						|| belongsToDistance(aClass, (LighthouseClass) element)) {
 					return true;
 				}
 			}
 		} else if (element instanceof EntityConnectionData) {
-			EntityConnectionData conn = (EntityConnectionData) element;
-			LighthouseClass aClass = getLighthouseClassFromEditor();
-			if (aClass != null) {
-				if (conn.source.equals(aClass) || conn.dest.equals(aClass)) {
-					return belongsToDistance((LighthouseClass) conn.source,
-							(LighthouseClass) conn.dest);
-				}
-			}
-//			return true;
+			return true;
 		} else if (element instanceof LighthouseRelationship) {
 			// FIXME: try to do something similar the if block above
 			return true;
@@ -48,28 +41,36 @@ public class ActiveClassFilter extends ViewerFilter {
 		return false;
 	}
 
-	public LighthouseClass getLighthouseClassFromEditor() {
+	public static Collection<LighthouseClass> getLighthouseClassesFromEditor() {
+		Collection<LighthouseClass> result = new LinkedList<LighthouseClass>();
 		IWorkbenchWindow window = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow();
 		IWorkbenchPage activePage = window.getActivePage();
 		if (activePage != null) {
-			IEditorPart editor = activePage.getActiveEditor();
-			if (editor != null) {
-				IJavaElement jFile = JavaUI.getEditorInputJavaElement(editor
-						.getEditorInput());
-				if (jFile instanceof ICompilationUnit) {
-					IType type = ((ICompilationUnit) jFile).findPrimaryType();
-					String fqn = jFile.getJavaProject().getElementName() + "."
-							+ type.getFullyQualifiedName();
-					LighthouseEntity entity = LighthouseModel.getInstance()
-							.getEntity(fqn);
-					if (entity instanceof LighthouseClass) {
-						return (LighthouseClass) entity;
+			IEditorReference[] editorReferences = activePage
+					.getEditorReferences();
+			for (IEditorReference editorReference : editorReferences) {
+				try {
+					IJavaElement jFile = JavaUI
+							.getEditorInputJavaElement(editorReference
+									.getEditorInput());
+					if (jFile instanceof ICompilationUnit) {
+						IType type = ((ICompilationUnit) jFile)
+								.findPrimaryType();
+						String fqn = jFile.getJavaProject().getElementName()
+								+ "." + type.getFullyQualifiedName();
+						LighthouseEntity entity = LighthouseModel.getInstance()
+								.getEntity(fqn);
+						if (entity instanceof LighthouseClass) {
+							result.add((LighthouseClass) entity);
+						}
 					}
+				} catch (Exception e) {
+					// TODO: logger
 				}
 			}
 		}
-		return null;
+		return result;
 	}
 
 	private boolean belongsToDistance(LighthouseClass from, LighthouseClass to) {

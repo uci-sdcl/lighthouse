@@ -122,4 +122,10 @@ public class LinkWithEditorAction extends Action implements
 		selectedFile = editedFile;
 	}
 
+	@Override
+	public void editorClosed() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

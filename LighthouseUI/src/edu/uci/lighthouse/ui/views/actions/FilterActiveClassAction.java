@@ -11,6 +11,7 @@ import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
+import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.ui.views.FilterManager;
 import edu.uci.lighthouse.ui.views.IEditorSelectionListener;
 import edu.uci.lighthouse.views.filters.ActiveClassFilter;
@@ -21,14 +22,16 @@ public class FilterActiveClassAction extends Action implements IEditorSelectionL
 	protected GraphViewer viewer;
 	
 	private static final String ICON = "$nl$/icons/full/clcl16/collapseall.gif";
-	private static final String DESCRIPTION = "Show active class and its dependencies";
+	private static final String DESCRIPTION = "Show the active class and its dependencies";
 
 	private static Logger logger = Logger.getLogger(FilterActiveClassAction.class);
 	
-	ViewerFilter filter = new ActiveClassFilter();
+	ActiveClassFilter filter = new ActiveClassFilter();
 	
 	LayoutAlgorithm currentLayoutAlgorithm ;
 	LayoutAlgorithm layoutAlgorithm = new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);
+	
+	LighthouseClass lastActiveClass;
 	
 	public FilterActiveClassAction(GraphViewer viewer){
 		super(null, IAction.AS_CHECK_BOX);
@@ -48,6 +51,7 @@ public class FilterActiveClassAction extends Action implements IEditorSelectionL
 			currentLayoutAlgorithm = viewer.getGraphControl().getLayoutAlgorithm();
 			FilterManager.getInstance().addViewerFilter(filter);
 			viewer.setLayoutAlgorithm(layoutAlgorithm, true);
+			lastActiveClass = filter.getLighthouseClassFromEditor();
 		} else {
 			FilterManager.getInstance().removeViewerFilter(filter);
 			viewer.setLayoutAlgorithm(currentLayoutAlgorithm);
@@ -58,9 +62,19 @@ public class FilterActiveClassAction extends Action implements IEditorSelectionL
 	public void selectionChanged(IFile editedFile) {
 		logger.info("selectionChanged");
 		if (isChecked()) {
-			viewer.refresh();
-			viewer.setLayoutAlgorithm(layoutAlgorithm, true);
+			LighthouseClass c = filter.getLighthouseClassFromEditor();
+			if (c != null && !c.equals(lastActiveClass)) {
+				viewer.refresh();
+				viewer.setLayoutAlgorithm(layoutAlgorithm, true);
+				lastActiveClass = c;
+			}
 		}
+	}
+
+	@Override
+	public void editorClosed() {
+		lastActiveClass = null;
+		viewer.refresh();
 	}
 
 }

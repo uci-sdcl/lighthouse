@@ -204,13 +204,24 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 				case REMOVE:
 					removeFromCache((LighthouseClass)connection.source, (LighthouseClass)connection.dest);
 					removeRelationship(connection);
+					if (filterElement(viewer.getInput(),connection.source)) {
+						viewer.removeNode(connection.source);
+					}
+					if (filterElement(viewer.getInput(),connection.dest)) {
+						viewer.removeNode(connection.dest);
+					}
 					break;
 				}
 			} else {
 				switch (type) {
 				case ADD:
-					viewer.addRelationship(connection);
-					insertInCache((LighthouseClass)connection.source, (LighthouseClass)connection.dest);
+					if (!filterElement(viewer.getInput(),connection.source)&&!filterElement(viewer.getInput(),connection.dest)&&!filterElement(viewer.getInput(),connection)) {
+						viewer.addNode(connection.source);
+						viewer.addNode(connection.dest);
+						viewer.getGraphControl().applyLayout();	
+						viewer.addRelationship(connection);
+						insertInCache((LighthouseClass)connection.source, (LighthouseClass)connection.dest);
+					}
 					break;
 				}
 			}
