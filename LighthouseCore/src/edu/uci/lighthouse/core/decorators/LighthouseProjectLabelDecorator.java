@@ -8,12 +8,13 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.model.LighthouseModel;
 
 public class LighthouseProjectLabelDecorator implements ILightweightLabelDecorator {
 
 	public static final String DECORATOR_ID = "edu.uci.lighthouse.decorators.project";
-	private static final String ICON = "$nl$/icons/full/ovr16/owned_ovr.gif";
+	private static final String ICON = "/icons/lhImported.png";
 	
 	@Override
 	public void decorate(Object element, IDecoration decoration) {
@@ -23,7 +24,7 @@ public class LighthouseProjectLabelDecorator implements ILightweightLabelDecorat
 			Collection<String> projectNames = model.getProjectNames();
 			if (projectNames.contains(project.getName())) {
 				decoration.addOverlay(AbstractUIPlugin
-						.imageDescriptorFromPlugin("org.eclipse.jdt.debug.ui", ICON));
+						.imageDescriptorFromPlugin(Activator.PLUGIN_ID, ICON));
 			}
 		}
 	}
