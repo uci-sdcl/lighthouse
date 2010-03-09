@@ -132,6 +132,10 @@ public class LighthouseModelManager {
 		return listEvents;
 	}
 
+	public void removeRelationship(LighthouseRelationship rel) {
+		model.removeRelationship(rel);
+	}
+	
 	/**
 	 * Remove Artifacts that are inside of the list of classes,
 	 * and also remove the Events related to those Artifacts

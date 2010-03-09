@@ -47,6 +47,10 @@ public class UpdateLighthouseModel {
 							listClassesToRemove.add(fqn);
 						}
 					}
+					if (artifact instanceof LighthouseRelationship) {
+						LighthouseRelationship rel = (LighthouseRelationship) artifact;
+						LhManager.removeRelationship(rel);
+					}
 				}
 			}			
 		}
