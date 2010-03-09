@@ -1,6 +1,5 @@
 package edu.uci.lighthouse.core.preferences;
 
-import java.sql.SQLException;
 import java.util.Properties;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -19,7 +18,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import edu.uci.lighthouse.core.Activator;
-import edu.uci.lighthouse.core.util.SSHTunnel;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 
 public class DatabasePreferences extends PreferencePage implements
@@ -38,7 +36,7 @@ IWorkbenchPreferencePage{
 	private Text sshPassword;
 	private Text sshPort;
 	
-	private static final String ROOT = "edu.uci.lighthouse.core.preferences";
+	public static final String ROOT = "edu.uci.lighthouse.core.preferences.db";
 	
 	public static final String DB_HOST = ROOT+ ".dbHost";
 	public static final String DB_USERNAME = ROOT+ ".dbUsername";
@@ -83,7 +81,7 @@ IWorkbenchPreferencePage{
 	@Override
 	protected void performApply() {
 		// Need to store the preferences before testing connect.
-		super.performApply();
+//		super.performApply();
 		
 		try {
 //			SSHTunnel tunnel = null;
@@ -92,7 +90,7 @@ IWorkbenchPreferencePage{
 //				tunnel.setLocalPort(12346);
 //				tunnel.start(null);
 //			}
-			JPAUtility.canConnect(getDatabaseSettings());
+			JPAUtility.canConnect(getLocalDatabaseSettings());
 //			if (tunnel != null) {
 //				tunnel.stop(null);
 //			}
@@ -230,6 +228,19 @@ IWorkbenchPreferencePage{
 		sshPort.setEnabled(false);
 		
 		return group;
+	}
+	
+	public Properties getLocalDatabaseSettings(){
+		Properties dbSettings = new Properties();
+		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+		
+		String connUrl = "jdbc:mysql://"+dbHost.getText()+":"+dbPort.getText()+"/"+dbDatabase.getText();
+		dbSettings.setProperty("hibernate.connection.url", connUrl);
+		dbSettings.setProperty("hibernate.connection.username", dbUsername.getText());
+		dbSettings.setProperty("hibernate.connection.password", dbPassword.getText());
+		dbSettings.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+		
+		return dbSettings;
 	}
 	
 	public static Properties getDatabaseSettings(){

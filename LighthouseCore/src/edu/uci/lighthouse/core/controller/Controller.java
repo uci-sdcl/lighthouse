@@ -18,7 +18,10 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -33,6 +36,7 @@ import edu.uci.lighthouse.core.parser.IParserAction;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.core.widgets.StatusWidget;
 import edu.uci.lighthouse.model.BuildLHBaseFile;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -395,8 +399,12 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		// ignoredFiles.addAll(svnFiles.keySet());
 
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles, true);
-		System.out.println();
 		mapClassToSVNCommittedTime.putAll(workingCopy);
+		checkoutWorkingCopy(workingCopy);
+	}
+	
+	public void checkoutWorkingCopy(HashMap<String, Date> workingCopy){
+
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		try {
 			Collection<LighthouseEvent> events = pullModel
@@ -405,10 +413,6 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			logger.info("Number of events fetched after checkout = "
 					+ events.size());
 
-			// Insert the CHECKOUT event in the database
-			// new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
-			// svnFiles, LighthouseRepositoryEvent.TYPE.CHECKOUT,
-			// new Date());
 		} catch (Exception e) {
 			logger.error(e, e);
 			// UserDialog.openError(e.getMessage());
@@ -431,7 +435,8 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 		modelManager.removeArtifactsAndEvents(workingCopy.keySet());
 
-		checkout(svnFiles);
+//		checkout(svnFiles);
+		checkoutWorkingCopy(workingCopy);
 
 		// // Insert the UPDATE event in the database
 		// // Insert the CHECKOUT event in the database
@@ -609,20 +614,48 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		try {
-			// FIXME: Check this line
-			JPAUtility.initializeEntityManagerFactory(DatabasePreferences
-					.getDatabaseSettings());
-			if (threadSuspended) {
-				synchronized (this) {
-					StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-					threadSuspended = false;
-					notify();
+			//FIXME: for a better looking code
+			if (event.getProperty().indexOf(DatabasePreferences.ROOT) != -1) {
+				JPAUtility.canConnect(DatabasePreferences
+						.getDatabaseSettings());
+				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
+				synchronizeModelWithDatabase();
+				if (threadSuspended) {
+					synchronized (this) {
+						StatusWidget.getInstance().setStatus(Status.OK_STATUS);
+						threadSuspended = false;
+						notify();
+					}
 				}
 			}
-		} catch (JPAException e) {
+		} catch (Exception e) {
 			logger.error(e, e);
 			StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 		}
+	}
+	
+	public void synchronizeModelWithDatabase(){
+		final Job job = new Job("Syncronizing Model") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				try {
+					monitor.beginTask("Syncronizing model with database...", IProgressMonitor.UNKNOWN);
+					JPAUtility.initializeEntityManagerFactory(DatabasePreferences
+							.getDatabaseSettings());
+					LighthouseModel.getInstance().clear();
+					checkoutWorkingCopy(mapClassToSVNCommittedTime);
+					LighthouseModel.getInstance().fireModelChanged();
+				} catch (JPAException e) {
+					logger.error(e,e);
+					UserDialog.openError("JPAException: "+e.getMessage());
+				} finally {
+					monitor.done();
+				}
+				return Status.OK_STATUS;
+			}
+		};
+		job.setUser(true);
+		job.schedule();
 	}
 
 	private synchronized Date getTimestamp() {

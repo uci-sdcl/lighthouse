@@ -36,11 +36,18 @@ public class LighthouseModel extends LighthouseAbstractModel {
 	protected LighthouseModel() {
 	}
 
-	public static LighthouseModel getInstance() {
+	public static synchronized LighthouseModel getInstance() {
 		if (instance == null) {
 			instance = new LighthouseModel();
 		}
 		return instance;
+	}
+	
+	public synchronized void clear() {
+		super.clear();
+		mapArtifactEvents.clear();
+		listEvents.clear();
+		classRelationships.clear();
 	}
 
 	@Override

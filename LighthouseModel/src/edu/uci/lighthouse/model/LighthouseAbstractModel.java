@@ -198,4 +198,13 @@ public abstract class LighthouseAbstractModel {
 		return result;
 	}
 
+	protected void clear(){
+		entities.clear();
+		relationshipsTo.clear();
+		relationshipsFrom.clear();
+		packageNames.clear();
+		projectNames.clear();
+		classes.clear();
+	}
+	
 }
