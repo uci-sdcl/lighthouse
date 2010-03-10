@@ -672,6 +672,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					mapClassToSVNCommittedTime = getWorkingCopyFromWorkspace();
 					LighthouseModel.getInstance().clear();
 					checkoutWorkingCopy(mapClassToSVNCommittedTime);
+					WorkbenchUtility.updateProjectIcon();
 					LighthouseModel.getInstance().fireModelChanged();
 				} catch (JPAException e) {
 					logger.error(e,e);
@@ -707,7 +708,13 @@ IPluginListener, Runnable, IPropertyChangeListener {
 							String fqn = ModelUtility
 									.getClassFullyQualifiedName(iFile);
 							if (fqn != null) {
-								result.put(fqn, svnInfo.getLastChangedDate());
+								Date revision = svnInfo.getLastChangedDate();
+								if (revision == null){
+									revision = new Date(0);
+								} else {
+									revision = new Date(revision.getTime());
+								}
+								result.put(fqn, revision);
 							}
 							} catch (SVNClientException ex1) {
 								logger.error(ex1);
