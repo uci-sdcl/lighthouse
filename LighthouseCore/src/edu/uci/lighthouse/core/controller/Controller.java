@@ -87,6 +87,10 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	
 	private static Controller instance;
 
+	private Controller () {
+		// Singleton pattern
+	}
+	
 	public Map<String, Date> getWorkingCopy() {
 		return mapClassToSVNCommittedTime;
 	}

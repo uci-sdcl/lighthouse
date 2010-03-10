@@ -54,7 +54,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 	 * The constructor
 	 */
 	public Activator() {
-		Controller controller = new Controller();
+		Controller controller = Controller.getInstance();
 		
 		JavaFileChangedReporter jReporter = new JavaFileChangedReporter();
 		jReporter.addJavaFileStatusListener(controller);
