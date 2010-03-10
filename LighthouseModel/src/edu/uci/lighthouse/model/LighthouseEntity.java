@@ -64,7 +64,7 @@ public abstract class LighthouseEntity {
 	}
 
 	public String getShortName() {
-		return fullyQualifiedName.replaceAll("(\\w+\\.)*", "");
+		return fullyQualifiedName.replaceAll("(\\w+\\.)*", "").replaceAll("(\\w+\\$)*", "");
 	}
 
 	/*
