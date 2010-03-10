@@ -45,8 +45,10 @@ public class JavaFileChangedReporter implements IResourceChangeListener,
 	@Override
 	public void start(BundleContext context) throws Exception {
 		logger.info("Starting JavaFileChangedReporter");
+		logger.debug("addElementChangedListener()");
 		JavaCore.addElementChangedListener(this,
 				ElementChangedEvent.POST_CHANGE);
+		logger.debug("addPreProcessingResourceChangedListener()");
 		JavaCore.addPreProcessingResourceChangedListener(this,
 				IResourceChangeEvent.POST_BUILD);
 		// FIXME: find a way to load eclipse workbench first to guarantee the
@@ -80,6 +82,7 @@ public class JavaFileChangedReporter implements IResourceChangeListener,
 
 	/** Finds the active open file in the workspace (The one with focus). */
 	private void findActiveOpenFileInWorkspace() {
+		logger.info("findActiveOpenFileInWorkspace");
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
 				IWorkbenchWindow window = PlatformUI.getWorkbench()
