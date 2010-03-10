@@ -86,7 +86,7 @@ public class LighthouseTestElaboration extends TestCase {
 //		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 //
 //		LinkedList<String> listProjects = new LinkedList<String>();
-//		listProjects.add("AtmDeitelSample");
+//		listProjects.add("Atm");
 //
 //		// Parse the whole ATM Project
 //		LighthouseModelTest model = new LighthouseModelTest();
