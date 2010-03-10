@@ -5,6 +5,9 @@ package edu.deitel;
 
 public class ATM 
 {
+
+	int b;
+
 	public boolean userAuthenticated; // whether user is authenticated
 	private int currentAccountNumber; // current user's account number
 	private Screen screen; // ATM's screen
