@@ -1,7 +1,6 @@
 package edu.uci.lighthouse.model.io;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -17,6 +16,7 @@ import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseMethod;
 import edu.uci.lighthouse.model.LighthouseModifier;
 import edu.uci.lighthouse.model.LighthouseRelationship;
+import edu.uci.lighthouse.model.util.LHStringUtil;
 
 public class AbstractXMLPersistence {
 
@@ -36,7 +36,9 @@ public class AbstractXMLPersistence {
 		}
 		if (event.getTimestamp()!=null) {
 			node.addElement("timestamp").addText(event.getTimestamp().toString());	
-		}		
+		}
+		node.addElement("isCommitted").addText(new Boolean(event.isCommitted()).toString());
+		node.addElement("committedTime").addText(event.getCommittedTime().toString());
 	}
 	
 	protected void writeAuthor(LighthouseAuthor author, Element root) {
@@ -78,15 +80,25 @@ public class AbstractXMLPersistence {
 		if (strTimestamp==null) {
 			timestamp = new Date(); 
 		} else {			
-		    SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
 			try {
-				timestamp = formatter.parse(strTimestamp);
+				timestamp = LHStringUtil.simpleDateFormat.parse(strTimestamp);
 			} catch (ParseException e) {
 				logger.warn("Trying to parse the Timestamp: " + timestamp);
 			}
 		}
-		// FIXME ADD isCommitted and committedTime
 		event.setTimestamp(timestamp);
+		String strIsCommitted = root.elementText("isCommitted");
+		if (strIsCommitted!=null) {
+			event.setCommitted(new Boolean(strIsCommitted).booleanValue());
+		}
+		String strCommittedTime = root.elementText("committedTime");
+		if (strCommittedTime!=null) {
+			try {
+				event.setCommittedTime(LHStringUtil.simpleDateFormat.parse(strCommittedTime));
+			} catch (ParseException e) {
+				logger.warn("Trying to parse the CommittedTime: " + strCommittedTime);
+			}
+		}
 		return event; 
 	}
 	
