@@ -41,7 +41,7 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 			LighthouseModel model = LighthouseModel.getInstance();
 			Collection<LighthouseClass> connections = model.getConnectTo(aClass);
 			for (LighthouseClass iClass : connections) {
-				if (!existsInCache(aClass,iClass)) {
+				if (!iClass.isAnonymous() && !existsInCache(aClass,iClass)) {
 					insertInCache(aClass,iClass);
 					result.add(iClass);
 				} else {
@@ -113,8 +113,13 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 		if (inputElement instanceof LighthouseModel) {
 			cacheConnections.clear();
 			LighthouseModel model = (LighthouseModel) inputElement;
-			logger.info("getElements: "+model.getAllClasses().size());
-			result = model.getAllClasses();
+			Collection<LighthouseClass> allClasses = model.getAllClasses();
+			logger.info("getElements: "+allClasses.size());
+			for (LighthouseClass aClass : allClasses) {
+				if (!aClass.isAnonymous()) {
+					result.add(aClass);
+				}
+			}
 		}
 		return result.toArray();
 	}
@@ -150,7 +155,7 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 		if (item == null) {
 			switch (type) {
 			case ADD:
-				if (!filterElement(viewer.getInput(),aClass)) {
+				if (!aClass.isAnonymous() && !filterElement(viewer.getInput(),aClass)) {
 					viewer.addNode(aClass);
 					logger.debug("Class "+aClass.getShortName()+" added.");
 					viewer.getGraphControl().applyLayout();					
@@ -215,12 +220,18 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 			} else {
 				switch (type) {
 				case ADD:
-					if (!filterElement(viewer.getInput(),connection.source)&&!filterElement(viewer.getInput(),connection.dest)&&!filterElement(viewer.getInput(),connection)) {
-						viewer.addNode(connection.source);
-						viewer.addNode(connection.dest);
-						viewer.getGraphControl().applyLayout();	
-						viewer.addRelationship(connection);
-						insertInCache((LighthouseClass)connection.source, (LighthouseClass)connection.dest);
+					LighthouseClass fromClass = (LighthouseClass) connection.source;
+					LighthouseClass toClass = (LighthouseClass) connection.dest;
+					if (!fromClass.isAnonymous() && !toClass.isAnonymous()) {
+						if (!filterElement(viewer.getInput(), fromClass)
+								&& !filterElement(viewer.getInput(), toClass)
+								&& !filterElement(viewer.getInput(), connection)) {
+							viewer.addNode(fromClass);
+							viewer.addNode(toClass);
+							viewer.getGraphControl().applyLayout();
+							viewer.addRelationship(connection);
+							insertInCache(fromClass, toClass);
+						}
 					}
 					break;
 				}

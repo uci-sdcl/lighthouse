@@ -12,6 +12,15 @@ public class LighthouseClass extends LighthouseEntity {
 	public LighthouseClass(String fqn) {
 		super(fqn);
 	}
+	
+	public boolean isAnonymous(){
+//		deitel.atm.ATM$Withdrawal$1
+		return getFullyQualifiedName().matches("(\\w+\\.)*(\\w+\\$)+\\d+");
+	}
+	
+	public boolean isInnerClass(){
+		return getFullyQualifiedName().matches("(\\w+\\.)*(\\w+\\$)+[a-zA-Z_]+");
+	}
 
 //	public String getPackageName(){
 //		String result = getFullyQualifiedName().replaceAll("\\.\\w+\\z", "");
