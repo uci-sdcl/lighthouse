@@ -1,5 +1,14 @@
 package edu.uci.lighthouse.core.util;
 
+import java.util.Collection;
+import java.util.HashSet;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.swt.widgets.Display;
@@ -60,5 +69,24 @@ public class WorkbenchUtility {
 				IDecoratorManager dManager = PlatformUI.getWorkbench().getDecoratorManager();
 				dManager.update(LighthouseProjectLabelDecorator.DECORATOR_ID);
 			}});
+	}
+	
+	public static Collection<IFile> getFilesFromJavaProject(IJavaProject jProject){
+		Collection<IFile> files = new HashSet<IFile>();
+		try {
+			IPackageFragment[]  packagesFragments = jProject.getPackageFragments();
+			for (IPackageFragment packageFragment: packagesFragments){
+				if (packageFragment.getKind() == IPackageFragmentRoot.K_SOURCE && packageFragment.getCompilationUnits().length > 0) {
+					ICompilationUnit[] icus = packageFragment.getCompilationUnits();
+					for(ICompilationUnit icu : icus){
+						files.add((IFile) icu.getResource());
+					}
+				}
+			}
+		} catch (JavaModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return files;
 	}
 }

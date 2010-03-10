@@ -52,7 +52,7 @@ public class ImportHandler extends AbstractHandler {
 				IJavaProject jProject = (IJavaProject) itemSelected;
 				/*  Verifies if the project is open in the workspace. This method is different from IJavaProject.isOpen() */
 				if (jProject.getProject().isOpen()) { 
-					javaFiles.addAll(getFilesFromJavaProject(jProject));
+					javaFiles.addAll(WorkbenchUtility.getFilesFromJavaProject(jProject));
 				} // TODO handle else
 			}
 		}
@@ -96,25 +96,6 @@ public class ImportHandler extends AbstractHandler {
 		job.schedule();
 
 		return null;
-	}
-	
-	private Collection<IFile> getFilesFromJavaProject(IJavaProject jProject){
-		Collection<IFile> files = new HashSet<IFile>();
-		try {
-			IPackageFragment[]  packagesFragments = jProject.getPackageFragments();
-			for (IPackageFragment packageFragment: packagesFragments){
-				if (packageFragment.getKind() == IPackageFragmentRoot.K_SOURCE && packageFragment.getCompilationUnits().length > 0) {
-					ICompilationUnit[] icus = packageFragment.getCompilationUnits();
-					for(ICompilationUnit icu : icus){
-						files.add((IFile) icu.getResource());
-					}
-				}
-			}
-		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return files;
 	}
 
 }
