@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 
 import org.apache.log4j.Logger;
 
+import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
@@ -43,7 +44,8 @@ public class UpdateLighthouseModel {
 					if (artifact instanceof LighthouseClass || artifact instanceof LighthouseInterface) {
 						LighthouseEntity entity = (LighthouseEntity) artifact;
 						String fqn = entity.getFullyQualifiedName();
-						if ( Controller.getWorkingCopy().get(fqn)==null )  {
+						if ( event.getAuthor().equals(Activator.getDefault().getAuthor()) 
+								|| (Controller.getWorkingCopy().get(fqn)==null))  {
 							listClassesToRemove.add(fqn);
 						}
 					}
@@ -51,7 +53,9 @@ public class UpdateLighthouseModel {
 			} else if (artifact instanceof LighthouseRelationship) {
 				if (event.getType()==TYPE.REMOVE) {
 					LighthouseRelationship rel = (LighthouseRelationship) artifact;
-					LhManager.removeRelationship(rel);
+					if (rel.getType()!=LighthouseRelationship.TYPE.INSIDE) {
+						LhManager.removeRelationship(rel);
+					}
 				}
 			}
 		}
