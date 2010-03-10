@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -22,6 +26,7 @@ import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
@@ -58,16 +63,16 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		svnReporter.addSVNEventListener(controller);
 		svnReporter.addSVNEventListener(new SVNRecorder());
 		
-		listeners.add(controller);
 		listeners.add(jReporter);
 		listeners.add(svnReporter);
+		listeners.add(controller);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
-	public void start(BundleContext context) throws Exception {
+	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 		
@@ -82,13 +87,36 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 //			sshTunnel.start(context);
 //		}
 		//FIXME: Think about the right place to put this code
+		logger.debug("Starting JPA...");
 		JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		
+		
+		final Job job = new Job("Starting Lighthouse...") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				try {
+					monitor.beginTask("", IProgressMonitor.UNKNOWN);
+					for (IPluginListener listener : listeners) {
+						listener.start(context);
+					}
+				} catch (Exception e) {
+					logger.error(e,e);
+				} finally {
+					monitor.done();
+				}
+				return Status.OK_STATUS;
+			}
+		};
+//		job.setUser(true);
+		job.schedule();
+		
+		
 		// Starting listeners
-		for (IPluginListener listener : listeners) {
-			listener.start(context);
-		}
+//		for (IPluginListener listener : listeners) {
+//			logger.debug("Starting "+listener.getClass().getSimpleName()+"...");
+//			listener.start(context);
+//		}
 
 		//NEW
 
