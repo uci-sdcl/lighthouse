@@ -112,7 +112,11 @@ public class LighthouseParser {
 				LighthouseRelationship relationship = new LighthouseRelationship(entityFrom,entityTo,getLHRelationshipType(type));
 				addRelationship(relationship);
 			} else {
-				logger.error("Trying to add a Relationship - From: " + entityFrom + ", Type: " + type + ", To: " + entityTo);
+				if (entityFrom == null) {
+					logger.error("FQN FROM: " + fqnFrom + " does not belong to the model");
+				} else if (entityTo == null) {
+					logger.error("FQN TO: " + fqnTo + " does not belong to the model");
+				}
 			}
 		}
 	}
