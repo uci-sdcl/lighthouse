@@ -18,15 +18,25 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.osgi.framework.BundleContext;
+import org.tigris.subversion.subclipse.core.SVNException;
+import org.tigris.subversion.subclipse.core.SVNProviderPlugin;
+import org.tigris.subversion.svnclientadapter.ISVNClientAdapter;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
+import org.tigris.subversion.svnclientadapter.SVNClientException;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.listeners.IJavaFileStatusListener;
@@ -37,6 +47,7 @@ import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.core.util.UserDialog;
+import edu.uci.lighthouse.core.util.WorkbenchUtility;
 import edu.uci.lighthouse.core.widgets.StatusWidget;
 import edu.uci.lighthouse.model.BuildLHBaseFile;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -60,7 +71,7 @@ public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 IPluginListener, Runnable, IPropertyChangeListener {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
-	private static HashMap<String, Date> mapClassToSVNCommittedTime = new HashMap<String, Date>();
+	private HashMap<String, Date> mapClassToSVNCommittedTime = new HashMap<String, Date>();
 	private HashMap<String, LighthouseFile> classBaseVersion = new HashMap<String, LighthouseFile>();
 	private Set<IFile> classWithErrors = new LinkedHashSet<IFile>();
 	/*
@@ -73,8 +84,10 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	private boolean threadRunning;
 	private boolean threadSuspended;
 	private final int threadTimeout = 5000;
+	
+	private static Controller instance;
 
-	public static Map<String, Date> getWorkingCopy() {
+	public Map<String, Date> getWorkingCopy() {
 		return mapClassToSVNCommittedTime;
 	}
 
@@ -84,6 +97,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 				this);
 		loadPreferences();
 		loadModel();
+		logger.info("Starting thread...");
 		(new Thread(this)).start();
 	}
 
@@ -99,6 +113,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 	@SuppressWarnings("unchecked")
 	public void loadPreferences() {
+		logger.info("loadPreferences()");
 		String prefix = Activator.PLUGIN_ID;
 		IPreferenceStore prefStore = Activator.getDefault()
 		.getPreferenceStore();
@@ -138,6 +153,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	}
 
 	private void loadModel() {
+		logger.info("loadModel()");
 		IPersistence mos = new LighthouseModelXMLPersistence(LighthouseModel
 				.getInstance());
 		try {
@@ -157,6 +173,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			}
 		}
 		// Show the events in the UI.
+		WorkbenchUtility.updateProjectIcon();
 		LighthouseModel.getInstance().fireModelChanged();
 	}
 
@@ -400,7 +417,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		checkoutWorkingCopy(workingCopy);
 	}
 
-	public void checkoutWorkingCopy(HashMap<String, Date> workingCopy){
+	private void checkoutWorkingCopy(HashMap<String, Date> workingCopy){
 
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		try {
@@ -619,7 +636,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 				JPAUtility.canConnect(DatabasePreferences
 						.getDatabaseSettings());
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-				synchronizeModelWithDatabase();
+				synchronizeModelWithDatabase(true);
 				if (threadSuspended) {
 					synchronized (this) {
 						StatusWidget.getInstance().setStatus(Status.OK_STATUS);
@@ -635,13 +652,20 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	}
 
 	public void synchronizeModelWithDatabase(){
-		final Job job = new Job("Syncronizing Model") {
+		synchronizeModelWithDatabase(false);
+	}
+	
+	private void synchronizeModelWithDatabase(final boolean forceNewConnection){
+		final Job job = new Job("Synchronizing Model...") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
-					monitor.beginTask("Syncronizing model with database...", IProgressMonitor.UNKNOWN);
+					monitor.beginTask("Synchronizing model with database...", IProgressMonitor.UNKNOWN);
+					if (forceNewConnection){
 					JPAUtility.initializeEntityManagerFactory(DatabasePreferences
 							.getDatabaseSettings());
+					}
+					mapClassToSVNCommittedTime = getWorkingCopyFromWorkspace();
 					LighthouseModel.getInstance().clear();
 					checkoutWorkingCopy(mapClassToSVNCommittedTime);
 					LighthouseModel.getInstance().fireModelChanged();
@@ -656,6 +680,52 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		};
 		job.setUser(true);
 		job.schedule();
+	}
+	
+	private HashMap<String, Date> getWorkingCopyFromWorkspace(){
+		HashMap<String, Date> result = new HashMap<String, Date>();
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IProject[] projects = workspace.getRoot().getProjects();
+		try {
+			ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin()
+					.getSVNClient();
+			for (IProject project : projects) {
+				if (project.isOpen()) {
+					try {
+						IJavaProject jProject = (IJavaProject) project
+								.getNature(JavaCore.NATURE_ID);
+						Collection<IFile> iFiles = WorkbenchUtility
+								.getFilesFromJavaProject(jProject);
+						for (IFile iFile : iFiles) {
+							try {
+							ISVNInfo svnInfo = svnAdapter
+									.getInfoFromWorkingCopy(iFile.getLocation().toFile());
+							String fqn = ModelUtility
+									.getClassFullyQualifiedName(iFile);
+							if (fqn != null) {
+								result.put(fqn, svnInfo.getLastChangedDate());
+							}
+							} catch (SVNClientException ex1) {
+								logger.error(ex1);
+							}
+						}
+					} catch (CoreException e) {
+						logger.error(e, e);
+					}
+
+				}
+			}
+		} catch (SVNException ex) {
+			logger.error(ex, ex);
+		}
+		return result;
+	}
+	
+	public static Controller getInstance(){
+		if (instance == null) {
+			instance = new Controller();
+		}
+		return instance;
 	}
 
 	private synchronized Date getTimestamp() {
