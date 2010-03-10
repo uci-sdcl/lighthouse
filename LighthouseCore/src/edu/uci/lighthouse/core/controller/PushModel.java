@@ -70,7 +70,7 @@ public class PushModel {
 			parser.execute(javaFiles);
 			Collection<LighthouseEntity> listEntities = parser.getListEntities();
 			// set SVN time as newDate(1969-12-31 16:00:00)
-			Map<String, Date> mapClassToSVNCommittedTime = Controller.getWorkingCopy();
+			Map<String, Date> mapClassToSVNCommittedTime = Controller.getInstance().getWorkingCopy();
 			for (LighthouseEntity entity : listEntities) {
 				if (entity instanceof LighthouseClass 
 						|| entity instanceof LighthouseInterface) {

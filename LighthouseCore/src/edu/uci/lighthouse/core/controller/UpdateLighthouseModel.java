@@ -45,7 +45,7 @@ public class UpdateLighthouseModel {
 						LighthouseEntity entity = (LighthouseEntity) artifact;
 						String fqn = entity.getFullyQualifiedName();
 						if ( event.getAuthor().equals(Activator.getDefault().getAuthor()) 
-								|| (Controller.getWorkingCopy().get(fqn)==null))  {
+								|| (Controller.getInstance().getWorkingCopy().get(fqn)==null))  {
 							listClassesToRemove.add(fqn);
 						}
 					}
