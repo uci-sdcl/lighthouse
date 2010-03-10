@@ -188,35 +188,38 @@ public class LighthouseModelManager {
 		return entity;
 	}
 	
-	public LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(String fqnClazz) throws JPAException {
-		return selectEntitiesInsideClass(new LinkedHashSet<LighthouseEntity>(),fqnClazz);
+	public HashMap<LighthouseClass, Collection<LighthouseEntity>> selectEntitiesInsideClass(String fqnClazz) throws JPAException {
+		HashMap<LighthouseClass, Collection<LighthouseEntity>> map = new HashMap<LighthouseClass, Collection<LighthouseEntity>>();
+		selectEntitiesInsideClass(map, fqnClazz);
+		return map;
 	}
 	
 	/**
 	 * Going to the database to return the entities inside a class
 	 * Recursive method
-	 * @param listEntitiesInside should be a new LinkedHashSet()
 	 * @throws JPAException 
-	 * */ 
-	private LinkedHashSet<LighthouseEntity> selectEntitiesInsideClass(LinkedHashSet<LighthouseEntity> listEntitiesInside, String fqnClazz) throws JPAException {
+	 * */
+	private void selectEntitiesInsideClass(HashMap<LighthouseClass, Collection<LighthouseEntity>> map, String fqnClazz) throws JPAException {
 		LighthouseClass clazz = new LighthouseClass(fqnClazz);
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
 		parameters.put("toEntity", clazz);
 		List<LighthouseEntity> subListEntitiesInside = new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
+		
+		Collection<LighthouseEntity> listEntities = map.get(clazz);
+		if (listEntities == null) {
+			listEntities = new LinkedList<LighthouseEntity>();
+			map.put(clazz, listEntities);
+		}
+		
 		for (LighthouseEntity entity : subListEntitiesInside) {
 			if (entity instanceof LighthouseClass || entity instanceof LighthouseInterface) { // That is a Inner class
-				listEntitiesInside.addAll(selectEntitiesInsideClass(listEntitiesInside, entity.getFullyQualifiedName()));
+				selectEntitiesInsideClass(map, entity.getFullyQualifiedName());
 			}
 		}
-		listEntitiesInside.addAll(subListEntitiesInside);
-		LighthouseEntity entityClazz = getEntityFromDatabase(fqnClazz);
-		if (entityClazz instanceof LighthouseClass || entityClazz instanceof LighthouseInterface) {
-			listEntitiesInside.add(entityClazz);
-		}
-		return listEntitiesInside;
+		
+		listEntities.addAll(subListEntitiesInside);
 	}
-	
 	
 	
 	/*  PUT THOSE METHODS BELLOW IN THE LighthouseModelUtil.java */
