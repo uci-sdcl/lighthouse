@@ -134,7 +134,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 	
-	public LighthouseAuthor getAuthor() throws JPAException{
+	public LighthouseAuthor getAuthor() {
 		if (author == null){
 			String userName = getUsername();
 			if ("".equals(userName)){
