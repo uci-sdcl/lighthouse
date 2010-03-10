@@ -360,17 +360,14 @@ IPluginListener, Runnable, IPropertyChangeListener {
 							.populateLHFile(parser
 									.getListEntities(), parser
 									.getListRelationships());
-							try {
-								LighthouseDelta delta = new LighthouseDelta(
-										Activator.getDefault()
-										.getAuthor(),
-										lhBaseFile, currentLhFile);
-								classBaseVersion.put(classFqn,
-										currentLhFile);
-								result.addAll(delta.getEvents());
-							} catch (JPAException e) {
-								throw new ParserException(e);
-							}
+							LighthouseDelta delta = new LighthouseDelta(
+									Activator.getDefault()
+									.getAuthor(),
+									lhBaseFile, currentLhFile);
+							classBaseVersion.put(classFqn,
+									currentLhFile);
+							result.addAll(delta.getEvents());
+
 						}
 					});
 				} catch (ParserException e) {
@@ -402,11 +399,14 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 		checkoutWorkingCopy(workingCopy);
 	}
-	
+
 	public void checkoutWorkingCopy(HashMap<String, Date> workingCopy){
 
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		try {
+
+			// magica vai que vai prover a lista de classes (string)
+
 			Collection<LighthouseEvent> events = pullModel
 			.executeQueryCheckout(workingCopy);
 			LighthouseModel.getInstance().fireModelChanged();
@@ -435,7 +435,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 		modelManager.removeArtifactsAndEvents(workingCopy.keySet());
 
-//		checkout(svnFiles);
+		//		checkout(svnFiles);
 		checkoutWorkingCopy(workingCopy);
 
 		// // Insert the UPDATE event in the database
@@ -633,7 +633,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 		}
 	}
-	
+
 	public void synchronizeModelWithDatabase(){
 		final Job job = new Job("Syncronizing Model") {
 			@Override
