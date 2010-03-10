@@ -1,6 +1,5 @@
 package edu.uci.lighthouse.model.jpa;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -20,6 +19,7 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
+import edu.uci.lighthouse.model.util.LHStringUtil;
 
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	
@@ -37,8 +37,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			for (LighthouseEntity entity : listEntitiesInside) {
 				String id = entity.getId();
 				id = id.replaceAll("\\,", "\\\\,");
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String strTimestamp = formatter.format(revisionTime);
+				String strTimestamp = LHStringUtil.simpleDateFormat.format(revisionTime);
 				strQuery += " ( ( ";
 				strQuery += "e.entity" + " = " + "'" + id + "'";
 				strQuery += " AND ";
@@ -60,8 +59,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			for (LighthouseEntity entity : listEntitiesInside) {
 				String id = entity.getId();
 				id = id.replaceAll("\\,", "\\\\,");
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String strTimestamp = formatter.format(revisionTime);
+				String strTimestamp = LHStringUtil.simpleDateFormat.format(revisionTime);
 				strQuery += " ( ( ";
 				strQuery += " ( ";
 				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
@@ -107,8 +105,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			for (LighthouseEntity entity : listEntitiesInside) {
 				String id = entity.getId();
 				id = id.replaceAll("\\,", "\\\\,");
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String strTimestamp = formatter.format(revisionTime);
+				String strTimestamp = LHStringUtil.simpleDateFormat.format(revisionTime);
 				strQuery += " ( ( (";
 				strQuery += "e.entity" + " = " + "'" + id + "'";
 				strQuery += " AND ";
@@ -136,8 +133,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			for (LighthouseEntity entity : listEntitiesInside) {
 				String id = entity.getId();
 				id = id.replaceAll("\\,", "\\\\,");
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String strTimestamp = formatter.format(revisionTime);
+				String strTimestamp = LHStringUtil.simpleDateFormat.format(revisionTime);
 				strQuery += " ( ( ";
 				strQuery += " ( ";
 				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
@@ -178,8 +174,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 	}
 
 	public void updateCommittedEvents(LinkedHashSet<LighthouseEvent> listEventsToCommitt, Date svnCommittedTime) throws JPAException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String strCommittedTime = formatter.format(svnCommittedTime);
+		String strCommittedTime = LHStringUtil.simpleDateFormat.format(svnCommittedTime);
 		String command = 	"UPDATE LighthouseEvent e " +
 							"SET e.isCommitted = 1 , " +
 							"e.committedTime = '" + strCommittedTime + "' " +
