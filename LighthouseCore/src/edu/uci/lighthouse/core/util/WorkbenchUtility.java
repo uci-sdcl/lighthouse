@@ -4,11 +4,14 @@ import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.preference.PreferenceDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IDecoratorManager;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.PreferencesUtil;
+
+import edu.uci.lighthouse.core.decorators.LighthouseProjectLabelDecorator;
 
 public class WorkbenchUtility {
 
@@ -48,5 +51,14 @@ public class WorkbenchUtility {
 				dialog.open();
 			}
 		});
+	}
+	
+	public static void updateProjectIcon() {
+		Display.getDefault().asyncExec(new Runnable(){
+			@Override
+			public void run() {
+				IDecoratorManager dManager = PlatformUI.getWorkbench().getDecoratorManager();
+				dManager.update(LighthouseProjectLabelDecorator.DECORATOR_ID);
+			}});
 	}
 }
