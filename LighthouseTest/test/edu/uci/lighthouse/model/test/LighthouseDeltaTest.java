@@ -4,14 +4,16 @@ import junit.framework.TestCase;
 
 import org.dom4j.DocumentException;
 
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseFile;
 import edu.uci.lighthouse.model.io.LighthouseFileXMLPersistence;
-import edu.uci.lighthouse.model.util.LHPreference;
 import edu.uci.lighthouse.test.util.LHTestDataFiles;
 
 public class LighthouseDeltaTest extends TestCase {
 
+	private LighthouseAuthor author = new LighthouseAuthor("Max");
+	
 	public void testAtmClassModification() throws DocumentException {
 		LighthouseFile atmClass = new LighthouseFile();
 		new LighthouseFileXMLPersistence(atmClass).load(LHTestDataFiles.XML_ATM_JAVA);
@@ -20,7 +22,7 @@ public class LighthouseDeltaTest extends TestCase {
 		new LighthouseFileXMLPersistence(atmClassModified).load(LHTestDataFiles.XML_ATM_JAVA_MODIFIED);
 		
 		// Generate delta
-		LighthouseDelta currentDelta = new LighthouseDelta(LHPreference.author, atmClass, atmClassModified);
+		LighthouseDelta currentDelta = new LighthouseDelta(author, atmClass, atmClassModified);
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();
@@ -34,7 +36,7 @@ public class LighthouseDeltaTest extends TestCase {
 		new LighthouseFileXMLPersistence(atmClass).load(LHTestDataFiles.XML_ATM_JAVA);
 		
 		// Generate delta
-		LighthouseDelta currentDelta = new LighthouseDelta(LHPreference.author, null, atmClass);
+		LighthouseDelta currentDelta = new LighthouseDelta(author, null, atmClass);
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();
@@ -48,7 +50,7 @@ public class LighthouseDeltaTest extends TestCase {
 		new LighthouseFileXMLPersistence(atmClass).load(LHTestDataFiles.XML_ATM_JAVA);
 		
 		// Generate delta
-		LighthouseDelta currentDelta = new LighthouseDelta (LHPreference.author, atmClass, null);
+		LighthouseDelta currentDelta = new LighthouseDelta (author, atmClass, null);
 		
 		// Load delta from xml file
 		LighthouseDelta xmlDelta = new LighthouseDelta();

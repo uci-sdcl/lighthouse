@@ -19,6 +19,7 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.io.LighthouseFileXMLPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.util.LHStringUtil;
 import edu.uci.lighthouse.test.util.LHTestDataFiles;
 import edu.uci.lighthouse.test.util.LighthouseModelTest;
 
@@ -29,8 +30,7 @@ public class LighthouseFileManagerTest extends TestCase {
 		LighthouseModelTest xmlModel = new LighthouseModelTest();
 		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_UPDATED_MODEL);
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date revisionTime = formatter.parse("2009-10-22 01:26:35");
+		Date revisionTime = LHStringUtil.simpleDateFormat.parse("2009-10-22 01:26:35");
 		
 		for (LighthouseEvent event : xmlModel.getListEvents()) {
 			event.setCommitted(true);
