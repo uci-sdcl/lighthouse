@@ -89,7 +89,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 						IFile iFile = workspace.getRoot().getFileForLocation(
 								Path.fromOSString(file.getPath()));
 						ISVNInfo svnInfo = svnAdapter.getInfo(
-								gerSVNUrlFromFile(file), trunk.svnRevision,
+								getSVNUrlFromFile(file), trunk.svnRevision,
 								trunk.svnRevision);
 						svnFiles.put(iFile, svnInfo);
 						if (conflictingFiles.contains(file)) {
@@ -224,7 +224,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 		return result;
 	}
 
-	private SVNUrl gerSVNUrlFromFile(File file) {
+	private SVNUrl getSVNUrlFromFile(File file) {
 		SVNUrl result = null;
 		try {
 			ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin()
