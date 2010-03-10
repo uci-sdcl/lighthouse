@@ -12,17 +12,17 @@ public class LighthouseModelUtil {
 	 * Verify if the <code>relationship</code> "BELONGS" to a class(listEntitiesInside)
 	 * */
 	public static boolean isValidRelationship(LighthouseRelationship relationship, Collection<LighthouseEntity> listEntitiesInside) {
-		boolean result = true; 
 		if (!listEntitiesInside.contains(relationship.getFromEntity())) {
 			if (	relationship.getType()==LighthouseRelationship.TYPE.CALL 
 					|| relationship.getType()==LighthouseRelationship.TYPE.USES
 					|| relationship.getType()==LighthouseRelationship.TYPE.HOLDS
 					|| relationship.getType()==LighthouseRelationship.TYPE.RECEIVES
-					|| relationship.getType()==LighthouseRelationship.TYPE.RETURN) {
-				result = false;
+					|| relationship.getType()==LighthouseRelationship.TYPE.RETURN
+					|| relationship.getType()==LighthouseRelationship.TYPE.ACCESS) {
+				return false;
 			}
 		}
-		return result;
+		return true;
 	}
 
 	/**
