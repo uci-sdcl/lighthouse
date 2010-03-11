@@ -49,49 +49,6 @@
    </requires>
 
    <plugin
-         id="edu.uci.lighthouse.core"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="edu.uci.lighthouse.log4j.properties"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         fragment="true"/>
-
-   <plugin
-         id="edu.uci.lighthouse.model"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="edu.uci.lighthouse.parser"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="edu.uci.lighthouse.parser.java"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="edu.uci.lighthouse.ui"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
          id="org.apache.log4j"
          download-size="0"
          install-size="0"
@@ -100,6 +57,49 @@
 
    <plugin
          id="org.tmatesoft.svnkit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.uci.lighthouse.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.uci.lighthouse.log4j.properties"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="edu.uci.lighthouse.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.uci.lighthouse.parser"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.uci.lighthouse.parser.java"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="edu.uci.lighthouse.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
