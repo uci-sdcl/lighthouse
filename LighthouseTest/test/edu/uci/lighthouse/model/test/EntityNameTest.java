@@ -1,5 +1,8 @@
 package edu.uci.lighthouse.model.test;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import junit.framework.TestCase;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -44,5 +47,33 @@ public class EntityNameTest extends TestCase{
 		c = new LighthouseClass("deitel.atm.ATM$Withdrawal$1");
 		assertTrue(c.isAnonymous());
 		assertFalse(c.isInnerClass());
+	}
+	
+	public void testPackageName(){
+		LighthouseClass c;
+		
+		c = new LighthouseClass("ATMProject.ATM");
+		assertEquals("", c.getPackageName());
+		
+		c = new LighthouseClass("ATMProject.deitel.atm.ATM");
+		assertEquals("deitel.atm", c.getPackageName());
+		
+		c = new LighthouseClass("ATMProject.ATM$Withdrawal");
+		assertEquals("", c.getPackageName());
+		
+		c = new LighthouseClass("ATMProject.deitel.atm.ATM$Withdrawal");
+		assertEquals("deitel.atm", c.getPackageName());
+		
+		c = new LighthouseClass("ATMProject.ATM$1");
+		assertEquals("", c.getPackageName());
+
+		c = new LighthouseClass("ATMProject.deitel.atm.ATM$1");
+		assertEquals("deitel.atm", c.getPackageName());
+		
+		c = new LighthouseClass("ATMProject.ATM$Withdrawal$1");
+		assertEquals("", c.getPackageName());
+		
+		c = new LighthouseClass("ATMProject.deitel.atm.ATM$Withdrawal$1");
+		assertEquals("deitel.atm", c.getPackageName());
 	}
 }

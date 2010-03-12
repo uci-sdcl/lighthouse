@@ -64,11 +64,6 @@ public class LighthouseModel extends LighthouseAbstractModel {
 			}
 			listRelationships.add(toClass);
 		}
-//			else {
-//			if (!fromClass.equals(toClass)){
-//			logger.debug("addRelationship - fromClass:"+fromClass+" toClass:"+toClass+" ("+rel.getFromEntity().getFullyQualifiedName()+"->"+rel.getToEntity().getFullyQualifiedName()+")");
-//			}
-//		}
 	}
 	
 	//FIXME: Find a better method name

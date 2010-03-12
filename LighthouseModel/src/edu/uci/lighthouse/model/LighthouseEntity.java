@@ -1,6 +1,8 @@
 package edu.uci.lighthouse.model;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,10 +38,13 @@ public abstract class LighthouseEntity {
 	}
 
 	public String getPackageName() {
-		// FIXME: Right now this method just work for classes and interfaces.
-		String result = getFullyQualifiedName().replace("." + getShortName(),
-				"").replace(getProjectName() + ".", "");
-		return result.equals(getProjectName()) ? "" : result;
+		String result = "";
+		 Pattern p = Pattern.compile("\\.(\\w+\\.)+");
+		 Matcher m = p.matcher(fullyQualifiedName);
+		 if (m.find()) {
+			 result = m.group().replaceAll("^.", "").replaceAll(".$", "");
+		 }
+		return result;
 	}
 
 	public String getId() {

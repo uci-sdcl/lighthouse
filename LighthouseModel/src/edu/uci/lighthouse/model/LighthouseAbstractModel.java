@@ -30,7 +30,7 @@ public abstract class LighthouseAbstractModel {
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
-	final synchronized void addEntity(LighthouseEntity entity) {
+	protected synchronized void addEntity(LighthouseEntity entity) {
 		/* We are interested just in classes and interfaces that belongs our project. External classes are not included. */
 		if (entity instanceof LighthouseClass || entity instanceof LighthouseInterface) {
 			packageNames.add(entity.getPackageName());
@@ -45,7 +45,7 @@ public abstract class LighthouseAbstractModel {
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
 	 * */
-	final synchronized void removeEntity(LighthouseEntity entity) {
+	protected synchronized void removeEntity(LighthouseEntity entity) {
 		/* Is not necessary remove project and package names since the list is populated everytime Lighthouse runs.*/
 		classes.remove(entity);
 		entities.remove(entity.getFullyQualifiedName());
@@ -198,7 +198,7 @@ public abstract class LighthouseAbstractModel {
 		return result;
 	}
 
-	protected void clear(){
+	protected synchronized void clear(){
 		entities.clear();
 		relationshipsTo.clear();
 		relationshipsFrom.clear();
