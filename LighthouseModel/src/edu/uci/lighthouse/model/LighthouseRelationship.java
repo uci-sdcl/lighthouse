@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.model;
 
+import java.io.Serializable;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
@@ -20,8 +22,10 @@ import javax.persistence.NamedQuery;
  * Represents a relationship between 2 entities.
  */
 @Entity
-public class LighthouseRelationship {
+public class LighthouseRelationship implements Serializable{
 
+	private static final long serialVersionUID = -2284456401070187413L;
+	
 	@EmbeddedId
 	private LHRelationshipPK primaryKey;
 	

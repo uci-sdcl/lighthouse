@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -11,7 +12,10 @@ import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 /**
  * It consist of a list of entities and a list of relationships
  * */
-public abstract class LighthouseAbstractModel {
+public abstract class LighthouseAbstractModel implements Serializable{
+
+	// Don't change this.
+	private static final long serialVersionUID = -8404197989978609791L;
 
 	private HashMap<String, LighthouseEntity> entities = new HashMap<String, LighthouseEntity>();
 
@@ -205,6 +209,77 @@ public abstract class LighthouseAbstractModel {
 		packageNames.clear();
 		projectNames.clear();
 		classes.clear();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((classes == null) ? 0 : classes.hashCode());
+		result = prime * result
+				+ ((entities == null) ? 0 : entities.hashCode());
+		result = prime * result
+				+ ((packageNames == null) ? 0 : packageNames.hashCode());
+		result = prime * result
+				+ ((projectNames == null) ? 0 : projectNames.hashCode());
+		result = prime
+				* result
+				+ ((relationshipsFrom == null) ? 0 : relationshipsFrom
+						.hashCode());
+		result = prime * result
+				+ ((relationshipsTo == null) ? 0 : relationshipsTo.hashCode());
+		return result;
+	}
+
+	@Override
+	public synchronized boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LighthouseAbstractModel other = (LighthouseAbstractModel) obj;
+		if (classes == null) {
+			if (other.classes != null)
+				return false;
+		} else if (!classes.equals(other.classes))
+			return false;
+		if (entities == null) {
+			if (other.entities != null)
+				return false;
+		} else if (!entities.equals(other.entities))
+			return false;
+		if (packageNames == null) {
+			if (other.packageNames != null)
+				return false;
+		} else if (!packageNames.equals(other.packageNames))
+			return false;
+		if (projectNames == null) {
+			if (other.projectNames != null)
+				return false;
+		} else if (!projectNames.equals(other.projectNames))
+			return false;
+		if (relationshipsFrom == null) {
+			if (other.relationshipsFrom != null)
+				return false;
+		} else if (!relationshipsFrom.equals(other.relationshipsFrom))
+			return false;
+		if (relationshipsTo == null) {
+			if (other.relationshipsTo != null)
+				return false;
+		} else if (!relationshipsTo.equals(other.relationshipsTo))
+			return false;
+		return true;
+	}
+	
+	protected synchronized void assignTo(LighthouseAbstractModel model){
+		entities = model.entities;
+		relationshipsTo = model.relationshipsTo;
+		relationshipsFrom = model.relationshipsFrom;
+		packageNames = model.packageNames;
+		projectNames = model.projectNames;
+		classes = model.classes;
 	}
 	
 }

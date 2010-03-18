@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.model;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,10 +17,12 @@ import edu.uci.lighthouse.model.util.LHStringUtil;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class LighthouseEntity {
+public abstract class LighthouseEntity implements Serializable {
+
+	private static final long serialVersionUID = 2190743538210738412L;
 
 	private static Logger logger = Logger.getLogger(LighthouseEntity.class);
-	
+
 	@Id
 	private String id = "";
 
@@ -37,16 +40,26 @@ public abstract class LighthouseEntity {
 		return fullyQualifiedName.replaceAll("\\..*", "");
 	}
 
+//	public String getPackageName() {
+//		String result = "";
+//		 Pattern p = Pattern.compile("\\.(\\w+\\.)+");
+//		 Matcher m = p.matcher(fullyQualifiedName);
+//		 if (m.find()) {
+//			 result = m.group().replaceAll("^.", "").replaceAll(".$", "");
+//		 }
+//		return result;
+//	}
+
 	public String getPackageName() {
 		String result = "";
-		 Pattern p = Pattern.compile("\\.(\\w+\\.)+");
-		 Matcher m = p.matcher(fullyQualifiedName);
-		 if (m.find()) {
-			 result = m.group().replaceAll("^.", "").replaceAll(".$", "");
-		 }
+		int start = fullyQualifiedName.indexOf(".");
+		int end = fullyQualifiedName.lastIndexOf(".");
+		if (start != -1 && end != -1 && start != end) {
+			result = fullyQualifiedName.substring(start+1,end);
+		}
 		return result;
 	}
-
+	
 	public String getId() {
 		return id;
 	}

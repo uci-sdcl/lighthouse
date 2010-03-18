@@ -316,5 +316,15 @@ public class LighthouseModelManager {
 		}
 		return false;
 	}
+	
+	/**
+	 * Copies all content from 'from' model to 'to' model. 
+	 * 
+	 * @param from
+	 * @param to
+	 */
+	public void modelCopy(LighthouseModel from){
+		model.assignTo(from);
+	}
 
 }

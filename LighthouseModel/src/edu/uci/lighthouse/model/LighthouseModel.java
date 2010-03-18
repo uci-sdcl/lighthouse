@@ -49,6 +49,13 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		listEvents.clear();
 		classRelationships.clear();
 	}
+	
+	protected synchronized void assignTo(LighthouseModel model){
+		super.assignTo(model);
+		mapArtifactEvents = model.mapArtifactEvents;
+		listEvents = model.listEvents;
+		classRelationships = model.classRelationships;
+	}
 
 	@Override
 	protected synchronized void addRelationship(LighthouseRelationship rel) {
@@ -147,10 +154,9 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		return listEvents;
 	}
 
-
 	// Handle Listeners...
 
-	private List<ILighthouseModelListener> listeners = new ArrayList<ILighthouseModelListener>();
+	private transient List<ILighthouseModelListener> listeners = new ArrayList<ILighthouseModelListener>();
 
 	public void addModelListener(ILighthouseModelListener listener) {
 		listeners.add(listener);
@@ -208,6 +214,50 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		return (getListEvents().size()== 0
 				&& getEntities().size() == 0
 				&& getRelationships().size() == 0);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime
+				* result
+				+ ((classRelationships == null) ? 0 : classRelationships
+						.hashCode());
+		result = prime * result
+				+ ((listEvents == null) ? 0 : listEvents.hashCode());
+		result = prime
+				* result
+				+ ((mapArtifactEvents == null) ? 0 : mapArtifactEvents
+						.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LighthouseModel other = (LighthouseModel) obj;
+		if (classRelationships == null) {
+			if (other.classRelationships != null)
+				return false;
+		} else if (!classRelationships.equals(other.classRelationships))
+			return false;
+		if (listEvents == null) {
+			if (other.listEvents != null)
+				return false;
+		} else if (!listEvents.equals(other.listEvents))
+			return false;
+		if (mapArtifactEvents == null) {
+			if (other.mapArtifactEvents != null)
+				return false;
+		} else if (!mapArtifactEvents.equals(other.mapArtifactEvents))
+			return false;
+		return super.equals(obj);
 	}
 
 }

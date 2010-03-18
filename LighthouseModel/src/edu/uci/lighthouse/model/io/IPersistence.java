@@ -1,17 +1,19 @@
 package edu.uci.lighthouse.model.io;
 
-import java.io.IOException;
-
-import org.dom4j.DocumentException;
+import javax.persistence.PersistenceException;
 
 public interface IPersistence {
 
-	public void save() throws IOException;
+	public static int XML = 0;
 	
-	public void save(String fileName) throws IOException;
+	public static int BINARY = 1;
 	
-	public void load() throws DocumentException;
+	public void save() throws PersistenceException;
 	
-	public void load(String fileName) throws DocumentException;
+	public void save(String fileName) throws PersistenceException;
+	
+	public void load() throws PersistenceException;
+	
+	public void load(String fileName) throws PersistenceException;
 	
 }
