@@ -63,6 +63,7 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.io.IPersistence;
 import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
+import edu.uci.lighthouse.model.io.PersistenceService;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.parser.ParserException;
@@ -158,9 +159,8 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 	private void loadModel() {
 		logger.info("loadModel()");
-		IPersistence mos = new LighthouseModelXMLPersistence(LighthouseModel
-				.getInstance());
 		try {
+			IPersistence mos = PersistenceService.getService(LighthouseModel.getInstance(),IPersistence.BINARY);
 			mos.load();
 		} catch (Exception e) {
 			logger.error(e);
@@ -183,10 +183,9 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 	private void saveModel() {
 		try {
-			IPersistence mos = new LighthouseModelXMLPersistence(
-					LighthouseModel.getInstance());
+			IPersistence mos = PersistenceService.getService(LighthouseModel.getInstance(),IPersistence.BINARY);
 			mos.save();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error(e, e);
 		}
 	}
@@ -673,7 +672,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					LighthouseModel.getInstance().clear();
 					checkoutWorkingCopy(mapClassToSVNCommittedTime);
 					WorkbenchUtility.updateProjectIcon();
-					LighthouseModel.getInstance().fireModelChanged();
+//					LighthouseModel.getInstance().fireModelChanged();
 				} catch (JPAException e) {
 					logger.error(e,e);
 					UserDialog.openError("JPAException: "+e.getMessage());

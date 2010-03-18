@@ -18,7 +18,7 @@ public class BinaryPersistence implements IPersistence{
 	
 	private static Logger logger = Logger.getLogger(BinaryPersistence.class);
 	
-	private static final String defaultFileName = "lighthouse-model.xml";
+	private static final String defaultFileName = "lighthouse-model.bin";
 	
 	private LighthouseAbstractModel model;
 
