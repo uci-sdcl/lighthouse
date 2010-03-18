@@ -18,7 +18,7 @@ import edu.uci.lighthouse.model.LighthouseModifier;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.util.LHStringUtil;
 
-public class AbstractXMLPersistence {
+public abstract class AbstractXMLPersistence {
 
 	private static Logger logger = Logger.getLogger(AbstractXMLPersistence.class);
 	
