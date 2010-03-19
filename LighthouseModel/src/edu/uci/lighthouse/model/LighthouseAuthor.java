@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,8 +9,10 @@ import javax.persistence.Id;
  * @author tproenca
  */
 @Entity
-public class LighthouseAuthor {
+public class LighthouseAuthor implements Serializable{
 
+	private static final long serialVersionUID = 4952522633654542472L;
+	
 	@Id
 	private String name;
 	
