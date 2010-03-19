@@ -2,7 +2,6 @@ package edu.uci.lighthouse.core.controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collection;
@@ -62,7 +61,6 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.io.IPersistence;
-import edu.uci.lighthouse.model.io.LighthouseModelXMLPersistence;
 import edu.uci.lighthouse.model.io.PersistenceService;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
@@ -698,25 +696,30 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					try {
 						IJavaProject jProject = (IJavaProject) project
 								.getNature(JavaCore.NATURE_ID);
-						Collection<IFile> iFiles = WorkbenchUtility
-								.getFilesFromJavaProject(jProject);
-						for (IFile iFile : iFiles) {
-							try {
-							ISVNInfo svnInfo = svnAdapter
-									.getInfoFromWorkingCopy(iFile.getLocation().toFile());
-							String fqn = ModelUtility
-									.getClassFullyQualifiedName(iFile);
-							if (fqn != null) {
-								Date revision = svnInfo.getLastChangedDate();
-								if (revision == null){
-									revision = new Date(0);
-								} else {
-									revision = new Date(revision.getTime());
+						if (jProject != null) {
+							Collection<IFile> iFiles = WorkbenchUtility
+									.getFilesFromJavaProject(jProject);
+							for (IFile iFile : iFiles) {
+								try {
+									ISVNInfo svnInfo = svnAdapter
+											.getInfoFromWorkingCopy(iFile
+													.getLocation().toFile());
+									String fqn = ModelUtility
+											.getClassFullyQualifiedName(iFile);
+									if (fqn != null) {
+										Date revision = svnInfo
+												.getLastChangedDate();
+										if (revision == null) {
+											revision = new Date(0);
+										} else {
+											revision = new Date(revision
+													.getTime());
+										}
+										result.put(fqn, revision);
+									}
+								} catch (SVNClientException ex1) {
+									logger.error(ex1);
 								}
-								result.put(fqn, revision);
-							}
-							} catch (SVNClientException ex1) {
-								logger.error(ex1);
 							}
 						}
 					} catch (CoreException e) {
