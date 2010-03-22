@@ -84,6 +84,10 @@ public class Deposit extends Transaction
 			return ( double ) input / 100; // return dollar amount 
 		} // end else
 	} // end method promptForDepositAmount
+	
+	public void test(){
+		
+	}
 } // end class Deposit
 
 
