@@ -5,14 +5,6 @@ package edu.deitel;
 
 public class ATMCaseStudy
 {
-	int b;
-	int c;
-	
-	class Moura {
-		
-	}
-	
-		
 	// main method creates and runs the ATM
 	public static void main( String[] args )
 	{

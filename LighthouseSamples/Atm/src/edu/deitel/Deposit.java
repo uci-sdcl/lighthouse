@@ -10,8 +10,6 @@ public class Deposit extends Transaction
 	private DepositSlot depositSlot; // reference to deposit slot
 	private final static int CANCELED = 0; // constant for cancel option
 	
-	int bbb;
-
 	// Deposit constructor
 	public Deposit( int userAccountNumber, Screen atmScreen, 
 			BankDatabase atmBankDatabase, Keypad atmKeypad, 
@@ -28,8 +26,6 @@ public class Deposit extends Transaction
 	// perform transaction
 	public void execute() 
 	{
-		int a;
-		
 		BankDatabase bankDatabase = getBankDatabase(); // get reference
 		Screen screen = getScreen(); // get reference
 
