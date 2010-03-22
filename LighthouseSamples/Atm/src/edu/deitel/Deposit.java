@@ -85,9 +85,9 @@ public class Deposit extends Transaction
 		} // end else
 	} // end method promptForDepositAmount
 	
-	public void test(){
-		
-	}
+//	public void test(){
+//		
+//	}
 } // end class Deposit
 
 
