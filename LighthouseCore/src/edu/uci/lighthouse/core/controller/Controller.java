@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.core.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -84,6 +85,8 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	private boolean threadSuspended;
 	private final int threadTimeout = 5000;
 	
+	private static final String modelFileName = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/lighthouse-model.bin";
+	
 	private static Controller instance;
 
 	private Controller () {
@@ -159,7 +162,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		logger.info("loadModel()");
 		try {
 			IPersistence mos = PersistenceService.getService(LighthouseModel.getInstance(),IPersistence.BINARY);
-			mos.load();
+			mos.load(modelFileName);
 		} catch (Exception e) {
 			logger.error(e);
 		}
@@ -182,7 +185,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	private void saveModel() {
 		try {
 			IPersistence mos = PersistenceService.getService(LighthouseModel.getInstance(),IPersistence.BINARY);
-			mos.save();
+			mos.save(modelFileName);
 		} catch (Exception e) {
 			logger.error(e, e);
 		}
