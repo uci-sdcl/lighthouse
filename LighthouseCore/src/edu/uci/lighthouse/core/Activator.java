@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -26,7 +27,6 @@ import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
-import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
@@ -36,6 +36,12 @@ import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
  */
 public class Activator extends AbstractUIPlugin implements IPropertyChangeListener, IStartup {
 
+	// Set the log file to be save in the .metadata directory of the workspace
+	static {
+		String logFilename = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/lighthouse.log";
+		System.setProperty("file.name", logFilename);
+	}
+	
 	private static Logger logger = Logger.getLogger(Activator.class);
 	
 	// The plug-in ID
