@@ -10,6 +10,7 @@ public class CashDispenser
 	private int count; // number of $20 bills remaining
 	int a;
 	int b;
+	int c;
 
 	// no-argument CashDispenser constructor initializes count to default
 	public CashDispenser()
