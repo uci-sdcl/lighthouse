@@ -51,23 +51,23 @@ public class PullModelTest extends TestCase {
 	}
 	
 	public void testExecuteQueryEventAfterCheckout() throws JPAException, ParseException, DocumentException {
-		LighthouseModelTest xmlModel = new LighthouseModelTest();
-		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
-		
-		// Save LH Model Into the database in order to help the
-		// BuilderRelationship to handle the External classes
-//		new LighthouseModelManager(xmlModel).saveEventsIntoDatabase(xmlModel.getListEvents());
-
-		// TODO na esquece de subir o banco
-		
-		LighthouseModelTest model = new LighthouseModelTest();
-		PullModel pullModel = new PullModel(model);
-		HashMap<String, Date> map = new HashMap<String, Date>();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date committedDate = formatter.parse("2009-11-03 20:30:00");
-		map.put("edu.prenticehall.deitel.Screen", committedDate);
-		
-		pullModel.executeQueryCheckout(map);
+//		LighthouseModelTest xmlModel = new LighthouseModelTest();
+//		new LighthouseModelXMLPersistence(xmlModel).load(LHTestDataFiles.XML_LH_MODEL);
+//		
+//		// Save LH Model Into the database in order to help the
+//		// BuilderRelationship to handle the External classes
+////		new LighthouseModelManager(xmlModel).saveEventsIntoDatabase(xmlModel.getListEvents());
+//
+//		// TODO na esquece de subir o banco
+//		
+//		LighthouseModelTest model = new LighthouseModelTest();
+//		PullModel pullModel = new PullModel(model);
+//		HashMap<String, Date> map = new HashMap<String, Date>();
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Date committedDate = formatter.parse("2009-11-03 20:30:00");
+//		map.put("edu.prenticehall.deitel.Screen", committedDate);
+//		
+//		pullModel.executeQueryCheckout(map);
 		
 //		LighthouseModelTest model = new LighthouseModelTest();
 //		LighthouseModelManager lighthouseManager = new LighthouseModelManager(model);
