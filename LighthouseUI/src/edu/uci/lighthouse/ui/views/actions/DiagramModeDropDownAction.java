@@ -13,7 +13,7 @@ import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.IContainer;
 
 import edu.uci.lighthouse.ui.LighthouseUIPlugin;
-import edu.uci.lighthouse.ui.graph.IUmlClass;
+import edu.uci.lighthouse.ui.graph.ILighthouseClassFigure;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class DiagramModeDropDownAction extends DropDownAction{
@@ -30,24 +30,24 @@ public class DiagramModeDropDownAction extends DropDownAction{
 	@Override
 	protected List<IAction> createActions() {
 		List<IAction> result = new ArrayList<IAction>();
-		result.add(new DiagramModeAction(IUmlClass.LEVEL.ONE));
-		result.add(new DiagramModeAction(IUmlClass.LEVEL.TWO));
-		result.add(new DiagramModeAction(IUmlClass.LEVEL.THREE));
-		result.add(new DiagramModeAction(IUmlClass.LEVEL.FOUR));
+		result.add(new DiagramModeAction(ILighthouseClassFigure.MODE.ONE));
+		result.add(new DiagramModeAction(ILighthouseClassFigure.MODE.TWO));
+		result.add(new DiagramModeAction(ILighthouseClassFigure.MODE.THREE));
+		result.add(new DiagramModeAction(ILighthouseClassFigure.MODE.FOUR));
 		return result;
 	}
 	
 	private final class DiagramModeAction extends Action {
-		IUmlClass.LEVEL level;
-		public DiagramModeAction(IUmlClass.LEVEL level){
-			super("Mode " + (level.ordinal()+1),Action.AS_RADIO_BUTTON);
-			this.level = level;			
+		ILighthouseClassFigure.MODE mode;
+		public DiagramModeAction(ILighthouseClassFigure.MODE mode){
+			super("Mode " + (mode.ordinal()+1),Action.AS_RADIO_BUTTON);
+			this.mode = mode;			
 		}
 		@Override
 		public void run() {
 			if (isChecked()) {
 				logger.debug(getText() + " running...");
-				refreshAllFigures(level);
+				refreshAllFigures(mode);
 				selectedAction = this;
 			}
 		}
@@ -65,11 +65,11 @@ public class DiagramModeDropDownAction extends DropDownAction{
 				.imageDescriptorFromPlugin(LighthouseUIPlugin.PLUGIN_ID, ICON));
 	}
 	
-	private void refreshAllFigures(IUmlClass.LEVEL level){
+	private void refreshAllFigures(ILighthouseClassFigure.MODE mode){
 		Animation.markBegin();
 		for (Iterator itNodes = container.getNodes().iterator(); itNodes.hasNext();) {
 			GraphNode node = (GraphNode) itNodes.next();
-			GraphUtils.changeFigureMode(node,level);
+			GraphUtils.changeFigureMode(node,mode);
 /*			if (node instanceof UmlClassNode){	
 				UmlClassNode classNode = (UmlClassNode) node;
 				classNode.setLevel(level);

@@ -27,7 +27,7 @@ import edu.uci.lighthouse.model.LighthouseField;
 import edu.uci.lighthouse.model.LighthouseMethod;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.ui.graph.UmlClassFigureTest;
+import edu.uci.lighthouse.ui.graph.ILighthouseClassFigure;
 
 public class OpenInEditorAction extends ContributionItem implements MouseListener {
 	
@@ -148,8 +148,8 @@ public class OpenInEditorAction extends ContributionItem implements MouseListene
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
 		IFigure fig = container.getGraph().getFigureAt(e.x, e.y);
-		if (fig instanceof UmlClassFigureTest){
-			UmlClassFigureTest classFig = (UmlClassFigureTest)fig;
+		if (fig instanceof ILighthouseClassFigure){
+			ILighthouseClassFigure classFig = (ILighthouseClassFigure)fig;
 			LighthouseEntity entity = classFig.findLighthouseEntityAt(e.x, e.y);
 			if (entity != null){
 				showInEditor(entity);
