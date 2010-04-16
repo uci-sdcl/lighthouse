@@ -22,12 +22,12 @@ import edu.uci.lighthouse.ui.views.actions.LinkWithEditorAction;
 import edu.uci.lighthouse.ui.views.actions.OpenInEditorAction;
 import edu.uci.lighthouse.ui.views.actions.ZoomDropDownAction;
 
-public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkbenchPart{
+public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbenchPart{
 	
 	private EditorListener editorListener = new EditorListener();
 	private FilterManager filterManager;
 	private static GraphViewer viewer = null;
-	private static Logger logger = Logger.getLogger(EmergingDesignView2.class);
+	private static Logger logger = Logger.getLogger(EmergingDesignView.class);
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -43,7 +43,7 @@ public class EmergingDesignView2 extends ThumbnailView implements IZoomableWorkb
 		viewer.setLayoutAlgorithm(new GridLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));		
 		viewer.setInput(LighthouseModel.getInstance());
 		
-
+		
 		
 		//FIXME: Erase EditorListener and put everything in LinkWithEditorAction
 		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer);
