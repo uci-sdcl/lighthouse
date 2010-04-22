@@ -10,9 +10,16 @@
       </category>
       <view
             category="LighthouseUI"
-            class="edu.uci.lighthouse.ui.views.EmergingDesignView2"
-            id="LighthouseUI.EmergingDesignView2"
+            class="edu.uci.lighthouse.ui.views.EmergingDesignView"
+            id="LighthouseUI.EmergingDesignView"
             name="EmergingDesignView"
+            restorable="true">
+      </view>
+      <view
+            category="LighthouseUI"
+            class="edu.uci.lighthouse.ui.views.HistoryView"
+            id="LighthouseUI.HistoryView"
+            name="HistoryView"
             restorable="true">
       </view>
    </extension>
