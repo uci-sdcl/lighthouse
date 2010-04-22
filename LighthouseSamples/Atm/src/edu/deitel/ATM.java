@@ -1,5 +1,9 @@
 package edu.deitel;
 
+import edu.deitel.transactions.Deposit;
+import edu.deitel.transactions.Transaction;
+import edu.deitel.transactions.Withdrawal;
+
 // ATM.java
 // Represents an automated teller machine
 

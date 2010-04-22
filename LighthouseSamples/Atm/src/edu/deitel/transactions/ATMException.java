@@ -1,12 +1,6 @@
-package edu.deitel;
+package edu.deitel.transactions;
 
 public class ATMException extends Exception {
-
-	
-
-	
-	int h;
-	
 	
 	private static final long serialVersionUID = 1L;
 

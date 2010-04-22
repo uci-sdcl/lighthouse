@@ -1,11 +1,15 @@
-package edu.deitel;
+package edu.deitel.transactions;
+
+import edu.deitel.BankDatabase;
+import edu.deitel.DepositSlot;
+import edu.deitel.Keypad;
+import edu.deitel.Screen;
 
 // Deposit.java
 // Represents a deposit ATM transaction
 
 public class Deposit extends Transaction
 {
-	int a;
 	private double amount; // amount to deposit
 	private Keypad keypad; // reference to keypad
 	private DepositSlot depositSlot; // reference to deposit slot

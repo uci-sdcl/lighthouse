@@ -1,6 +1,8 @@
-package edu.deitel;
+package edu.deitel.transactions;
 
-import java.util.Date;
+import edu.deitel.BankDatabase;
+import edu.deitel.Screen;
+
 
 // Transaction.java
 // Abstract superclass Transaction represents an ATM transaction

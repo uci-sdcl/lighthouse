@@ -1,4 +1,9 @@
-package edu.deitel;
+package edu.deitel.transactions;
+
+import edu.deitel.BankDatabase;
+import edu.deitel.CashDispenser;
+import edu.deitel.Keypad;
+import edu.deitel.Screen;
 
 // Withdrawal.java
 // Represents a withdrawal ATM transaction
