@@ -4,8 +4,6 @@ package edu.deitel;
 // Represents the keypad of the ATM
 import java.util.Scanner; // program uses Scanner to obtain user input
 
-import edu.deitel.transactions.Deposit;
-
 public class Keypad
 {
 	private Scanner input; // reads data from the command line
@@ -17,6 +15,10 @@ public class Keypad
 	} // end no-argument Keypad constructor
 
 	// return an integer value entered by user 
+	public int getInput()
+	{
+		return input.nextInt(); // we assume that user enters an integer  
+	} // end method getInput
 
 } // end class Keypad  
 
