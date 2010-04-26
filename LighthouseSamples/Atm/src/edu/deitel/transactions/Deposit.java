@@ -10,6 +10,8 @@ import edu.deitel.Screen;
 
 public class Deposit extends Transaction
 {
+	int a;
+	
 	private double amount; // amount to deposit
 	private Keypad keypad; // reference to keypad
 	private DepositSlot depositSlot; // reference to deposit slot
