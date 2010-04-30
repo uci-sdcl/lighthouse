@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class LighthouseClass extends LighthouseEntity {
-
+	
 	protected LighthouseClass() {
 		this("");
 	}
@@ -14,7 +14,6 @@ public class LighthouseClass extends LighthouseEntity {
 	}
 	
 	public boolean isAnonymous(){
-//		deitel.atm.ATM$Withdrawal$1
 		return getFullyQualifiedName().matches("(\\w+\\.)*(\\w+\\$)+\\d+");
 	}
 	
@@ -22,9 +21,6 @@ public class LighthouseClass extends LighthouseEntity {
 		return getFullyQualifiedName().matches("(\\w+\\.)*(\\w+\\$)+[a-zA-Z_]+");
 	}
 
-//	public String getPackageName(){
-//		String result = getFullyQualifiedName().replaceAll("\\.\\w+\\z", "");
-//		return result.equals(getShortName()) ? "" : result;
-//	}
+	
 	
 }
