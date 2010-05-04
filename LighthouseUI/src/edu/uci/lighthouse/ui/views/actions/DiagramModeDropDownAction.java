@@ -13,7 +13,7 @@ import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.IContainer;
 
 import edu.uci.lighthouse.ui.LighthouseUIPlugin;
-import edu.uci.lighthouse.ui.graph.ILighthouseClassFigure;
+import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class DiagramModeDropDownAction extends DropDownAction{

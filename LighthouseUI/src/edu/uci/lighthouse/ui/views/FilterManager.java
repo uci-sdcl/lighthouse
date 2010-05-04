@@ -11,7 +11,6 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.GraphNode;
 
-import edu.uci.lighthouse.ui.graph.IUmlClass;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.views.filters.IClassFilter;
 

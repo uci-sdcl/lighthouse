@@ -27,7 +27,7 @@ import edu.uci.lighthouse.model.LighthouseField;
 import edu.uci.lighthouse.model.LighthouseMethod;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.ui.graph.ILighthouseClassFigure;
+import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure;
 
 public class OpenInEditorAction extends ContributionItem implements MouseListener {
 	

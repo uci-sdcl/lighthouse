@@ -6,8 +6,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.zest.core.widgets.GraphNode;
 
-import edu.uci.lighthouse.ui.graph.ILighthouseClassFigure;
-import edu.uci.lighthouse.ui.graph.UmlClassFigure;
+import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure;
+import edu.uci.lighthouse.ui.figures.UmlClassFigure;
 
 public class GraphUtils {
 
