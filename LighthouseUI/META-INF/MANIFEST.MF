@@ -20,4 +20,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: UC Irvine
+Export-Package: edu.uci.lighthouse.ui.figures
 
