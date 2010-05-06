@@ -6,6 +6,9 @@
       <compartment
             class="edu.uci.lighthouse.expertise.ui.figures.HelpFigure">
       </compartment>
+       <compartment
+            class="edu.uci.lighthouse.expertise.ui.figures.ToolbarFigure">
+      </compartment>
    </extension>
 
 </plugin>
