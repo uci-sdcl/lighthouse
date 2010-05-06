@@ -439,16 +439,15 @@ public class UmlClassFigure extends Panel implements ILighthouseClassFigure{
 			for (IConfigurationElement e : config) {
 				final Object o = e.createExecutableExtension("class");
 				if (o instanceof CompartmentFigure) {
-					insertSeparator(this);
 					CompartmentFigure fig = (CompartmentFigure) o;
 					fig.setUmlClass(umlClass);
 					if (fig.isVisible(currentLevel)) {
+						insertSeparator(this);
 						fig.populate(currentLevel);
+						GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
+						data.horizontalSpan = 2;
+						add(fig, data);	
 					}
-					add(fig);
-					GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
-					data.horizontalSpan = 2;
-					getLayoutManager().setConstraint(fig, data);
 				}
 			}
 		} catch (Exception ex) {
