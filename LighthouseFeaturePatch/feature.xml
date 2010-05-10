@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="edu.uci.lighthouse.plugin.patch"
-      label="Lighthouse Plug-in Patch"
-      version="1.0.4"
+      label="Lighthouse Plug-in patch for 1.0.4"
+      version="1.0.5"
       provider-name="UC Irvine">
 
    <description url="http://www.example.com/description">
@@ -23,6 +23,13 @@
 
    <plugin
          id="edu.uci.lighthouse.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.uci.lighthouse.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
