@@ -21,10 +21,7 @@
    <feature url="features/org.tigris.subversion.subclipse.graph.feature_1.0.7.jar" id="org.tigris.subversion.subclipse.graph.feature" version="1.0.7">
       <category name="lh.subclipse"/>
    </feature>
-   <feature url="features/edu.uci.lighthouse.plugin_1.0.4.jar" id="edu.uci.lighthouse.plugin" version="1.0.4">
-      <category name="lh.collaboration"/>
-   </feature>
-   <feature url="features/edu.uci.lighthouse.plugin.patch_1.0.4.jar" id="edu.uci.lighthouse.plugin.patch" version="1.0.4" patch="true">
+   <feature url="features/edu.uci.lighthouse.plugin_1.0.5.jar" id="edu.uci.lighthouse.plugin" version="1.0.5">
       <category name="lh.collaboration"/>
    </feature>
    <category-def name="lh.collaboration" label="Collaboration"/>
