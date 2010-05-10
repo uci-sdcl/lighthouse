@@ -12,7 +12,7 @@ public class ExpertstFigure extends CompartmentFigure {
 	@Override
 	public boolean isVisible(MODE mode) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
