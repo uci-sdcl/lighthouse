@@ -2,7 +2,7 @@
 <feature
       id="edu.uci.lighthouse.plugin"
       label="Lighthouse Plug-in"
-      version="1.0.4"
+      version="1.0.5"
       provider-name="UC Irvine"
       plugin="edu.uci.lighthouse.core">
 
