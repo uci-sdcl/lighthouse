@@ -24,6 +24,14 @@
 		</sql>
 	</target> 	
 	
+	 <target name="clean.site"
+	        description="clean up" >
+	  	<delete dir="../LighthouseSite/binary"/>
+	 	<delete dir="../LighthouseSite/features"/>
+	 	<delete file="../LighthouseSite/artifacts.jar"/>
+	 	<delete file="../LighthouseSite/content.jar"/>
+	  </target>
+	
 	<target name="patch.projects">
 		<!-- <cvs command="update -dP" dest="../org.eclipse.draw2d" cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/tools"/>
 		<cvs command="update" dest="../org.eclipse.zest.core"/> -->
