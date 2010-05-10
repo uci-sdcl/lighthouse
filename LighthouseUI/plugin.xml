@@ -16,13 +16,6 @@
             name="EmergingDesignView"
             restorable="true">
       </view>
-      <view
-            category="LighthouseUI"
-            class="edu.uci.lighthouse.ui.views.HistoryView"
-            id="LighthouseUI.HistoryView"
-            name="HistoryView"
-            restorable="true">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
