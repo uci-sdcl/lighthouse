@@ -1,7 +1,11 @@
 package edu.uci.lighthouse.expertise.ui.figures;
 
+
+
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.Label;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -10,38 +14,36 @@ import edu.uci.lighthouse.expertise.Activator;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 
+//Created by Alex Taubman and Tiago Proenca
 
 public class HelpFigure extends CompartmentFigure {
 	
 	private Image icon;
-	private BorderLayout layout;
+	private FlowLayout layout;
 	
 	public HelpFigure() {
-		layout = new BorderLayout();
-//		layout.numColumns = 3;
-//		layout.makeColumnsEqualWidth = true;
+		
+		//set up layout and import image
+		layout = new FlowLayout();
+		layout.setMajorAlignment(FlowLayout.ALIGN_CENTER);
+		layout.setMinorSpacing(25);
 		setLayoutManager(layout);
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/person.png").createImage();
-		setBackgroundColor(ColorConstants.darkGreen);
+
 	}
 
 	@Override
 	public boolean isVisible(MODE mode) {
-		//QUESTION: How do I get the current level?
-		//if (level == mode.THREE || level == mode.FOUR)
-		//	return true;
-		return true;
+		//only display in modes three and four
+		return mode.equals(mode.THREE) || mode.equals(mode.FOUR);
 	}
 
 	@Override
 	public void populate(MODE mode) {
-		/* It is display equals in any mode. */
 		
 		removeAll();
 		
-		//QUESTION: How do I get the size of the figure?
-//		int figureWidth = this.getSize().width;
-				
+		//put the icon in each of three labels
 		Label expertise1 = new Label(icon);	
 		Label expertise2 = new Label(icon);
 		Label expertise3 = new Label(icon);
@@ -55,11 +57,12 @@ public class HelpFigure extends CompartmentFigure {
 //		emptySpace.setSize(extraWidth/2, labelHeight);
 		
 		
-		add(expertise1, BorderLayout.LEFT);
+		//display labels
+		add(expertise1);
 //		add(emptySpace);
-		add(expertise2, BorderLayout.CENTER);
+		add(expertise2);
 //		add(emptySpace);
-		add(expertise3, BorderLayout.RIGHT);
+		add(expertise3);
 		
 //		invalidate();
 		
