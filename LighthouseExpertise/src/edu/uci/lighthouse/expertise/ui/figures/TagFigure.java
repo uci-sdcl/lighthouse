@@ -44,7 +44,14 @@ public class TagFigure extends CompartmentFigure {
 	public void populate(MODE mode) {
 		
 		removeAll();
-			
+		//create listeners to listen for mouse clicks
+		ClickListener click1 = new ClickListener();
+		ClickListener click2 = new ClickListener();
+		ClickListener click3 = new ClickListener();
+		ClickListener click4 = new ClickListener();
+		ClickListener click5 = new ClickListener();
+		
+		
 		//assign each image to label
 		Label bugLabel = new Label(bug);	
 		Label lockLabel = new Label(lock);	
@@ -52,6 +59,17 @@ public class TagFigure extends CompartmentFigure {
 		Label glassesLabel = new Label(glasses);	
 		Label pencilLabel = new Label(pencil);	
 		
+		//set labels with mouse listeners
+		bugLabel.addMouseListener(click1);
+		lockLabel.addMouseListener(click2);
+		lightLabel.addMouseListener(click3);
+		glassesLabel.addMouseListener(click4);
+		pencilLabel.addMouseListener(click5);
+		click1.setType("Bug label");
+		click2.setType("Lock label");
+		click3.setType("Light label");
+		click4.setType("Glasses label");
+		click5.setType("Pencil label");
 		
 		//display each label
 		add(bugLabel);

@@ -46,10 +46,17 @@ public class ExpertiseFigure extends CompartmentFigure
 	public void populate(MODE mode) {
 
 		removeAll();
-
+		//create listeners to listen for mouse clicks
+		ClickListener click = new ClickListener();
+		
 		//create and add label with picture and phrase
 		Label personLabel = new Label("Tiago requests help!", icon);		
 		add(personLabel);
+		
+		//set labels with mouse listeners
+		click.setType("Help person");
+		personLabel.addMouseListener(click);
+		
 	}
 
 }

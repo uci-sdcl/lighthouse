@@ -7,6 +7,8 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
@@ -43,10 +45,24 @@ public class HelpFigure extends CompartmentFigure {
 		
 		removeAll();
 		
+		//create listeners to listen for mouse clicks
+		ClickListener click1 = new ClickListener();
+		ClickListener click2 = new ClickListener();
+		ClickListener click3 = new ClickListener();
+		
+	
 		//put the icon in each of three labels
 		Label expertise1 = new Label(icon);	
 		Label expertise2 = new Label(icon);
 		Label expertise3 = new Label(icon);
+		
+		//set labels with mouse listeners
+		expertise1.addMouseListener(click1);
+		expertise2.addMouseListener(click2);
+		expertise3.addMouseListener(click3);
+		click1.setType("Expertise person 1");
+		click2.setType("Expertise person 2");
+		click3.setType("Expertise person 3");
 		
 //		int labelWidth = icon.getBounds().width;
 //		
@@ -67,5 +83,7 @@ public class HelpFigure extends CompartmentFigure {
 //		invalidate();
 		
 	}
+	
+	
 	
 }
