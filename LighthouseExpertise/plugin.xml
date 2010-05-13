@@ -4,13 +4,13 @@
    <extension
          point="edu.uci.lighthouse.ui.figures.compartment">
       <compartment
-            class="edu.uci.lighthouse.expertise.ui.figures.HelpFigure">
+            class="edu.uci.lighthouse.expertise.ui.figures.ExpertiseFigure">
       </compartment>
        <compartment
             class="edu.uci.lighthouse.expertise.ui.figures.TagFigure">
       </compartment>
        <compartment
-             class="edu.uci.lighthouse.expertise.ui.figures.ExpertiseFigure">
+             class="edu.uci.lighthouse.expertise.ui.figures.HelpFigure">
        </compartment>
    </extension>
 

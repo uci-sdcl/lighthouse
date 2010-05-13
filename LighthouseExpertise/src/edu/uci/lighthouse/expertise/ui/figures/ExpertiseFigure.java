@@ -1,38 +1,36 @@
 package edu.uci.lighthouse.expertise.ui.figures;
 
 
+
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.Label;
-import org.eclipse.swt.graphics.Device;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.expertise.Activator;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
-import edu.uci.lighthouse.ui.figures.UmlClassBorder;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
-import org.eclipse.swt.graphics.Color;
-import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 
 //Created by Alex Taubman and Tiago Proenca
 
-public class ExpertiseFigure extends CompartmentFigure 
-{
-
+public class ExpertiseFigure extends CompartmentFigure {
+	
 	private Image icon;
 	private FlowLayout layout;
-
-	public ExpertiseFigure() 
-	{
-		//setup layout and import images
-		layout = new FlowLayout();
+	
+	public ExpertiseFigure() {
 		
-		//make the border color red
-		UmlClassBorder border = new UmlClassBorder(ColorFactory.red);
-		this.setBorder(border);
+		//set up layout and import image
+		layout = new FlowLayout();
+		layout.setMajorAlignment(FlowLayout.ALIGN_CENTER);
+		layout.setMinorSpacing(25);
 		setLayoutManager(layout);
-		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/smallperson.jpg").createImage();
+		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/person.png").createImage();
 
 	}
 
@@ -44,19 +42,48 @@ public class ExpertiseFigure extends CompartmentFigure
 
 	@Override
 	public void populate(MODE mode) {
-
-		removeAll();
-		//create listeners to listen for mouse clicks
-		ClickListener click = new ClickListener();
 		
-		//create and add label with picture and phrase
-		Label personLabel = new Label("Tiago requests help!", icon);		
-		add(personLabel);
+		removeAll();
+		
+		//create listeners to listen for mouse clicks
+		ClickListener click1 = new ClickListener();
+		ClickListener click2 = new ClickListener();
+		ClickListener click3 = new ClickListener();
+		
+	
+		//put the icon in each of three labels
+		Label expertise1 = new Label(icon);	
+		Label expertise2 = new Label(icon);
+		Label expertise3 = new Label(icon);
 		
 		//set labels with mouse listeners
-		click.setType("Help person");
-		personLabel.addMouseListener(click);
+		expertise1.addMouseListener(click1);
+		expertise2.addMouseListener(click2);
+		expertise3.addMouseListener(click3);
+		click1.setType("Expertise person 1");
+		click2.setType("Expertise person 2");
+		click3.setType("Expertise person 3");
+		
+//		int labelWidth = icon.getBounds().width;
+//		
+//		int labelHeight = icon.getBounds().height;
+//		int extraWidth = figureWidth - 3 * labelWidth;
+//		System.out.println(figureWidth);
+//		Label emptySpace = new Label();
+//		emptySpace.setSize(extraWidth/2, labelHeight);
+		
+		
+		//display labels
+		add(expertise1);
+//		add(emptySpace);
+		add(expertise2);
+//		add(emptySpace);
+		add(expertise3);
+		
+//		invalidate();
 		
 	}
-
+	
+	
+	
 }
