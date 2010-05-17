@@ -54,9 +54,27 @@ public class HelpFigure extends CompartmentFigure
 		add(personLabel);
 		
 		//set labels with mouse listeners
-		click.setType("Help person");
+		click.setType(this, "Help person");
 		personLabel.addMouseListener(click);
 		
+	}
+	
+	public void changeText(String text)
+	{
+		
+		//populate method but with new text
+		
+		removeAll();
+		//create listeners to listen for mouse clicks
+		ClickListener click = new ClickListener();
+		
+		//create and add label with picture and phrase
+		Label personLabel = new Label(text, icon);		
+		add(personLabel);
+		
+		//set labels with mouse listeners
+		click.setType(this, "Help person");
+		personLabel.addMouseListener(click);
 	}
 
 }

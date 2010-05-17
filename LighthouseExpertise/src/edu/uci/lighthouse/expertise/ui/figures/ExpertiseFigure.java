@@ -60,9 +60,9 @@ public class ExpertiseFigure extends CompartmentFigure {
 		expertise1.addMouseListener(click1);
 		expertise2.addMouseListener(click2);
 		expertise3.addMouseListener(click3);
-		click1.setType("Expertise person 1");
-		click2.setType("Expertise person 2");
-		click3.setType("Expertise person 3");
+		click1.setType(this, "Expertise person 1");
+		click2.setType(this, "Expertise person 2");
+		click3.setType(this, "Expertise person 3");
 		
 //		int labelWidth = icon.getBounds().width;
 //		

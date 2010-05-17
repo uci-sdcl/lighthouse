@@ -65,11 +65,11 @@ public class TagFigure extends CompartmentFigure {
 		lightLabel.addMouseListener(click3);
 		glassesLabel.addMouseListener(click4);
 		pencilLabel.addMouseListener(click5);
-		click1.setType("Bug label");
-		click2.setType("Lock label");
-		click3.setType("Light label");
-		click4.setType("Glasses label");
-		click5.setType("Pencil label");
+		click1.setType(this, "Bug label");
+		click2.setType(this, "Lock label");
+		click3.setType(this, "Light label");
+		click4.setType(this, "Glasses label");
+		click5.setType(this, "Pencil label");
 		
 		//display each label
 		add(bugLabel);
