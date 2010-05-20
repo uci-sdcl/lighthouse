@@ -63,7 +63,7 @@ public class ClickListener implements MouseListener {
 					InputDialog dialog = new InputDialog(shell,"Lighthouse", "Type in new label text:", null, null);
 					dialog.open();
 					//if the cancel button was not pressed
-					if (dialog.CANCEL != 1)
+					//if (dialog.CANCEL != 1)
 						//change the label text
 						((HelpFigure)callee).changeText(dialog.getValue());
 				}
