@@ -9,7 +9,7 @@ import edu.uci.lighthouse.expertise.Activator;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 
-//Created by Alex Taubman and Tiago Proenca
+//Created by Alex Taubman
 
 public class TagFigure extends CompartmentFigure {
 	

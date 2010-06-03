@@ -15,13 +15,16 @@ import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import org.eclipse.swt.graphics.Color;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 
-//Created by Alex Taubman and Tiago Proenca
+//Created by Alex Taubman
 
 public class HelpFigure extends CompartmentFigure 
 {
 
 	private Image icon;
 	private FlowLayout layout;
+	//create listeners to listen for mouse clicks
+	ClickListener click = new ClickListener();
+	MODE mode;
 
 	public HelpFigure() 
 	{
@@ -43,20 +46,31 @@ public class HelpFigure extends CompartmentFigure
 	}
 
 	@Override
-	public void populate(MODE mode) {
+	public void populate(MODE mo) {
+		mode = mo;
 
 		removeAll();
 		//create listeners to listen for mouse clicks
-		ClickListener click = new ClickListener();
 		
 		//create and add label with picture and phrase
-		Label personLabel = new Label("Tiago requests help!", icon);		
+		Label personLabel = new Label("HELP!", icon);		
 		add(personLabel);
+		
+		//add contact figure
+		ContactFigure contact = new ContactFigure();
+		contact.populate(mode);
+		add(contact);
 		
 		//set labels with mouse listeners
 		click.setType(this, "Help person");
+		
 		personLabel.addMouseListener(click);
 		
+	}
+	
+	public void promptQuestion()
+	{
+		click.mouseReleased(null);
 	}
 	
 	public void changeText(String text)
@@ -65,12 +79,14 @@ public class HelpFigure extends CompartmentFigure
 		//populate method but with new text
 		
 		removeAll();
-		//create listeners to listen for mouse clicks
-		ClickListener click = new ClickListener();
-		
 		//create and add label with picture and phrase
 		Label personLabel = new Label(text, icon);		
 		add(personLabel);
+		
+		//add contact figure
+		ContactFigure contact = new ContactFigure();
+		contact.populate(mode);
+		add(contact);
 		
 		//set labels with mouse listeners
 		click.setType(this, "Help person");

@@ -1,14 +1,19 @@
 package edu.uci.lighthouse.expertise.ui.figures;
 
+
+
 import javax.swing.JOptionPane;
 
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
+
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+
+//Created by Alex Taubman
 
 public class ClickListener implements MouseListener {
 
@@ -34,9 +39,15 @@ public class ClickListener implements MouseListener {
 
 	}
 
+
+	public void mouseRightClicked(MouseEvent e)
+	{
+		System.out.println("testright");
+	}
+
 	public void mousePressed(MouseEvent e)
 	{
-		System.out.println(type + " pressed");
+		System.out.println(type + " pressed" + e);
 
 
 	}
@@ -47,34 +58,54 @@ public class ClickListener implements MouseListener {
 		//if the help label was clicked
 		if (type.equals("Help person"))
 		{
-			changeLabel();
+			changeQuestionLabel();
+		}
+		else if (type.equals("New Question"))
+		{
+			newQuestionLabel();
+		}
+		//check for right click
+	
+		//if	((MouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)
+		{
+		//	System.out.println("IT WORKED");
 		}
 	}
-	
-	public void changeLabel(){
-		
-			Display.getDefault().asyncExec(new Runnable() {
-				
-				//run a input dialog to get the new label text
-				public void run() {
-					
-					Shell shell = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getShell();
-					InputDialog dialog = new InputDialog(shell,"Lighthouse", "Type in new label text:", null, null);
-					dialog.open();
-					//if the cancel button was not pressed
-					//if (dialog.CANCEL != 1)
-						//change the label text
-						((HelpFigure)callee).changeText(dialog.getValue());
-				}
-				
-			});
-			
+
+	public void changeQuestionLabel(){
+
+		Display.getDefault().asyncExec(new Runnable() {
+
+			//run a input dialog to get the new label text
+			public void run() {
+
+				Shell shell = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getShell();
+				InputDialog dialog = new InputDialog(shell,"Lighthouse", "Type in new label text:", null, null);
+				dialog.open();
+				//if the cancel button was not pressed
+				//if (dialog.CANCEL != 1)
+				//change the label text
+				((HelpFigure)callee).changeText(dialog.getValue());
+			}
+
+		});
+
+	}
+
+	public void newQuestionLabel(){
+
+
+		((HelpFigureContainer)callee).addNewContainer(false);
+
+
+
+
 	}
 
 	public void mouseEntered(MouseEvent e) 
 	{
-
+		System.out.println("testenter");
 	}
 
 	public void mouseExited(MouseEvent e) 

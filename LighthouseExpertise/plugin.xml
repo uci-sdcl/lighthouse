@@ -10,7 +10,7 @@
             class="edu.uci.lighthouse.expertise.ui.figures.TagFigure">
       </compartment>
        <compartment
-             class="edu.uci.lighthouse.expertise.ui.figures.HelpFigure">
+             class="edu.uci.lighthouse.expertise.ui.figures.HelpFigureContainer">
        </compartment>
    </extension>
 
