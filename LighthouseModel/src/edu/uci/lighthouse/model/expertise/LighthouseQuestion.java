@@ -18,82 +18,74 @@ import edu.uci.lighthouse.model.LighthouseClass;
 @Entity
 public class LighthouseQuestion {
 
-	
-	@SequenceGenerator(name="Question_Gen", sequenceName="Question_Gen_Gen")
-	@Id @GeneratedValue(generator="Question_Gent_Gen")
+	@SequenceGenerator(name = "Question_Gen", sequenceName = "Question_Gen")
+	@Id @GeneratedValue(generator = "Question_Gen")
 	private Integer id;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private LighthouseAuthor author;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private LighthouseClass lhClass;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
-	
-	public Integer getId() {
-		return id;
+
+	private String subject;
+	private String text;
+
+	public LighthouseQuestion() {
+		
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public LighthouseAuthor getAuthor() {
-		return author;
+	public Integer getId() {
+		return id;
 	}
 
 	public void setAuthor(LighthouseAuthor author) {
 		this.author = author;
 	}
 
-	public LighthouseClass getLhClass() {
-		return lhClass;
+	public LighthouseAuthor getAuthor() {
+		return author;
 	}
 
 	public void setLhClass(LighthouseClass lhClass) {
 		this.lhClass = lhClass;
 	}
 
-	public String getSubject() {
-		return subject;
+	public LighthouseClass getLhClass() {
+		return lhClass;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public Date getTimestamp() {
+		return timestamp;
 	}
 
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
 
-	public String getText() {
-		return text;
+	public String getSubject() {
+		return subject;
 	}
 
 	public void setText(String text) {
 		this.text = text;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private LighthouseAuthor author = null;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	private LighthouseClass lhClass = null;
-
-	private String subject = "";
-	private String text = "";
-	
-	public Date getTimestamp() 
-	{
-		return timestamp;
-	}
-
-	public void setTimestamp(Date timestamp) 
-	{
-		this.timestamp = timestamp;
-		
-		
+	public String getText() {
+		return text;
 	}
 	
-	/*
-	 * attributes:
-	 * LHAuthor
-	 * subject
-	 * text
-	 * LHClass
-	 * time stamp
-	 */
+	
+
 }
