@@ -46,7 +46,7 @@ public abstract class Transaction
 	} // end method getBankDatabase
 
 	// perform the transaction (overridden by each subclass)
-	abstract public void execute() throws ATMException;
+	abstract public void execute();
 } // end class Transaction
 
 
