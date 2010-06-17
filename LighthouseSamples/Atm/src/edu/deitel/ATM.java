@@ -17,7 +17,8 @@ public class ATM
 	private CashDispenser cashDispenser; // ATM's cash dispenser
 	private DepositSlot depositSlot; // ATM's deposit slot
 	private BankDatabase bankDatabase; // account information database
-
+	
+	
 	// constants corresponding to main menu options
 	private static final int BALANCE_INQUIRY = 1;
 	private static final int WITHDRAWAL = 2;
