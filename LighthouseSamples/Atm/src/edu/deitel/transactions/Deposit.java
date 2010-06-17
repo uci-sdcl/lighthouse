@@ -11,6 +11,7 @@ import edu.deitel.Screen;
 public class Deposit extends Transaction
 {
 	int a;
+	int camaro;
 	
 	private double amount; // amount to deposit
 	private Keypad keypad; // reference to keypad
