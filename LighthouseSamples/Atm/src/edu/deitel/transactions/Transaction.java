@@ -39,11 +39,14 @@ public abstract class Transaction
 	// return reference to bank database
 	public BankDatabase getBankDatabase() 
 	{
+		int var;
+		var = 5;
+		
 		return bankDatabase;
 	} // end method getBankDatabase
 
 	// perform the transaction (overridden by each subclass)
-	abstract public void execute();
+	abstract public void execute() throws ATMException;
 } // end class Transaction
 
 
