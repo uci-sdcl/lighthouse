@@ -1,10 +1,9 @@
 package edu.uci.lighthouse.expertise.ui.figures;
 
 
-import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.Label;
-import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
@@ -12,8 +11,6 @@ import edu.uci.lighthouse.expertise.Activator;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.UmlClassBorder;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
-import org.eclipse.swt.graphics.Color;
-import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 
 //Created by Alex Taubman
 
@@ -32,7 +29,7 @@ public class HelpFigure extends CompartmentFigure
 		layout = new FlowLayout();
 		
 		//make the border color red
-		UmlClassBorder border = new UmlClassBorder(ColorFactory.red);
+		UmlClassBorder border = new UmlClassBorder(ColorConstants.red);
 		this.setBorder(border);
 		setLayoutManager(layout);
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/smallperson.jpg").createImage();
