@@ -6,7 +6,6 @@ import java.util.Date;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.jpa.JPAException;
-import edu.uci.lighthouse.model.jpa.LHQuestionDAO;
 import edu.uci.lighthouse.model.util.LHStringUtil;
 
 public class SimpleExampleToAddAQuestion {
@@ -21,8 +20,8 @@ public class SimpleExampleToAddAQuestion {
 		Date timestamp = LHStringUtil.simpleDateFormat.parse("2010-04-11 01:02:03");
 		q.setTimestamp(timestamp);
 
-		LHQuestionDAO dao = new LHQuestionDAO();
-		dao.save(q);
+//		LHQuestionDAO dao = new LHQuestionDAO();
+//		dao.save(q);
 		
 	}
 	
