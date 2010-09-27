@@ -83,7 +83,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	private Date lastDBAccess = null;
 	private boolean threadRunning;
 	private boolean threadSuspended;
-	private final int threadTimeout = 5000;
+	private final int threadTimeout = 10000;
 	
 	private static final String modelFileName = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/lighthouse-model.bin";
 	
