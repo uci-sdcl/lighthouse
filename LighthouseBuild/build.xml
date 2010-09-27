@@ -24,6 +24,17 @@
 		</sql>
 	</target> 	
 	
+	<target name="create.user.database">
+		<sql classpath="../LighthouseModel/lib/hibernate/mysql-connector-java-5.1.8-bin.jar"
+		driver="com.mysql.jdbc.Driver"
+		url="${host}"
+		userid="root"
+		password="">
+			grant all privileges on lighthouse.* to 'lighthouse'@'%' identified by 'light99';
+			grant all privileges on lighthouse.* to 'lighthouse'@'localhost' identified by 'light99';
+		</sql>
+	</target> 
+	
 	 <target name="clean.site"
 	        description="clean up" >
 	  	<delete dir="../LighthouseSite/binary"/>
