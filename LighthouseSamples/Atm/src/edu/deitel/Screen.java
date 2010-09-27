@@ -6,9 +6,6 @@ package edu.deitel;
 public class Screen
 {
 	
-	int color;
-	int b;
-	
 	// displays a message without a carriage return
 	public void displayMessage( String message ) 
 	{
