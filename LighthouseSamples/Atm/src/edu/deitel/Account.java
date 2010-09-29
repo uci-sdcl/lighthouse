@@ -10,8 +10,6 @@ public class Account
 	private double availableBalance; // funds available for withdrawal
 	private double totalBalance; // funds available + pending deposits
 	
-	int a;
-
 	// Account constructor initializes attributes
 	public Account( int theAccountNumber, int thePIN, 
 			double theAvailableBalance, double theTotalBalance )

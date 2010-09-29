@@ -10,8 +10,6 @@ import edu.deitel.Screen;
 
 public class Deposit extends Transaction
 {
-	int a;
-	int camaro;
 	
 	private double amount; // amount to deposit
 	private Keypad keypad; // reference to keypad
@@ -32,7 +30,7 @@ public class Deposit extends Transaction
 	} // end Deposit constructor
 
 	// perform transaction
-	public void execute() throws ATMException
+	public void execute()
 	{
 		BankDatabase bankDatabase = getBankDatabase(); // get reference
 		Screen screen = getScreen(); // get reference

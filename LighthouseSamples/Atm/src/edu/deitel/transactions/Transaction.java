@@ -9,6 +9,7 @@ import edu.deitel.Screen;
 
 public abstract class Transaction
 {
+	
 	private int accountNumber; // indicates account involved
 	private Screen screen; // ATM's screen
 	private BankDatabase bankDatabase; // account info database
