@@ -328,15 +328,20 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			}
 
 			PushModel pushModel = new PushModel(LighthouseModel.getInstance());
+			boolean updated = true;
+			try {
+				pushModel.updateDatabaseFromEvents(deltaEvents);
+			} catch (JPAException e) {
+				logger.error(e, e);
+				updated = false;
+			}
 			fireModificationsToUI(deltaEvents);
-
-			pushModel.updateDatabaseFromEvents(deltaEvents);
-			deltaEvents.removeAll(deltaEvents);
+			if (updated) { 
+				deltaEvents.removeAll(deltaEvents);
+			}
 		} catch (ParserException e) {
 			logger.error(e, e);		
-		} catch (JPAException e) {
-			logger.error(e, e);
-		}
+		} 
 	}
 
 	private LighthouseFile parseIFile(IFile iFile) throws ParserException {
@@ -516,6 +521,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
+		logger.debug("fireModificationsToUI ("+events.size()+" events)");
 		// We need hashmap to avoid repaint the UI multiple times
 		HashMap<LighthouseClass, LighthouseEvent.TYPE> mapClassEvent = new HashMap<LighthouseClass, LighthouseEvent.TYPE>();
 		HashMap<LighthouseRelationship, LighthouseEvent.TYPE> mapRelationshipEvent = new HashMap<LighthouseRelationship, LighthouseEvent.TYPE>();
@@ -547,11 +553,13 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		}
 		// Fire class changes to the UI
 		for (Entry<LighthouseClass, TYPE> entry : mapClassEvent.entrySet()) {
+			logger.debug("Firing class: "+entry.getKey());
 			model.fireClassChanged(entry.getKey(), entry.getValue());
 		}
 		// Fire relationship changes to the UI
 		for (Entry<LighthouseRelationship, TYPE> entry : mapRelationshipEvent
 				.entrySet()) {
+			logger.debug("Firing relationship: "+entry.getKey());
 			model.fireRelationshipChanged(entry.getKey(), entry.getValue());
 		}
 	}
