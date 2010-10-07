@@ -1,10 +1,13 @@
 package edu.uci.lighthouse.core.controller;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -13,17 +16,19 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFileState;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IJavaProject;
@@ -55,12 +60,12 @@ import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.LighthouseFile;
 import edu.uci.lighthouse.model.LighthouseFileManager;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.io.IPersistence;
 import edu.uci.lighthouse.model.io.PersistenceService;
 import edu.uci.lighthouse.model.jpa.JPAException;
@@ -751,6 +756,23 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	@Override
 	public void conflict(Map<IFile, ISVNInfo> svnFiles) {
 
+	}
+	
+	public IFile getPreviousVersion(IFile from) throws Exception{
+		final String tempResource = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/.file.resource";
+		PrintWriter pw = new PrintWriter(new FileWriter(tempResource));
+			
+		IFileState[] history = from.getHistory(null);
+		BufferedReader br = new BufferedReader(new InputStreamReader(history[0].getContents()));
+		
+		String lineRead = "";
+		while ((lineRead = br.readLine()) != null) {
+			pw.println(lineRead);
+		}
+		pw.flush();
+		pw.close();
+		br.close();		
+		return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(tempResource));
 	}
 
 }
