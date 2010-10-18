@@ -76,7 +76,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	 * modifications made by the user. We need this list to ignore those files.
 	 */
 	private Collection<IFile> ignorefilesJustUpdated = new LinkedHashSet<IFile>();
-	private Date lastDBAccess = null;
+	private Date timestampLastEventReceived = null;
 	private boolean threadRunning;
 	private boolean threadSuspended;
 	private final int threadTimeout = 10000;
@@ -150,8 +150,8 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		IPreferenceStore prefStore = Activator.getDefault()
 		.getPreferenceStore();
 
-		lastDBAccess = new Date(prefStore.getLong(prefix + "lastDBAccess"));
-		logger.debug("loading lastDBAccess=" + lastDBAccess);
+		timestampLastEventReceived = new Date(prefStore.getLong(prefix + "lastDBAccess"));
+		logger.debug("loading lastDBAccess=" + timestampLastEventReceived);
 
 		try {
 			final String filename = "lighthouseWorkingCopy.version";
@@ -170,8 +170,8 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		IPreferenceStore prefStore = Activator.getDefault()
 		.getPreferenceStore();
 
-		prefStore.setValue(prefix + "lastDBAccess", lastDBAccess.getTime());
-		logger.debug("saving lastDBAccess=" + lastDBAccess);
+		prefStore.setValue(prefix + "lastDBAccess", timestampLastEventReceived.getTime());
+		logger.debug("saving lastDBAccess=" + timestampLastEventReceived);
 
 		try {
 			final String filename = "lighthouseWorkingCopy.version";
@@ -225,7 +225,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			// Sleep for the time defined by thread timeout
 			try {
 				try {
-					refreshModelBasedOnLastDBAccess();
+					refreshModelBasedOnLastEventFetched();
 					Thread.sleep(threadTimeout);
 				} catch (Exception e) {
 					// Database exceptions are RuntimeExceptions
@@ -236,9 +236,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 							wait();
 						}
 					}
-				} /*
-				 * catch (JPAException e) { logger.error(e,e); }
-				 */
+				}
 			} catch (InterruptedException e) {
 				logger.error(e, e);
 			}
@@ -251,7 +249,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	 * 
 	 * @throws JPAException
 	 */
-	public synchronized void refreshModelBasedOnLastDBAccess()
+	public synchronized void refreshModelBasedOnLastEventFetched()
 	throws JPAException {
 		/*
 		 * If the map's size == 0, it means that it is the first time that user
@@ -262,16 +260,27 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			LighthouseAuthor author = Activator.getDefault().getAuthor();
 			PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 			List<LighthouseEvent> events = pullModel.getNewEventsFromDB(
-					lastDBAccess, author);
+					timestampLastEventReceived, author);
 			fireModificationsToUI(events);
 			if (events.size() != 0) {
-				logger.debug("timeout[ " + lastDBAccess + " ] brought: ["
+				logger.debug("timeout[ " + timestampLastEventReceived + " ] brought: ["
 						+ events.size() + "] events");
+				timestampLastEventReceived = getLatestTime(events); 
 			}
-			lastDBAccess = getTimestamp();
 		}
 	}
 
+	private Date getLatestTime(Collection<LighthouseEvent> events) {
+		Date latestTime = new Date(0);
+		for (LighthouseEvent event : events) {
+			Date timestamp = event.getTimestamp();
+			Date committedTime = event.getCommittedTime();
+			Date time = committedTime.after(timestamp) ? committedTime : timestamp;
+			latestTime = (time.after(latestTime)) ? time : latestTime;
+		}
+		return latestTime;
+	}
+	
 	@Override
 	public void open(final IFile iFile, boolean hasErrors) {
 		// TODO Do Nothing :S
@@ -418,22 +427,18 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		checkoutWorkingCopy(workingCopy);
 	}
 
-	private void checkoutWorkingCopy(HashMap<String, Date> workingCopy){
-
+	private void checkoutWorkingCopy(HashMap<String, Date> workingCopy) {
 		PullModel pullModel = new PullModel(LighthouseModel.getInstance());
 		try {
-
 			// magica vai que vai prover a lista de classes (string)
-
 			Collection<LighthouseEvent> events = pullModel
 			.executeQueryCheckout(workingCopy);
 			LighthouseModel.getInstance().fireModelChanged();
 			logger.info("Number of events fetched after checkout = "
 					+ events.size());
-
+			timestampLastEventReceived = getLatestTime(events);
 		} catch (Exception e) {
 			logger.error(e, e);
-			// UserDialog.openError(e.getMessage());
 		}
 	}
 
