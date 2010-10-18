@@ -379,8 +379,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		if (ModelUtility.belongsToImportedProjects(iFile, false)) {
 			final String classFqn = ModelUtility.getClassFullyQualifiedName(iFile);
 			if (!mapClassToSVNCommittedTime.containsKey(classFqn)) {
-				// We have to put the classFqn in this map in order to show the
-				// event in the UI.
+				// We have to put the classFqn in this map in order to show the event in the UI.
 				mapClassToSVNCommittedTime.put(classFqn, new Date(0));
 				try {
 					generateDeltaAndSaveIntoDB(null, iFile);
@@ -453,23 +452,9 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles, false);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 
-		LighthouseModel model = LighthouseModel.getInstance();
-		LighthouseModelManager modelManager = new LighthouseModelManager(model);
-
+		LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance());
 		modelManager.removeArtifactsAndEvents(workingCopy.keySet());
-
-		//		checkout(svnFiles);
 		checkoutWorkingCopy(workingCopy);
-
-		// // Insert the UPDATE event in the database
-		// // Insert the CHECKOUT event in the database
-		// try {
-		// new PushModel(LighthouseModel.getInstance())
-		// .saveRepositoryEvent(svnFiles,
-		// LighthouseRepositoryEvent.TYPE.UPDATE, new Date());
-		// } catch (Exception e) {
-		// logger.error(e,e);
-		// }
 	}
 
 	@Override
@@ -481,31 +466,26 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 			// assuming that there is just one committed time
 			ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]);
-			// Date svnCommittedTime = svnInfo[0].getLastChangedDate();
+			Date svnCommittedTime = svnInfo[0].getLastChangedDate();
 			// FIXME: Synchronization problem
-			Date svnCommittedTime = new Date();
+			//Date svnCommittedTime = new Date();
 
-			Collection<LighthouseEvent> listEvents = pushModel
-			.updateCommittedEvents(
+			Collection<LighthouseEvent> listEvents = pushModel.updateCommittedEvents(
 					ModelUtility.getClassesFullyQualifiedName(svnFiles),
-					svnCommittedTime, Activator.getDefault()
-					.getAuthor());
+					svnCommittedTime, Activator.getDefault().getAuthor());
 
 			LighthouseModelManager modelManager = new LighthouseModelManager(
 					LighthouseModel.getInstance());
+			
 			modelManager.removeCommittedEventsAndArtifacts(workingCopy.keySet(),
 					svnCommittedTime);
 
 			fireModificationsToUI(listEvents);
 			logger.debug("Committed [" + listEvents.size() + "] events "
 					+ "with time: " + svnCommittedTime);
-
-			// Insert the CHECKIN event in the database
-			// pushModel.saveRepositoryEvent(svnFiles,
-			// LighthouseRepositoryEvent.TYPE.CHECKIN, new Date());
+			
 		} catch (Exception e) {
 			logger.error(e, e);
-			// UserDialog.openError(e.getMessage());
 		}
 	}
 
@@ -610,7 +590,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					LighthouseModel.getInstance().clear();
 					checkoutWorkingCopy(mapClassToSVNCommittedTime);
 					WorkbenchUtility.updateProjectIcon();
-					//					LighthouseModel.getInstance().fireModelChanged();
+					//LighthouseModel.getInstance().fireModelChanged();
 				} catch (JPAException e) {
 					logger.error(e,e);
 					UserDialog.openError("JPAException: "+e.getMessage());
