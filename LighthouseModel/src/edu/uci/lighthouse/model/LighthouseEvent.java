@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,9 +13,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  *  Select others "new" events by using the timestamp as a parameter
@@ -23,9 +24,9 @@ import org.apache.log4j.Logger;
 	@NamedQuery(name = "LighthouseEvent.findByTimestamp",
 				query = "SELECT event " + 
 						"FROM LighthouseEvent event " + 
-						"WHERE ( event.timestamp >= :timestamp " +
-						"OR event.committedTime >= :timestamp ) " +
-						"AND event.author <> :author") 
+						"WHERE ( event.timestamp > :timestamp " +
+						"OR event.committedTime > :timestamp ) " +
+						"AND event.author <> :author")
 })
 
 /**
@@ -46,8 +47,10 @@ public class LighthouseEvent implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseAuthor author;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp = new Date();
+	@Column(name="TIMESTAMP", insertable=false, updatable=false, columnDefinition="timestamp default current_timestamp")
+	@org.hibernate.annotations.Generated(value=GenerationTime.INSERT)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date timestamp;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseEntity entity = null;
