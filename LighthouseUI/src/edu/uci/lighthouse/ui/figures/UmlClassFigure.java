@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.Graphics;
@@ -41,6 +42,7 @@ import edu.uci.lighthouse.ui.swt.util.FontFactory;
 import edu.uci.lighthouse.ui.swt.util.Icons;
 import edu.uci.lighthouse.ui.swt.util.ImageFactory;
 import edu.uci.lighthouse.ui.views.FilterManager;
+import edu.uci.lighthouse.ui.views.LighthouseEntityContentProvider;
 import edu.uci.lighthouse.views.filters.IClassFilter;
 
 public class UmlClassFigure extends Panel implements ILighthouseClassFigure{
@@ -54,6 +56,9 @@ public class UmlClassFigure extends Panel implements ILighthouseClassFigure{
 	private static final String COMPARTMENT_ID = "edu.uci.lighthouse.ui.figures.compartment";
 	
 	private final int NUM_COLUMNS = 2;
+	
+	private static Logger logger = Logger.getLogger(UmlClassFigure.class);
+	
 	//private static final SharedImages jdtImg = new SharedImages();
 	
 	//public static enum LEVEL {ONE, TWO, THREE, FOUR};
@@ -112,10 +117,12 @@ public class UmlClassFigure extends Panel implements ILighthouseClassFigure{
 				LinkedList<LighthouseField> fields = new LinkedList<LighthouseField>();
 				LinkedList<LighthouseMethod> methods = new LinkedList<LighthouseMethod>();
 				
+				logger.debug("Getting methods...");
 				Collection<LighthouseEntity> ma = model.getMethodsAndAttributesFromClass(umlClass);
 				for (LighthouseEntity e : ma) {
 					if (e instanceof LighthouseField) {
 						fields.add((LighthouseField)e);
+						logger.debug(e);
 					} else if (e instanceof LighthouseMethod){
 						methods.add((LighthouseMethod)e);
 					}
