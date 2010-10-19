@@ -1,19 +1,21 @@
 package edu.uci.lighthouse.core.controller;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.TimeZone;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
+import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
@@ -22,17 +24,17 @@ import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.model.LighthouseModelUtil;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 import edu.uci.lighthouse.model.jpa.LHRepositoryEventDAO;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
+import edu.uci.lighthouse.model.util.DatabaseUtility;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class PushModel {
 	
-	private static Logger logger = Logger.getLogger(PushModel.class);
+	//private static Logger logger = Logger.getLogger(PushModel.class);
 
 	private LighthouseModel model;
 	
@@ -40,27 +42,41 @@ public class PushModel {
 		this.model = model;
 	}
 	
-	public void updateDatabaseFromEvents(Collection<LighthouseEvent> listEvents) throws JPAException {   
-		new UpdateLighthouseModel(model).updateByEvents(listEvents);
-	    saveEventsInDatabase(listEvents,null);
+	public void saveEventsInDatabase(Collection<LighthouseEvent> listEvents) throws JPAException {
+		LHEventDAO dao = new LHEventDAO();
+		dao.saveListEvents(listEvents,null);		
 	}
 	
-	public Collection<LighthouseEvent> updateCommittedEvents(List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author) throws JPAException {
-		Collection<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(model, listClazzFqn); 
-		LinkedHashSet<LighthouseEvent> listEventsToCommitt = new LinkedHashSet<LighthouseEvent>();
+	public void saveCommitEventsInDatabase(Collection<LighthouseEvent> listEvents) throws JPAException {
+		try {
+			adjustCommittedTime(listEvents);
+			saveEventsInDatabase(listEvents);
+		} catch (SQLException e) {
+			throw new JPAException("Error trying to save/update committed events", e.fillInStackTrace());
+		}
+	}
+	
+	/**
+	 * Adjust the committed time from all events using the database timezone 
+	 * 
+	 * @param listEvents
+	 * @throws SQLException
+	 */
+	private void adjustCommittedTime(Collection<LighthouseEvent> listEvents) throws SQLException {
+		Properties userSettings = UserPreferences.getUserSettings();
+		TimeZone timeZone = DatabaseUtility.getServerTimezone(userSettings);
 		for (LighthouseEvent event : listEvents) {
-			if (event.getAuthor().equals(author)) {
-				if (!event.isCommitted()) {
-					event.setCommitted(true);
-					event.setCommittedTime(svnCommittedTime);
-					listEventsToCommitt.add(event);
-				}
+			if (event.isCommitted()) {
+				Date committedTime = event.getCommittedTime();
+				Date adjustedCommittedTime = DatabaseUtility.getAdjustedDateTime(committedTime, timeZone);
+				event.setCommittedTime(adjustedCommittedTime);
 			}
 		}
-//		FIXME remove the following line
-//		new LHEventDAO().updateCommittedEvents(listEventsToCommitt, svnCommittedTime);
-		saveEventsInDatabase(listEventsToCommitt,null);
-		return listEventsToCommitt;
+	}
+	
+	public void importEventsToDatabase(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAException {
+		LHEventDAO dao = new LHEventDAO();
+		dao.saveListEvents(listEvents,monitor);
 	}
 	
 	public Collection<LighthouseEvent> parseJavaFiles(Collection<IFile> javaFiles)
@@ -87,11 +103,6 @@ public class PushModel {
 		return null;
 	}
 
-	public void saveEventsInDatabase(final Collection<LighthouseEvent> listEvents,	IProgressMonitor monitor) throws JPAException {
-		LHEventDAO dao = new LHEventDAO();
-		dao.saveListEvents(listEvents,monitor);		
-	}
-	
 	public void saveRepositoryEvent(Map<IFile, ISVNInfo> svnFiles, 
 			LighthouseRepositoryEvent.TYPE type,
 			Date eventTime

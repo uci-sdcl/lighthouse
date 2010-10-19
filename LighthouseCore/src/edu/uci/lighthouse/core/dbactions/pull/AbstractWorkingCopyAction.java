@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.core.dbactions.cm;
+package edu.uci.lighthouse.core.dbactions.pull;
 
 import edu.uci.lighthouse.core.controller.WorkingCopy;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;

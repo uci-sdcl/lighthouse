@@ -2,7 +2,6 @@ package edu.uci.lighthouse.core.commands;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import org.apache.log4j.Logger;
@@ -17,11 +16,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
@@ -37,7 +32,6 @@ public class ImportHandler extends AbstractHandler {
 
 	private static Logger logger = Logger.getLogger(ImportHandler.class);
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
@@ -68,7 +62,7 @@ public class ImportHandler extends AbstractHandler {
 					Collection<LighthouseEvent> listEvents = pushModel.parseJavaFiles(javaFiles);
 					// Saving in the Database (it has its own monitor).
 					monitor.subTask("Saving data to the database...");
-					pushModel.saveEventsInDatabase(listEvents, new SubProgressMonitor(monitor,javaFiles.size()));
+					pushModel.importEventsToDatabase(listEvents, new SubProgressMonitor(monitor,javaFiles.size()));
 					//TODO: Rollback model changes
 					WorkbenchUtility.updateProjectIcon();
 					LighthouseModel.getInstance().fireModelChanged();
