@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Lighthouse Services Plug-in
+Bundle-SymbolicName: edu.uci.lighthouse.services
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: UC Irvine
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: edu.uci.lighthouse.services,
+ edu.uci.lighthouse.services.persistence
+Require-Bundle: org.apache.log4j;bundle-version="1.2.13"
