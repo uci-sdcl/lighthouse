@@ -44,6 +44,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 		 * subclipse and hence, we can get a null pointer.
 		 */
 		SVNUIPlugin.getPlugin();
+		clear();
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 			SVNRevision svnRevision = SVNRevision
 					.getRevision(parseRevision(arg0));
 
-			if (trunksCounter == 0) {
+			if (trunksCounter == 0 && command != -1) {
 
 				trunks.get(trunksCounter).svnRevision = svnRevision;
 
@@ -118,6 +119,7 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 					fireConflict(svnConflictingFiles);	
 				}
 
+				clear();
 			} else {
 				trunks.get(trunksCounter).svnRevision = svnRevision;
 				trunksCounter--;
@@ -169,11 +171,9 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 		pluginConsoleListener.setCommand(arg0);
 		logger.debug("setCommand: " + arg0);
 
-		command = arg0;
-		trunksCounter = 0;
-		trunks.clear();
-		trunks.add(new Trunk());
-		conflictingFiles.clear();
+		if (isCommandSupported(arg0)){
+			command = arg0;
+		}
 	}
 
 	public void addSVNEventListener(ISVNEventListener listener) {
@@ -240,5 +240,20 @@ public class SVNEventReporter implements IConsoleListener, IPluginListener {
 	@SuppressWarnings("serial")
 	private class Trunk extends LinkedList<File> {
 		SVNRevision svnRevision = null;
+	}
+	
+	private void clear() {
+		command = -1;
+		trunksCounter = 0;
+		trunks.clear();
+		trunks.add(new Trunk());
+		conflictingFiles.clear();
+	}
+	
+	private boolean isCommandSupported(int cmd){
+		if (cmd == Command.CHECKOUT || cmd == Command.COMMIT || cmd == Command.UPDATE) {
+			return true;
+		}
+		return false;
 	}
 }
