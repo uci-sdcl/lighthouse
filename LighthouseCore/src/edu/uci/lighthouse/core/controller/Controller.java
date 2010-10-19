@@ -83,7 +83,8 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	 */
 	private Collection<IFile> ignorefilesJustUpdated = new LinkedHashSet<IFile>();
 	private boolean threadRunning;
-	private final int threadTimeout = 20000;
+	private final long threadTimeout = 20000;
+	private int threadBackoffMultiplier = 1;
 	private DatabaseActionsBuffer databaseActionsBuffer = new DatabaseActionsBuffer();
 	
 	private static final String workspaceMetadata = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
@@ -109,7 +110,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		loadModel();
 		//loadDelta();
 		logger.info("Starting thread...");
-		(new Thread(this)).start();
+		(new Thread(this,"Lighthouse Controller")).start();
 	}
 
 	@Override
@@ -158,6 +159,11 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		} catch (PersistenceException e) {
 			logger.error(e, e);
 		}
+		try {
+			databaseActionsBuffer = (DatabaseActionsBuffer) svc.load(databaseActionsBuffer);
+		} catch (PersistenceException e) {
+			logger.error(e, e);
+		}
 	}
 
 	public void savePreferences() {
@@ -172,6 +178,11 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		IPersistenceService svc = (IPersistenceService) LighthouseServiceFactory.getService("GenericPersistenceService");
 		try {
 			svc.save(mapClassToSVNCommittedTime);
+		} catch (Exception e) {
+			logger.error(e, e);
+		}
+		try {
+			svc.save(databaseActionsBuffer);
 		} catch (Exception e) {
 			logger.error(e, e);
 		}
@@ -217,16 +228,23 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			// Sleep for the time defined by thread timeout
 			try {
 				refreshModelBasedOnLastEventFetched();
+				logger.debug("Executing "+databaseActionsBuffer.size()+" database actions.");
 				while (!databaseActionsBuffer.isEmpty()) {
 					IDatabaseAction databaseAction = databaseActionsBuffer.peek();
 					databaseAction.run();
 					databaseActionsBuffer.poll();
 				}
-			} catch (JPAException e) {
+				threadBackoffMultiplier = 1;
+			} catch (Exception e) {
+				threadBackoffMultiplier = threadBackoffMultiplier > 180 ? 1 : threadBackoffMultiplier*2; 
 				logger.error(e, e);
 			}
 			try {
-				Thread.sleep(threadTimeout);
+				long timeout = threadTimeout*threadBackoffMultiplier;
+				if (threadBackoffMultiplier > 1) {
+					logger.debug("Next thread iteration in "+(timeout/1000)+"s");
+				}
+				Thread.sleep(timeout);
 			} catch (InterruptedException e) {
 				logger.error(e, e);
 			}
@@ -258,7 +276,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 			if (!events.isEmpty()) {
 				logger.debug("timeout[ " + timestampLastEventReceived + " ] brought: ["
 						+ events.size() + "] events");
-				timestampLastEventReceived = getLatestTime(events); 
+				TimestampLastEventReceived.getInstance().setValue(getLatestTime(events));
 			}
 		}
 	}
@@ -440,18 +458,18 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		LighthouseModel lhModel = LighthouseModel.getInstance();
 		UpdateLighthouseModel updateLighthouseModel = new UpdateLighthouseModel(lhModel);
 
-		Collection<LighthouseEvent> listEventsToCommitt = 
+		Collection<LighthouseEvent> listEventsToCommit = 
 			updateLighthouseModel.updateCommittedEvents(
 					ModelUtility.getClassesFullyQualifiedName(svnFiles),
 					svnCommittedTime, 
 					Activator.getDefault().getAuthor());
 
-		fireModificationsToUI(listEventsToCommitt);
+		fireModificationsToUI(listEventsToCommit);
 
-		logger.debug("Committed [" + listEventsToCommitt.size() + "] events "
+		logger.debug("Committed [" + listEventsToCommit.size() + "] events "
 				+ "with SVN time: " + svnCommittedTime);
 		
-		CommitAction commitAction = new CommitAction(listEventsToCommitt);
+		CommitAction commitAction = new CommitAction(listEventsToCommit);
 		databaseActionsBuffer.offer(commitAction);
 	}
 
