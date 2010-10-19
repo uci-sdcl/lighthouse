@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -88,5 +89,9 @@ public class WorkbenchUtility {
 			e.printStackTrace();
 		}
 		return files;
+	}
+	
+	public static String getMetadataDirectory() {
+		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
 	}
 }
