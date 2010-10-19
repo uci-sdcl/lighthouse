@@ -155,7 +155,7 @@ public class LighthouseModelManager {
 		}
 	}
 
-	public void removeCommittedEventsAndArtifacts(Collection<String> listClazzFqn, Date eventTime) {
+	public void removeCommittedEventsAndArtifacts(Collection<String> listClazzFqn) {
 		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
 		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
 		LinkedHashSet<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsByListEntityAndRel(model, listEntity, listRel);
