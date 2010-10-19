@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.TimeZone;
 
 import org.eclipse.core.resources.IFile;
@@ -15,7 +14,7 @@ import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
-import edu.uci.lighthouse.core.preferences.UserPreferences;
+import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
@@ -37,6 +36,8 @@ public class PushModel {
 	//private static Logger logger = Logger.getLogger(PushModel.class);
 
 	private LighthouseModel model;
+	
+	private TimeZone serverTimeZone;
 	
 	public PushModel(LighthouseModel model) {
 		this.model = model;
@@ -63,15 +64,20 @@ public class PushModel {
 	 * @throws SQLException
 	 */
 	private void adjustCommittedTime(Collection<LighthouseEvent> listEvents) throws SQLException {
-		Properties userSettings = UserPreferences.getUserSettings();
-		TimeZone timeZone = DatabaseUtility.getServerTimezone(userSettings);
 		for (LighthouseEvent event : listEvents) {
 			if (event.isCommitted()) {
 				Date committedTime = event.getCommittedTime();
-				Date adjustedCommittedTime = DatabaseUtility.getAdjustedDateTime(committedTime, timeZone);
+				Date adjustedCommittedTime = DatabaseUtility.getAdjustedDateTime(committedTime, getServerTimeZone());
 				event.setCommittedTime(adjustedCommittedTime);
 			}
 		}
+	}
+	
+	private TimeZone getServerTimeZone() throws SQLException {
+		if (serverTimeZone == null) {
+			serverTimeZone = DatabaseUtility.getServerTimezone(DatabasePreferences.getDatabaseSettings());
+		}
+		return serverTimeZone;
 	}
 	
 	public void importEventsToDatabase(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAException {
