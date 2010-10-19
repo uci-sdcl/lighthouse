@@ -43,7 +43,8 @@ public class GenericPersistenceService implements IPersistenceService {
 			instance = (IPersistable) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e,e);
+			throw new PersistenceException(e);
 		}
 		return instance;
 	}
