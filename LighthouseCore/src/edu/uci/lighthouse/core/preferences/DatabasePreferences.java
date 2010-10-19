@@ -247,7 +247,7 @@ IWorkbenchPreferencePage{
 		Properties dbSettings = new Properties();
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		
-		String connUrl = "jdbc:mysql://"+store.getString(DB_HOST)+":"+store.getString(DB_PORT)+"/"+store.getString(DB_DATABASE);
+		String connUrl = "jdbc:mysql://"+store.getString(DB_HOST)+":"+store.getString(DB_PORT)+"/"+store.getString(DB_DATABASE)+"?autoReconnect=true";
 		dbSettings.setProperty("hibernate.connection.url", connUrl);
 		dbSettings.setProperty("hibernate.connection.username", store.getString(DB_USERNAME));
 		dbSettings.setProperty("hibernate.connection.password", store.getString(DB_PASSWD));
