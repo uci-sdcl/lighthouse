@@ -64,12 +64,15 @@ import edu.uci.lighthouse.model.io.PersistenceService;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.parser.ParserException;
+import edu.uci.lighthouse.services.LighthouseServiceFactory;
+import edu.uci.lighthouse.services.persistence.IPersistenceService;
+import edu.uci.lighthouse.services.persistence.PersistenceException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
 IPluginListener, Runnable, IPropertyChangeListener {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
-	private HashMap<String, Date> mapClassToSVNCommittedTime = new HashMap<String, Date>();
+	private WorkingCopy mapClassToSVNCommittedTime = new WorkingCopy();
 	/*
 	 * After the file get the changes from the repository, the event 'change'
 	 * will be throw and we can wrong interpret the new changes being
@@ -152,16 +155,12 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 		timestampLastEventReceived = new Date(prefStore.getLong(prefix + "lastDBAccess"));
 		logger.debug("loading lastDBAccess=" + timestampLastEventReceived);
-
+		
+		IPersistenceService svc = (IPersistenceService) LighthouseServiceFactory.getService("GenericPersistenceService");
 		try {
-			final String filename = "lighthouseWorkingCopy.version";
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(
-					filename));
-			mapClassToSVNCommittedTime = (HashMap<String, Date>) ois
-			.readObject();
-			logger.debug("loading " + filename);
-		} catch (Exception e) {
-			logger.error(e);
+			mapClassToSVNCommittedTime = (WorkingCopy) svc.load(mapClassToSVNCommittedTime);
+		} catch (PersistenceException e) {
+			logger.error(e, e);
 		}
 	}
 
@@ -173,13 +172,9 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		prefStore.setValue(prefix + "lastDBAccess", timestampLastEventReceived.getTime());
 		logger.debug("saving lastDBAccess=" + timestampLastEventReceived);
 
+		IPersistenceService svc = (IPersistenceService) LighthouseServiceFactory.getService("GenericPersistenceService");
 		try {
-			final String filename = "lighthouseWorkingCopy.version";
-			ObjectOutputStream oos = new ObjectOutputStream(
-					new FileOutputStream(filename));
-			oos.writeObject(mapClassToSVNCommittedTime);
-			oos.close();
-			logger.debug("saving " + filename);
+			svc.save(mapClassToSVNCommittedTime);
 		} catch (Exception e) {
 			logger.error(e, e);
 		}
@@ -604,8 +599,8 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		job.schedule();
 	}
 
-	private HashMap<String, Date> getWorkingCopyFromWorkspace(){
-		HashMap<String, Date> result = new HashMap<String, Date>();
+	private WorkingCopy getWorkingCopyFromWorkspace(){
+		WorkingCopy result = new WorkingCopy();
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IProject[] projects = workspace.getRoot().getProjects();
 		try {
