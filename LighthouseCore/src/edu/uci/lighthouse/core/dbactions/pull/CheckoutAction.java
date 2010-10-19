@@ -15,6 +15,8 @@ import edu.uci.lighthouse.model.jpa.JPAException;
 
 public class CheckoutAction extends AbstractWorkingCopyAction {
 
+	private static final long serialVersionUID = -435718370337302593L;
+
 	private static Logger logger = Logger.getLogger(CheckoutAction.class);
 	
 	public CheckoutAction(WorkingCopy workingCopy) {

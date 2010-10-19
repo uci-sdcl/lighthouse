@@ -9,6 +9,8 @@ import edu.uci.lighthouse.model.jpa.JPAException;
 
 public class FileEventAction extends AbstractEventAction {
 
+	private static final long serialVersionUID = -8870330009338784335L;
+
 	public FileEventAction(Collection<LighthouseEvent> events) {
 		super(events);
 	}

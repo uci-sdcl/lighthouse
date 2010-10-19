@@ -7,7 +7,7 @@ import edu.uci.lighthouse.model.jpa.JPAException;
 
 public class SynchronizeModelAction extends AbstractWorkingCopyAction {
 
-	//private static Logger logger = Logger.getLogger(SynchronizeModelAction.class);
+	private static final long serialVersionUID = 813072327005798103L;
 
 	public SynchronizeModelAction(WorkingCopy workingCopy) {
 		super(workingCopy);

@@ -5,6 +5,7 @@ import java.util.Collection;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.model.LighthouseEvent;
 
+@SuppressWarnings("serial")
 public abstract class AbstractEventAction implements IDatabaseAction {
 
 	private Collection<LighthouseEvent> events;
