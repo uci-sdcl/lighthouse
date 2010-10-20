@@ -225,14 +225,14 @@ public class JavaFileChangedReporter implements IResourceChangeListener,
 							.findMaxProblemSeverity(IMarker.PROBLEM, true,
 									IResource.DEPTH_INFINITE);
 				}
-				if ((delta.getFlags() & IResourceDelta.CONTENT) != 0) {
-					if (delta.getKind() == IResourceDelta.ADDED) {
-						fireAdd(iFile, hasErrors);
-					} else if (delta.getKind() == IResourceDelta.CHANGED) {
+				if (delta.getKind() == IResourceDelta.ADDED) {
+					fireAdd(iFile, hasErrors);
+				} else if (delta.getKind() == IResourceDelta.CHANGED) {
+					if ((delta.getFlags() & IResourceDelta.CONTENT) != 0) {
 						fireChange(iFile, hasErrors);
-					} else if (delta.getKind() == IResourceDelta.REMOVED) {
-						fireRemove(iFile, false);
 					}
+				} else if (delta.getKind() == IResourceDelta.REMOVED) {
+					fireRemove(iFile, false);
 				}
 			}
 			return true;
