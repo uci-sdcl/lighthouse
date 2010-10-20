@@ -50,7 +50,7 @@ public class LighthouseEvent implements Serializable{
 	@Column(name="TIMESTAMP", insertable=false, updatable=false, columnDefinition="timestamp default current_timestamp")
 	@org.hibernate.annotations.Generated(value=GenerationTime.INSERT)
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
-	private Date timestamp;
+	private Date timestamp = new Date(0);
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseEntity entity = null;
