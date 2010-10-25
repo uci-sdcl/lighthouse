@@ -21,7 +21,7 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.util.LHStringUtil;
 
-public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
+public class LHEventDAO extends AbstractDAO<LighthouseEvent, String> {
 	
 	private static Logger logger = Logger.getLogger(LHEventDAO.class);
 	
@@ -173,6 +173,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		return result;
 	}
 
+	// There is no client using this method
 	public void updateCommittedEvents(LinkedHashSet<LighthouseEvent> listEventsToCommitt, Date svnCommittedTime) throws JPAException {
 		String strCommittedTime = LHStringUtil.simpleDateFormat.format(svnCommittedTime);
 		String command = 	"UPDATE LighthouseEvent e " +
@@ -207,18 +208,23 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 		}
 		try {
 			monitor.beginTask("Saving in the database...", listEvents.size());
-			entityManager = JPAUtility.createEntityManager();
-			JPAUtility.beginTransaction(entityManager);
-			// for each entity event
 			final int INC = (int)(listEvents.size() * 0.025) + 1; // (+1) avoid division by zero
 			int i = 0;
+			
+			entityManager = JPAUtility.createEntityManager();
+			JPAUtility.beginTransaction(entityManager);
+			
+			// for each entity event
 			for (LighthouseEvent event : listEvents) {
 				if (monitor.isCanceled()) {
 					throw new OperationCanceledException();
 				}
 				Object artifact = event.getArtifact();
 				if (artifact instanceof LighthouseEntity) {
-					entityManager.merge(event);
+					if (event.isCommitted()) {
+						event = updateCommittedEvent(entityManager, event);
+					}
+					event = entityManager.merge(event);
 					if (i % INC == 0) {
 						monitor.worked(INC);
 					}
@@ -226,6 +232,7 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 				}
 				i++;
 			}
+			
 			// for each relationship event
 			for (LighthouseEvent event : listEvents) {
 				if (monitor.isCanceled()){
@@ -233,7 +240,10 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 				}
 				Object artifact = event.getArtifact();
 				if (artifact instanceof LighthouseRelationship) {
-					entityManager.merge(event);
+					if (event.isCommitted()) {
+						event = updateCommittedEvent(entityManager, event);
+					}
+					event = entityManager.merge(event);
 					if (i % INC == 0) {
 						monitor.worked(INC);
 					}
@@ -241,8 +251,10 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 				}
 				i++;
 			}
+			
 			JPAUtility.commitTransaction(entityManager);
 			JPAUtility.closeEntityManager(entityManager);
+			
 		} catch (OperationCanceledException e) {
 			logger.error(e,e);
 			JPAUtility.rollbackTransaction(entityManager);
@@ -256,6 +268,22 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, Integer> {
 			throw new JPAException("Error with database connection", e.fillInStackTrace());
 		} finally {
 			monitor.done();
+		}
+	}
+
+	private LighthouseEvent updateCommittedEvent(EntityManager entityManager, LighthouseEvent event) {
+		LighthouseEvent dbEvent = entityManager.find(entityClass, event.getId());
+		if (dbEvent!=null) {
+			dbEvent.setCommitted(event.isCommitted());
+			dbEvent.setCommittedTime(event.getCommittedTime());
+			Date timestamp = dbEvent.getTimestamp();
+			Date committedTime = dbEvent.getCommittedTime();
+			if (timestamp.after(committedTime)) {
+				dbEvent.setTimestamp(committedTime);
+			}
+			return dbEvent;
+		} else {
+			return event;
 		}
 	}
 	
