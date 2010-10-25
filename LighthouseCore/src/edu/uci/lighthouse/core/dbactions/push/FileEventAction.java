@@ -18,7 +18,8 @@ public class FileEventAction extends AbstractEventAction {
 	@Override
 	public void run() throws JPAException {
 		LighthouseModel lhModel = LighthouseModel.getInstance();
-		new PushModel(lhModel).saveEventsInDatabase(getEvents());
+		Collection<LighthouseEvent> listEvents = getEvents();
+		new PushModel(lhModel).saveEventsInDatabase(listEvents);
 	}
 
 }
