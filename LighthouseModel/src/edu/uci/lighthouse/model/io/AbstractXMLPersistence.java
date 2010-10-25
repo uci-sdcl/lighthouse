@@ -86,19 +86,22 @@ public abstract class AbstractXMLPersistence {
 				logger.warn("Trying to parse the Timestamp: " + timestamp);
 			}
 		}
-		event.setTimestamp(timestamp);
-		String strIsCommitted = root.elementText("isCommitted");
-		if (strIsCommitted!=null) {
-			event.setCommitted(new Boolean(strIsCommitted).booleanValue());
-		}
-		String strCommittedTime = root.elementText("committedTime");
-		if (strCommittedTime!=null) {
-			try {
-				event.setCommittedTime(LHStringUtil.simpleDateFormat.parse(strCommittedTime));
-			} catch (ParseException e) {
-				logger.warn("Trying to parse the CommittedTime: " + strCommittedTime);
-			}
-		}
+		
+//		FIXME: I just commented this code to don't make setTimestamp() public
+//		event.setTimestamp(timestamp);
+//		String strIsCommitted = root.elementText("isCommitted");
+//		if (strIsCommitted!=null) {
+//			event.setCommitted(new Boolean(strIsCommitted).booleanValue());
+//		}
+//		String strCommittedTime = root.elementText("committedTime");
+//		if (strCommittedTime!=null) {
+//			try {
+//				event.setCommittedTime(LHStringUtil.simpleDateFormat.parse(strCommittedTime));
+//			} catch (ParseException e) {
+//				logger.warn("Trying to parse the CommittedTime: " + strCommittedTime);
+//			}
+//		}
+		
 		return event; 
 	}
 	
