@@ -18,7 +18,8 @@ public class CommitAction extends AbstractEventAction {
 	@Override
 	public void run() throws JPAException {
 		LighthouseModel lhModel = LighthouseModel.getInstance();
-		new PushModel(lhModel).saveCommitEventsInDatabase(getEvents());
+		Collection<LighthouseEvent> listEvents = getEvents();
+		new PushModel(lhModel).saveCommitEventsInDatabase(listEvents);
 	}
 
 }
