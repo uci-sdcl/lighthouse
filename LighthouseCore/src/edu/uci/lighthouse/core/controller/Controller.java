@@ -1,10 +1,6 @@
 package edu.uci.lighthouse.core.controller;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -89,7 +85,6 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	
 	private static final String workspaceMetadata = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
 	private static final String modelFileName = workspaceMetadata + "lighthouse-model.bin";
-	private static final String deltaFileName = workspaceMetadata + "lighthouse-delta.bin";
 	private static final String TEMP_RESOURCE_LHPreviousFile = "TEMP_RESOURCE_LHPreviousFile.java";
 
 	private static Controller instance;
@@ -108,7 +103,6 @@ IPluginListener, Runnable, IPropertyChangeListener {
 				this);
 		loadPreferences();
 		loadModel();
-		//loadDelta();
 		logger.info("Starting thread...");
 		(new Thread(this,"Lighthouse Controller")).start();
 	}
@@ -120,27 +114,6 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		.removePropertyChangeListener(this);
 		savePreferences();
 		saveModel();
-		//saveDelta();
-	}
-
-	private void loadDelta() {
-		try {
-			ObjectInputStream ois = new ObjectInputStream(
-					new FileInputStream(deltaFileName));
-			logger.debug("loading " + deltaFileName);
-		} catch (Exception e) {
-			logger.error(e);
-		}
-	}
-
-	private void saveDelta() {
-		try {
-			ObjectOutputStream oos = new ObjectOutputStream(
-					new FileOutputStream(deltaFileName));
-			oos.close();
-		} catch (Exception e) {
-			logger.error(e, e);
-		}
 	}
 
 	public void loadPreferences() {
@@ -437,8 +410,13 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		// Ignore in the change event these files, because we don't want to
 		// generate deltas for other people changes.
 		ignorefilesJustUpdated.addAll(svnFiles.keySet());
+		
+		LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance());
+		modelManager.removeArtifactsAndEvents(getWorkingCopy().keySet());
+		
 		WorkingCopy workingCopy = getWorkingCopy(svnFiles, false);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
+		
 		UpdateAction updateAction = new UpdateAction(workingCopy);
 		databaseActionsBuffer.offer(updateAction);
 	}
@@ -447,9 +425,6 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {
 		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles, false);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
-		LighthouseModelManager modelManager = new LighthouseModelManager(
-				LighthouseModel.getInstance());
-		modelManager.removeCommittedEventsAndArtifacts(workingCopy.keySet());
 
 		// assuming that there is just one committed time
 		ISVNInfo[] svnInfo = svnFiles.values().toArray(new ISVNInfo[0]);
@@ -464,6 +439,10 @@ IPluginListener, Runnable, IPropertyChangeListener {
 					svnCommittedTime, 
 					Activator.getDefault().getAuthor());
 
+		LighthouseModelManager modelManager = new LighthouseModelManager(
+				LighthouseModel.getInstance());
+		modelManager.removeCommittedEventsAndArtifacts(workingCopy.keySet());
+		
 		fireModificationsToUI(listEventsToCommit);
 
 		logger.debug("Committed [" + listEventsToCommit.size() + "] events "
@@ -491,7 +470,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 	public void conflict(Map<IFile, ISVNInfo> svnFiles) {
 		// FIXME DO Nothing :S
 	}
-	
+
 	private void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		logger.debug("fireModificationsToUI ("+events.size()+" events)");
 		// We need hashmap to avoid repaint the UI multiple times
@@ -569,7 +548,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		databaseActionsBuffer.offer(synchronizeModelAction);
 	}
 
-// FIXME I can remove this code (I want to see the JOB code)
+// FIXME I can remove this code (However I still want to see the JOB code)
 //	private void synchronizeModelWithDatabase(final boolean forceNewConnection){
 //		final Job job = new Job("Synchronizing Model...") {
 //			@Override
