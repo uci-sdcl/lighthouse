@@ -1,21 +1,20 @@
 package edu.uci.lighthouse.model;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 
 import org.apache.log4j.Logger;
-import org.hibernate.annotations.GenerationTime;
+
+import edu.uci.lighthouse.model.util.LHStringUtil;
 
 /**
  *  Select others "new" events by using the timestamp as a parameter
@@ -39,16 +38,13 @@ public class LighthouseEvent implements Serializable{
 
 	private static Logger logger = Logger.getLogger(LighthouseEvent.class);
 
-	@SequenceGenerator(name="Event_Gen", sequenceName="Event_Gen")
-	@Id @GeneratedValue(generator="Event_Gen")
-	private Integer id;
+	@Id /** hash, combination of author+type+artifact*/
+	private String id = "";
 
 	/** User that generates the event. */
 	@OneToOne(cascade = CascadeType.ALL)
 	private LighthouseAuthor author;
 
-	@Column(name="TIMESTAMP", insertable=false, updatable=false, columnDefinition="timestamp default current_timestamp")
-	@org.hibernate.annotations.Generated(value=GenerationTime.INSERT)
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date timestamp = new Date(0);
 
@@ -60,6 +56,7 @@ public class LighthouseEvent implements Serializable{
 	
 	private boolean isCommitted = false; 
 	
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date committedTime = new Date(0);
 	
 	/** Type of the event. */
@@ -87,40 +84,81 @@ public class LighthouseEvent implements Serializable{
 	 * 		{@link LighthouseRelationship}
 	 * */
 	public LighthouseEvent(TYPE type, LighthouseAuthor author, Object artifact) {
-		this.type = type;
 		this.author = author;
+		this.type = type;
 		this.setArtifact(artifact);
+		try {
+			String hashStringId = author.toString()+type+artifact;
+			this.id = LHStringUtil.getMD5Hash(hashStringId); 
+		} catch (NoSuchAlgorithmException e) {
+			logger.error(e,e);
+		} 
 	}
-	
-	protected void setId(Integer id) {
+		
+	public String getId() {
+		return id;
+	}
+
+	protected void setId(String id) {
 		this.id = id;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-	
-	public TYPE getType() {
-		return type;
-	}
-	
 	public LighthouseAuthor getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(LighthouseAuthor author) {
+	protected void setAuthor(LighthouseAuthor author) {
 		this.author = author;
 	}
-	
+
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 
-	/** @return Can return NULL*/
-	public Date getTimestamp() {
-		return timestamp;
+	public LighthouseEntity getEntity() {
+		return entity;
 	}
-	
+
+	protected void setEntity(LighthouseEntity entity) {
+		this.entity = entity;
+	}
+
+	public LighthouseRelationship getRelationship() {
+		return relationship;
+	}
+
+	protected void setRelationship(LighthouseRelationship relationship) {
+		this.relationship = relationship;
+	}
+
+	public boolean isCommitted() {
+		return isCommitted;
+	}
+
+	public void setCommitted(boolean isCommitted) {
+		this.isCommitted = isCommitted;
+	}
+
+	public Date getCommittedTime() {
+		return committedTime;
+	}
+
+	public void setCommittedTime(Date committedTime) {
+		this.committedTime = committedTime;
+	}
+
+	public TYPE getType() {
+		return type;
+	}
+
+	protected void setType(TYPE type) {
+		this.type = type;
+	}
+
 	/**
 	 * Get the Artifact related with this event
 	 * 
@@ -160,22 +198,6 @@ public class LighthouseEvent implements Serializable{
 		}
 	}
 
-	public void setCommitted(boolean committed) {
-		this.isCommitted = committed;
-	}
-
-	public boolean isCommitted() {
-		return isCommitted;
-	}
-
-	public void setCommittedTime(Date committedTime) {
-		this.committedTime = committedTime;
-	}
-
-	public Date getCommittedTime() {
-		return committedTime;
-	}
-
 	@Override
 	public String toString() {
 		return 
@@ -193,19 +215,10 @@ public class LighthouseEvent implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
-		result = prime * result
-				+ ((relationship == null) ? 0 : relationship.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
-	/** TODO I removed the "timestamp" from the equals() because I had some
-	* problems to compare 2 EQUAL models that was generated in different times
-	* The "isCommitted" and "committedTime" is not here because they can be updated,
-	* what does not mean that this is a new event
-	* */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -215,27 +228,12 @@ public class LighthouseEvent implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		LighthouseEvent other = (LighthouseEvent) obj;
-		if (author == null) {
-			if (other.author != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!author.equals(other.author))
-			return false;
-		if (entity == null) {
-			if (other.entity != null)
-				return false;
-		} else if (!entity.equals(other.entity))
-			return false;
-		if (relationship == null) {
-			if (other.relationship != null)
-				return false;
-		} else if (!relationship.equals(other.relationship))
-			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-
+	
 }
