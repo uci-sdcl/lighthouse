@@ -411,9 +411,6 @@ IPluginListener, Runnable, IPropertyChangeListener {
 		// generate deltas for other people changes.
 		ignorefilesJustUpdated.addAll(svnFiles.keySet());
 		
-		LighthouseModelManager modelManager = new LighthouseModelManager(LighthouseModel.getInstance());
-		modelManager.removeArtifactsAndEvents(getWorkingCopy().keySet());
-		
 		WorkingCopy workingCopy = getWorkingCopy(svnFiles, false);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 		
@@ -423,7 +420,7 @@ IPluginListener, Runnable, IPropertyChangeListener {
 
 	@Override
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {
-		HashMap<String, Date> workingCopy = getWorkingCopy(svnFiles, false);
+		WorkingCopy workingCopy = getWorkingCopy(svnFiles, false);
 		mapClassToSVNCommittedTime.putAll(workingCopy);
 
 		// assuming that there is just one committed time
