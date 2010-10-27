@@ -161,7 +161,7 @@ public class ModelUtility {
 	}
 	
 	/**Does not save in database, only in the lighthouse model*/
-	//TODO (nilmax): Comment this method.
+	//TODO NILMAX: Comment this method.
 	public static void updateEvents(Collection<LighthouseEvent> listEvents) {
 		LighthouseModelManager LhManager = new LighthouseModelManager(LighthouseModel.getInstance());
 		Collection<String> listClassesToRemove = new LinkedHashSet<String>(); 
@@ -180,9 +180,13 @@ public class ModelUtility {
 					if (artifact instanceof LighthouseClass || artifact instanceof LighthouseInterface) {
 						LighthouseEntity entity = (LighthouseEntity) artifact;
 						String fqn = entity.getFullyQualifiedName();
-						//TODO (nilmax): Why I need to verify if the class is not on my workspace?
+						//TODO NILMAX: Why I need to verify if the class is not on my workspace?
+						// NILMAX ANSWER: BECAUSE IF OTHER DEVELOPER CREATE A
+						// CLASS IN HIS WORKSPACE (THAT IS NOT ON MY WORKSPACE)
+						// AND LATER DELETE IT
+						// I NEED TO REMOVE THIS FROM MY VIZUALIZATION
 						if ( event.getAuthor().equals(Activator.getDefault().getAuthor()) 
-								/*|| (Controller.getInstance().getWorkingCopy().get(fqn)==null)*/)  {
+								/* FIXME TIAGO || (Controller.getInstance().getWorkingCopy().get(fqn)==null)*/)  {
 							listClassesToRemove.add(fqn);
 						}
 					}
@@ -212,14 +216,12 @@ public class ModelUtility {
 	public static Collection<LighthouseEvent> getEventsForCommiting(Map<IFile, ISVNInfo> svnFiles/*List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author*/) {
 		// The commit time is equal for all the files in the map. So, let's pick the first one.
 		Date svnCommittedTime = svnFiles.values().toArray(new ISVNInfo[0])[0].getLastChangedDate();
-		
 		LighthouseAuthor author = Activator.getDefault().getAuthor();
-		
 		Collection<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(LighthouseModel.getInstance(), getClassesFullyQualifiedName(svnFiles)); 
 		LinkedHashSet<LighthouseEvent> listEventsToCommitt = new LinkedHashSet<LighthouseEvent>();
 		for (LighthouseEvent event : listEvents) {
 			if (event.getAuthor().equals(author)) {
-				// FIXME (nilmax): Is it possible the event being commit twice? Why the check?
+				// FIXME NILMAX: Is it possible the event being commit twice? Why we need to check?
 				if (!event.isCommitted()) {
 					event.setCommitted(true);
 					event.setCommittedTime(svnCommittedTime);
