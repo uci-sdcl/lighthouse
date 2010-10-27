@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import edu.uci.lighthouse.core.controller.PushModel;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
 public class FileEventAction extends AbstractEventAction {
@@ -17,9 +16,7 @@ public class FileEventAction extends AbstractEventAction {
 
 	@Override
 	public void run() throws JPAException {
-		LighthouseModel lhModel = LighthouseModel.getInstance();
-		Collection<LighthouseEvent> listEvents = getEvents();
-		new PushModel(lhModel).saveEventsInDatabase(listEvents);
+		PushModel.getInstance().saveEventsInDatabase(getEvents());
 	}
 
 }

@@ -1,15 +1,17 @@
 package edu.uci.lighthouse.core.dbactions.push;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
-import edu.uci.lighthouse.core.controller.PushModel;
+import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
-public class CommitAction extends AbstractEventAction {
-
+public class CommitAction extends FileEventAction {
+	
 	private static final long serialVersionUID = 4506601483048744221L;
+	
+	private boolean timeAdjusted = false;
 
 	public CommitAction(Collection<LighthouseEvent> events) {
 		super(events);
@@ -17,9 +19,14 @@ public class CommitAction extends AbstractEventAction {
 
 	@Override
 	public void run() throws JPAException {
-		LighthouseModel lhModel = LighthouseModel.getInstance();
-		Collection<LighthouseEvent> listEvents = getEvents();
-		new PushModel(lhModel).saveCommitEventsInDatabase(listEvents);
+		try {
+			if (!timeAdjusted) {
+				ModelUtility.adjustCommittedTimeToServerTime(getEvents());
+				timeAdjusted = true;
+			}
+			super.run();
+		} catch (SQLException e) {
+			throw new JPAException(e);
+		}
 	}
-
 }

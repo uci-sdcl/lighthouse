@@ -11,7 +11,6 @@ import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.listeners.ISVNEventListener;
 import edu.uci.lighthouse.core.util.ModelUtility;
-import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
 
@@ -29,7 +28,7 @@ public class SVNRecorder implements ISVNEventListener {
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
-			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
+			PushModel.getInstance().saveRepositoryEvent(
 					files, LighthouseRepositoryEvent.TYPE.CHECKOUT,
 					new Date());
 		} catch (JPAException e) {
@@ -47,7 +46,7 @@ public class SVNRecorder implements ISVNEventListener {
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
-			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
+			PushModel.getInstance().saveRepositoryEvent(
 					files, LighthouseRepositoryEvent.TYPE.CHECKIN,
 					new Date());
 		} catch (JPAException e) {
@@ -65,7 +64,7 @@ public class SVNRecorder implements ISVNEventListener {
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
-			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
+			PushModel.getInstance().saveRepositoryEvent(
 					files, LighthouseRepositoryEvent.TYPE.UPDATE,
 					new Date());
 		} catch (JPAException e) {
@@ -83,7 +82,7 @@ public class SVNRecorder implements ISVNEventListener {
 					files.put(entry.getKey(), entry.getValue());
 				}
 			}
-			new PushModel(LighthouseModel.getInstance()).saveRepositoryEvent(
+			PushModel.getInstance().saveRepositoryEvent(
 					files, LighthouseRepositoryEvent.TYPE.CONFLICT,
 					new Date());
 		} catch (JPAException e) {

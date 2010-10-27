@@ -1,6 +1,8 @@
 package edu.uci.lighthouse.core.preferences;
 
+import java.sql.SQLException;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -19,6 +21,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
+import edu.uci.lighthouse.model.util.DatabaseUtility;
 
 public class DatabasePreferences extends PreferencePage implements
 IWorkbenchPreferencePage{
@@ -50,6 +53,8 @@ IWorkbenchPreferencePage{
 	public static final String SSH_USERNAME = ROOT+ ".sshUser";
 	public static final String SSH_PASSWD = ROOT+ ".sshPassword";
 	public static final String SSH_PORT = ROOT+ ".sshPort";
+	
+	private static TimeZone serverTimezone;
 	
 	@Override
 	public void init(IWorkbench workbench) {
@@ -117,6 +122,7 @@ IWorkbenchPreferencePage{
 		store.setValue(SSH_PASSWD, sshPassword.getText());
 		store.setValue(SSH_PORT, sshPort.getText());
 		
+		serverTimezone = null;
 		
 		return super.performOk();
 	}
@@ -285,6 +291,13 @@ IWorkbenchPreferencePage{
 		return store.getBoolean(USES_TUNNEL);
 	}
 	
+	public static TimeZone getServerTimezone() throws SQLException {
+		if (serverTimezone == null) {
+			serverTimezone = DatabaseUtility.getServerTimezone(getDatabaseSettings());
+		}
+		return serverTimezone;
+	}
+	
 	public static void clear() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 
@@ -300,5 +313,7 @@ IWorkbenchPreferencePage{
 		store.setValue(SSH_USERNAME, "");
 		store.setValue(SSH_PASSWD, "");
 		store.setValue(SSH_PORT, "");
+		
+		serverTimezone = null;
 	}
 }

@@ -3,7 +3,7 @@ package edu.uci.lighthouse.core.dbactions;
 import java.util.LinkedList;
 
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
-import edu.uci.lighthouse.services.persistence.IPersistable;
+import edu.uci.lighthouse.model.io.IPersistable;
 
 public class DatabaseActionsBuffer extends LinkedList<IDatabaseAction> implements IPersistable {
 

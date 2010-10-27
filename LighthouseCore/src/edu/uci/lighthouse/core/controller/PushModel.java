@@ -1,12 +1,10 @@
 package edu.uci.lighthouse.core.controller;
 
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -14,13 +12,10 @@ import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
-import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
-import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
@@ -28,7 +23,6 @@ import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 import edu.uci.lighthouse.model.jpa.LHRepositoryEventDAO;
 import edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent;
-import edu.uci.lighthouse.model.util.DatabaseUtility;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class PushModel {
@@ -37,10 +31,19 @@ public class PushModel {
 
 	private LighthouseModel model;
 	
-	private TimeZone serverTimeZone;
+//	private TimeZone serverTimeZone;
 	
-	public PushModel(LighthouseModel model) {
+	private static PushModel instance;
+	
+	private PushModel(LighthouseModel model) {
 		this.model = model;
+	}
+	
+	public static PushModel getInstance() {
+		if (instance == null){
+			instance = new PushModel(LighthouseModel.getInstance());
+		}
+		return instance;
 	}
 	
 	public void saveEventsInDatabase(Collection<LighthouseEvent> listEvents) throws JPAException {
@@ -48,37 +51,14 @@ public class PushModel {
 		dao.saveListEvents(listEvents,null);		
 	}
 	
-	public void saveCommitEventsInDatabase(Collection<LighthouseEvent> listEvents) throws JPAException {
-		try {
-			adjustCommittedTime(listEvents);
-			saveEventsInDatabase(listEvents);
-		} catch (SQLException e) {
-			throw new JPAException("Error trying to save/update committed events", e.fillInStackTrace());
-		}
-	}
-	
-	/**
-	 * Adjust the committed time from all events using the database timezone 
-	 * 
-	 * @param listEvents
-	 * @throws SQLException
-	 */
-	private void adjustCommittedTime(Collection<LighthouseEvent> listEvents) throws SQLException {
-		for (LighthouseEvent event : listEvents) {
-			if (event.isCommitted()) {
-				Date committedTime = event.getCommittedTime();
-				Date adjustedCommittedTime = DatabaseUtility.getAdjustedDateTime(committedTime, getServerTimeZone());
-				event.setCommittedTime(adjustedCommittedTime);
-			}
-		}
-	}
-	
-	private TimeZone getServerTimeZone() throws SQLException {
-		if (serverTimeZone == null) {
-			serverTimeZone = DatabaseUtility.getServerTimezone(DatabasePreferences.getDatabaseSettings());
-		}
-		return serverTimeZone;
-	}
+//	public void saveCommitEventsInDatabase(Collection<LighthouseEvent> listEvents) throws JPAException {
+//		try {
+//			adjustCommittedTime(listEvents);
+//			saveEventsInDatabase(listEvents);
+//		} catch (SQLException e) {
+//			throw new JPAException("Error trying to save/update committed events", e.fillInStackTrace());
+//		}
+//	}
 	
 	public void importEventsToDatabase(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAException {
 		LHEventDAO dao = new LHEventDAO();
@@ -91,14 +71,15 @@ public class PushModel {
 			LighthouseParser parser = new LighthouseParser();
 			parser.execute(javaFiles);
 			Collection<LighthouseEntity> listEntities = parser.getListEntities();
+			//TODO (nilmax): Verificar bloco comentado com ele.
 			// set SVN time as newDate(1969-12-31 16:00:00)
-			Map<String, Date> mapClassToSVNCommittedTime = Controller.getInstance().getWorkingCopy();
-			for (LighthouseEntity entity : listEntities) {
-				if (entity instanceof LighthouseClass 
-						|| entity instanceof LighthouseInterface) {
-					mapClassToSVNCommittedTime.put(entity.getFullyQualifiedName(), new Date(0));
-				}
-			}
+//			Map<String, Date> mapClassToSVNCommittedTime = Controller.getInstance().getWorkingCopy();
+//			for (LighthouseEntity entity : listEntities) {
+//				if (entity instanceof LighthouseClass 
+//						|| entity instanceof LighthouseInterface) {
+//					mapClassToSVNCommittedTime.put(entity.getFullyQualifiedName(), new Date(0));
+//				}
+//			}
 			Collection<LighthouseRelationship> listLighthouseRel = parser.getListRelationships();
 			LighthouseModelManager modelManager = new LighthouseModelManager(model);
 			Collection<LighthouseEvent> listEvents = modelManager

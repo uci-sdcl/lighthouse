@@ -1,14 +1,21 @@
 package edu.uci.lighthouse.core.util;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.preference.PreferenceDialog;
@@ -20,10 +27,17 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.PreferencesUtil;
+import org.tigris.subversion.subclipse.core.SVNException;
+import org.tigris.subversion.subclipse.core.SVNProviderPlugin;
+import org.tigris.subversion.svnclientadapter.ISVNClientAdapter;
+import org.tigris.subversion.svnclientadapter.ISVNInfo;
+import org.tigris.subversion.svnclientadapter.SVNClientException;
 
 import edu.uci.lighthouse.core.decorators.LighthouseProjectLabelDecorator;
 
 public class WorkbenchUtility {
+	
+	private static Logger logger = Logger.getLogger(WorkbenchUtility.class);
 
 	public static IEditorPart getActiveEditor(){
 		class UITask implements Runnable {
@@ -93,5 +107,55 @@ public class WorkbenchUtility {
 	
 	public static String getMetadataDirectory() {
 		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
+	}
+	
+	public static Map<IFile, ISVNInfo> getSVNInfoFromWorkspace(){
+		Map<IFile, ISVNInfo> result = new HashMap<IFile, ISVNInfo>();
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IProject[] projects = workspace.getRoot().getProjects();
+		try {
+			ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin()
+			.getSVNClient();
+			for (IProject project : projects) {
+				if (project.isOpen()) {
+					try {
+						IJavaProject jProject = (IJavaProject) project
+						.getNature(JavaCore.NATURE_ID);
+						if (jProject != null) {
+							Collection<IFile> iFiles = WorkbenchUtility
+							.getFilesFromJavaProject(jProject);
+							for (IFile iFile : iFiles) {
+								try {
+									ISVNInfo svnInfo = svnAdapter
+									.getInfoFromWorkingCopy(iFile
+											.getLocation().toFile());
+									/*String fqn = ModelUtility
+									.getClassFullyQualifiedName(iFile);
+									if (fqn != null) {*/
+										/*Date revision = svnInfo
+										.getLastChangedDate();
+										if (revision == null) {
+											revision = new Date(0);
+										} else {
+											revision = new Date(revision
+													.getTime());
+										}*/
+										result.put(iFile, svnInfo);
+									//}
+								} catch (SVNClientException ex1) {
+									logger.error(ex1);
+								}
+							}
+						}
+					} catch (CoreException e) {
+						logger.error(e, e);
+					}
+
+				}
+			}
+		} catch (SVNException ex) {
+			logger.error(ex, ex);
+		}
+		return result;
 	}
 }
