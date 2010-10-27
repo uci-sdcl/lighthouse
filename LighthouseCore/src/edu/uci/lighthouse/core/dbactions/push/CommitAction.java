@@ -22,6 +22,7 @@ public class CommitAction extends FileEventAction {
 		try {
 			if (!timeAdjusted) {
 				// Adjusts the committed time (from SVN) to the database's server time.
+				// FIXME TIAGO add a comment talking about optimization/cache
 				ModelUtility.adjustCommittedTimeToServerTime(getEvents());
 				timeAdjusted = true;
 			}
