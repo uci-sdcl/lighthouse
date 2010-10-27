@@ -45,6 +45,7 @@ public class PersistableRegistry {
 			} 
 		}
 		Assert.isNotNull(instance);
+		registry.put(clazz, instance);
 		return instance;
 	}
 	

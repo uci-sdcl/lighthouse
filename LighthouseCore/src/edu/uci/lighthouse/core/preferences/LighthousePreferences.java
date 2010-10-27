@@ -15,7 +15,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import edu.uci.lighthouse.core.dbactions.JobDecoratorAction;
 import edu.uci.lighthouse.core.dbactions.pull.SynchronizeModelAction;
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
-import edu.uci.lighthouse.model.util.DatabaseUtility;
 
 public class LighthousePreferences extends PreferencePage implements
 		IWorkbenchPreferencePage {
@@ -34,12 +33,9 @@ public class LighthousePreferences extends PreferencePage implements
 	protected Control createContents(Composite parent) {
 		btImage = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", ICON).createImage();
 		
-		boolean isConnected = DatabaseUtility.canConnect(DatabasePreferences.getDatabaseSettings());
-		
 		btSynchronizeModel = new Button(parent, SWT.PUSH);
 		btSynchronizeModel.setText("Synchronize model with database");
 		btSynchronizeModel.setImage(btImage);
-		btSynchronizeModel.setEnabled(isConnected);
 		btSynchronizeModel.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseDown(MouseEvent e) {

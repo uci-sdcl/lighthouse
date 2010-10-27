@@ -65,7 +65,6 @@ public class DataThread extends Thread implements IPluginListener{
 	public void start(BundleContext context) throws Exception {
 		logger.info("Starting thread...");
 		running = true;
-		StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 		this.start();
 	}
 
@@ -73,7 +72,6 @@ public class DataThread extends Thread implements IPluginListener{
 	public void stop(BundleContext context) throws Exception {
 		logger.info("Stopping thread...");
 		running = false;
-		StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 	}
 	
 	private void processBuffer() {
