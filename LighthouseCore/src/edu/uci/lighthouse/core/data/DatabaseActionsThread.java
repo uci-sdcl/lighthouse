@@ -6,7 +6,7 @@ import org.osgi.framework.BundleContext;
 
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
-import edu.uci.lighthouse.core.dbactions.pull.FetchNewDataAction;
+import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.widgets.StatusWidget;
 import edu.uci.lighthouse.model.jpa.JPAException;
@@ -17,7 +17,7 @@ import edu.uci.lighthouse.model.jpa.JPAException;
  * @author tproenca
  *
  */
-public class DataThread extends Thread implements IPluginListener{
+public class DatabaseActionsThread extends Thread implements IPluginListener{
 
 	private final long TIMEOUT = 5000;
 	private final int MAX_MULTIPLIER = 180; // 180 times
@@ -26,10 +26,10 @@ public class DataThread extends Thread implements IPluginListener{
 	private boolean suspended = false;
 	private DatabaseActionsBuffer buffer;
 	
-	private static Logger logger = Logger.getLogger(DataThread.class);
+	private static Logger logger = Logger.getLogger(DatabaseActionsThread.class);
 	
-	public DataThread(DatabaseActionsBuffer buffer) {
-		super(DataThread.class.getName());
+	public DatabaseActionsThread(DatabaseActionsBuffer buffer) {
+		super(DatabaseActionsThread.class.getName());
 		this.buffer = buffer;
 	}
 
@@ -65,6 +65,7 @@ public class DataThread extends Thread implements IPluginListener{
 	public void start(BundleContext context) throws Exception {
 		logger.info("Starting thread...");
 		running = true;
+		StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 		this.start();
 	}
 
@@ -72,6 +73,7 @@ public class DataThread extends Thread implements IPluginListener{
 	public void stop(BundleContext context) throws Exception {
 		logger.info("Stopping thread...");
 		running = false;
+		StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 	}
 	
 	private void processBuffer() {
@@ -82,7 +84,7 @@ public class DataThread extends Thread implements IPluginListener{
 				databaseAction.run();
 				buffer.poll();
 			}
-			buffer.offer(new FetchNewDataAction());
+			buffer.offer(new FetchNewEventsAction());
 			backoffMultiplier = 1;
 		} catch (JPAException e) {
 			backoffMultiplier = backoffMultiplier > MAX_MULTIPLIER ? 1 : backoffMultiplier*2; 
