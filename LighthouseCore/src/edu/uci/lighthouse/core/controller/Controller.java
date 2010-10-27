@@ -9,8 +9,10 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFileState;
-import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -22,7 +24,7 @@ import org.tigris.subversion.svnclientadapter.ISVNStatus;
 import org.tigris.subversion.svnclientadapter.SVNStatusKind;
 
 import edu.uci.lighthouse.core.Activator;
-import edu.uci.lighthouse.core.data.DataThread;
+import edu.uci.lighthouse.core.data.DatabaseActionsThread;
 import edu.uci.lighthouse.core.data.PersistableRegistry;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
@@ -61,7 +63,7 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 	private Collection<IFile> ignorefilesJustUpdated = new LinkedHashSet<IFile>();
 	private DatabaseActionsBuffer buffer;
 	private LighthouseModel model;
-	private DataThread thread;
+	private DatabaseActionsThread thread;
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -72,7 +74,7 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 			WorkbenchUtility.updateProjectIcon();
 			LighthouseModel.getInstance().fireModelChanged();
 		} 
-		thread = new DataThread(buffer);
+		thread = new DatabaseActionsThread(buffer);
 		thread.start(context);
 	}
 
@@ -97,12 +99,12 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 	
 	@Override
 	public void open(final IFile iFile, boolean hasErrors) {
-		
+		// DO NOTHING
 	}
 
 	@Override
 	public void close(IFile iFile, boolean hasErrors) {
-		
+		// DO NOTHING
 	}
 
 	@Override
@@ -112,10 +114,10 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 				ignorefilesJustUpdated.remove(iFile);
 			} else {
 				try {
-					IFile prevIFile = getPreviousVersion(iFile);
-					if (prevIFile != null) {
-						generateDeltaAndSaveIntoModel(prevIFile, iFile);
-						removeIFile(prevIFile);
+					IFile previousIFile = getPreviousVersion(iFile);
+					if (previousIFile != null) {
+						generateDeltaAndSaveIntoModel(previousIFile, iFile);
+						removeIFile(previousIFile);
 					}
 				} catch (Exception e) {
 					logger.error(e, e);
@@ -153,7 +155,7 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 	}
 
 	private LighthouseFile parseIFile(IFile iFile) throws ParserException {
-		Assert.isNotNull(iFile);
+		if (iFile!=null) {
 			LighthouseParser parser = new LighthouseParser();
 			parser.execute(Collections.singleton(iFile));
 
@@ -164,11 +166,14 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 					parser.getListEntities(), 
 					parser.getListRelationships());
 			return lhFile;
+		} else {
+			return null;
+		}
 	}
 
 	/**
-	 * The method add happens when a class is added in the workspace or when is
-	 * checkout a project in a empty workspace.
+	 * The method add run when a class is added in the workspace or when
+	 * the user checkout a project in a empty workspace.
 	 */
 	@Override
 	public void add(IFile iFile, boolean hasErrors) {
@@ -199,7 +204,7 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 				IFile previousIFile = getPreviousVersion(iFile);
 				if (previousIFile != null) {
 					generateDeltaAndSaveIntoModel(previousIFile, null);
-					// removeIFile(previousIFile); Not necessary, once Eclipse will remove the IFile.
+					removeIFile(previousIFile);
 				}
 			} catch (Exception e) {
 				logger.error(e, e);
@@ -210,18 +215,15 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 	
 	@Override
 	public void checkout(Map<IFile, ISVNInfo> svnFiles) {
-		// We have to get the events first before updating the UI.
 		CheckoutAction checkoutAction = new CheckoutAction(svnFiles);
 		buffer.offer(checkoutAction);
 	}
 
 	@Override
 	public void update(Map<IFile, ISVNInfo> svnFiles) {
-		// Ignore in the change event these files, because we don't want to
+		// Ignore in this files in the change() event, because we don't want to
 		// generate deltas for other people changes.
 		ignorefilesJustUpdated.addAll(svnFiles.keySet());
-		
-		//TODO (nilmax): Is not suppose to update the UI now?
 		
 		UpdateAction updateAction = new UpdateAction(svnFiles);
 		buffer.offer(updateAction);
@@ -229,8 +231,8 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 
 	@Override
 	public void commit(Map<IFile, ISVNInfo> svnFiles) {		
-		// Get events for commiting from SVN files.
-		Collection<LighthouseEvent> eventsforCommiting = ModelUtility
+		// Get events for committing from SVN files.
+		Collection<LighthouseEvent> eventsforCommitting = ModelUtility
 				.getEventsForCommiting(svnFiles);
 
 		// Remove committed events and artifacts from the model.
@@ -238,15 +240,15 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 		manager.removeCommittedEventsAndArtifacts(ModelUtility.getClassesFullyQualifiedName(svnFiles));
 
 		// Refresh the UI.
-		ModelUtility.fireModificationsToUI(eventsforCommiting);
+		ModelUtility.fireModificationsToUI(eventsforCommitting);
 		
-		CommitAction commitAction = new CommitAction(eventsforCommiting);
+		CommitAction commitAction = new CommitAction(eventsforCommitting);
 		buffer.offer(commitAction);
 	}
 
 	@Override
 	public void conflict(Map<IFile, ISVNInfo> svnFiles) {
-		
+		// DO NOTHING
 	}
 
 	@Override
@@ -265,8 +267,6 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 //						notify();
 //					}
 //				}
-				
-				
 			}
 		} catch (Exception e) {
 			logger.error(e, e);
@@ -370,10 +370,11 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 //		return instance;
 //	}
 
-	private IFile getPreviousVersion(IFile from) throws Exception{
+	private IFile getPreviousVersion(IFile from) throws Exception {
 		String fromFullPath = from.getFullPath().toOSString();
 		String fromFilename = from.getFullPath().toFile().getName();
-		String iFileFullPath = fromFullPath.replaceAll(fromFilename, "Previous"+fromFilename);
+		String iFileFullPath = fromFullPath.replaceAll(fromFilename, "TEMP_RESOURCE_LHPreviousFile.java");
+		// This file name should be VERY unique otherwise we will have a file name conflict
 
 		IFileState[] history = from.getHistory(null);
 		if (history.length==0) {
@@ -382,11 +383,11 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 		
 		InputStream inputStream = history[0].getContents();
 
-		//IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(tempWorkspaceResource));
+		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iFileFullPath));
 
-		//IProject project = from.getProject();
-		//project.getFile(tempWorkspaceResource);
-		IFile iFile = from.getProject().getFile(iFileFullPath);
+		IProject project = from.getProject();
+		project.getFile(iFileFullPath);
+		//IFile iFile = from.getProject().getFile(iFileFullPath);
 		iFile.create(inputStream, true, null);
 
 		return iFile;
