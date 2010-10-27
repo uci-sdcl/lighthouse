@@ -21,6 +21,7 @@ public class CommitAction extends FileEventAction {
 	public void run() throws JPAException {
 		try {
 			if (!timeAdjusted) {
+				// Adjusts the committed time (from SVN) to the database's server time.
 				ModelUtility.adjustCommittedTimeToServerTime(getEvents());
 				timeAdjusted = true;
 			}
