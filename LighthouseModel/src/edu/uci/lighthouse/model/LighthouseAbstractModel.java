@@ -12,10 +12,8 @@ import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 /**
  * It consist of a list of entities and a list of relationships
  * */
-public abstract class LighthouseAbstractModel implements Serializable{
-
-	// Don't change this.
-	private static final long serialVersionUID = -8404197989978609791L;
+@SuppressWarnings("serial")
+public abstract class LighthouseAbstractModel implements Serializable {
 
 	private HashMap<String, LighthouseEntity> entities = new HashMap<String, LighthouseEntity>();
 

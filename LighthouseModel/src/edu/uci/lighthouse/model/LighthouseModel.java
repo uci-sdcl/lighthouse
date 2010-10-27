@@ -8,7 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.widgets.Display;
+
+import edu.uci.lighthouse.model.io.IPersistable;
 
 
 /**
@@ -19,7 +22,10 @@ import org.eclipse.swt.widgets.Display;
  * - List of Events
  * 
  * */
-public class LighthouseModel extends LighthouseAbstractModel {
+public class LighthouseModel extends LighthouseAbstractModel implements IPersistable {
+
+	// Do not change this.
+	private static final long serialVersionUID = -6504942647992239589L;
 
 	private static Logger logger = Logger.getLogger(LighthouseModel.class);
 
@@ -258,6 +264,12 @@ public class LighthouseModel extends LighthouseAbstractModel {
 		} else if (!mapArtifactEvents.equals(other.mapArtifactEvents))
 			return false;
 		return super.equals(obj);
+	}
+
+	@Override
+	public String getFileName() {
+		String metadataDir = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
+		return metadataDir + "lighthouse-model.bin";
 	}
 
 }

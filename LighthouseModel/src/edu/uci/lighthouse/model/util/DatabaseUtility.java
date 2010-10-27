@@ -20,6 +20,8 @@ import java.util.TimeZone;
  */
 public class DatabaseUtility {
 
+	private static TimeZone serverTimeZone;
+	
 	/**
 	 * Returns a <code>Date</code> object adjusted for the given timezone.
 	 * 
@@ -51,25 +53,29 @@ public class DatabaseUtility {
 	 */
 	public static TimeZone getServerTimezone(Properties dbSettings)
 			throws SQLException {
-		String url = dbSettings.getProperty("hibernate.connection.url");
-		String username = dbSettings
-				.getProperty("hibernate.connection.username");
-		String password = dbSettings
-				.getProperty("hibernate.connection.password");
+		if (serverTimeZone == null) {
+			String url = dbSettings.getProperty("hibernate.connection.url");
+			String username = dbSettings
+					.getProperty("hibernate.connection.username");
+			String password = dbSettings
+					.getProperty("hibernate.connection.password");
 
-		Connection conn = DriverManager.getConnection(url, username, password);
+			Connection conn = DriverManager.getConnection(url, username,
+					password);
 
-		ResultSet rs = conn
-				.createStatement()
-				.executeQuery(
-						"select timestampdiff(HOUR,utc_timestamp(), current_timestamp());");
-		String timediff = "";
-		if (rs.next()) {
-			timediff = rs.getString(1);
+			ResultSet rs = conn
+					.createStatement()
+					.executeQuery(
+							"select timestampdiff(HOUR,utc_timestamp(), current_timestamp());");
+			String timediff = "";
+			if (rs.next()) {
+				timediff = rs.getString(1);
+			}
+			conn.close();
+
+			serverTimeZone = TimeZone.getTimeZone("GMT" + timediff);
 		}
-		conn.close();
-
-		return TimeZone.getTimeZone("GMT" + timediff);
+		return serverTimeZone;
 	}
 
 	/**
