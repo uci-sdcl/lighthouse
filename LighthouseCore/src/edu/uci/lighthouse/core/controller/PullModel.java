@@ -68,7 +68,7 @@ public class PullModel {
 	private void updateTimestamp(List<LighthouseEvent> events) {
 		if (!events.isEmpty()) {
 			for (LighthouseEvent event : events) {
-				Date timestamp = event.getTimestamp();
+				timestamp = event.getTimestamp();
 				Date committedTime = event.getCommittedTime();
 				Date time = committedTime.after(timestamp) ? committedTime : timestamp;
 				timestamp = (time.after(timestamp)) ? time : timestamp;
