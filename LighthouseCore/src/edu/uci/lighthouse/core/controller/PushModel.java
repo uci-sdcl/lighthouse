@@ -27,8 +27,6 @@ import edu.uci.lighthouse.parser.ParserException;
 
 public class PushModel {
 	
-	//private static Logger logger = Logger.getLogger(PushModel.class);
-
 	private LighthouseModel model;
 	
 //	private TimeZone serverTimeZone;
@@ -65,6 +63,7 @@ public class PushModel {
 		dao.saveListEvents(listEvents,monitor);
 	}
 	
+	// TODO NILMAX why I am modifing the model inside this method?
 	public Collection<LighthouseEvent> parseJavaFiles(Collection<IFile> javaFiles)
 			throws ParserException, JPAException {
 		if (javaFiles.size() > 0) {
