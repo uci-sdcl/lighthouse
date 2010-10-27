@@ -4,8 +4,12 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 
+import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
@@ -19,19 +23,27 @@ public class JobDecoratorAction implements IDatabaseAction{
 	
 	private static Logger logger = Logger.getLogger(JobDecoratorAction.class);
 	
+	private Job job;
+	
 	public JobDecoratorAction(IDatabaseAction action) {
-		this(action, "Lighthouse Database Actions", "Executing "+action.getClass().getName()+" ...");
+		this(action, "Lighthouse Database Actions", "Executing "+action.getClass().getSimpleName()+" ...");
 	}
 	
 	public JobDecoratorAction(IDatabaseAction action, String titleLabel, String taskLabel) {
 		this.action = action;
 		this.titleLabel = titleLabel;
 		this.taskLabel = taskLabel;
+		attachJob();
 	}
 	
 	@Override
 	public void run() {
-		final Job job = new Job(titleLabel) {
+		job.setUser(true);
+		job.schedule();
+	}
+	
+	private void attachJob() {
+		job = new Job(titleLabel) {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
@@ -40,14 +52,24 @@ public class JobDecoratorAction implements IDatabaseAction{
 					action.run();
 				} catch (JPAException e) {
 					logger.error(e, e);
-					UserDialog.openError("JPAException: " + e.getMessage());
+					return new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage());
 				} finally {
 					monitor.done();
 				}
 				return Status.OK_STATUS;
 			}
 		};
-		job.setUser(true);
-		job.schedule();
+//		job.addJobChangeListener(new JobChangeAdapter() {
+//			@Override
+//			public void done(final IJobChangeEvent event) {
+//				if (event.getResult() != Status.CANCEL_STATUS && !event.getResult().isOK()) {
+//					UserDialog.openError(event.getResult().getMessage());
+//				}
+//			}
+//		});
+	}
+	
+	public void addJobChangeListener(IJobChangeListener listener) {
+		job.addJobChangeListener(listener);
 	}
 }
