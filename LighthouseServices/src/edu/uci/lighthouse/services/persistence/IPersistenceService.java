@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.services.persistence;
 
+import edu.uci.lighthouse.model.io.IPersistable;
 import edu.uci.lighthouse.services.ILighthouseService;
 
 public interface IPersistenceService extends ILighthouseService {

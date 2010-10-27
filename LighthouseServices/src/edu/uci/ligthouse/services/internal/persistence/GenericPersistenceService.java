@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 
 import org.apache.log4j.Logger;
 
-import edu.uci.lighthouse.services.persistence.IPersistable;
+import edu.uci.lighthouse.model.io.IPersistable;
 import edu.uci.lighthouse.services.persistence.IPersistenceService;
 import edu.uci.lighthouse.services.persistence.PersistenceException;
 
