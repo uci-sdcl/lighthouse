@@ -4,16 +4,15 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 
 import edu.uci.lighthouse.core.Activator;
-import edu.uci.lighthouse.core.util.UserDialog;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
-public class JobDecoratorAction implements IDatabaseAction{
+public class JobDecoratorAction implements IDatabaseAction {
+
+	private static final long serialVersionUID = -4080828887416287463L;
 
 	private IDatabaseAction action;
 	
