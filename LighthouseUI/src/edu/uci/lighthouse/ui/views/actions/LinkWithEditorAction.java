@@ -30,7 +30,7 @@ public class LinkWithEditorAction extends Action implements
 	private GraphNode lastHightlightedNode;
 
 	private static final String ICON = "/icons/synced.gif";
-	private static final String DESCRIPTION = "Link with editor";
+	private static final String DESCRIPTION = "Highlight the active class";
 
 	private static Logger logger = Logger.getLogger(LinkWithEditorAction.class);
 

@@ -21,7 +21,7 @@ public class DiagramModeDropDownAction extends DropDownAction{
 	private static Logger logger = Logger.getLogger(DiagramModeDropDownAction.class);
 	
 	private static final String ICON = "/icons/class_mode.png";
-	private static final String DESCRIPTION = "Diagram Mode";
+	private static final String DESCRIPTION = "Class visualization mode";
 
 	public DiagramModeDropDownAction(IContainer container) {
 		super(container);

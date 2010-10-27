@@ -32,7 +32,7 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 	private Collection<GraphNode> selectedNodes;
 	
 	private static final String ICON = "$nl$/icons/elcl16/highlight.gif";
-	private static final String DESCRIPTION = "Highlight";
+	private static final String DESCRIPTION = "Highlight elements";
 	
 	private static Logger logger = Logger.getLogger(HighlightDropDownAction.class);
 	

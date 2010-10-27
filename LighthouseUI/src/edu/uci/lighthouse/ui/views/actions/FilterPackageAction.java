@@ -32,7 +32,7 @@ public class FilterPackageAction  extends Action implements IMenuCreator{
 	protected GraphViewer viewer;
 	
 	private static final String ICON = "$nl$/icons/full/obj16/package_obj.gif";
-	private static final String DESCRIPTION = "Show just modifications";
+	private static final String DESCRIPTION = "Filter by package";
 	
 	// Required to allow the dynamic menu be checked.
 	private Map<String,PackageFilterAction> cachedActions = new HashMap<String,PackageFilterAction>();

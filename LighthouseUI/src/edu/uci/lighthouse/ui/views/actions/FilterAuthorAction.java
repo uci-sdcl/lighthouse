@@ -32,7 +32,7 @@ public class FilterAuthorAction extends Action implements IMenuCreator {
 //	private List<IAction> actions;
 	
 	private static final String ICON = "/icons/in_others_workspaces.gif";
-	private static final String DESCRIPTION = "Authors";
+	private static final String DESCRIPTION = "Filter by users";
 	
 	Map<String,AuthorClassFilter> cacheFilters = new HashMap<String,AuthorClassFilter>();
 

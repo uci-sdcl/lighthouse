@@ -16,7 +16,7 @@ public class FilterModifiedAction extends Action {
 	protected IContainer container;
 	
 	private static final String ICON = "$nl$/icons/full/etool16/java_attach.gif";
-	private static final String DESCRIPTION = "Show just modifications";
+	private static final String DESCRIPTION = "Filter by modifications";
 
 	private static Logger logger = Logger.getLogger(FilterModifiedAction.class);
 	

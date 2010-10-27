@@ -28,7 +28,7 @@ public class LayoutDropDownAction extends DropDownAction {
 	private static Logger logger = Logger.getLogger(LayoutDropDownAction.class);
 	
 	private static final String ICON = "/icons/frlayout.gif";
-	private static final String DESCRIPTION = "Diagram Mode";
+	private static final String DESCRIPTION = "Diagram layout";
 
 	public LayoutDropDownAction(IContainer container){
 		super(container);
@@ -45,9 +45,9 @@ public class LayoutDropDownAction extends DropDownAction {
 	protected List<IAction> createActions() {
 		List<IAction> result = new ArrayList<IAction>();
 		final int style = LayoutStyles.NO_LAYOUT_NODE_RESIZING;
-		result.add(new LayoutAction(new SpringLayoutAlgorithm(style)));
-		result.add(new LayoutAction(new TreeLayoutAlgorithm(style)));
-		result.add(new LayoutAction(new RadialLayoutAlgorithm(style)));
+//		result.add(new LayoutAction(new SpringLayoutAlgorithm(style)));
+//		result.add(new LayoutAction(new TreeLayoutAlgorithm(style)));
+//		result.add(new LayoutAction(new RadialLayoutAlgorithm(style)));
 		result.add(new LayoutAction(new GridLayoutAlgorithm(style)));
 //		result.add(new LayoutAction(new PackageLayoutAlgorithm(style)));
 //		result.add(new LayoutAction(new HorizontalShift(style)));
@@ -72,7 +72,7 @@ public class LayoutDropDownAction extends DropDownAction {
 
 	@Override
 	protected int getDefaultActionIndex() {
-		return 3;
+		return 0;
 	}
 	
 	private String formatLayoutAlgorithmName(LayoutAlgorithm algorithm){
