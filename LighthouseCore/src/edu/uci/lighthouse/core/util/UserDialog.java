@@ -23,4 +23,13 @@ public class UserDialog {
 		});
 	}
 	
+	public static void openInformation(final String message){
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				Shell shell = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getShell();
+				MessageDialog.openInformation(shell,"Lighthouse", message);
+			}
+		});
+	}
 }
