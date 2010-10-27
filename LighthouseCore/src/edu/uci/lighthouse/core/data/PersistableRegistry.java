@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.core.data;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,12 @@ public class PersistableRegistry {
 		if (instance == null) {
 			IPersistenceService svc = (IPersistenceService) LighthouseServiceFactory.getService("GenericPersistenceService");
 			try {
-				instance = clazz.newInstance();
+				try {
+					Method method = clazz.getMethod("getInstance", new Class<?>[0]);
+					instance = (IPersistable) method.invoke(null, new Object[0]);
+				} catch (NoSuchMethodException ex) {
+					instance = clazz.newInstance();
+				}
 				instance = svc.load(instance);
 			} catch (Exception e) {
 				logger.error(e,e);
