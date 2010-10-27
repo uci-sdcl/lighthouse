@@ -48,9 +48,9 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		//FIXME: Erase EditorListener and put everything in LinkWithEditorAction
 		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer);
 		FilterActiveClassAction activeClassAction = new FilterActiveClassAction(viewer);
-		FilterOpenEditorAction openEditorAction = new FilterOpenEditorAction(viewer);
+//		FilterOpenEditorAction openEditorAction = new FilterOpenEditorAction(viewer);
 		editorListener.addEditorSelectionListener(activeClassAction);
-		editorListener.addEditorSelectionListener(openEditorAction);
+//		editorListener.addEditorSelectionListener(openEditorAction);
 		editorListener.addEditorSelectionListener(linkAction);
 		
 		getViewSite().getActionBars().getToolBarManager().add(linkAction);
@@ -61,7 +61,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		getViewSite().getActionBars().getToolBarManager().add(new FilterPackageAction(viewer));
 		getViewSite().getActionBars().getToolBarManager().add(new FilterModifiedAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(activeClassAction);
-		getViewSite().getActionBars().getToolBarManager().add(openEditorAction);
+//		getViewSite().getActionBars().getToolBarManager().add(openEditorAction);
 		getViewSite().getActionBars().getToolBarManager().add(new ZoomDropDownAction(this));
 
 		//FIXME: Change this to a decorator
