@@ -2,6 +2,8 @@ package edu.uci.lighthouse.core.dbactions.pull;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.controller.PullModel;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
@@ -10,7 +12,9 @@ import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
-public class FetchNewDataAction implements IDatabaseAction {
+public class FetchNewEventsAction implements IDatabaseAction {
+	
+	private static Logger logger = Logger.getLogger(FetchNewEventsAction.class);
 	
 	private static final long serialVersionUID = 7200580843968876241L;
 
@@ -25,8 +29,12 @@ public class FetchNewDataAction implements IDatabaseAction {
 			LighthouseAuthor author = Activator.getDefault().getAuthor();
 			PullModel pullModel = PullModel.getInstance();
 			List<LighthouseEvent> events = pullModel.getNewEventsFromDB(author);
-			ModelUtility.updateEvents(events);
-			ModelUtility.fireModificationsToUI(events);
+			if (events.size()>0) {
+				ModelUtility.updateEvents(events);
+				ModelUtility.fireModificationsToUI(events);
+			} else {
+				logger.debug("Events fecthed from database: " + events);
+			}
 		//}
 	}
 
