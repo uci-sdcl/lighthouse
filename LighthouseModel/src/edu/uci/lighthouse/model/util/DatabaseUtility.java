@@ -86,20 +86,16 @@ public class DatabaseUtility {
 	 *            The datatabase connection settings
 	 * @return <code>true</code> if is possible to connect to the database
 	 *         server and <code>false</code> otherwise.
+	 * @throws SQLException 
 	 */
-	public static boolean canConnect(Properties dbSettings) {
+	public static void canConnect(Properties dbSettings) throws SQLException {
 		String url = dbSettings.getProperty("hibernate.connection.url");
 		String username = dbSettings
 				.getProperty("hibernate.connection.username");
 		String password = dbSettings
 				.getProperty("hibernate.connection.password");
-		try {
 			Connection conn = DriverManager.getConnection(url, username,
 					password);
 			conn.close();
-		} catch (SQLException e) {
-			return false;
-		}
-		return true;
 	}
 }

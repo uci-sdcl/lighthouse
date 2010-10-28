@@ -54,7 +54,9 @@ public class JPAUtility {
 		logger.info("shutdown EntityManagerFactory...");
 		try {
 			for (EntityManagerFactory factory : cacheFactory) {
-				factory.close();
+				if (factory.isOpen()) {
+					factory.close();
+				}
 			}
 		} catch (RuntimeException e) {
 			throw new JPAException(e);
