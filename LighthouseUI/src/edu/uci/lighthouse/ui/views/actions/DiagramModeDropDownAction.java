@@ -21,7 +21,7 @@ public class DiagramModeDropDownAction extends DropDownAction{
 	private static Logger logger = Logger.getLogger(DiagramModeDropDownAction.class);
 	
 	private static final String ICON = "/icons/class_mode.png";
-	private static final String DESCRIPTION = "Class visualization mode";
+	private static final String DESCRIPTION = "Class visualization modes";
 
 	public DiagramModeDropDownAction(IContainer container) {
 		super(container);
@@ -40,26 +40,27 @@ public class DiagramModeDropDownAction extends DropDownAction{
 	private final class DiagramModeAction extends Action {
 		ILighthouseClassFigure.MODE mode;
 		public DiagramModeAction(ILighthouseClassFigure.MODE mode){
-			super("Mode " + (mode.ordinal()+1),Action.AS_RADIO_BUTTON);
+			super("",Action.AS_RADIO_BUTTON);
+			this.mode = mode;	
+			
 			String modeName = "";
-			int key = mode.ordinal();
-			switch (key ) {
+			switch (mode.ordinal()) {
 			case 0:
-				modeName = "1. Only Class Name";
+				modeName = "Only class name";
 				break;
 			case 1:
-				modeName = "2. Class/Authors's Name";
+				modeName = "Class/Authors's name";
 				break;
 			case 2:
-				modeName = "3. Modified Fields/Methods";
+				modeName = "Modified fields/methods";
 				break;
 			case 3:
-				modeName = "4. All Fields/Methods";
+				modeName = "All fields/methods";
 				break;
 			}
 			setText(modeName);
-			this.mode = mode;			
 		}
+		
 		@Override
 		public void run() {
 			if (isChecked()) {
