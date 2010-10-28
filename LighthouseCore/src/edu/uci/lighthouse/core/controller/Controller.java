@@ -28,6 +28,7 @@ import edu.uci.lighthouse.core.data.DatabaseActionsThread;
 import edu.uci.lighthouse.core.data.PersistableRegistry;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
+import edu.uci.lighthouse.core.dbactions.JobDecoratorAction;
 import edu.uci.lighthouse.core.dbactions.pull.CheckoutAction;
 import edu.uci.lighthouse.core.dbactions.pull.SynchronizeModelAction;
 import edu.uci.lighthouse.core.dbactions.pull.UpdateAction;
@@ -256,10 +257,10 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 		try {
 			// If the property that changed is from Lighthouse preferences.
 			if (event.getProperty().indexOf(DatabasePreferences.ROOT) != -1) {
-				DatabaseUtility.canConnect(DatabasePreferences
-						.getDatabaseSettings());
-				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-				synchronizeModelWithDatabase(true);
+//				DatabaseUtility.canConnect(DatabasePreferences
+//						.getDatabaseSettings());
+//				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
+//				synchronizeModelWithDatabase(true);
 //				if (threadSuspended) {
 //					synchronized (this) {
 //						StatusWidget.getInstance().setStatus(Status.OK_STATUS);
@@ -267,6 +268,10 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 //						notify();
 //					}
 //				}
+				thread.pause();
+				buffer.clear();
+				buffer.offer(new JobDecoratorAction(new SynchronizeModelAction(WorkbenchUtility.getSVNInfoFromWorkspace())));
+				thread.play();
 			}
 		} catch (Exception e) {
 			logger.error(e, e);

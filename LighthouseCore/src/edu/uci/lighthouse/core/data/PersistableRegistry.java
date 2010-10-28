@@ -1,6 +1,5 @@
 package edu.uci.lighthouse.core.data;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +7,8 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Assert;
 
+import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.io.IPersistable;
 import edu.uci.lighthouse.services.LighthouseServiceFactory;
 import edu.uci.lighthouse.services.persistence.IPersistenceService;
@@ -33,13 +34,16 @@ public class PersistableRegistry {
 		if (instance == null) {
 			IPersistenceService svc = (IPersistenceService) LighthouseServiceFactory.getService("GenericPersistenceService");
 			try {
-				try {
-					Method method = clazz.getMethod("getInstance", new Class<?>[0]);
-					instance = (IPersistable) method.invoke(null, new Object[0]);
-				} catch (NoSuchMethodException ex) {
+				// FIXME: Make this approach more generic.
+				instance = LighthouseModel.getInstance();
+				if (clazz.isInstance(instance)) {
+					LighthouseModelManager manager = new LighthouseModelManager((LighthouseModel)instance);
+					LighthouseModel inModel = (LighthouseModel)svc.load(instance);
+					manager.modelCopy(inModel);
+				} else {
 					instance = clazz.newInstance();
+					instance = svc.load(instance);
 				}
-				instance = svc.load(instance);
 			} catch (Exception e) {
 				logger.error(e,e);
 			} 

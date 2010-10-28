@@ -93,8 +93,8 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 //			sshTunnel.start(context);
 //		}
 		//FIXME: Think about the right place to put this code
-		logger.debug("Starting JPA...");
-		JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
+		//logger.debug("Starting JPA...");
+		//JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		
 		
@@ -140,7 +140,7 @@ public class Activator extends AbstractUIPlugin implements IPropertyChangeListen
 			listener.stop(context);
 		}
 		
-		JPAUtility.shutdownEntityManagerFactory();
+		//JPAUtility.shutdownEntityManagerFactory();
 		
 //		sshTunnel.stop(context);
 		

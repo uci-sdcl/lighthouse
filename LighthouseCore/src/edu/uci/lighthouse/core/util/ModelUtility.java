@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.core.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
@@ -14,9 +15,17 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.internal.jobs.Worker;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.Activator;
@@ -73,48 +82,60 @@ public class ModelUtility {
 		return result;
 	}
 
-	public static String getClassFullyQualifiedName(IFile iFile) {
+	public static String getClassFullyQualifiedName(IFile iFile) { 
 		String result = "";
 		try {
-			/*
-			 * When the Java file is out of sync with eclipse, get the fully
-			 * qualified name from ICompilationUnit doesn't work. So we decide
-			 * to do this manually, reading the file from the file system and
-			 * parsing it.
-			 */
-			String packageName = null;
-			BufferedReader d = new BufferedReader(new InputStreamReader(
-					new FileInputStream(iFile.getLocation().toOSString())));
-			while (d.ready()) {
-				String line = d.readLine();
-				if (line.contains("package")) {
-					String[] tokens = line.split("package\\s+|;");
-					for (String token : tokens) {
-						if (token.matches("[\\w\\.]+")) {
-							packageName = token;
-							break;
-						}
-					}
+			IJavaProject jProject = (IJavaProject) iFile.getProject().getNature(JavaCore.NATURE_ID);
+			String[] sourceFolders = WorkbenchUtility.getSourceFolders(jProject);
+			for (String srcFolder : sourceFolders) {
+				String fullPath = iFile.getFullPath().toOSString();
+				if (fullPath.indexOf(srcFolder) != -1) {
+					String projectName = iFile.getProject().getName();
+					int index = fullPath.indexOf(srcFolder) + srcFolder.length() + 1;
+					String classFqn = fullPath.substring(index).replaceAll(File.separator, ".").replaceAll(".java", "");
+					result = projectName + "." + classFqn;
 					break;
 				}
 			}
-			/*
-			 * Java files should have at least one class with the same name of
-			 * the file
-			 */
-			String fileNameWithoutExtension = iFile.getName().replaceAll(
-					".java", "");
-			if (packageName == null) {
-				result = iFile.getProject().getName() + "." + fileNameWithoutExtension;
-			} else {
-				result = iFile.getProject().getName() + "." + packageName + "." + fileNameWithoutExtension;
-			}
-		} catch (Exception e) {
-			logger.error(e, e);
+		} catch (CoreException e) {
+			logger.error(e,e);
 		}
-
 		return result;
 	}
+	
+	/**
+	 * Verifies if the class defined by the given fqn exists in the workspace.
+	 */
+	public static boolean existsInWorkspace(String fqn) {
+		int index = fqn.indexOf(".");
+		if (index != -1) {
+			String projectName = fqn.substring(0,index);
+			String relativePath = File.separator + fqn.substring(index + 1).replaceAll("\\.", File.separator) + ".java";
+			
+			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			IProject[] projects = workspace.getRoot().getProjects();
+			for (IProject project : projects) {
+				if (project.isOpen() && projectName.equals(project.getName())) {
+					try {
+						IJavaProject jProject = (IJavaProject) project
+						.getNature(JavaCore.NATURE_ID);
+						String[] sourceFolders = WorkbenchUtility.getSourceFolders(jProject);
+						for (String srcFolder : sourceFolders) {
+							String fileName = project.getLocation().toOSString().replaceAll(File.separator+projectName, "") + srcFolder + relativePath;
+							File file = new File(fileName);
+							if (file.exists()) {
+								return true;
+							}
+						}
+					} catch (CoreException e) {
+						logger.error(e, e);
+					}
+				}
+			}
+		}
+		return false;		
+	}
+
 	
 	public static void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		logger.debug("fireModificationsToUI ("+events.size()+" events)");
@@ -186,7 +207,7 @@ public class ModelUtility {
 						// AND LATER DELETE IT
 						// I NEED TO REMOVE THIS FROM MY VIZUALIZATION
 						if ( event.getAuthor().equals(Activator.getDefault().getAuthor()) 
-								/* FIXME TIAGO || (Controller.getInstance().getWorkingCopy().get(fqn)==null)*/)  {
+								|| !existsInWorkspace(fqn))  {
 							listClassesToRemove.add(fqn);
 						}
 					}

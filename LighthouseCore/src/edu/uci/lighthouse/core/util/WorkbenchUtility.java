@@ -3,6 +3,8 @@ package edu.uci.lighthouse.core.util;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -11,6 +13,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -107,6 +110,21 @@ public class WorkbenchUtility {
 	
 	public static String getMetadataDirectory() {
 		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
+	}
+	
+	public static String[] getSourceFolders(IJavaProject project) {
+		List<String> result = new LinkedList<String>();
+		try {
+			IClasspathEntry[] classPaths = project.getRawClasspath();
+			for (IClasspathEntry cp : classPaths) {
+				if (cp.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+					result.add(cp.getPath().toString());
+				}
+			}
+		} catch (JavaModelException e) {
+			logger.error(e,e);
+		}
+		return result.toArray(new String[0]);
 	}
 	
 	public static Map<IFile, ISVNInfo> getSVNInfoFromWorkspace(){

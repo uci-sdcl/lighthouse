@@ -8,8 +8,9 @@ import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
+import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.widgets.StatusWidget;
-import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.JPAUtility;
 
 
 /**
@@ -26,16 +27,18 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	private boolean suspended = false;
 	private DatabaseActionsBuffer buffer;
 	
+	private boolean jpaInitialized = false;
+	
 	private static Logger logger = Logger.getLogger(DatabaseActionsThread.class);
 	
 	public DatabaseActionsThread(DatabaseActionsBuffer buffer) {
 		super(DatabaseActionsThread.class.getName());
 		this.buffer = buffer;
+		StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 	}
 
 	@Override
 	public void run() {
-		StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 		while (running) {
 			try {
 				if (suspended) {
@@ -58,14 +61,13 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 			} catch (InterruptedException e) {
 				logger.error(e);
 			} 
-		}	
+		}
 	}
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		logger.info("Starting thread...");
 		running = true;
-		StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 		this.start();
 	}
 
@@ -73,11 +75,18 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	public void stop(BundleContext context) throws Exception {
 		logger.info("Stopping thread...");
 		running = false;
-		StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
+		interrupt();
+		JPAUtility.shutdownEntityManagerFactory();
 	}
 	
 	private void processBuffer() {
 		try {
+			if (!jpaInitialized) {
+				JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
+				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
+				jpaInitialized = true;
+			}
+			
 			logger.debug("Executing "+buffer.size()+" database actions.");
 			while (!buffer.isEmpty()) {
 				IDatabaseAction databaseAction = buffer.peek();
@@ -86,13 +95,13 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 			}
 			buffer.offer(new FetchNewEventsAction());
 			backoffMultiplier = 1;
-		} catch (JPAException e) {
-			backoffMultiplier = backoffMultiplier > MAX_MULTIPLIER ? 1 : backoffMultiplier*2; 
-			logger.error(e, e);
-		}
-		// TODO (tproenca): Verify the connection exception and change the icon in the UI.
-		/*catch () {
-						}*/
+		} catch (Exception ex) {
+			backoffMultiplier = backoffMultiplier > MAX_MULTIPLIER ? 1 : backoffMultiplier*2;
+			if ("org.hibernate.exception.JDBCConnectionException".equals(ex.getCause().getClass().getName())) {
+				StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
+			}
+			logger.error(ex, ex);
+		} 
 	}
 	
 	public synchronized void pause() {
