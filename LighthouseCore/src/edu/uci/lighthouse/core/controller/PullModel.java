@@ -16,6 +16,7 @@ import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
@@ -97,22 +98,30 @@ public class PullModel {
 			String fqnClazz = entryWorkingCopy.getKey();
 			Date revisionTimestamp = entryWorkingCopy.getValue();
 
-			HashMap<LighthouseClass, Collection<LighthouseEntity>> map = modelManager.selectEntitiesInsideClass(fqnClazz);
+			HashMap<LighthouseClass, Collection<LighthouseEntity>> mapClassToEntities = modelManager.selectEntitiesInsideClass(fqnClazz);
 
-			for ( Entry<LighthouseClass, Collection<LighthouseEntity>> entryEntitesInside : map.entrySet()) {
+			// for each class and innerClasses (Usually Classes do not have InnerClass)
+			for ( Entry<LighthouseClass, Collection<LighthouseEntity>> entryEntitesInside : mapClassToEntities.entrySet()) {
 				Collection<LighthouseEntity> listEntitiesInside = entryEntitesInside.getValue();
 				listEntitiesInside.add(entryEntitesInside.getKey());
+				
 				List<LighthouseEvent> listEvents = new LHEventDAO().executeQueryCheckOut(listEntitiesInside, revisionTimestamp);
-
 				logger.debug("fqnClazz: " + fqnClazz + "  revisionTimestamp: " + revisionTimestamp + " listEntitiesInside: " + listEntitiesInside.size() + " listEvents: " + listEvents.size());
+				
+				HashMap<Object, LighthouseEvent> mapRemovedArtifacts = populateMapRemovedArtifacts(listEvents); 
+				
 				for (LighthouseEvent event : listEvents) {
 					Object artifact = event.getArtifact();
-					if (event.isCommitted() && 	
-							(	(revisionTimestamp.after(event.getCommittedTime())
-									|| revisionTimestamp.equals(event.getCommittedTime()))
+					boolean isCommitted = event.isCommitted();
+					Date committedTime = event.getCommittedTime();
+					if (isCommitted && 	
+							(	(revisionTimestamp.after(committedTime)
+									|| revisionTimestamp.equals(committedTime))
 							) ) {
 						if (event.getType()==LighthouseEvent.TYPE.ADD) {
-							if (!LighthouseModelUtil.wasEventRemoved(listEvents,event,null)) {
+							LighthouseEvent removeEvent = mapRemovedArtifacts.get(artifact);
+							if (removeEvent==null || removeEvent.getTimestamp().before(committedTime)) {
+								// if event was _not_ removed then add it to the model
 								modelManager.addArtifact(artifact);
 								eventsToFire.add(event);
 							}
@@ -133,5 +142,28 @@ public class PullModel {
 		logger.info("GET OUT: PullModel.executeQueryCheckout()");
 		return eventsToFire;
 	}
-
+	
+	/**
+	 * I created a map to improve the performance from n^2 to 2n
+	 * From a given artifact we can retrieve the committed remove event
+	 * */
+	private HashMap<Object, LighthouseEvent> populateMapRemovedArtifacts(List<LighthouseEvent> listEvents) {
+		HashMap<Object, LighthouseEvent> mapRemovedArtifacts = new HashMap<Object, LighthouseEvent>();
+		// Looking for the NEWEST event that has TYPE==REMOVE and it was already COMMITTED
+		for (LighthouseEvent event : listEvents) {
+			boolean isCommitted = event.isCommitted(); 
+			TYPE type = event.getType();
+			if (isCommitted && type==TYPE.REMOVE) {
+				Object artifact = event.getArtifact();
+				LighthouseEvent removeEvent = mapRemovedArtifacts.get(artifact);
+				if (removeEvent==null) {
+					mapRemovedArtifacts.put(artifact, event);
+				} else if (event.getCommittedTime().after(removeEvent.getCommittedTime())) {
+					mapRemovedArtifacts.put(artifact, event);
+				}
+			}
+		}
+		return mapRemovedArtifacts;
+	}
+	
 }
