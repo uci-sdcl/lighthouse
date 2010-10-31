@@ -188,6 +188,11 @@ public class LighthouseModelManager {
 		return entity;
 	}
 	
+	/**
+	 * @param fqnClazz
+	 * @return map with class/InnerClass -> list of entities inside a class/InnerClass
+	 * @throws JPAException
+	 */
 	public HashMap<LighthouseClass, Collection<LighthouseEntity>> selectEntitiesInsideClass(String fqnClazz) throws JPAException {
 		HashMap<LighthouseClass, Collection<LighthouseEntity>> map = new HashMap<LighthouseClass, Collection<LighthouseEntity>>();
 		selectEntitiesInsideClass(map, fqnClazz);
