@@ -2,7 +2,6 @@ package edu.uci.lighthouse.model;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 
@@ -25,32 +24,6 @@ public class LighthouseModelUtil {
 		return true;
 	}
 
-	/**
-	 * Verify if an <code>paramEvent</code> was removed by some user.
-	 * It means that there is an NEWER event that has TYPE==REMOVE and it was already COMMITTED
-	 * */
-	public static boolean wasEventRemoved(List<LighthouseEvent> listEvents, LighthouseEvent paramEvent, LighthouseAuthor paramAuthor) {
-		for (LighthouseEvent event : listEvents) {
-			if (event.getArtifact().equals(paramEvent.getArtifact())) {
-				if (event.isCommitted()) {
-					if (event.getType() == LighthouseEvent.TYPE.REMOVE
-							&& (event.getCommittedTime().after(paramEvent.getCommittedTime()) 
-							|| event.getCommittedTime().equals(paramEvent.getCommittedTime()))) {
-						return true;
-					}
-				} else { // if is not committed - take the author in consideration
-					if ( event.getAuthor().equals(paramAuthor)
-							&& event.getType() == LighthouseEvent.TYPE.REMOVE
-							&& (event.getTimestamp().after(paramEvent.getTimestamp()) 
-							|| event.getTimestamp().equals(paramEvent.getTimestamp()))) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
 	/**
 	 * Get Entities INSIDE a class
 	 * */
