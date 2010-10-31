@@ -2,7 +2,6 @@ package edu.uci.lighthouse.model.jpa;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,11 +13,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 
-import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
+import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.util.LHStringUtil;
 
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, String> {
@@ -91,114 +89,6 @@ public class LHEventDAO extends AbstractDAO<LighthouseEvent, String> {
 			result = (queryResult!=null) ? queryResult : result;
 		}
 		return result;
-	}
-	
-	public List<LighthouseEvent> executeQueryLhBaseFile(
-			Collection<LighthouseEntity> listEntitiesInside,
-			Date revisionTime, LighthouseAuthor author) throws JPAException {
-		List<LighthouseEvent> result = new LinkedList<LighthouseEvent>();
-		if (listEntitiesInside.size()>0) {			
-			String strQuery = "SELECT e " + "FROM LighthouseEvent e "
-			+ "WHERE ";
-			strQuery += " ( ";
-			// Get all entities' events
-			for (LighthouseEntity entity : listEntitiesInside) {
-				String id = entity.getId();
-				id = id.replaceAll("\\,", "\\\\,");
-				String strTimestamp = LHStringUtil.simpleDateFormat.format(revisionTime);
-				strQuery += " ( ( (";
-				strQuery += "e.entity" + " = " + "'" + id + "'";
-				strQuery += " AND ";
-				strQuery += "e.isCommitted" + " = " + false;
-				strQuery += " AND ";
-				strQuery += "e.author" + " = " + "'" + author + "'";
-				strQuery += " ) AND ( ";
-				strQuery += "e.type" + " = " + TYPE.ADD.ordinal();
-				strQuery += " OR ";
-				strQuery += "e.type" + " = " + TYPE.REMOVE.ordinal();
-				strQuery += " ) ) OR ( ( ";
-				strQuery += "e.entity" + " = " + "'" + id + "'";
-				strQuery += " AND ";
-				strQuery += "e.isCommitted" + " = " + true;
-				strQuery += " AND ";
-				strQuery += "e.committedTime" + " <= " + "'" + strTimestamp + "'";
-				strQuery += " ) AND ( ";
-				strQuery += "e.type" + " = " + TYPE.ADD.ordinal();
-				strQuery += " OR ";
-				strQuery += "e.type" + " = " + TYPE.REMOVE.ordinal();
-				strQuery += " ) ) ) ";
-				strQuery += "OR ";
-			}
-			// Get all relationships' events
-			for (LighthouseEntity entity : listEntitiesInside) {
-				String id = entity.getId();
-				id = id.replaceAll("\\,", "\\\\,");
-				String strTimestamp = LHStringUtil.simpleDateFormat.format(revisionTime);
-				strQuery += " ( ( ";
-				strQuery += " ( ";
-				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
-				strQuery += " OR ";
-				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + id + "'";
-				strQuery += " ) ";
-				strQuery += " AND ";
-				strQuery += "e.isCommitted" + " = " + false;
-				strQuery += " AND ";
-				strQuery += "e.author" + " = " + "'" + author + "'";
-				strQuery += " AND ( ";
-				strQuery += "e.type" + " = " + TYPE.ADD.ordinal();
-				strQuery += " OR ";
-				strQuery += "e.type" + " = " + TYPE.REMOVE.ordinal();
-				strQuery += " ) ) OR ( ( ";
-				strQuery += " ( ";
-				strQuery += "e.relationship.primaryKey.from" + " = " + "'" + id + "'";
-				strQuery += " OR ";
-				strQuery += "e.relationship.primaryKey.to" + " = " + "'" + id + "'";
-				strQuery += " ) ";
-				strQuery += " AND ";
-				strQuery += "e.isCommitted" + " = " + true;
-				strQuery += " AND ";
-				strQuery += "e.committedTime" + " <= " + "'" + strTimestamp + "'";
-				strQuery += " ) AND ( ";
-				strQuery += "e.type" + " = " + TYPE.ADD.ordinal();
-				strQuery += " OR ";
-				strQuery += "e.type" + " = " + TYPE.REMOVE.ordinal();
-				strQuery += " ) ) ) ";
-				strQuery += "OR ";
-			}
-			strQuery = strQuery.substring(0, strQuery.lastIndexOf("OR"));
-			strQuery += " )";
-			List<LighthouseEvent> queryResult = executeDynamicQuery(strQuery);
-			result = (queryResult!=null) ? queryResult : result;
-		}
-		return result;
-	}
-
-	// There is no client using this method
-	public void updateCommittedEvents(LinkedHashSet<LighthouseEvent> listEventsToCommitt, Date svnCommittedTime) throws JPAException {
-		String strCommittedTime = LHStringUtil.simpleDateFormat.format(svnCommittedTime);
-		String command = 	"UPDATE LighthouseEvent e " +
-							"SET e.isCommitted = 1 , " +
-							"e.committedTime = '" + strCommittedTime + "' " +
-							"WHERE ";
-		command += " ( ";
-		for (LighthouseEvent event : listEventsToCommitt) {
-			Object artifact = event.getArtifact();
-			if (artifact instanceof LighthouseEntity) {
-				LighthouseEntity entity = (LighthouseEntity) artifact;
-				command += "e.entity.id = '" + entity.getId() + "' ";
-			} else if (artifact instanceof LighthouseRelationship) {
-				command += " ( ";
-				LighthouseRelationship rel = (LighthouseRelationship) artifact;
-				command+= "e.relationship.primaryKey.from = " + "'" + rel.getFromEntity().getId() + "' AND ";
-				command+= "e.relationship.primaryKey.to = " + "'" + rel.getToEntity().getId() + "' AND ";
-				command+= "e.relationship.primaryKey.type = " + "'" + rel.getType().ordinal() + "' ";
-				command += " )";
-			}
-			command+= " OR ";
-		}
-		command = command.substring(0, command.lastIndexOf("OR"));
-		command += " )";
-		executeUpdateQuery(command);
 	}
 
 	public void saveListEvents(Collection<LighthouseEvent> listEvents, IProgressMonitor monitor) throws JPAException {
