@@ -48,7 +48,6 @@ import edu.uci.lighthouse.model.LighthouseFile;
 import edu.uci.lighthouse.model.LighthouseFileManager;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
-import edu.uci.lighthouse.model.util.DatabaseUtility;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
@@ -201,11 +200,14 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 					index + projectName.length() + srcFolder.length())
 					.replaceAll("/", ".").replaceAll(".java", "");
 			classFqn = projectName + "." + classFqn;
+			
 			try {
 				IFile previousIFile = getPreviousVersion(iFile);
 				if (previousIFile != null) {
 					generateDeltaAndSaveIntoModel(previousIFile, null);
 					removeIFile(previousIFile);
+				} else { // there is no history for this file
+					// FIXME Tiago is trying to get the remove event before actually remove the file
 				}
 			} catch (Exception e) {
 				logger.error(e, e);
@@ -375,24 +377,21 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 //		return instance;
 //	}
 
-	private IFile getPreviousVersion(IFile from) throws Exception {
-		String fromFullPath = from.getFullPath().toOSString();
-		String fromFilename = from.getFullPath().toFile().getName();
-		String iFileFullPath = fromFullPath.replaceAll(fromFilename, "TEMP_RESOURCE_LHPreviousFile.java");
-		// This file name should be VERY unique otherwise we will have a file name conflict
+	public IFile getPreviousVersion(IFile from) throws Exception{
+		String tempWorkspaceResource = from.getFullPath().toOSString();
+		String fileShortName = from.getFullPath().toFile().getName();
+		tempWorkspaceResource = tempWorkspaceResource.replaceAll(fileShortName, "TEMP_RESOURCE_LHPreviousFile.java");
 
 		IFileState[] history = from.getHistory(null);
 		if (history.length==0) {
 			return null;
 		}
-		
 		InputStream inputStream = history[0].getContents();
 
-		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iFileFullPath));
+		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(tempWorkspaceResource));
 
 		IProject project = from.getProject();
-		project.getFile(iFileFullPath);
-		//IFile iFile = from.getProject().getFile(iFileFullPath);
+		project.getFile(tempWorkspaceResource);
 		iFile.create(inputStream, true, null);
 
 		return iFile;
