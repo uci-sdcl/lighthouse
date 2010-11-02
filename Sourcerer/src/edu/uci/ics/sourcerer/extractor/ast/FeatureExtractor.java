@@ -87,11 +87,11 @@ public final class FeatureExtractor {
       }
       
       if (++total % 1000 == 0) {
-        logger.info(total + " files extracted");
+//        logger.info(total + " files extracted");
       }
     }
     
-    logger.info(total + " files extracted");
+//    logger.info(total + " files extracted");
   }
   
   @SuppressWarnings("unchecked")
