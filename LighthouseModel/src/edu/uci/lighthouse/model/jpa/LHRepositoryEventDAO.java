@@ -21,7 +21,6 @@ public class LHRepositoryEventDAO extends AbstractDAO<LighthouseRepositoryEvent,
 			JPAUtility.beginTransaction(entityManager);
 			for (LighthouseRepositoryEvent repEvent : listRepEvents) {
 				entityManager.merge(repEvent);
-//				logger.debug("Add repository event in database: " + repEvent);
 			}
 			JPAUtility.commitTransaction(entityManager);
 			JPAUtility.closeEntityManager(entityManager);

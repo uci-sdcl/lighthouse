@@ -1,9 +1,15 @@
 package edu.uci.lighthouse.model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
+import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
 
 public class LighthouseModelUtil {
 
@@ -94,6 +100,44 @@ public class LighthouseModelUtil {
 			}
 		}
 		return listRel;
+	}
+	
+	/**
+	 * @param fqnClazz
+	 * @return map with class/InnerClass -> list of entities inside a class/InnerClass
+	 * @throws JPAException
+	 */
+	public static HashMap<LighthouseClass, Collection<LighthouseEntity>> selectEntitiesInsideClass(String fqnClazz) throws JPAException {
+		HashMap<LighthouseClass, Collection<LighthouseEntity>> map = new HashMap<LighthouseClass, Collection<LighthouseEntity>>();
+		selectEntitiesInsideClass(map, fqnClazz);
+		return map;
+	}
+	
+	/**
+	 * Going to the database to return the entities inside a class
+	 * Recursive method
+	 * @throws JPAException 
+	 * */
+	private static void selectEntitiesInsideClass(HashMap<LighthouseClass, Collection<LighthouseEntity>> map, String fqnClazz) throws JPAException {
+		LighthouseClass clazz = new LighthouseClass(fqnClazz);
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
+		parameters.put("toEntity", clazz);
+		List<LighthouseEntity> subListEntitiesInside = new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
+		
+		Collection<LighthouseEntity> listEntities = map.get(clazz);
+		if (listEntities == null) {
+			listEntities = new LinkedList<LighthouseEntity>();
+			map.put(clazz, listEntities);
+		}
+		
+		for (LighthouseEntity entity : subListEntitiesInside) {
+			if (entity instanceof LighthouseClass || entity instanceof LighthouseInterface) { // That is a Inner class
+				selectEntitiesInsideClass(map, entity.getFullyQualifiedName());
+			}
+		}
+		
+		listEntities.addAll(subListEntitiesInside);
 	}
 	
 }

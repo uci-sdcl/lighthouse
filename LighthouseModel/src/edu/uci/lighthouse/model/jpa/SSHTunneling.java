@@ -11,6 +11,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UIKeyboardInteractive;
 import com.jcraft.jsch.UserInfo;
 
+@Deprecated
 public class SSHTunneling {
 
 	private String host = "calico.ics.uci.edu"; // "128.195.020.103"

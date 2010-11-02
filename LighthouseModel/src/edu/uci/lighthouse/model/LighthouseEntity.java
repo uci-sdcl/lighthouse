@@ -2,8 +2,6 @@ package edu.uci.lighthouse.model;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +13,12 @@ import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.model.util.LHStringUtil;
 
+/**
+ * This class represents all the lighthouse entities, such as Fields, Methods, Class etc.
+ * 
+ * @author nilmax
+ *
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class LighthouseEntity implements Serializable {
@@ -26,6 +30,7 @@ public abstract class LighthouseEntity implements Serializable {
 	@Id
 	private String id = "";
 
+	// fullyQualifiedName = Eclipse project + Package + Class name
 	@Column(columnDefinition = "VARCHAR(500)")
 	private String fullyQualifiedName = "";
 
@@ -39,16 +44,6 @@ public abstract class LighthouseEntity implements Serializable {
 	public String getProjectName() {
 		return fullyQualifiedName.replaceAll("\\..*", "");
 	}
-
-//	public String getPackageName() {
-//		String result = "";
-//		 Pattern p = Pattern.compile("\\.(\\w+\\.)+");
-//		 Matcher m = p.matcher(fullyQualifiedName);
-//		 if (m.find()) {
-//			 result = m.group().replaceAll("^.", "").replaceAll(".$", "");
-//		 }
-//		return result;
-//	}
 
 	public String getPackageName() {
 		String result = "";
@@ -81,15 +76,13 @@ public abstract class LighthouseEntity implements Serializable {
 		}
 	}
 
+	/**
+	 * @return Class name
+	 */
 	public String getShortName() {
 		return fullyQualifiedName.replaceAll("(\\w+\\.)*", "").replaceAll("(\\w+\\$)*", "");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return getFullyQualifiedName();

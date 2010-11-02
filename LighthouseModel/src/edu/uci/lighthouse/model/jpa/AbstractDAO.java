@@ -13,8 +13,6 @@ import javax.persistence.TemporalType;
 /**
  * Class responsible for all persistence actions.
  * 
- * @author Nilmax
- * 
  * @param <T> Entity that will be controlled.
  * @param <PK> primary key type
  *
@@ -126,15 +124,12 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 			result = entityManager.merge(entity);
 			JPAUtility.commitTransaction(entityManager);
 		} catch (RuntimeException e) {
-//			e.printStackTrace();
 			throw new JPAException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
 		}
 		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 */
 	public synchronized void remove(T entity) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
 		try {

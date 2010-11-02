@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 
 /**
  * Select the REL.FROM entity, by using REL.TYPE and REL.TO
+ * Often used to return the entities inside a class
  * */
 @NamedQueries ({
 	@NamedQuery(name = "LighthouseRelationship.findFromEntityByTypeAndToEntity",
@@ -19,7 +20,7 @@ import javax.persistence.NamedQuery;
 })
 
 /**
- * Represents a relationship between 2 entities.
+ * Represents a relationship between two entities.
  */
 @Entity
 public class LighthouseRelationship implements Serializable{
@@ -29,7 +30,7 @@ public class LighthouseRelationship implements Serializable{
 	@EmbeddedId
 	private LHRelationshipPK primaryKey;
 	
-	/** */
+	/** warning: do not change the type order*/
 	public static enum TYPE {
 		INSIDE, EXTENDS, IMPLEMENTS, RETURN, RECEIVES, HOLDS, USES, CALL, ACCESS, THROW, MODIFIED_BY
 	}
@@ -124,16 +125,6 @@ public class LighthouseRelationship implements Serializable{
 		TYPE typeOfRelationship = this.primaryKey.getType();
 		String to = this.primaryKey.getTo().getFullyQualifiedName();
 		return " " + from + " " + typeOfRelationship + " " + to;
-	}
-
-	/**
-	 * @return TO + TYPE + FROM
-	 * */
-	public String toStringInverse() {
-		String from = this.primaryKey.getFrom().getFullyQualifiedName();
-		TYPE typeOfRelationship = this.getType();
-		String to = this.getToEntity().getFullyQualifiedName();
-		return "\t\t " + to + " " + typeOfRelationship + " " + from;
 	}
 
 	@Override

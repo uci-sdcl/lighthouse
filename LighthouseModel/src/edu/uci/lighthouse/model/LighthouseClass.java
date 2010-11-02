@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 @Entity
 public class LighthouseClass extends LighthouseEntity {
 	
+	private static final long serialVersionUID = 2097778395729254060L;
+
 	protected LighthouseClass() {
 		this("");
 	}
@@ -20,7 +22,5 @@ public class LighthouseClass extends LighthouseEntity {
 	public boolean isInnerClass(){
 		return getFullyQualifiedName().matches("(\\w+\\.)*(\\w+\\$)+[a-zA-Z_]+");
 	}
-
-	
 	
 }

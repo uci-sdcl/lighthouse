@@ -22,7 +22,19 @@ import edu.uci.lighthouse.model.util.LHStringUtil;
 public class LHEventDAO extends AbstractDAO<LighthouseEvent, String> {
 	
 	private static Logger logger = Logger.getLogger(LHEventDAO.class);
-	
+
+	/**
+	 * Execute a query in the database in order to return the events related
+	 * with a given java file version
+	 * 
+	 * If you want to have a better idea of this query you need to look for
+	 * the file "Query Checkout Example.png" in the lighthouse documents folder
+	 * 
+	 * @param listEntitiesInside
+	 * @param revisionTime
+	 * @return
+	 * @throws JPAException
+	 */
 	public List<LighthouseEvent> executeQueryCheckOut(
 			Collection<LighthouseEntity> listEntitiesInside,
 			Date revisionTime) throws JPAException {

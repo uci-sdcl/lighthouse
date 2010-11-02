@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Nilmax
  * @param <T>
  * @param <PK>
  */

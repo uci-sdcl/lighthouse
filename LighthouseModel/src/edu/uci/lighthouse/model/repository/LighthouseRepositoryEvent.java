@@ -34,10 +34,8 @@ public class LighthouseRepositoryEvent {
 		CHECKIN, CHECKOUT, UPDATE, REVERT, CONFLICT
 	};
 	private TYPE type;
-
 	
 	public LighthouseRepositoryEvent() {
-
 	}
 	
 	public LighthouseRepositoryEvent(LighthouseAuthor author, TYPE type,

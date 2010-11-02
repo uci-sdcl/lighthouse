@@ -15,9 +15,6 @@ import org.apache.log4j.Logger;
 
 /**
  * Utility persistence Class
- * 
- * @author Nilmax
- * 
  */
 public class JPAUtility {
 

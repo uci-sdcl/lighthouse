@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 @Entity
 public class LighthouseMethod extends LighthouseEntity {
 
+	private static final long serialVersionUID = 6710726246575035306L;
+
 	protected LighthouseMethod() {
 		this("");
 	}

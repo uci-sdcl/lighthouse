@@ -2,27 +2,16 @@ package edu.uci.lighthouse.model;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
-import edu.uci.lighthouse.model.jpa.JPAException;
-import edu.uci.lighthouse.model.jpa.LHEntityDAO;
-import edu.uci.lighthouse.model.jpa.LHRelationshipDAO;
-import edu.uci.lighthouse.model.util.LHStringUtil;
-import edu.uci.lighthouse.model.util.UtilModifiers;
 
 /**
- * This is a utility class for building model objects. Its purpose is to
- * assist in constructing models for test cases, but it is useful any time a
- * model needs to be constructed from code.
- * 
- * All the methods are static.
+ * This class is responsible for building lighthouse model objects. Its purpose is to
+ * assist in constructing models from source code.
  * 
  */
 public class LighthouseModelManager {
@@ -45,7 +34,7 @@ public class LighthouseModelManager {
 			return newEntity;	
 		}
 	}
-	
+
 	private LighthouseRelationship addRelationship(LighthouseRelationship newRelationship){
 		LighthouseRelationship relationship = model.getRelationship(newRelationship);
 		if (relationship == null) {
@@ -138,7 +127,8 @@ public class LighthouseModelManager {
 	
 	/**
 	 * Remove Artifacts that are inside of the list of classes,
-	 * and also remove the Events related to those Artifacts
+	 * and also remove the Events related to those Artifacts.
+	 * Used by UpdateAction.
 	 * */
 	public void removeArtifactsAndEvents(Collection<String> listClazzFqn) {
 		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
@@ -155,6 +145,10 @@ public class LighthouseModelManager {
 		}
 	}
 
+	/**
+	 * After perform a commit we need to clean the committed events
+	 * @param listClazzFqn
+	 */
 	public void removeCommittedEventsAndArtifacts(Collection<String> listClazzFqn) {
 		Collection<LighthouseEntity> listEntity = LighthouseModelUtil.getEntitiesInsideClasses(model, listClazzFqn);
 		Collection<LighthouseRelationship> listRel = LighthouseModelUtil.getRelationships(model, listEntity);
@@ -171,66 +165,7 @@ public class LighthouseModelManager {
 			}
 		}
 	}
-	
-	
-	//TODO: Put those methods in another class (think later about that)
 
-	
-	public LighthouseEntity getEntityFromDatabase(String fqn) throws JPAException {
-		LighthouseEntity entity = getEntity(fqn);
-		if (entity==null) {
-			try {
-				entity = new LHEntityDAO().get(LHStringUtil.getMD5Hash(fqn));
-			} catch (Exception e) {
-				logger.error(e,e);
-			}
-		}
-		return entity;
-	}
-	
-	/**
-	 * @param fqnClazz
-	 * @return map with class/InnerClass -> list of entities inside a class/InnerClass
-	 * @throws JPAException
-	 */
-	public HashMap<LighthouseClass, Collection<LighthouseEntity>> selectEntitiesInsideClass(String fqnClazz) throws JPAException {
-		HashMap<LighthouseClass, Collection<LighthouseEntity>> map = new HashMap<LighthouseClass, Collection<LighthouseEntity>>();
-		selectEntitiesInsideClass(map, fqnClazz);
-		return map;
-	}
-	
-	/**
-	 * Going to the database to return the entities inside a class
-	 * Recursive method
-	 * @throws JPAException 
-	 * */
-	private void selectEntitiesInsideClass(HashMap<LighthouseClass, Collection<LighthouseEntity>> map, String fqnClazz) throws JPAException {
-		LighthouseClass clazz = new LighthouseClass(fqnClazz);
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("relType", LighthouseRelationship.TYPE.INSIDE);
-		parameters.put("toEntity", clazz);
-		List<LighthouseEntity> subListEntitiesInside = new LHRelationshipDAO().executeNamedQueryGetFromEntityFqn("LighthouseRelationship.findFromEntityByTypeAndToEntity", parameters);
-		
-		Collection<LighthouseEntity> listEntities = map.get(clazz);
-		if (listEntities == null) {
-			listEntities = new LinkedList<LighthouseEntity>();
-			map.put(clazz, listEntities);
-		}
-		
-		for (LighthouseEntity entity : subListEntitiesInside) {
-			if (entity instanceof LighthouseClass || entity instanceof LighthouseInterface) { // That is a Inner class
-				selectEntitiesInsideClass(map, entity.getFullyQualifiedName());
-			}
-		}
-		
-		listEntities.addAll(subListEntitiesInside);
-	}
-	
-	
-	/*  PUT THOSE METHODS BELLOW IN THE LighthouseModelUtil.java */
-	
-	//TODO: Put methods MyClass, isStatic and other to another class.
-	
 	/**
 	 * Returns the associate class or <code>null</code> otherwise.
 	 * 
@@ -253,77 +188,9 @@ public class LighthouseModelManager {
 		}
 		return null;
 	}
-	
-	public boolean isStatic(LighthouseEntity e){
-		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
-		for (LighthouseRelationship r : list) {
-			if (r.getToEntity() instanceof LighthouseModifier){
-				if (UtilModifiers.isStatic(r.getToEntity().getFullyQualifiedName())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	public boolean isFinal(LighthouseEntity e){
-		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
-		for (LighthouseRelationship r : list) {
-			if (r.getToEntity() instanceof LighthouseModifier){
-				if (UtilModifiers.isFinal(r.getToEntity().getFullyQualifiedName())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	public boolean isSynchronized(LighthouseEntity e){
-		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
-		for (LighthouseRelationship r : list) {
-			if (r.getToEntity() instanceof LighthouseModifier){
-				if (UtilModifiers.isSynchronized(r.getToEntity().getFullyQualifiedName())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	public boolean isPublic(LighthouseEntity e){
-		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
-		for (LighthouseRelationship r : list) {
-			if (r.getToEntity() instanceof LighthouseModifier){
-				if (UtilModifiers.isPublic(r.getToEntity().getFullyQualifiedName())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	public boolean isProtected(LighthouseEntity e){
-		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
-		for (LighthouseRelationship r : list) {
-			if (r.getToEntity() instanceof LighthouseModifier){
-				if (UtilModifiers.isProtected(r.getToEntity().getFullyQualifiedName())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	public boolean isPrivate(LighthouseEntity e){
-		Collection<LighthouseRelationship> list =  model.getRelationshipsFrom(e);
-		for (LighthouseRelationship r : list) {
-			if (r.getToEntity() instanceof LighthouseModifier){
-				if (UtilModifiers.isPrivate(r.getToEntity().getFullyQualifiedName())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
+
 	/**
-	 * Copies all content from 'from' model to 'to' model. 
+	 * Copies all content between 'from' model to 'to' model. 
 	 * 
 	 * @param from
 	 * @param to
@@ -332,4 +199,5 @@ public class LighthouseModelManager {
 		model.assignTo(from);
 	}
 
+	
 }

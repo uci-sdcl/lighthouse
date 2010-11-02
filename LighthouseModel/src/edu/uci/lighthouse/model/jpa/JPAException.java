@@ -1,9 +1,7 @@
 package edu.uci.lighthouse.model.jpa;
 
-
 /**
  * Handle data base exception
- * @author Nilmax
  */
 public class JPAException extends Exception {
 

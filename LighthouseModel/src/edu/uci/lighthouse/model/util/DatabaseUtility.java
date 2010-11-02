@@ -12,11 +12,6 @@ import java.util.TimeZone;
 
 /**
  * Utility class for database tasks.
- * 
- * @author tproenca
- * 
- * TODO: Unit testing for the all methods.
- * 
  */
 public class DatabaseUtility {
 
@@ -98,4 +93,5 @@ public class DatabaseUtility {
 					password);
 			conn.close();
 	}
+	
 }

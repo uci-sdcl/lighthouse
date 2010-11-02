@@ -56,6 +56,10 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 		classRelationships.clear();
 	}
 	
+	/**
+	 * Used to create a shallow copy
+	 * @param model
+	 */
 	protected synchronized void assignTo(LighthouseModel model){
 		super.assignTo(model);
 		mapArtifactEvents = model.mapArtifactEvents;

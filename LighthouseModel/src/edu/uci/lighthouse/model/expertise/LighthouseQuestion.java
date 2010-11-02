@@ -14,7 +14,6 @@ import javax.persistence.TemporalType;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 
-//created by Alex Taubman
 @Entity
 public class LighthouseQuestion {
 
@@ -35,10 +34,9 @@ public class LighthouseQuestion {
 	private String text;
 
 	public LighthouseQuestion() {
-		
 	}
 
-	public void setId(Integer id) {
+	protected void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -85,7 +83,5 @@ public class LighthouseQuestion {
 	public String getText() {
 		return text;
 	}
-	
-	
 
 }

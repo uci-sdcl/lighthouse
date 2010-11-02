@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * @author tproenca
+ * This is the class that represents each developer
  */
 @Entity
 public class LighthouseAuthor implements Serializable{
@@ -16,9 +16,6 @@ public class LighthouseAuthor implements Serializable{
 	@Id
 	private String name;
 	
-	/**
-	 * @param name
-	 */
 	public LighthouseAuthor(String name) {
 		this.name = name;
 	}
@@ -27,9 +24,6 @@ public class LighthouseAuthor implements Serializable{
 		this("");
 	}
 
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}

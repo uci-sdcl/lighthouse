@@ -53,11 +53,6 @@ public class BinaryPersistence implements IPersistence{
 		}
 	}
 
-	private Object LighthouseModelManager(LighthouseAbstractModel model2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public void save() throws PersistenceException {
 		save(defaultFileName);

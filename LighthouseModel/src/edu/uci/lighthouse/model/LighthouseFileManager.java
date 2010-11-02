@@ -4,7 +4,9 @@ import java.util.Collection;
 
 import edu.uci.lighthouse.model.LighthouseRelationship.TYPE;
 
-
+/**
+ *	This class is responsible to manipulate the LighthouseFile
+ */
 public class LighthouseFileManager {
 	
 	private LighthouseFile lighthouseFile;
