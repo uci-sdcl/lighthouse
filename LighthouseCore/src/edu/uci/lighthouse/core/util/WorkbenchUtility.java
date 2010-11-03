@@ -34,7 +34,9 @@ import org.tigris.subversion.subclipse.core.SVNException;
 import org.tigris.subversion.subclipse.core.SVNProviderPlugin;
 import org.tigris.subversion.svnclientadapter.ISVNClientAdapter;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
+import org.tigris.subversion.svnclientadapter.ISVNStatus;
 import org.tigris.subversion.svnclientadapter.SVNClientException;
+import org.tigris.subversion.svnclientadapter.SVNStatusKind;
 
 import edu.uci.lighthouse.core.decorators.LighthouseProjectLabelDecorator;
 
@@ -174,5 +176,18 @@ public class WorkbenchUtility {
 			logger.error(ex, ex);
 		}
 		return result;
+	}
+	
+	public static ISVNInfo getSVNInfo(IFile iFile) {
+		ISVNInfo svnInfo = null;
+		try {
+			ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin()
+					.getSVNClient();
+			svnInfo = svnAdapter.getInfoFromWorkingCopy(iFile.getLocation()
+					.toFile());
+		} catch (Exception e) {
+			logger.error(e, e);
+		}
+		return svnInfo;
 	}
 }

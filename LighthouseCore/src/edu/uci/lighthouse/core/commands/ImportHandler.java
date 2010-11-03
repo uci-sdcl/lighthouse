@@ -60,7 +60,7 @@ public class ImportHandler extends AbstractHandler {
 					PushModel pushModel = PushModel.getInstance();
 					// Parsing files
 					monitor.subTask("Parsing Java files...");
-					Collection<LighthouseEvent> listEvents = pushModel.uploadJavaFilesToDatabase(javaFiles);
+					Collection<LighthouseEvent> listEvents = pushModel.addIFilesToModel(javaFiles);
 					// Saving in the Database (it has its own monitor).
 					monitor.subTask("Saving data to the database...");
 					pushModel.importEventsToDatabase(listEvents, new SubProgressMonitor(monitor,javaFiles.size()));

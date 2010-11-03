@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -13,9 +14,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.osgi.framework.BundleContext;
 import org.tigris.subversion.subclipse.core.SVNProviderPlugin;
 import org.tigris.subversion.svnclientadapter.ISVNClientAdapter;
@@ -23,12 +21,14 @@ import org.tigris.subversion.svnclientadapter.ISVNInfo;
 import org.tigris.subversion.svnclientadapter.ISVNStatus;
 import org.tigris.subversion.svnclientadapter.SVNStatusKind;
 
-import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.data.DatabaseActionsThread;
 import edu.uci.lighthouse.core.data.PersistableRegistry;
+import edu.uci.lighthouse.core.dbactions.CompoundAction;
+import edu.uci.lighthouse.core.dbactions.CreateNewDatabaseConnectionAction;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.core.dbactions.JobDecoratorAction;
+import edu.uci.lighthouse.core.dbactions.SaveUserAction;
 import edu.uci.lighthouse.core.dbactions.pull.CheckoutAction;
 import edu.uci.lighthouse.core.dbactions.pull.SynchronizeModelAction;
 import edu.uci.lighthouse.core.dbactions.pull.UpdateAction;
@@ -39,9 +39,10 @@ import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.ISVNEventListener;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
+import edu.uci.lighthouse.core.preferences.IPreferencesChangeListener;
+import edu.uci.lighthouse.core.preferences.PreferencesNotifier;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
-import edu.uci.lighthouse.core.widgets.StatusWidget;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseFile;
@@ -51,10 +52,9 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
-IPluginListener, /*Runnable,*/ IPropertyChangeListener {
+IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListener*/ {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
-	//private WorkingCopy workingCopy;// = new WorkingCopy();
 	/*
 	 * After the file get the changes from the repository, the event 'change'
 	 * will be throw and we can wrong interpret the new changes being
@@ -67,8 +67,8 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
-		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(
-				this);	
+		PreferencesNotifier.getInstance().addPreferencesChangeListener(this);
+		
 		loadPersistableResources();
 		if (!model.isEmpty()) {
 			WorkbenchUtility.updateProjectIcon();
@@ -80,15 +80,13 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		Activator.getDefault().getPreferenceStore()
-		.removePropertyChangeListener(this);
+		PreferencesNotifier.getInstance().removePreferencesChangeListener(this);
 		thread.stop(context);
 		savePersistableResources();
 	}
 	
 	private void loadPersistableResources() {
 		logger.info("Loading persistable resources...");
-		//workingCopy = (WorkingCopy) PersistableRegistry.getInstance(WorkingCopy.class);
 		buffer = (DatabaseActionsBuffer) PersistableRegistry.getInstance(DatabaseActionsBuffer.class);
 		model = (LighthouseModel) PersistableRegistry.getInstance(LighthouseModel.class);
 	}
@@ -132,7 +130,7 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 			LighthouseFile currentLhFile = parseIFile(currentIFile);
 
 			LighthouseDelta delta = new LighthouseDelta(
-					Activator.getDefault().getAuthor(),
+					ModelUtility.getAuthor(),
 					previousLhFile,
 					currentLhFile);
 
@@ -180,26 +178,18 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 		if (ModelUtility.belongsToImportedProjects(iFile, false)) {
 			if (!existsInSVN(iFile)) {
 				try {
+					// Created files has history.
 					generateDeltaAndSaveIntoModel(null, iFile);
 				} catch (Exception e) {
 					logger.error(e, e);
 				}
-			}
+			} 
 		}
 	}
 
 	@Override
 	public void remove(IFile iFile, boolean hasErrors) {
 		if (ModelUtility.belongsToImportedProjects(iFile, false)) {
-			// FIXME (tproenca): URGENT Gambis pra pegar FQN pelo caminho do arquivo. Melhorar
-			// depois usando o source folder do projeto
-			String srcFolder = "/src/";
-			String projectName = iFile.getProject().getName();
-			int index = iFile.getFullPath().toOSString().indexOf(projectName);
-			String classFqn = iFile.getFullPath().toOSString().substring(
-					index + projectName.length() + srcFolder.length())
-					.replaceAll("/", ".").replaceAll(".java", "");
-			classFqn = projectName + "." + classFqn;
 			
 			try {
 				IFile previousIFile = getPreviousVersion(iFile);
@@ -254,146 +244,26 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 		// DO NOTHING
 	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		try {
-			// If the property that changed is from Lighthouse preferences.
-			if (event.getProperty().indexOf(DatabasePreferences.ROOT) != -1) {
-//				DatabaseUtility.canConnect(DatabasePreferences
-//						.getDatabaseSettings());
-//				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-//				synchronizeModelWithDatabase(true);
-//				if (threadSuspended) {
-//					synchronized (this) {
-//						StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-//						threadSuspended = false;
-//						notify();
-//					}
-//				}
-				thread.pause();
-				buffer.clear();
-				buffer.offer(new JobDecoratorAction(new SynchronizeModelAction(WorkbenchUtility.getSVNInfoFromWorkspace())));
-				thread.play();
-			}
-		} catch (Exception e) {
-			logger.error(e, e);
-			StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
-		}
-	}
-
-	public void synchronizeModelWithDatabase(){
-		synchronizeModelWithDatabase(false);
-	}
-
-	private void synchronizeModelWithDatabase(final boolean forceNewConnection){
-		//workingCopy = getWorkingCopyFromWorkspace();
-		IDatabaseAction synchronizeModelAction = new SynchronizeModelAction(WorkbenchUtility.getSVNInfoFromWorkspace());
-		buffer.offer(synchronizeModelAction);
-	}
-
-// FIXME I can remove this code (I want to see the JOB code)
-//	private void synchronizeModelWithDatabase(final boolean forceNewConnection){
-//		final Job job = new Job("Synchronizing Model...") {
-//			@Override
-//			protected IStatus run(IProgressMonitor monitor) {
-//				try {
-//					monitor.beginTask("Synchronizing model with database...", IProgressMonitor.UNKNOWN);
-//					if (forceNewConnection){
-//						JPAUtility.initializeEntityManagerFactory(DatabasePreferences
-//								.getDatabaseSettings());
-//					}
-//					mapClassToSVNCommittedTime = getWorkingCopyFromWorkspace();
-//					LighthouseModel.getInstance().clear();
-//					checkoutWorkingCopy(mapClassToSVNCommittedTime);
-//					WorkbenchUtility.updateProjectIcon();
-//					//LighthouseModel.getInstance().fireModelChanged();
-//				} catch (JPAException e) {
-//					logger.error(e,e);
-//					UserDialog.openError("JPAException: "+e.getMessage());
-//				} finally {
-//					monitor.done();
-//				}
-//				return Status.OK_STATUS;
-//			}
-//		};
-//		job.setUser(true);
-//		job.schedule();
-//	}
-
-//	private WorkingCopy getWorkingCopyFromWorkspace(){
-//		WorkingCopy result = new WorkingCopy();
-//		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-//		IProject[] projects = workspace.getRoot().getProjects();
-//		try {
-//			ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin()
-//			.getSVNClient();
-//			for (IProject project : projects) {
-//				if (project.isOpen()) {
-//					try {
-//						IJavaProject jProject = (IJavaProject) project
-//						.getNature(JavaCore.NATURE_ID);
-//						if (jProject != null) {
-//							Collection<IFile> iFiles = WorkbenchUtility
-//							.getFilesFromJavaProject(jProject);
-//							for (IFile iFile : iFiles) {
-//								try {
-//									ISVNInfo svnInfo = svnAdapter
-//									.getInfoFromWorkingCopy(iFile
-//											.getLocation().toFile());
-//									String fqn = ModelUtility
-//									.getClassFullyQualifiedName(iFile);
-//									if (fqn != null) {
-//										Date revision = svnInfo
-//										.getLastChangedDate();
-//										if (revision == null) {
-//											revision = new Date(0);
-//										} else {
-//											revision = new Date(revision
-//													.getTime());
-//										}
-//										result.put(fqn, revision);
-//									}
-//								} catch (SVNClientException ex1) {
-//									logger.error(ex1);
-//								}
-//							}
-//						}
-//					} catch (CoreException e) {
-//						logger.error(e, e);
-//					}
-//
-//				}
-//			}
-//		} catch (SVNException ex) {
-//			logger.error(ex, ex);
-//		}
-//		return result;
-//	}
-
-//	public static Controller getInstance(){
-//		if (instance == null) {
-//			instance = new Controller();
-//		}
-//		return instance;
-//	}
-
 	public IFile getPreviousVersion(IFile from) throws Exception{
-		String tempWorkspaceResource = from.getFullPath().toOSString();
-		String fileShortName = from.getFullPath().toFile().getName();
-		tempWorkspaceResource = tempWorkspaceResource.replaceAll(fileShortName, "TEMP_RESOURCE_LHPreviousFile.java");
+		String fromFullPath = from.getFullPath().toOSString();
+		String fromFilename = from.getFullPath().toFile().getName();
+		String iFileFullPath = fromFullPath.replaceAll(fromFilename, "TEMP_RESOURCE_LHPreviousFile.java");
+		// This file name should be VERY unique otherwise we will have a file name conflict
 
 		IFileState[] history = from.getHistory(null);
 		if (history.length==0) {
 			return null;
 		}
+		
 		InputStream inputStream = history[0].getContents();
 
-		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(tempWorkspaceResource));
+		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(iFileFullPath));
 
 		IProject project = from.getProject();
-		project.getFile(tempWorkspaceResource);
+		project.getFile(iFileFullPath);
+		//IFile iFile = from.getProject().getFile(iFileFullPath);
 		iFile.create(inputStream, true, null);
-
+		
 		return iFile;
 	}
 	
@@ -402,7 +272,7 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 		try {
 			ISVNClientAdapter svnAdapter = SVNProviderPlugin.getPlugin()
 			.getSVNClient();
-			 ISVNStatus status = svnAdapter.getSingleStatus(iFile.getFullPath().toFile());
+			 ISVNStatus status = svnAdapter.getSingleStatus(iFile.getLocation().toFile());
 			 result = status.getTextStatus() != SVNStatusKind.UNVERSIONED;
 		} catch (Exception e) {
 			logger.error(e, e);
@@ -414,4 +284,19 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 		iFile.delete(true, null);
 	}
 
+	@Override
+	public void userChanged() {
+		buffer.offer(new SaveUserAction());
+	}
+
+	@Override
+	public void dbSettingsChanged() {
+		thread.pause();
+		buffer.clear();
+		CompoundAction compoundAction = new CompoundAction();
+		compoundAction.add(new CreateNewDatabaseConnectionAction(DatabasePreferences.getDatabaseSettings()));
+		compoundAction.add(new SynchronizeModelAction(WorkbenchUtility.getSVNInfoFromWorkspace()));
+		buffer.offer(new JobDecoratorAction(compoundAction, "Synchronize Model","Synchronizing model with database..."));
+		thread.play();
+	}
 }

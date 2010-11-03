@@ -104,7 +104,7 @@ public class SVNRecorder implements ISVNEventListener {
 		 */
 		IFile [] iFiles = svnFiles.keySet().toArray(new IFile[0]);
 		List<String> classNames = getClassesFullyQualifiedNameInOrder(svnFiles, iFiles); 
-		LighthouseAuthor author = Activator.getDefault().getAuthor(); 
+		LighthouseAuthor author = ModelUtility.getAuthor(); 
 		List<Number> versionsAffected = getFilesRevisionNumbersInOrder(svnFiles, iFiles);
 		
 		// If there is not a version number for each class name, return

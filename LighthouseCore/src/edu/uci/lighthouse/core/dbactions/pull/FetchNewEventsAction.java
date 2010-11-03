@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.controller.PullModel;
 import edu.uci.lighthouse.core.controller.UpdateLighthouseModel;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
@@ -21,7 +20,7 @@ public class FetchNewEventsAction implements IDatabaseAction {
 
 	@Override
 	public void run() throws JPAException {
-		LighthouseAuthor author = Activator.getDefault().getAuthor();
+		LighthouseAuthor author = ModelUtility.getAuthor();
 		PullModel pullModel = PullModel.getInstance();
 		List<LighthouseEvent> events = pullModel.getNewEventsFromDB(author);
 		if (events.size()>0) {

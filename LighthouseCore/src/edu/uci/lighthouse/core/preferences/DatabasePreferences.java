@@ -54,7 +54,12 @@ IWorkbenchPreferencePage{
 	public static final String SSH_PASSWD = ROOT+ ".sshPassword";
 	public static final String SSH_PORT = ROOT+ ".sshPort";
 	
+	private static final String SOCKET_TIMEOUT = "5000";
+	
 	private static TimeZone serverTimezone;
+	
+	private PreferencesNotifier notifier = PreferencesNotifier.getInstance();
+	
 	
 	@Override
 	public void init(IWorkbench workbench) {
@@ -107,8 +112,8 @@ IWorkbenchPreferencePage{
 
 	@Override
 	public boolean performOk() {
-		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		
+		try { 
+			IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		store.setValue(DB_HOST, dbHost.getText());
 		store.setValue(DB_USERNAME, dbUsername.getText());
 		store.setValue(DB_PASSWD, dbPassword.getText());
@@ -124,6 +129,11 @@ IWorkbenchPreferencePage{
 		
 		serverTimezone = null;
 		
+		notifier.fireDbSettingsChanged();
+		
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		return super.performOk();
 	}
 	
@@ -253,7 +263,7 @@ IWorkbenchPreferencePage{
 		Properties dbSettings = new Properties();
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		
-		String connUrl = "jdbc:mysql://"+store.getString(DB_HOST)+":"+store.getString(DB_PORT)+"/"+store.getString(DB_DATABASE)+"?autoReconnect=true";
+		String connUrl = "jdbc:mysql://"+store.getString(DB_HOST)+":"+store.getString(DB_PORT)+"/"+store.getString(DB_DATABASE)+"?autoReconnect=true&socketTimeout="+SOCKET_TIMEOUT;
 		dbSettings.setProperty("hibernate.connection.url", connUrl);
 		dbSettings.setProperty("hibernate.connection.username", store.getString(DB_USERNAME));
 		dbSettings.setProperty("hibernate.connection.password", store.getString(DB_PASSWD));

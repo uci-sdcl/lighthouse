@@ -3,15 +3,18 @@ package edu.uci.lighthouse.core.dbactions;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.util.DatabaseUtility;
 
-public class CheckConnectivityAction implements IDatabaseAction {
+public class CreateNewDatabaseConnectionAction implements IDatabaseAction {
 
-	private static final long serialVersionUID = 6675946301376485527L;
+	private static final long serialVersionUID = -8387818046904494401L;
+
 	Properties dbSettings;
 	
-	public CheckConnectivityAction(Properties dbSettings) {
+	public CreateNewDatabaseConnectionAction(Properties dbSettings) {
 		this.dbSettings = dbSettings;
 	}
 
@@ -19,6 +22,8 @@ public class CheckConnectivityAction implements IDatabaseAction {
 	public void run() throws JPAException {
 		try {
 			DatabaseUtility.canConnect(dbSettings);
+			JPAUtility.initializeEntityManagerFactory(DatabasePreferences
+			.getDatabaseSettings());
 		} catch (SQLException e) {
 			throw new JPAException(e);
 		}

@@ -14,7 +14,9 @@ import edu.uci.lighthouse.core.Activator;
 public class UserPreferences extends FieldEditorPreferencePage implements
 IWorkbenchPreferencePage {
 
-	StringFieldEditor SVNUsername;
+	private StringFieldEditor SVNUsername;
+	
+	private PreferencesNotifier notifier = PreferencesNotifier.getInstance();
 
 	public static final String USERNAME = "svnUsername";
 	
@@ -41,6 +43,7 @@ IWorkbenchPreferencePage {
 			MessageDialog.openError(getShell(), "Lighthouse User Preferences", "Username is required!");
 			return false;
 		}
+		notifier.fireUserChanged();
 		return super.performOk();
 	}
 	

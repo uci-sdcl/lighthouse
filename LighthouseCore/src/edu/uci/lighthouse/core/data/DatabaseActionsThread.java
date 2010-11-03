@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.core.data;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 
@@ -9,6 +10,7 @@ import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
+import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.core.widgets.StatusWidget;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 
@@ -26,9 +28,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	private boolean running = false;
 	private boolean suspended = false;
 	private DatabaseActionsBuffer buffer;
-	
-	private boolean jpaInitialized = false;
-	
+		
 	private static Logger logger = Logger.getLogger(DatabaseActionsThread.class);
 	
 	public DatabaseActionsThread(DatabaseActionsBuffer buffer) {
@@ -39,6 +39,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 
 	@Override
 	public void run() {
+		JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
 		while (running) {
 			try {
 				if (suspended) {
@@ -62,6 +63,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 				logger.error(e);
 			} 
 		}
+		JPAUtility.shutdownEntityManagerFactory();
 	}
 
 	@Override
@@ -76,31 +78,27 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 		logger.info("Stopping thread...");
 		running = false;
 		interrupt();
-		JPAUtility.shutdownEntityManagerFactory();
 	}
 	
 	private void processBuffer() {
 		try {
-			if (!jpaInitialized) {
-				JPAUtility.initializeEntityManagerFactory(DatabasePreferences.getDatabaseSettings());
-				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-				jpaInitialized = true;
-			}
-			
 			logger.debug("Executing "+buffer.size()+" database actions.");
 			while (!buffer.isEmpty()) {
 				IDatabaseAction databaseAction = buffer.peek();
 				databaseAction.run();
 				buffer.poll();
 			}
-			buffer.offer(new FetchNewEventsAction());
+			StatusWidget.getInstance().setStatus(Status.OK_STATUS);
+			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
+				buffer.offer(new FetchNewEventsAction());
+			}
 			backoffMultiplier = 1;
 		} catch (Exception ex) {
 			backoffMultiplier = backoffMultiplier > MAX_MULTIPLIER ? 1 : backoffMultiplier*2;
 			if ("org.hibernate.exception.JDBCConnectionException".equals(ex.getCause().getClass().getName())) {
 				StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 			}
-			logger.error(ex, ex);
+			logger.error(ex.getCause());
 		} 
 	}
 	

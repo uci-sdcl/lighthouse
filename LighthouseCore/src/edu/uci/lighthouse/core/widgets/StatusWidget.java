@@ -27,6 +27,7 @@ public class StatusWidget extends AbstractWorkbenchTrimWidget implements
 	private Image dbOk;
 	private Image dbError;
 	private static StatusWidget instance;
+	private int severity;
 	
 	@Override
 	public void dispose() {
@@ -63,23 +64,27 @@ public class StatusWidget extends AbstractWorkbenchTrimWidget implements
 			}});
 	}
 	
-	public void setStatus(final IStatus status){
-		Display.getDefault().syncExec(new Runnable(){
-		@Override
-		public void run() {
-			switch (status.getSeverity()) {
-			case IStatus.OK:
-				imageLabel.setImage(dbOk);
-				imageLabel.setToolTipText("Connected");
-				break;
+	public void setStatus(final IStatus status) {
+		Display.getDefault().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				int newSeverity = status.getSeverity();
+				if (newSeverity != severity) {
+					switch (newSeverity) {
+					case IStatus.OK:
+						imageLabel.setImage(dbOk);
+						imageLabel.setToolTipText("Connected");
+						break;
 
-			case IStatus.CANCEL:
-				imageLabel.setImage(dbError);
-				imageLabel.setToolTipText("Not connected");
-				break;
+					case IStatus.CANCEL:
+						imageLabel.setImage(dbError);
+						imageLabel.setToolTipText("Not connected");
+						break;
+					}
+					severity = status.getSeverity();
+				}
 			}
-		}
-	});
+		});
 	}
 	
 	public static StatusWidget getInstance(){

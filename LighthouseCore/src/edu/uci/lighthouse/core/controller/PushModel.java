@@ -5,8 +5,9 @@ import java.util.Collection;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
+import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.core.util.WorkbenchUtility;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseModel;
@@ -46,26 +47,33 @@ public class PushModel {
 		dao.saveListEvents(listEvents,monitor);
 	}
 	
-	public Collection<LighthouseEvent> uploadJavaFilesToDatabase(Collection<IFile> javaFiles)
+	/**
+	 * Parses the collection of <code>IFile</code> and populates the model. It
+	 * returns a collection of <code>LighthouseEvent</code> generated during the
+	 * process.
+	 * 
+	 * @param iFiles
+	 *            a collection of <code>IFile</code> to be imported to the
+	 *            model.
+	 * @return a collection of <code>LighthouseEvent</code> generated during the
+	 *         import process.
+	 * @throws ParserException
+	 * @throws JPAException
+	 */
+	public Collection<LighthouseEvent> addIFilesToModel(Collection<IFile> iFiles)
 			throws ParserException, JPAException {
-		if (javaFiles.size() > 0) {
+		if (iFiles.size() > 0) {
 			LighthouseParser parser = new LighthouseParser();
-			parser.execute(javaFiles);
-			Collection<LighthouseRelationship> listLighthouseRel = parser.getListRelationships();
-			Collection<LighthouseEntity> listEntities = parser.getListEntities();
-			//FIXME (nilmax): Verificar bloco comentado com ele.
-			// set SVN time as newDate(1969-12-31 16:00:00)
-//			Map<String, Date> mapClassToSVNCommittedTime = Controller.getInstance().getWorkingCopy();
-//			for (LighthouseEntity entity : listEntities) {
-//				if (entity instanceof LighthouseClass 
-//						|| entity instanceof LighthouseInterface) {
-//					mapClassToSVNCommittedTime.put(entity.getFullyQualifiedName(), new Date(0));
-//				}
-//			}
-			LighthouseModelManager modelManager = new LighthouseModelManager(model);
+			parser.execute(iFiles);
+			Collection<LighthouseRelationship> listLighthouseRel = parser
+					.getListRelationships();
+			Collection<LighthouseEntity> listEntities = parser
+					.getListEntities();
+			LighthouseModelManager modelManager = new LighthouseModelManager(
+					model);
 			Collection<LighthouseEvent> listEvents = modelManager
-					.createEventsAndSaveInLhModel(Activator.getDefault()
-							.getAuthor(), listEntities, listLighthouseRel);
+					.createEventsAndSaveInLhModel(ModelUtility.getAuthor(),
+							listEntities, listLighthouseRel);
 			return listEvents;
 		}
 		return null;

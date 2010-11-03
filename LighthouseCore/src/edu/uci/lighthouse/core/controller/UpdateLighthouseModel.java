@@ -38,7 +38,7 @@ public class UpdateLighthouseModel {
 					if (artifact instanceof LighthouseClass || artifact instanceof LighthouseInterface) {
 						LighthouseEntity entity = (LighthouseEntity) artifact;
 						String fqn = entity.getFullyQualifiedName();
-						if ( event.getAuthor().equals(Activator.getDefault().getAuthor()) 
+						if ( event.getAuthor().equals(ModelUtility.getAuthor()) 
 								|| !ModelUtility.existsInWorkspace(fqn))  {
 							listClassesToRemove.add(fqn);
 							// I needed to verify whether the class is _not_ on my

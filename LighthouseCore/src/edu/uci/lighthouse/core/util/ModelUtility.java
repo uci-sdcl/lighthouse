@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -22,13 +23,14 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
-import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
+import edu.uci.lighthouse.core.preferences.UserPreferences;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
+import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
@@ -43,6 +45,8 @@ import edu.uci.lighthouse.model.util.LHStringUtil;
 public class ModelUtility {
 
 	private static Logger logger = Logger.getLogger(ModelUtility.class);
+	
+	private static LighthouseAuthor author;
 	
 	/**
 	 * Verify if some given iFile belongs to the Projects that was imported to the database
@@ -146,20 +150,20 @@ public class ModelUtility {
 	public static void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		logger.debug("fireModificationsToUI ("+events.size()+" events)");
 		// We use a Hashmap in order to avoid repaint the UI multiple times
-		HashMap<LighthouseClass, LighthouseEvent.TYPE> mapClassEvent = new HashMap<LighthouseClass, LighthouseEvent.TYPE>();
+		HashMap<LighthouseEntity, LighthouseEvent.TYPE> mapClassEvent = new HashMap<LighthouseEntity, LighthouseEvent.TYPE>();
 		HashMap<LighthouseRelationship, LighthouseEvent.TYPE> mapRelationshipEvent = new HashMap<LighthouseRelationship, LighthouseEvent.TYPE>();
 		LighthouseModel model = LighthouseModel.getInstance();
 		for (LighthouseEvent event : events) {
 			// ADD creates a new class node in the view and populates it
 			// MODIFY just re-populates the class node
 			Object artifact = event.getArtifact();
-			if (artifact instanceof LighthouseClass) {
-				LighthouseClass klass = (LighthouseClass) artifact;
-				mapClassEvent.put(klass, event.getType());
+			if (artifact instanceof LighthouseClass || artifact instanceof LighthouseInterface) {
+				//LighthouseClass klass = (LighthouseClass) artifact;
+				mapClassEvent.put((LighthouseEntity)artifact, event.getType());
 			} else if (artifact instanceof LighthouseEntity) {
 				LighthouseModelManager manager = new LighthouseModelManager(
 						model);
-				LighthouseClass klass = manager
+				LighthouseEntity klass = manager
 				.getMyClass((LighthouseEntity) artifact);
 				if (klass != null) {
 					// Never overwrite the ADD event
@@ -174,7 +178,7 @@ public class ModelUtility {
 			}
 		}
 		// Fire class changes to the UI
-		for (Entry<LighthouseClass, TYPE> entry : mapClassEvent.entrySet()) {
+		for (Entry<LighthouseEntity, TYPE> entry : mapClassEvent.entrySet()) {
 			logger.debug("Firing class: "+entry.getKey());
 			model.fireClassChanged(entry.getKey(), entry.getValue());
 		}
@@ -195,7 +199,7 @@ public class ModelUtility {
 	public static Collection<LighthouseEvent> getEventsForCommiting(Map<IFile, ISVNInfo> svnFiles/*List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author*/) {
 		// The commit time is equal for all the files in the map. So, let's pick the first one.
 		Date svnCommittedTime = svnFiles.values().toArray(new ISVNInfo[0])[0].getLastChangedDate();
-		LighthouseAuthor author = Activator.getDefault().getAuthor();
+		LighthouseAuthor author = getAuthor();
 		Collection<LighthouseEvent> listEvents = LighthouseModelUtil.getEventsInside(LighthouseModel.getInstance(), getClassesFullyQualifiedName(svnFiles)); 
 		LinkedHashSet<LighthouseEvent> listEventsToCommitt = new LinkedHashSet<LighthouseEvent>();
 		for (LighthouseEvent event : listEvents) {
@@ -224,6 +228,28 @@ public class ModelUtility {
 				event.setCommittedTime(adjustedCommittedTime);
 			}
 		}
+	}
+	
+	public static LighthouseAuthor getAuthor() {
+		if (author == null){
+			Properties userSettings = UserPreferences.getUserSettings();
+			String userName = userSettings.getProperty(UserPreferences.USERNAME);
+			author = new LighthouseAuthor(userName);
+		}
+		return author;
+	}
+	
+	public static boolean hasImportedProjects(IWorkspace workspace) {
+		LighthouseModel model = LighthouseModel.getInstance();
+		IProject[] projects = workspace.getRoot().getProjects();
+		for (IProject project : projects) {
+			if (project.isOpen()) {
+				if (model.getProjectNames().contains(project.getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }
