@@ -31,7 +31,7 @@ public class UmlClassBorder extends AbstractBorder{
 
 	@Override
 	public void paint(IFigure figure, Graphics graphics, Insets insets) {
-		if (figure instanceof UmlClassFigure){
+		if (figure instanceof AbstractUmlBoxFigure){
 			// Get bounds
 			tempRect.setBounds(getPaintRectangle(figure, insets));
 			
@@ -45,11 +45,11 @@ public class UmlClassBorder extends AbstractBorder{
 			graphics.drawLine(tempRect.right(), tempRect.y + 4 , tempRect.right(), tempRect.bottom()+2);
 
 			graphics.restoreState();
-			UmlClassFigure classFigure = (UmlClassFigure) figure;
+			AbstractUmlBoxFigure boxFigure = (AbstractUmlBoxFigure) figure;
 			
 			// Draw the events separator
 			graphics.setForegroundColor(ColorFactory.classEventSeparator);		
-			for (IFigure fig : classFigure.getSeparatorEvents()) {
+			for (IFigure fig : boxFigure.getSeparatorEvents()) {
 				int y = fig.getBounds().y;
 				graphics.drawLine(tempRect.x,y,tempRect.right()-1,y);
 			}
@@ -58,7 +58,7 @@ public class UmlClassBorder extends AbstractBorder{
 			if (getColor() != null)
 				graphics.setForegroundColor(getColor());
 			tempRect.resize(-1, -1);
-			for (IFigure fig : classFigure.getSeparators()) {
+			for (IFigure fig : boxFigure.getSeparators()) {
 				int y = fig.getBounds().y + (fig.getBounds().height/2);
 				graphics.drawLine(tempRect.x,y,tempRect.right(),y);
 			}

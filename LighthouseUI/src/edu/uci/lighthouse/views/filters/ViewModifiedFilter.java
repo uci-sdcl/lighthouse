@@ -13,7 +13,7 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 
-public class ViewModifiedFilter extends ViewerFilter{
+public class ViewModifiedFilter extends ViewerFilter implements IFilter{
 
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {

@@ -18,10 +18,12 @@ import org.eclipse.zest.core.widgets.GraphNode;
 
 import edu.uci.lighthouse.model.ILighthouseUIModelListener;
 import edu.uci.lighthouse.model.LighthouseClass;
+import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
+import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class LighthouseEntityContentProvider implements IGraphEntityContentProvider, ILighthouseUIModelListener{
@@ -35,47 +37,63 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 	@Override
 	public Object[] getConnectedTo(Object entity) {
 		logger.info("getConnectedTo");
-		Collection<LighthouseClass> result = new LinkedList<LighthouseClass>();
-		if (entity instanceof LighthouseClass) {
-			LighthouseClass aClass = (LighthouseClass) entity;
+		Collection<LighthouseEntity> result = new LinkedList<LighthouseEntity>();
+		if (entity instanceof LighthouseEntity) {
+			LighthouseEntity aEntity = (LighthouseEntity) entity;
 			LighthouseModel model = LighthouseModel.getInstance();
-			Collection<LighthouseClass> connections = model.getConnectTo(aClass);
-			for (LighthouseClass iClass : connections) {
-				if (!iClass.isAnonymous() && !existsInCache(aClass,iClass)) {
-					insertInCache(aClass,iClass);
-					result.add(iClass);
+			Collection<LighthouseEntity> connections = model.getConnectTo(aEntity);
+			for (LighthouseEntity iEntity : connections) {
+				if (!existsInCache(aEntity,iEntity)) {
+					if (entity instanceof LighthouseInterface || (entity instanceof LighthouseClass && !((LighthouseClass)entity).isAnonymous())) {
+						insertInCache(aEntity,iEntity);
+						result.add(iEntity);
+					}
 				} else {
-					logger.debug("duplicated "+aClass.getShortName()+"->"+iClass.getShortName());
+					logger.debug("duplicated "+aEntity.getShortName()+"->"+iEntity.getShortName());
 				}
 			}
 		}
+//		if (entity instanceof LighthouseClass) {
+//			LighthouseClass aClass = (LighthouseClass) entity;
+//			LighthouseModel model = LighthouseModel.getInstance();
+//			Collection<LighthouseEntity> connections = model.getConnectTo(aClass);
+//			for (LighthouseEntity iClass : connections) {
+//				if (!iClass.isAnonymous() && !existsInCache(aClass,iClass)) {
+//					insertInCache(aClass,iClass);
+//					result.add(iClass);
+//				} else {
+//					logger.debug("duplicated "+aClass.getShortName()+"->"+iClass.getShortName());
+//				}
+//			}
+//		}
 		return result.toArray();
 	}
 	
-	private boolean existsInCache(LighthouseClass fromClass,
-			LighthouseClass toClass) {
-		String keyFrom = fromClass.getId() + toClass.getId();
-		String keyTo = toClass.getId() + fromClass.getId();
+	private boolean existsInCache(LighthouseEntity fromEntity,
+			LighthouseEntity toEntity) {
+		String keyFrom = fromEntity.getId() + toEntity.getId();
+//		String keyTo = toEntity.getId() + fromEntity.getId();
 		if (cacheConnections.contains(keyFrom)
-				|| cacheConnections.contains(keyTo)) {
+				/*|| cacheConnections.contains(keyTo)*/) {
 			return true;
 		}
 		return false;
 	}
 	
-	private void insertInCache(LighthouseClass fromClass,
-			LighthouseClass toClass) {
-		String key = fromClass.getId() + toClass.getId();
+	private void insertInCache(LighthouseEntity fromEntity,
+			LighthouseEntity toEntity) {
+		String key = fromEntity.getId() + toEntity.getId();
 		cacheConnections.add(key);
 	}
 	
-	private void removeFromCache(LighthouseClass fromClass,
-			LighthouseClass toClass) {
-		String keyFrom = fromClass.getId() + toClass.getId();
-		if (!cacheConnections.remove(keyFrom)) {
-			String keyTo = toClass.getId() + fromClass.getId();
-			cacheConnections.remove(keyTo);
-		}
+	private void removeFromCache(LighthouseEntity fromEntity,
+			LighthouseEntity toEntity) {
+		String keyFrom = fromEntity.getId() + toEntity.getId();
+		cacheConnections.remove(keyFrom);
+//		if (!cacheConnections.remove(keyFrom)) {
+//			String keyTo = toEntity.getId() + fromEntity.getId();
+//			cacheConnections.remove(keyTo);
+//		}
 	}
 	
 	private void removeFromCache(GraphNode node) {
@@ -109,17 +127,21 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		Collection<LighthouseClass> result = new LinkedList<LighthouseClass>();
+		Collection<LighthouseEntity> result = new LinkedList<LighthouseEntity>();
 		if (inputElement instanceof LighthouseModel) {
 			cacheConnections.clear();
 			LighthouseModel model = (LighthouseModel) inputElement;
 			Collection<LighthouseClass> allClasses = model.getAllClasses();
-			logger.info("getElements: "+allClasses.size());
 			for (LighthouseClass aClass : allClasses) {
 				if (!aClass.isAnonymous()) {
 					result.add(aClass);
 				}
 			}
+			Collection<LighthouseInterface> allInterfaces = model.getAllInterfaces();
+			for (LighthouseInterface aInterface : allInterfaces) {
+					result.add(aInterface);
+			}			
+			logger.info("getElements: "+(allClasses.size()+allInterfaces.size()));
 		}
 		return result.toArray();
 	}
@@ -149,13 +171,13 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 	}
 
 	@Override
-	public void classChanged(LighthouseClass aClass, TYPE type) {
+	public void classChanged(LighthouseEntity aClass, TYPE type) {
 		logger.info("classChanged: " + aClass.getShortName()+" ("+type+")");
 		GraphItem item = viewer.findGraphItem(aClass);
 		if (item == null) {
 			switch (type) {
 			case ADD:
-				if (!aClass.isAnonymous() && !filterElement(viewer.getInput(),aClass)) {
+				if ((aClass instanceof LighthouseInterface || (aClass instanceof LighthouseClass && !((LighthouseClass)aClass).isAnonymous())) && !filterElement(viewer.getInput(),aClass)) {
 					viewer.addNode(aClass);
 					logger.debug("Class "+aClass.getShortName()+" added.");
 					viewer.getGraphControl().applyLayout();					
@@ -256,8 +278,8 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 	private EntityConnectionData getEntityConnectionData(LighthouseRelationship r){
 		LighthouseModelManager manager = new LighthouseModelManager(
 				LighthouseModel.getInstance());
-		LighthouseClass fromClass = manager.getMyClass(r.getFromEntity());
-		LighthouseClass toClass = manager.getMyClass(r.getToEntity());
+		LighthouseEntity fromClass = manager.getMyClass(r.getFromEntity());
+		LighthouseEntity toClass = manager.getMyClass(r.getToEntity());
 		if (fromClass != null && toClass != null && !fromClass.equals(toClass)){
 			return new EntityConnectionData(fromClass,toClass);
 		}

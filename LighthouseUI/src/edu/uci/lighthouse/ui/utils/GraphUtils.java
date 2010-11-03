@@ -6,6 +6,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.zest.core.widgets.GraphNode;
 
+import edu.uci.lighthouse.ui.figures.AbstractUmlBoxFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure;
 import edu.uci.lighthouse.ui.figures.UmlClassFigure;
 
@@ -16,7 +17,7 @@ public class GraphUtils {
 		Dimension size = new Dimension(-1,-1);
 		Rectangle bounds = new Rectangle(loc, size);
 		Assert.isLegal(node.getNodeFigure() instanceof ILighthouseClassFigure, "Invalid IFigure found, only "+ILighthouseClassFigure.class.getSimpleName()+" is supported for change the mode.");
-		UmlClassFigure fig = (UmlClassFigure) node.getNodeFigure();
+		AbstractUmlBoxFigure fig = (AbstractUmlBoxFigure) node.getNodeFigure();
 		fig.getParent().setConstraint(fig,bounds);		
 		fig.populate(mode);
 	}

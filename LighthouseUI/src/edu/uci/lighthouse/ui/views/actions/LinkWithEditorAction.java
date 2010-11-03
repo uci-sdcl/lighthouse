@@ -38,6 +38,7 @@ public class LinkWithEditorAction extends Action implements
 		super(null, IAction.AS_CHECK_BOX);
 		this.viewer = viewer;
 		init();
+		setChecked(true);
 	}
 
 	private void init() {

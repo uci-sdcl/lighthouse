@@ -19,7 +19,7 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseRelationship;
 
-public class ActiveClassFilter extends ViewerFilter {
+public class ActiveClassFilter extends ViewerFilter implements IFilter{
 
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
@@ -74,9 +74,9 @@ public class ActiveClassFilter extends ViewerFilter {
 
 	private boolean belongsToDistance(LighthouseClass from, LighthouseClass to) {
 		LighthouseModel model = LighthouseModel.getInstance();
-		Collection<LighthouseClass> related = model.getConnectTo(from);
+		Collection<LighthouseEntity> related = model.getConnectTo(from);
 		// test this because is faster
-		for (LighthouseClass toClass : related) {
+		for (LighthouseEntity toClass : related) {
 			if (toClass.equals(to)) {
 				return true;
 			}
@@ -84,7 +84,7 @@ public class ActiveClassFilter extends ViewerFilter {
 		// otherwise test everything
 		// for (LighthouseClass fromClass : model.getAllClasses()) {
 		related = model.getConnectTo(to);
-		for (LighthouseClass fromClass : related) {
+		for (LighthouseEntity fromClass : related) {
 			if (fromClass.equals(from)) {
 				return true;
 			}

@@ -62,6 +62,7 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 	private final class HighlightClassAction extends Action{
 		public HighlightClassAction(){
 			super("Highlight Class", Action.AS_CHECK_BOX);
+			setChecked(true);
 		}
 		@Override
 		public void run() {
@@ -76,6 +77,7 @@ public class HighlightDropDownAction extends Action implements IMenuCreator,  Se
 	private final class HighlightRelationshipsAction extends Action{
 		public HighlightRelationshipsAction(){
 			super("Highlight Relationships", Action.AS_CHECK_BOX);
+			setChecked(true);
 		}
 		@Override
 		public void run() {

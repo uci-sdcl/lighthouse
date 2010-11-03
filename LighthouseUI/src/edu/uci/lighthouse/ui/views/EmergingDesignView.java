@@ -6,10 +6,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
+import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.GridLayoutAlgorithm;
 
 import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.ui.views.actions.BookmarkFilterDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.DiagramModeDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.FilterActiveClassAction;
 import edu.uci.lighthouse.ui.views.actions.FilterAuthorAction;
@@ -20,6 +22,7 @@ import edu.uci.lighthouse.ui.views.actions.HighlightDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.LayoutDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.LinkWithEditorAction;
 import edu.uci.lighthouse.ui.views.actions.OpenInEditorAction;
+import edu.uci.lighthouse.ui.views.actions.SmellsAction;
 import edu.uci.lighthouse.ui.views.actions.ZoomDropDownAction;
 
 public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbenchPart{
@@ -34,6 +37,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		super.createPartControl(parent);
 		
 		viewer = new GraphViewer(parent, SWT.NONE);
+		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		//Create the FilterManager instance
 		filterManager = new FilterManager(viewer);
 		
@@ -53,7 +57,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 //		editorListener.addEditorSelectionListener(openEditorAction);
 		editorListener.addEditorSelectionListener(linkAction);
 		
-		getViewSite().getActionBars().getToolBarManager().add(linkAction);
+//		getViewSite().getActionBars().getToolBarManager().add(linkAction);
 		getViewSite().getActionBars().getToolBarManager().add(new HighlightDropDownAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new LayoutDropDownAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(new DiagramModeDropDownAction(viewer.getGraphControl()));
@@ -62,6 +66,8 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		getViewSite().getActionBars().getToolBarManager().add(new FilterModifiedAction(viewer.getGraphControl()));
 		getViewSite().getActionBars().getToolBarManager().add(activeClassAction);
 //		getViewSite().getActionBars().getToolBarManager().add(openEditorAction);
+//		getViewSite().getActionBars().getToolBarManager().add(new BookmarkFilterDropDownAction(viewer.getGraphControl()));
+//		getViewSite().getActionBars().getToolBarManager().add(new SmellsAction(viewer));
 		getViewSite().getActionBars().getToolBarManager().add(new ZoomDropDownAction(this));
 
 		//FIXME: Change this to a decorator

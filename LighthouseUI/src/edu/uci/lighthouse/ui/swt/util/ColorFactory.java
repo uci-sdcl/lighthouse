@@ -12,6 +12,9 @@ public final class ColorFactory implements ColorConstants{
 	public static final Color classGradientBackground = new Color(null, 173, 214, 173);
 	public static final Color classBorder = new Color(null, 63, 159, 63);
 	
+	public static final Color interfaceGradientBackground = new Color(null, 173, 214, 173);
+	public static final Color interfaceBorder = new Color(null, 63, 159, 63);
+	
 	public static final Color classBackground = ColorConstants.white;
 	public static final Color classHighlight = ColorConstants.tooltipBackground;
 	public static final Color classLinkWithEditor = aliceBlue;

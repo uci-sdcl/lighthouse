@@ -16,17 +16,17 @@ import org.eclipse.zest.core.widgets.GraphNode;
 import edu.uci.lighthouse.model.ILighthouseUIModelListener;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseRelationship;
-import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class LighthouseRelationshipContentProvider implements IGraphContentProvider, ILighthouseUIModelListener{
 
 	// HashMap used just for speed-up the process. A list of strings could be used.
-	private HashMap<String,LighthouseClass> cacheConnections = new HashMap<String,LighthouseClass>();
+	private HashMap<String,LighthouseEntity> cacheConnections = new HashMap<String,LighthouseEntity>();
 	private GraphViewer viewer;
 	private enum relType {FROM, TO};
 	
@@ -65,7 +65,7 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	@Override
 	public Object getDestination(Object rel) {
 		//return getClassFromRelationship((LighthouseRelationship)rel, relType.TO);
-		LighthouseClass c = getClassFromRelationship((LighthouseRelationship)rel, relType.TO);
+		LighthouseEntity c = getClassFromRelationship((LighthouseRelationship)rel, relType.TO);
 		logger.info("getDestination: "+c);
 		return c;
 	}
@@ -87,20 +87,20 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	@Override
 	public Object getSource(Object rel) {
 		//return getClassFromRelationship((LighthouseRelationship)rel, relType.FROM);
-		LighthouseClass c = getClassFromRelationship((LighthouseRelationship)rel, relType.FROM);
+		LighthouseEntity c = getClassFromRelationship((LighthouseRelationship)rel, relType.FROM);
 		logger.info("getSource: "+c);
 		return c;
 	}
 
-	private LighthouseClass getClassFromRelationship(LighthouseRelationship r,
+	private LighthouseEntity getClassFromRelationship(LighthouseRelationship r,
 			relType type) {
 		LighthouseModelManager manager = new LighthouseModelManager(
 				LighthouseModel.getInstance());
-		LighthouseClass fromClass = manager.getMyClass(r.getFromEntity());
-		LighthouseClass toClass = manager.getMyClass(r.getToEntity());
+		LighthouseEntity fromClass = manager.getMyClass(r.getFromEntity());
+		LighthouseEntity toClass = manager.getMyClass(r.getToEntity());
 		if (fromClass != null && toClass != null && !fromClass.equals(toClass)) {
 			String key;
-			LighthouseClass result;
+			LighthouseEntity result;
 			if (type == relType.FROM) {
 				key = fromClass.getFullyQualifiedName()
 						+ toClass.getFullyQualifiedName();
@@ -119,7 +119,7 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	}
 
 	@Override
-	public void classChanged(LighthouseClass aClass, TYPE type) {
+	public void classChanged(LighthouseEntity aClass, TYPE type) {
 		logger.info("classChanged: " + aClass.getShortName()+" ("+type+")");
 		GraphItem item = viewer.findGraphItem(aClass);
 		if (item != null) {
@@ -185,9 +185,9 @@ public class LighthouseRelationshipContentProvider implements IGraphContentProvi
 	private void removeFromCache(LighthouseRelationship r){
 		LighthouseModelManager manager = new LighthouseModelManager(
 				LighthouseModel.getInstance());
-		LighthouseClass fromClass = manager.getMyClass(r
+		LighthouseEntity fromClass = manager.getMyClass(r
 				.getFromEntity());
-		LighthouseClass toClass = manager.getMyClass( r
+		LighthouseEntity toClass = manager.getMyClass( r
 				.getToEntity());
 		cacheConnections.remove(fromClass.getFullyQualifiedName()
 						+ toClass.getFullyQualifiedName());

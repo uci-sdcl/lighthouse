@@ -65,7 +65,7 @@ public class OpenInEditorAction extends ContributionItem implements MouseListene
 	private void showInEditor(LighthouseEntity e) {
 		LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel
 				.getInstance());
-		LighthouseClass c = manager.getMyClass(e);
+		LighthouseEntity c = manager.getMyClass(e);
 		if (c != null) {
 			try {
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -106,7 +106,7 @@ public class OpenInEditorAction extends ContributionItem implements MouseListene
 	private void showInEditor2(LighthouseEntity e) {
 		LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel
 				.getInstance());
-		LighthouseClass c = manager.getMyClass(e);
+		LighthouseEntity c = manager.getMyClass(e);
 		if (c != null) {
 			try {
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
