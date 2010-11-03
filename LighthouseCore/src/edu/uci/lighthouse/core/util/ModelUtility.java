@@ -200,8 +200,7 @@ public class ModelUtility {
 		LinkedHashSet<LighthouseEvent> listEventsToCommitt = new LinkedHashSet<LighthouseEvent>();
 		for (LighthouseEvent event : listEvents) {
 			if (event.getAuthor().equals(author)) {
-				// FIXME NILMAX: Is it possible the event being commit twice? Why we need to check?
-				if (!event.isCommitted()) {
+				if (!event.isCommitted()) { // I am not sure whether we need this IF or not
 					event.setCommitted(true);
 					event.setCommittedTime(svnCommittedTime);
 					listEventsToCommitt.add(event);
