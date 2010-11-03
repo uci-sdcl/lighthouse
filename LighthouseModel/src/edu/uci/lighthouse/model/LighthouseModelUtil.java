@@ -53,9 +53,10 @@ public class LighthouseModelUtil {
 		LinkedHashSet<LighthouseEntity> listEntity = new LinkedHashSet<LighthouseEntity>();
 		for (String clazzFqn : listClazzFqn) {
 			LighthouseEntity clazz = model.getEntity(clazzFqn);
-			//FIXME: not verifying if it is a null pointer
-			listEntity.add(clazz);
-			listEntity.addAll(getEntitiesInsideClass(model, clazz));
+			if (clazz!=null) {
+				listEntity.add(clazz);
+				listEntity.addAll(getEntitiesInsideClass(model, clazz));
+			}
 		}
 		return listEntity;
 	}
