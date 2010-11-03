@@ -1,6 +1,7 @@
-
 <project name="LighthouseBuild" default="all" basedir=".">	
 
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="./lib/svnant-1.3.0.jar" />
+	
  <property file="build.properties" id="local.properties" />
 	
   <target name="all" depends="patch.projects" />	
@@ -29,10 +30,19 @@
 		driver="com.mysql.jdbc.Driver"
 		url="${host}"
 		userid="root"
-		password="">
+		password="" >
 			grant all privileges on lighthouse.* to 'lighthouse'@'%' identified by 'light99';
 			grant all privileges on lighthouse.* to 'lighthouse'@'localhost' identified by 'light99';
 		</sql>
+	</target> 
+	
+	<target name="setup.database">
+		<sql classpath="../LighthouseModel/lib/hibernate/mysql-connector-java-5.1.8-bin.jar"
+		driver="com.mysql.jdbc.Driver"
+		url="${host}"
+		userid="root"
+		password="" 
+		src="db_structure.sql" />
 	</target> 
 	
 	 <target name="clean.site"
@@ -48,5 +58,12 @@
 		<cvs command="update" dest="../org.eclipse.zest.core"/> -->
 		<patch patchfile="org.eclipse.zest.core.patch" dir="../org.eclipse.zest.core" strip="0"/>
 	</target> 
-  	
+	<!--
+	<target name="update.project">
+	<svn>
+	<update>
+	</update>
+	</svn>
+	</target>
+  	-->
  </project>
