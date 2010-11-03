@@ -28,12 +28,12 @@ IWorkbenchPreferencePage {
 	public void init(IWorkbench workbench) {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		setPreferenceStore(store);
-		setDescription("Enter user information:");
+		setDescription("Enter Lighthouse user information:");
 	}
 
 	@Override
 	protected void createFieldEditors() {
-		SVNUsername = new StringFieldEditor(USERNAME,"Username:",getFieldEditorParent());
+		SVNUsername = new StringFieldEditor(USERNAME,"Nickname:",getFieldEditorParent());
 		addField(SVNUsername); 
 	}
 	

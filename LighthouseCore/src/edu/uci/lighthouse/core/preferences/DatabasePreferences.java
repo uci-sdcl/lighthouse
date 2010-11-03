@@ -157,10 +157,10 @@ IWorkbenchPreferencePage{
 	@Override
 	protected void performDefaults() {
 
-		dbHost.setText("calico.ics.uci.edu");
+		dbHost.setText("localhost");
 		dbUsername.setText("lighthouse");
-		dbPassword.setText("light99");
-		dbDatabase.setText("lighthouse");
+		dbPassword.setText("");
+		dbDatabase.setText("schema");
 		dbPort.setText("3306");
 		
 		chkTunnel.setSelection(false);

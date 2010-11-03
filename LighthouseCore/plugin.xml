@@ -31,7 +31,7 @@
             <command
                   commandId="edu.uci.lighthouse.core.project.import"
                   id="edu.uci.lighthouse.core.import"
-                  label="Import Project"
+                  label="Share Project..."
                   style="push">
                <visibleWhen
                      checkEnabled="false">

@@ -18,30 +18,10 @@
       </view>
    </extension>
    <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
-         <view
-               ratio="0.5"
-               relative="org.eclipse.ui.views.TaskList"
-               relationship="right"
-               id="edu.uci.lighthouse.ui.views.SampleUIView">
-         </view>
-      </perspectiveExtension>
-   </extension>
-   <extension
          point="org.eclipse.help.contexts">
       <contexts
             file="contexts.xml">
       </contexts>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectives">
-      <perspective
-            class="edu.uci.lighthouse.perspectives.LighthousePerspectiveFactory"
-            id="LighthouseUI.perspective1"
-            name="Lighthouse Perspective">
-      </perspective>
    </extension>
 
 </plugin>

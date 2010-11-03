@@ -40,8 +40,8 @@ public class StatusWidget extends AbstractWorkbenchTrimWidget implements
 	@Override
 	public void init(IWorkbenchWindow workbenchWindow) {
 		super.init(workbenchWindow);
-		dbOk = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/debugtt_obj.gif").createImage();
-		dbError = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/threadt_obj.gif").createImage();
+		dbOk = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/osprc_obj.gif").createImage();
+		dbError = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.debug.ui", "$nl$/icons/full/obj16/osprct_obj.gif").createImage();
 		instance = this;
 	}
 
@@ -73,12 +73,12 @@ public class StatusWidget extends AbstractWorkbenchTrimWidget implements
 					switch (newSeverity) {
 					case IStatus.OK:
 						imageLabel.setImage(dbOk);
-						imageLabel.setToolTipText("Connected");
+						imageLabel.setToolTipText("Lighthouse connected with database.");
 						break;
 
 					case IStatus.CANCEL:
 						imageLabel.setImage(dbError);
-						imageLabel.setToolTipText("Not connected");
+						imageLabel.setToolTipText("Lighthouse not connected with database.");
 						break;
 					}
 					severity = status.getSeverity();

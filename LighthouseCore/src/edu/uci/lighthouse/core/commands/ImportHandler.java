@@ -52,11 +52,11 @@ public class ImportHandler extends AbstractHandler {
 		}
 
 		//TODO (tproenca): Converter pra IDatabaseAction
-		final Job job = new Job("Importing Project") {
+		final Job job = new Job("Sharing Project") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try{ 
-					monitor.beginTask("Importing files...", javaFiles.size());
+					monitor.beginTask("Sharing files...", javaFiles.size());
 					PushModel pushModel = PushModel.getInstance();
 					// Parsing files
 					monitor.subTask("Parsing Java files...");
