@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LighthouseTest Plug-in
 Bundle-SymbolicName: LighthouseTest
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.6.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit;bundle-version="3.8.2",
  org.eclipse.core.resources;bundle-version="3.4.2",
