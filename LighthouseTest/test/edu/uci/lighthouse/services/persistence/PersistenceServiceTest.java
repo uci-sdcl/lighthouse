@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.uci.lighthouse.model.io.IPersistable;
 import edu.uci.lighthouse.services.LighthouseServiceFactory;
 
 public class PersistenceServiceTest {

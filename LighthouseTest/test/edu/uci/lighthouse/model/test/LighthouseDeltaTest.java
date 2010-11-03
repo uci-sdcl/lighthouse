@@ -1,14 +1,7 @@
 package edu.uci.lighthouse.model.test;
 
 import junit.framework.TestCase;
-
-import org.dom4j.DocumentException;
-
 import edu.uci.lighthouse.model.LighthouseAuthor;
-import edu.uci.lighthouse.model.LighthouseDelta;
-import edu.uci.lighthouse.model.LighthouseFile;
-import edu.uci.lighthouse.model.io.LighthouseFileXMLPersistence;
-import edu.uci.lighthouse.test.util.LHTestDataFiles;
 
 public class LighthouseDeltaTest extends TestCase {
 
