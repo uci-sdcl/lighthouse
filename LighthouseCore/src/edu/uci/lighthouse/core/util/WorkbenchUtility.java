@@ -102,7 +102,6 @@ public class WorkbenchUtility {
 				}
 			}
 		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return files;

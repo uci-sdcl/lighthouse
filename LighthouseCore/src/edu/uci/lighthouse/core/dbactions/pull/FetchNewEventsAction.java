@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.controller.PullModel;
+import edu.uci.lighthouse.core.controller.UpdateLighthouseModel;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -20,23 +21,15 @@ public class FetchNewEventsAction implements IDatabaseAction {
 
 	@Override
 	public void run() throws JPAException {
-		/*
-		 * If the map's size == 0, it means that it is the first time that user
-		 * is running Lighthouse. Then, the LighthouseModel will be updated only
-		 * if the user execute a checkout first.
-		 */
-		//if (getWorkingCopy().size() != 0) {
-			LighthouseAuthor author = Activator.getDefault().getAuthor();
-			PullModel pullModel = PullModel.getInstance();
-			List<LighthouseEvent> events = pullModel.getNewEventsFromDB(author);
-			if (events.size()>0) {
-				ModelUtility.updateEvents(events);
-				ModelUtility.fireModificationsToUI(events);
-			} else {
-				logger.debug("Events fecthed from database: " + events);
-			}
-		//}
+		LighthouseAuthor author = Activator.getDefault().getAuthor();
+		PullModel pullModel = PullModel.getInstance();
+		List<LighthouseEvent> events = pullModel.getNewEventsFromDB(author);
+		if (events.size()>0) {
+			UpdateLighthouseModel.addEvents(events);
+			ModelUtility.fireModificationsToUI(events);
+		} else {
+			logger.debug("Events fecthed from database: " + events);
+		}
 	}
-
 
 }

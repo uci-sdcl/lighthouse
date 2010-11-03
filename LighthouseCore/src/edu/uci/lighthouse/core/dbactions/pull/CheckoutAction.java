@@ -34,4 +34,5 @@ public class CheckoutAction extends AbstractWorkingCopyAction {
 	protected boolean checkDatabase() {
 		return true;
 	}
+	
 }

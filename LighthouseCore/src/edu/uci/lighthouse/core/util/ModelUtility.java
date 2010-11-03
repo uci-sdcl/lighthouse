@@ -1,9 +1,6 @@
 package edu.uci.lighthouse.core.util;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
@@ -15,17 +12,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.internal.jobs.Worker;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.Activator;
@@ -35,7 +29,6 @@ import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
-import edu.uci.lighthouse.model.LighthouseInterface;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.model.LighthouseModelUtil;
@@ -44,10 +37,20 @@ import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.model.util.DatabaseUtility;
 import edu.uci.lighthouse.model.util.LHStringUtil;
 
+/**
+ * This is a utility class that helps extract information and navigate through the lighthouse model
+ */
 public class ModelUtility {
 
 	private static Logger logger = Logger.getLogger(ModelUtility.class);
 	
+	/**
+	 * Verify if some given iFile belongs to the Projects that was imported to the database
+	 * 
+	 * @param iFile
+	 * @param checkDatabase
+	 * @return
+	 */
 	public static boolean belongsToImportedProjects(IFile iFile, boolean checkDatabase) {
 		IJavaElement jFile = JavaCore.create(iFile);
 		if (jFile != null) {
@@ -135,19 +138,21 @@ public class ModelUtility {
 		}
 		return false;		
 	}
-
 	
+	/**
+	 * Get the input list of events and update the UI accordingly 
+	 * @param events
+	 */
 	public static void fireModificationsToUI(Collection<LighthouseEvent> events) {
 		logger.debug("fireModificationsToUI ("+events.size()+" events)");
-		// We need hashmap to avoid repaint the UI multiple times
+		// We use a Hashmap in order to avoid repaint the UI multiple times
 		HashMap<LighthouseClass, LighthouseEvent.TYPE> mapClassEvent = new HashMap<LighthouseClass, LighthouseEvent.TYPE>();
 		HashMap<LighthouseRelationship, LighthouseEvent.TYPE> mapRelationshipEvent = new HashMap<LighthouseRelationship, LighthouseEvent.TYPE>();
 		LighthouseModel model = LighthouseModel.getInstance();
 		for (LighthouseEvent event : events) {
-			Object artifact = event.getArtifact();
-			// TODO: comment more this method. It is confusing.
 			// ADD creates a new class node in the view and populates it
 			// MODIFY just re-populates the class node
+			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseClass) {
 				LighthouseClass klass = (LighthouseClass) artifact;
 				mapClassEvent.put(klass, event.getType());
@@ -181,59 +186,12 @@ public class ModelUtility {
 		}
 	}
 	
-	/**Does not save in database, only in the lighthouse model*/
-	//TODO NILMAX: Comment this method.
-	public static void updateEvents(Collection<LighthouseEvent> listEvents) {
-		LighthouseModelManager LhManager = new LighthouseModelManager(LighthouseModel.getInstance());
-		Collection<String> listClassesToRemove = new LinkedHashSet<String>(); 
-		// for each entity event
-		for (LighthouseEvent event : listEvents) {
-			Object artifact = event.getArtifact();
-			if (artifact instanceof LighthouseEntity) {
-				logger.debug("updating: " + event.toString());
-				LhManager.addEvent(event);
-				/**
-				 * if I have an event to remove a class/interface AND this class is not on
-				 * my workspace than I have to remove this class/interface from my model and
-				 * hence from my visualization
-				 */
-				if (event.getType()==TYPE.REMOVE) {
-					if (artifact instanceof LighthouseClass || artifact instanceof LighthouseInterface) {
-						LighthouseEntity entity = (LighthouseEntity) artifact;
-						String fqn = entity.getFullyQualifiedName();
-						//TODO NILMAX: Why I need to verify if the class is not on my workspace?
-						// NILMAX ANSWER: BECAUSE IF OTHER DEVELOPER CREATE A
-						// CLASS IN HIS WORKSPACE (THAT IS NOT ON MY WORKSPACE)
-						// AND LATER DELETE IT
-						// I NEED TO REMOVE THIS FROM MY VIZUALIZATION
-						if ( event.getAuthor().equals(Activator.getDefault().getAuthor()) 
-								|| !existsInWorkspace(fqn))  {
-							listClassesToRemove.add(fqn);
-						}
-					}
-				}
-			} else if (artifact instanceof LighthouseRelationship) {
-				if (event.getType()==TYPE.REMOVE) {
-					LighthouseRelationship rel = (LighthouseRelationship) artifact;
-					if (rel.getType()!=LighthouseRelationship.TYPE.INSIDE) {
-						LhManager.removeRelationship(rel);
-					}
-				}
-			}
-		}
-		// for each relationship event
-		for (LighthouseEvent event : listEvents) {
-			Object artifact = event.getArtifact();
-			if (artifact instanceof LighthouseRelationship) {
-				logger.debug("updating: " + event.toString());
-				if (event.getType()==TYPE.ADD) {
-					LhManager.addEvent(event);	
-				}
-			}
-		}
-		LhManager.removeArtifactsAndEvents(listClassesToRemove);
-	}
-
+	/**
+	 * This method figure out which event needs to be committed
+	 * 
+	 * @param svnFiles
+	 * @return
+	 */
 	public static Collection<LighthouseEvent> getEventsForCommiting(Map<IFile, ISVNInfo> svnFiles/*List<String> listClazzFqn, Date svnCommittedTime, LighthouseAuthor author*/) {
 		// The commit time is equal for all the files in the map. So, let's pick the first one.
 		Date svnCommittedTime = svnFiles.values().toArray(new ISVNInfo[0])[0].getLastChangedDate();

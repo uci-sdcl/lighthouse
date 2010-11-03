@@ -3,12 +3,12 @@ package edu.uci.lighthouse.core.dbactions;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.util.DatabaseUtility;
 
 public class CheckConnectivityAction implements IDatabaseAction {
 
+	private static final long serialVersionUID = 6675946301376485527L;
 	Properties dbSettings;
 	
 	public CheckConnectivityAction(Properties dbSettings) {

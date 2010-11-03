@@ -8,6 +8,7 @@ import edu.uci.lighthouse.model.jpa.JPAException;
 
 public class CompoundAction implements IDatabaseAction {
 
+	private static final long serialVersionUID = -7628446691313339816L;
 	List<IDatabaseAction> actions = new LinkedList<IDatabaseAction>();
 	
 	@Override

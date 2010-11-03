@@ -24,6 +24,9 @@ import edu.uci.lighthouse.model.LighthouseRelationship;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEventDAO;
 
+/**
+ * This is a facade used to fetch events from the database
+ */
 public class PullModel {
 
 	private LighthouseModel model;
@@ -98,7 +101,7 @@ public class PullModel {
 			String fqnClazz = entryWorkingCopy.getKey();
 			Date revisionTimestamp = entryWorkingCopy.getValue();
 
-			HashMap<LighthouseClass, Collection<LighthouseEntity>> mapClassToEntities = modelManager.selectEntitiesInsideClass(fqnClazz);
+			HashMap<LighthouseClass, Collection<LighthouseEntity>> mapClassToEntities = LighthouseModelUtil.selectEntitiesInsideClass(fqnClazz);
 
 			// for each class and innerClasses (Usually Classes do not have InnerClass)
 			for ( Entry<LighthouseClass, Collection<LighthouseEntity>> entryEntitesInside : mapClassToEntities.entrySet()) {

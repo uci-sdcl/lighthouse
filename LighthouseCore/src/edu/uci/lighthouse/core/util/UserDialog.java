@@ -7,9 +7,6 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Thread safe MessageDialog.
- * 
- * @author tproenca
- *
  */
 public class UserDialog {
 

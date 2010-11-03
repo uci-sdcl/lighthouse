@@ -13,6 +13,7 @@ import com.jcraft.jsch.UserInfo;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 
+@Deprecated
 public class SSHTunnel implements IPluginListener {
 
 	private Session session;

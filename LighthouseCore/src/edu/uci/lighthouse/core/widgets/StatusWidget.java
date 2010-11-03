@@ -16,6 +16,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
 
+/**
+ * Signalizes whether lighthouse has connection with database or not 
+ */
 public class StatusWidget extends AbstractWorkbenchTrimWidget implements
 		IWorkbenchWidget {
 

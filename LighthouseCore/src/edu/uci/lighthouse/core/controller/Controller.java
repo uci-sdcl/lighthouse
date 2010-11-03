@@ -144,7 +144,7 @@ IPluginListener, /*Runnable,*/ IPropertyChangeListener {
 				logger.debug("Workspace event generated delta events: "+ deltaEvents.size());
 			}
 			
-			ModelUtility.updateEvents(deltaEvents);
+			UpdateLighthouseModel.addEvents(deltaEvents);
 			ModelUtility.fireModificationsToUI(deltaEvents);
 			
 			FileEventAction fileEventAction = new FileEventAction(deltaEvents);
