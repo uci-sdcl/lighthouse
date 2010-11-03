@@ -226,10 +226,10 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 		logger.info("relationshipChanged: "+relationship+" ("+type+")");
 		EntityConnectionData connection = getEntityConnectionData(relationship);
 		if (connection != null){
-			if (existsInCache((LighthouseClass)connection.source, (LighthouseClass)connection.dest)) {
+			if (existsInCache((LighthouseEntity)connection.source, (LighthouseEntity)connection.dest)) {
 				switch (type) {
 				case REMOVE:
-					removeFromCache((LighthouseClass)connection.source, (LighthouseClass)connection.dest);
+					removeFromCache((LighthouseEntity)connection.source, (LighthouseEntity)connection.dest);
 					removeRelationship(connection);
 					if (filterElement(viewer.getInput(),connection.source)) {
 						viewer.removeNode(connection.source);
@@ -242,9 +242,17 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 			} else {
 				switch (type) {
 				case ADD:
-					LighthouseClass fromClass = (LighthouseClass) connection.source;
-					LighthouseClass toClass = (LighthouseClass) connection.dest;
-					if (!fromClass.isAnonymous() && !toClass.isAnonymous()) {
+					LighthouseEntity fromClass = (LighthouseEntity) connection.source;
+					LighthouseEntity toClass = (LighthouseEntity) connection.dest;
+					if 	(
+						(fromClass instanceof LighthouseInterface || 
+						(fromClass instanceof LighthouseClass && !((LighthouseClass)fromClass).isAnonymous())
+						)
+						&&
+						(toClass instanceof LighthouseInterface ||		
+						(toClass instanceof LighthouseClass && !((LighthouseClass)toClass).isAnonymous())
+						)
+						){
 						if (!filterElement(viewer.getInput(), fromClass)
 								&& !filterElement(viewer.getInput(), toClass)
 								&& !filterElement(viewer.getInput(), connection)) {
