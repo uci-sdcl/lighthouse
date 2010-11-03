@@ -159,8 +159,8 @@ IWorkbenchPreferencePage{
 
 		dbHost.setText("localhost");
 		dbUsername.setText("lighthouse");
-		dbPassword.setText("");
-		dbDatabase.setText("schema");
+		dbPassword.setText("lighthouse");
+		dbDatabase.setText("lighthouse");
 		dbPort.setText("3306");
 		
 		chkTunnel.setSelection(false);
