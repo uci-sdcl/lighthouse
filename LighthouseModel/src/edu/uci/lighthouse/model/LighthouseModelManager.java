@@ -173,9 +173,9 @@ public class LighthouseModelManager {
 	 * @param e
 	 * @return
 	 */
-	public LighthouseClass getMyClass(LighthouseEntity e){
+	public LighthouseEntity getMyClass(LighthouseEntity e){
 		String classFqn = null;
-		if (e instanceof LighthouseClass){
+		if (e instanceof LighthouseClass || e instanceof LighthouseInterface){
 			classFqn = e.getFullyQualifiedName();
 		} else if (e instanceof LighthouseField){
 			classFqn = e.getFullyQualifiedName().replaceAll("(\\.\\w+)\\z", "");
@@ -183,10 +183,10 @@ public class LighthouseModelManager {
 			classFqn = e.getFullyQualifiedName().replaceAll("\\.[\\<\\w]*\\w+[\\>\\w]*\\(.*\\)","");
 		}
 		LighthouseEntity c = model.getEntity(classFqn);
-		if (c instanceof LighthouseClass){
-			return (LighthouseClass)c;
-		}
-		return null;
+//		if (c instanceof LighthouseClass){
+//			return (LighthouseClass)c;
+//		}
+		return c;
 	}
 
 	/**

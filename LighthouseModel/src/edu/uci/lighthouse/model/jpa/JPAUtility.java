@@ -33,8 +33,7 @@ public class JPAUtility {
 	
 	private static Logger logger = Logger.getLogger(JPAUtility.class);
 	
-	public static void initializeEntityManagerFactory(Properties dbSettings)
-			throws JPAException {
+	public static void initializeEntityManagerFactory(Properties dbSettings) {
 		logger.info("initializing EntityManagerFactory...");
 		try {
 			EntityManagerFactory factory = Persistence
@@ -43,11 +42,11 @@ public class JPAUtility {
 			// Just change the reference if no RuntimeException is throw
 			factoryEntityManager = factory;
 		} catch (RuntimeException e) {
-			throw new JPAException(e);
+			logger.error(e,e);
 		}
 	}
 	
-	public static void shutdownEntityManagerFactory() throws JPAException {
+	public static void shutdownEntityManagerFactory() {
 		logger.info("shutdown EntityManagerFactory...");
 		try {
 			for (EntityManagerFactory factory : cacheFactory) {
@@ -56,7 +55,7 @@ public class JPAUtility {
 				}
 			}
 		} catch (RuntimeException e) {
-			throw new JPAException(e);
+			logger.error(e,e);
 		}
 	}
 	

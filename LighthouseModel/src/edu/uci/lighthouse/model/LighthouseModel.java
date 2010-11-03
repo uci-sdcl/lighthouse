@@ -37,7 +37,7 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 	/** List of all events*/
 	private LinkedHashSet<LighthouseEvent> listEvents = new LinkedHashSet<LighthouseEvent>();
 
-	private HashMap<LighthouseClass, LinkedHashSet<LighthouseClass>> classRelationships = new HashMap<LighthouseClass, LinkedHashSet<LighthouseClass>>();
+	private HashMap<LighthouseEntity, LinkedHashSet<LighthouseEntity>> classAndInterfaceRelationships = new HashMap<LighthouseEntity, LinkedHashSet<LighthouseEntity>>();
 	
 	protected LighthouseModel() {
 	}
@@ -53,7 +53,7 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 		super.clear();
 		mapArtifactEvents.clear();
 		listEvents.clear();
-		classRelationships.clear();
+		classAndInterfaceRelationships.clear();
 	}
 	
 	/**
@@ -64,39 +64,48 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 		super.assignTo(model);
 		mapArtifactEvents = model.mapArtifactEvents;
 		listEvents = model.listEvents;
-		classRelationships = model.classRelationships;
+		classAndInterfaceRelationships = model.classAndInterfaceRelationships;
 	}
 
 	@Override
 	protected synchronized void addRelationship(LighthouseRelationship rel) {
 		super.addRelationship(rel);
 		LighthouseModelManager manager = new LighthouseModelManager(this);
-		LighthouseClass fromClass = manager.getMyClass(rel.getFromEntity());
-		LighthouseClass toClass = manager.getMyClass(rel.getToEntity());
+		LighthouseEntity fromClass = manager.getMyClass(rel.getFromEntity());
+		LighthouseEntity toClass = manager.getMyClass(rel.getToEntity());
 		if (fromClass != null && toClass != null && !fromClass.equals(toClass)) {
-			LinkedHashSet<LighthouseClass> listRelationships = classRelationships.get(fromClass);
+			LinkedHashSet<LighthouseEntity> listRelationships = classAndInterfaceRelationships.get(fromClass);
 			if (listRelationships == null){
-				listRelationships = new LinkedHashSet<LighthouseClass>();
-				classRelationships.put(fromClass, listRelationships);
+				listRelationships = new LinkedHashSet<LighthouseEntity>();
+				classAndInterfaceRelationships.put(fromClass, listRelationships);
 			}
 			listRelationships.add(toClass);
 		}
 	}
 	
+	private Collection<LighthouseEntity> getEntityConnectTo(LighthouseEntity entity) {
+		LinkedHashSet<LighthouseEntity> list = classAndInterfaceRelationships.get(entity);
+		return list != null ? list : new LinkedList<LighthouseEntity>();
+	}
+	
 	//FIXME: Find a better method name
-	public Collection<LighthouseClass> getConnectTo(LighthouseClass aClass){
-		LinkedHashSet<LighthouseClass> list = classRelationships.get(aClass);
-		return list != null ? list : new LinkedList<LighthouseClass>();
+	public Collection<LighthouseEntity> getConnectTo(LighthouseClass aClass){
+		return getEntityConnectTo(aClass);
+	}
+	
+	//FIXME: Find a better method name
+	public Collection<LighthouseEntity> getConnectTo(LighthouseEntity aClass){
+		return getEntityConnectTo(aClass);
 	}
 
 	@Override
 	protected synchronized void removeRelationship(LighthouseRelationship rel) {
 		super.removeRelationship(rel);
 		LighthouseModelManager manager = new LighthouseModelManager(this);
-		LighthouseClass fromClass = manager.getMyClass(rel.getFromEntity());
-		LighthouseClass toClass = manager.getMyClass(rel.getToEntity());
+		LighthouseEntity fromClass = manager.getMyClass(rel.getFromEntity());
+		LighthouseEntity toClass = manager.getMyClass(rel.getToEntity());
 		if (fromClass != null && toClass != null && !fromClass.equals(toClass) ) {
-			LinkedHashSet<LighthouseClass> listRelationships = classRelationships.get(fromClass);
+			LinkedHashSet<LighthouseEntity> listRelationships = classAndInterfaceRelationships.get(fromClass);
 			if (listRelationships != null){
 				listRelationships.remove(toClass);
 			}
@@ -190,7 +199,7 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 		}
 	}
 
-	public void fireClassChanged(final LighthouseClass c,
+	public void fireClassChanged(final LighthouseEntity c,
 			final LighthouseEvent.TYPE type) {
 		for (final ILighthouseModelListener l : listeners) {
 			if (l instanceof ILighthouseUIModelListener) {
@@ -232,7 +241,7 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 		int result = super.hashCode();
 		result = prime
 				* result
-				+ ((classRelationships == null) ? 0 : classRelationships
+				+ ((classAndInterfaceRelationships == null) ? 0 : classAndInterfaceRelationships
 						.hashCode());
 		result = prime * result
 				+ ((listEvents == null) ? 0 : listEvents.hashCode());
@@ -252,10 +261,10 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 		if (getClass() != obj.getClass())
 			return false;
 		LighthouseModel other = (LighthouseModel) obj;
-		if (classRelationships == null) {
-			if (other.classRelationships != null)
+		if (classAndInterfaceRelationships == null) {
+			if (other.classAndInterfaceRelationships != null)
 				return false;
-		} else if (!classRelationships.equals(other.classRelationships))
+		} else if (!classAndInterfaceRelationships.equals(other.classAndInterfaceRelationships))
 			return false;
 		if (listEvents == null) {
 			if (other.listEvents != null)

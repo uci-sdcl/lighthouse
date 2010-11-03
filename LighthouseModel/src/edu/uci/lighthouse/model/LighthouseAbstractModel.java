@@ -28,6 +28,8 @@ public abstract class LighthouseAbstractModel implements Serializable {
 	private LinkedHashSet<String> projectNames = new LinkedHashSet<String>();
 	
 	private LinkedHashSet<LighthouseClass> classes = new LinkedHashSet<LighthouseClass>();
+	
+	private LinkedHashSet<LighthouseInterface> interfaces = new LinkedHashSet<LighthouseInterface>();
 
 	/**
 	 * Only {@link LighthouseModelManager} is allowed to call this method
@@ -39,6 +41,8 @@ public abstract class LighthouseAbstractModel implements Serializable {
 			projectNames.add(entity.getProjectName());
 			if (entity instanceof LighthouseClass){
 				classes.add((LighthouseClass)entity);
+			} else if (entity instanceof LighthouseInterface) {
+				interfaces.add((LighthouseInterface)entity);
 			}
 		}
 		entities.put(entity.getFullyQualifiedName(), entity);
@@ -50,6 +54,7 @@ public abstract class LighthouseAbstractModel implements Serializable {
 	protected synchronized void removeEntity(LighthouseEntity entity) {
 		/* Is not necessary remove project and package names since the list is populated everytime Lighthouse runs.*/
 		classes.remove(entity);
+		interfaces.remove(entity);
 		entities.remove(entity.getFullyQualifiedName());
 	}
 	
@@ -111,7 +116,7 @@ public abstract class LighthouseAbstractModel implements Serializable {
 	}
 
 	public Collection<LighthouseEntity> getMethodsAndAttributesFromClass(
-			LighthouseClass c) {
+			LighthouseEntity c) {
 		LinkedList<LighthouseEntity> result = new LinkedList<LighthouseEntity>();
 		Collection<LighthouseRelationship> list = relationshipsTo.get(c
 				.getFullyQualifiedName());
@@ -136,6 +141,10 @@ public abstract class LighthouseAbstractModel implements Serializable {
 //		}
 //		return list;
 		return classes;
+	}
+	
+	public Collection<LighthouseInterface> getAllInterfaces() {
+		return interfaces;
 	}
 
 	public Collection<LighthouseEntity> getEntities() {
@@ -207,6 +216,7 @@ public abstract class LighthouseAbstractModel implements Serializable {
 		packageNames.clear();
 		projectNames.clear();
 		classes.clear();
+		interfaces.clear();
 	}
 
 	@Override
@@ -216,6 +226,8 @@ public abstract class LighthouseAbstractModel implements Serializable {
 		result = prime * result + ((classes == null) ? 0 : classes.hashCode());
 		result = prime * result
 				+ ((entities == null) ? 0 : entities.hashCode());
+		result = prime * result
+				+ ((interfaces == null) ? 0 : interfaces.hashCode());
 		result = prime * result
 				+ ((packageNames == null) ? 0 : packageNames.hashCode());
 		result = prime * result
@@ -230,7 +242,7 @@ public abstract class LighthouseAbstractModel implements Serializable {
 	}
 
 	@Override
-	public synchronized boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -247,6 +259,11 @@ public abstract class LighthouseAbstractModel implements Serializable {
 			if (other.entities != null)
 				return false;
 		} else if (!entities.equals(other.entities))
+			return false;
+		if (interfaces == null) {
+			if (other.interfaces != null)
+				return false;
+		} else if (!interfaces.equals(other.interfaces))
 			return false;
 		if (packageNames == null) {
 			if (other.packageNames != null)
@@ -278,6 +295,7 @@ public abstract class LighthouseAbstractModel implements Serializable {
 		packageNames = model.packageNames;
 		projectNames = model.projectNames;
 		classes = model.classes;
+		interfaces = model.interfaces;
 	}
 	
 }
