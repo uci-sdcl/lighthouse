@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
@@ -12,6 +11,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
 import edu.uci.lighthouse.model.LighthouseClass;
+import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.ui.views.FilterManager;
 import edu.uci.lighthouse.ui.views.IEditorSelectionListener;
 import edu.uci.lighthouse.views.filters.ActiveClassFilter;
@@ -31,7 +31,7 @@ public class FilterActiveClassAction extends Action implements IEditorSelectionL
 	LayoutAlgorithm currentLayoutAlgorithm ;
 	LayoutAlgorithm layoutAlgorithm = new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);
 	
-	LighthouseClass lastActiveClass;
+	LighthouseEntity lastActiveClass;
 	
 	public FilterActiveClassAction(GraphViewer viewer){
 		super(null, IAction.AS_CHECK_BOX);
@@ -51,7 +51,7 @@ public class FilterActiveClassAction extends Action implements IEditorSelectionL
 			currentLayoutAlgorithm = viewer.getGraphControl().getLayoutAlgorithm();
 			FilterManager.getInstance().addViewerFilter(filter);
 			viewer.setLayoutAlgorithm(layoutAlgorithm, true);
-			lastActiveClass = filter.getLighthouseClassFromEditor();
+			lastActiveClass = filter.getLighthouseEntityFromEditor();
 		} else {
 			FilterManager.getInstance().removeViewerFilter(filter);
 			viewer.setLayoutAlgorithm(currentLayoutAlgorithm);
@@ -62,7 +62,7 @@ public class FilterActiveClassAction extends Action implements IEditorSelectionL
 	public void selectionChanged(IFile editedFile) {
 		logger.info("selectionChanged");
 		if (isChecked()) {
-			LighthouseClass c = filter.getLighthouseClassFromEditor();
+			LighthouseEntity c = filter.getLighthouseEntityFromEditor();
 			if (c != null && !c.equals(lastActiveClass)) {
 				viewer.refresh();
 				viewer.setLayoutAlgorithm(layoutAlgorithm, true);
