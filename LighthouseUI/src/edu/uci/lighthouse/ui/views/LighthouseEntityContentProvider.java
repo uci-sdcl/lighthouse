@@ -44,7 +44,7 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 			Collection<LighthouseEntity> connections = model.getConnectTo(aEntity);
 			for (LighthouseEntity iEntity : connections) {
 				if (!existsInCache(aEntity,iEntity)) {
-					if (entity instanceof LighthouseInterface || (entity instanceof LighthouseClass && !((LighthouseClass)entity).isAnonymous())) {
+					if (iEntity instanceof LighthouseInterface || (iEntity instanceof LighthouseClass && !((LighthouseClass)iEntity).isAnonymous())) {
 						insertInCache(aEntity,iEntity);
 						result.add(iEntity);
 					}
