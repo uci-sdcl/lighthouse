@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Lighthouse Parser Plug-in
+Bundle-SymbolicName: edu.uci.lighthouse.parser
+Bundle-Version: 1.0.3.qualifier
+Export-Package: edu.uci.lighthouse.parser
+Require-Bundle: org.eclipse.core.resources;bundle-version="3.4.0"
+Bundle-Vendor: UC Irvine
