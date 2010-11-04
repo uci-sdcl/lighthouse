@@ -1,0 +1,266 @@
+Index: src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java
+===================================================================
+RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java,v
+retrieving revision 1.16
+diff -u -r1.16 AbstractStructuredGraphViewer.java
+--- src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java	4 May 2009 05:20:33 -0000	1.16
++++ src/org/eclipse/zest/core/viewers/internal/AbstractStructuredGraphViewer.java	8 Mar 2010 07:23:35 -0000
+@@ -24,7 +24,10 @@
+ import org.eclipse.swt.events.DisposeEvent;
+ import org.eclipse.swt.widgets.Widget;
+ import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
++import org.eclipse.zest.core.viewers.EntityConnectionData;
++import org.eclipse.zest.core.viewers.IFigureProvider;
+ import org.eclipse.zest.core.viewers.IGraphContentProvider;
++import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
+ import org.eclipse.zest.core.widgets.CGraphNode;
+ import org.eclipse.zest.core.widgets.ConstraintAdapter;
+ import org.eclipse.zest.core.widgets.Graph;
+@@ -651,7 +654,8 @@
+ 				getLayoutAlgorithm().removeRelationship(relationship.getLayoutRelationship());
+ 			}
+ 			// remove the relationship from the model
+-			relationship.dispose();
++			//relationship.dispose();
++			removeGraphModelConnection(connection);
+ 		}
+ 	}
+ 
+@@ -663,9 +667,14 @@
+ 	 */
+ 	public void addNode(Object element) {
+ 		if (nodesMap.get(element) == null) {
+-			// create the new node
+-			getFactory().createNode(getGraphControl(), element);
+-
++			if (getLabelProvider() instanceof IFigureProvider) {
++				// create the new node with a custom figure
++				IFigureProvider figureProvider = (IFigureProvider) getLabelProvider();
++				getFactory().createNode(getGraphControl(), element, figureProvider.getFigure(element));
++			} else {
++				// create the new node
++				getFactory().createNode(getGraphControl(), element);
++			}
+ 		}
+ 	}
+ 
+@@ -686,7 +695,7 @@
+ 				getLayoutAlgorithm().removeRelationships(node.getTargetConnections());
+ 			}
+ 			// remove the node and it's connections from the model
+-			node.dispose();
++			removeGraphModelNode(element);
+ 		}
+ 	}
+ 
+@@ -724,6 +733,9 @@
+ 				Object dest = content.getDestination(connection);
+ 				// create the new relationship
+ 				modelFactory.createConnection(getGraphControl(), connection, source, dest);
++			} else if (modelFactory.getContentProvider() instanceof IGraphEntityContentProvider) {
++				EntityConnectionData connData = (EntityConnectionData) connection;
++				modelFactory.createConnection(getGraphControl(), connData, connData.source, connData.dest);
+ 			} else {
+ 				throw new UnsupportedOperationException();
+ 			}
+Index: src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java
+===================================================================
+RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java,v
+retrieving revision 1.8
+diff -u -r1.8 GraphModelEntityFactory.java
+--- src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java	31 Mar 2009 16:39:23 -0000	1.8
++++ src/org/eclipse/zest/core/viewers/internal/GraphModelEntityFactory.java	8 Mar 2010 07:23:36 -0000
+@@ -81,9 +81,9 @@
+ 			Object data = entities[i];
+ 
+ 			// If this element is filtered, continue to the next one.
+-			if (filterElement(inputElement, data)) {
+-				continue;
+-			}
++//			if (filterElement(inputElement, data)) {
++//				continue;
++//			}
+ 			Object[] related = ((IGraphEntityContentProvider) getContentProvider()).getConnectedTo(data);
+ 
+ 			if (related != null) {
+Index: src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java
+===================================================================
+RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java,v
+retrieving revision 1.13
+diff -u -r1.13 AbstractStylingModelFactory.java
+--- src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java	24 Jul 2009 19:13:37 -0000	1.13
++++ src/org/eclipse/zest/core/viewers/internal/AbstractStylingModelFactory.java	8 Mar 2010 07:23:36 -0000
+@@ -43,6 +43,7 @@
+ 	private int connectionStyle;
+ 	private int nodeStyle;
+ 	private List /* ConstraintAdapater */constraintAdapters = new ArrayList();
++	private HashMap nodesLocationMap = new HashMap();
+ 
+ 	/**
+ 	 * 
+@@ -178,11 +179,23 @@
+ 				return oldConnection;
+ 			}
+ 		}
++		IFigureProvider figureProvider = null;
++		if (getLabelProvider() instanceof IFigureProvider) {
++			figureProvider = (IFigureProvider) getLabelProvider();
++		}
+ 		if (sn == null) {
+-			sn = createNode(graph, source);
++			if (figureProvider != null) {
++				sn = createNode(graph, source, figureProvider.getFigure(source));
++			} else {
++				sn = createNode(graph, source);
++			}
+ 		}
+ 		if (dn == null) {
+-			dn = createNode(graph, dest);
++			if (figureProvider != null) {
++				dn = createNode(graph, dest, figureProvider.getFigure(dest));
++			} else {
++				dn = createNode(graph, dest);
++			}
+ 		}
+ 		GraphConnection c = viewer.addGraphModelConnection(element, sn, dn);
+ 		styleItem(c);
+@@ -282,20 +295,20 @@
+ 		// rebuild the whole thing.
+ 
+ 		Map oldMap = viewer.getNodesMap();
+-		HashMap nodesMap = new HashMap();
++//		HashMap nodesMap = new HashMap();
+ 		// have to copy the Map data accross so that it doesn't get overwritten
+ 		for (Iterator keys = oldMap.keySet().iterator(); keys.hasNext();) {
+ 			Object key = keys.next();
+-			nodesMap.put(key, oldMap.get(key));
++			nodesLocationMap.put(key, oldMap.get(key));
+ 		}
+ 		clearGraph(graph);
+ 		doBuildGraph(graph);
+ 		// update the positions on the new nodes to match the old ones.
+ 		GraphNode[] nodes = getNodesArray(graph);
+ 		// save a little time, go with the smallest list as the primary list
+-		if (nodes.length < nodesMap.keySet().size()) {
++		if (nodes.length < nodesLocationMap.keySet().size()) {
+ 			for (int i = 0; i < nodes.length; i++) {
+-				GraphNode oldNode = (GraphNode) nodesMap.get(nodes[i].getData());
++				GraphNode oldNode = (GraphNode) nodesLocationMap.get(nodes[i].getData());
+ 				if (oldNode != null) {
+ 					nodes[i].setLocation(oldNode.getLocation().x, oldNode.getLocation().y);
+ 					if (oldNode.isSizeFixed()) {
+@@ -304,11 +317,11 @@
+ 				}
+ 			}
+ 		} else {
+-			for (Iterator i = nodesMap.keySet().iterator(); i.hasNext();) {
++			for (Iterator i = nodesLocationMap.keySet().iterator(); i.hasNext();) {
+ 				Object key = i.next();
+ 				GraphNode node = viewer.getGraphModelNode(key);
+ 				if (node != null) {
+-					GraphNode oldNode = (GraphNode) nodesMap.get(key);
++					GraphNode oldNode = (GraphNode) nodesLocationMap.get(key);
+ 					node.setLocation(oldNode.getLocation().x, oldNode.getLocation().y);
+ 					if (oldNode.isSizeFixed()) {
+ 						node.setSize(oldNode.getSize().width, oldNode.getSize().height);
+Index: src/org/eclipse/zest/core/viewers/internal/IStylingGraphModelFactory.java
+===================================================================
+RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/IStylingGraphModelFactory.java,v
+retrieving revision 1.6
+diff -u -r1.6 IStylingGraphModelFactory.java
+--- src/org/eclipse/zest/core/viewers/internal/IStylingGraphModelFactory.java	12 Sep 2007 20:44:39 -0000	1.6
++++ src/org/eclipse/zest/core/viewers/internal/IStylingGraphModelFactory.java	8 Mar 2010 07:23:36 -0000
+@@ -1,15 +1,15 @@
+ /*******************************************************************************
+- * Copyright 2005-2006, CHISEL Group, University of Victoria, Victoria, BC, Canada.
+- * All rights reserved. This program and the accompanying materials
+- * are made available under the terms of the Eclipse Public License v1.0
+- * which accompanies this distribution, and is available at
++ * Copyright 2005-2006, CHISEL Group, University of Victoria, Victoria, BC,
++ * Canada. All rights reserved. This program and the accompanying materials are
++ * made available under the terms of the Eclipse Public License v1.0 which
++ * accompanies this distribution, and is available at
+  * http://www.eclipse.org/legal/epl-v10.html
+- *
+- * Contributors:
+- *     The Chisel Group, University of Victoria
++ * 
++ * Contributors: The Chisel Group, University of Victoria
+  *******************************************************************************/
+ package org.eclipse.zest.core.viewers.internal;
+ 
++import org.eclipse.draw2d.IFigure;
+ import org.eclipse.jface.viewers.IBaseLabelProvider;
+ import org.eclipse.jface.viewers.IStructuredContentProvider;
+ import org.eclipse.jface.viewers.StructuredViewer;
+@@ -18,8 +18,8 @@
+ import org.eclipse.zest.core.widgets.GraphItem;
+ import org.eclipse.zest.core.widgets.GraphNode;
+ 
+-/**
+- * A Graph model factory that supports the structural and visual refreshing of
++/*
++ * * A Graph model factory that supports the structural and visual refreshing of
+  * graph elements based on the content provider and label provider in the viewer
+  * that this factory is associated with. Model elements are created using the
+  * content provider supplied by getContentProvider(), and styled using the label
+@@ -28,8 +28,8 @@
+  * the given label provider, however, default styles are dependant on the
+  * particular implementation of IStylingGraphModelFactory. Unless otherwise
+  * documented, clients should expect that the implementation of
+- * IStylingGraphModelFactory adheres to the general defaults found in
+- * {@link IZestGraphDefaults}.
++ * IStylingGraphModelFactory adheres to the general defaults found in {@link
++ * IZestGraphDefaults}.
+  * 
+  * @author Del Myers
+  */
+@@ -73,6 +73,8 @@
+ 	 */
+ 	public GraphNode createNode(Graph graph, Object element);
+ 
++	public GraphNode createNode(Graph graph, Object element, IFigure figure);
++
+ 	/**
+ 	 * Creates and returns a connection with the given source and destination
+ 	 * objects from the user model. If the source and destination nodes don't
+Index: src/org/eclipse/zest/core/viewers/internal/GraphModelFactory.java
+===================================================================
+RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/src/org/eclipse/zest/core/viewers/internal/GraphModelFactory.java,v
+retrieving revision 1.6
+diff -u -r1.6 GraphModelFactory.java
+--- src/org/eclipse/zest/core/viewers/internal/GraphModelFactory.java	31 Mar 2009 16:39:23 -0000	1.6
++++ src/org/eclipse/zest/core/viewers/internal/GraphModelFactory.java	8 Mar 2010 07:23:36 -0000
+@@ -83,7 +83,7 @@
+ 					// just create the node for the source
+ 					if (source != null) {
+ 						if (figureProvider != null) {
+-							createNode(model, source, figureProvider.getFigure(dest));
++							createNode(model, source, figureProvider.getFigure(source));
+ 						} else {
+ 							createNode(model, source);
+ 						}
+@@ -93,7 +93,7 @@
+ 				// If any of the source, dest is null or the edge is filtered,
+ 				// don't create the graph.
+ 				if (source != null && dest != null && !filterElement(getViewer().getInput(), rels[i])) {
+-					createConnection(model, rels[i], getCastedContent().getSource(rels[i]), getCastedContent().getDestination(rels[i]));
++					createConnection(model, rels[i], source, dest);
+ 				}
+ 			}
+ 		}
+Index: META-INF/MANIFEST.MF
+===================================================================
+RCS file: /cvsroot/tools/org.eclipse.gef/plugins/org.eclipse.zest.core/META-INF/MANIFEST.MF,v
+retrieving revision 1.30
+diff -u -r1.30 MANIFEST.MF
+--- META-INF/MANIFEST.MF	24 Jul 2009 19:14:05 -0000	1.30
++++ META-INF/MANIFEST.MF	8 Mar 2010 07:23:35 -0000
+@@ -10,6 +10,7 @@
+  org.eclipse.draw2d;visibility:=reexport
+ Eclipse-LazyStart: false
+ Export-Package: org.eclipse.zest.core.viewers,
++ org.eclipse.zest.core.viewers.internal,
+  org.eclipse.zest.core.widgets
+ Import-Package: com.ibm.icu.text;version="[3.8.1,5.0.0)"
+ Bundle-RequiredExecutionEnvironment: J2SE-1.4
