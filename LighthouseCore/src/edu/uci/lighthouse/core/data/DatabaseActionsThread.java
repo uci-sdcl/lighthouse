@@ -95,10 +95,10 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 			backoffMultiplier = 1;
 		} catch (Exception ex) {
 			backoffMultiplier = backoffMultiplier > MAX_MULTIPLIER ? 1 : backoffMultiplier*2;
-			if ("org.hibernate.exception.JDBCConnectionException".equals(ex.getCause().getClass().getName())) {
+			if (ex.getCause() != null && "org.hibernate.exception.JDBCConnectionException".equals(ex.getCause().getClass().getName())) {
 				StatusWidget.getInstance().setStatus(Status.CANCEL_STATUS);
 			}
-			logger.error(ex.getCause());
+			logger.error(ex, ex);
 		} 
 	}
 	
