@@ -82,8 +82,8 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	
 	private void processBuffer() {
 		try {
-			logger.debug("Executing "+buffer.size()+" database actions.");
 			while (!buffer.isEmpty()) {
+				logger.debug("Executing "+buffer.size()+" database actions.");
 				IDatabaseAction databaseAction = buffer.peek();
 				databaseAction.run();
 				buffer.poll();
