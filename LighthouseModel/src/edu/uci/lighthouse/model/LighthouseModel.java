@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -281,7 +282,7 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 
 	@Override
 	public String getFileName() {
-		String metadataDir = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
+		String metadataDir = ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString()  + File.separator + ".metadata" + File.separator;
 		return metadataDir + "lighthouse-model.bin";
 	}
 
