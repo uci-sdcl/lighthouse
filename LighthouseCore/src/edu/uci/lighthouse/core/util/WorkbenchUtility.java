@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.core.util;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -110,7 +111,7 @@ public class WorkbenchUtility {
 	}
 	
 	public static String getMetadataDirectory() {
-		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/";
+		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString()  + "/.metadata/";
 	}
 	
 	public static String[] getSourceFolders(IJavaProject project) {
@@ -119,7 +120,7 @@ public class WorkbenchUtility {
 			IClasspathEntry[] classPaths = project.getRawClasspath();
 			for (IClasspathEntry cp : classPaths) {
 				if (cp.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-					result.add(cp.getPath().toString());
+					result.add(cp.getPath().toPortableString());
 				}
 			}
 		} catch (JavaModelException e) {

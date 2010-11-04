@@ -115,7 +115,7 @@ public class LinkedWithEditorView extends ViewPart {
 
 		IFile file = ResourceUtil.getFile(input);
 		if (file != null)
-			text.setText(file.getLocation().toOSString());
+			text.setText(file.getLocation().toPortableString());
 
 	}
 

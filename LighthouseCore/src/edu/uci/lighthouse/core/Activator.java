@@ -28,7 +28,7 @@ public class Activator extends AbstractUIPlugin implements IStartup {
 
 	// Set the log file to be save in the .metadata directory of the workspace
 	static {
-		String logFilename = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/lighthouse.log";
+		String logFilename = ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString()  + "/.metadata/lighthouse.log";
 		System.setProperty("file.name", logFilename);
 	}
 	

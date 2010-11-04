@@ -49,6 +49,6 @@ public class BookmarkRegistry implements IPersistable{
 	
 	@Override
 	public String getFileName() {
-		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString()  + "/.metadata/" + filename;
+		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString()  + "/.metadata/" + filename;
 	}
 }

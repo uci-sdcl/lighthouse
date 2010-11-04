@@ -245,7 +245,7 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 	}
 
 	public IFile getPreviousVersion(IFile from) throws Exception{
-		String fromFullPath = from.getFullPath().toOSString();
+		String fromFullPath = from.getFullPath().toPortableString();
 		String fromFilename = from.getFullPath().toFile().getName();
 		String iFileFullPath = fromFullPath.replaceAll(fromFilename, "TEMP_RESOURCE_LHPreviousFile.java");
 		// This file name should be VERY unique otherwise we will have a file name conflict

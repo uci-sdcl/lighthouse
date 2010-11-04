@@ -95,11 +95,11 @@ public class ModelUtility {
 			IJavaProject jProject = (IJavaProject) iFile.getProject().getNature(JavaCore.NATURE_ID);
 			String[] sourceFolders = WorkbenchUtility.getSourceFolders(jProject);
 			for (String srcFolder : sourceFolders) {
-				String fullPath = iFile.getFullPath().toOSString();
+				String fullPath = iFile.getFullPath().toPortableString();
 				if (fullPath.indexOf(srcFolder) != -1) {
 					String projectName = iFile.getProject().getName();
 					int index = fullPath.indexOf(srcFolder) + srcFolder.length() + 1;
-					String classFqn = fullPath.substring(index).replaceAll(File.separator, ".").replaceAll(".java", "");
+					String classFqn = fullPath.substring(index).replaceAll("/", ".").replaceAll(".java", "");
 					result = projectName + "." + classFqn;
 					break;
 				}
@@ -116,8 +116,9 @@ public class ModelUtility {
 	public static boolean existsInWorkspace(String fqn) {
 		int index = fqn.indexOf(".");
 		if (index != -1) {
+			String separator = "/";
 			String projectName = fqn.substring(0,index);
-			String relativePath = File.separator + fqn.substring(index + 1).replaceAll("\\.", File.separator) + ".java";
+			String relativePath = separator + fqn.substring(index + 1).replaceAll("\\.", separator) + ".java";
 			
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			IProject[] projects = workspace.getRoot().getProjects();
@@ -128,7 +129,7 @@ public class ModelUtility {
 						.getNature(JavaCore.NATURE_ID);
 						String[] sourceFolders = WorkbenchUtility.getSourceFolders(jProject);
 						for (String srcFolder : sourceFolders) {
-							String fileName = project.getLocation().toOSString().replaceAll(File.separator+projectName, "") + srcFolder + relativePath;
+							String fileName = project.getLocation().toPortableString().replaceAll(separator+projectName, "") + srcFolder + relativePath;
 							File file = new File(fileName);
 							if (file.exists()) {
 								return true;
