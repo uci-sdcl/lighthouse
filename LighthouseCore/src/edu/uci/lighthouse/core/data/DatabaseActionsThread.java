@@ -88,8 +88,8 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 				databaseAction.run();
 				buffer.poll();
 			}
-			StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
+				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 				buffer.offer(new FetchNewEventsAction());
 			}
 			backoffMultiplier = 1;
