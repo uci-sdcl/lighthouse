@@ -100,11 +100,11 @@ public class LighthouseEntityContentProvider implements IGraphEntityContentProvi
 		Collection<GraphConnection> connections;
 		connections = node.getSourceConnections();
 		for (GraphConnection conn : connections) {
-			removeFromCache((LighthouseClass)node.getData(),(LighthouseClass)conn.getDestination().getData());
+			removeFromCache((LighthouseEntity)node.getData(),(LighthouseEntity)conn.getDestination().getData());
 		}
 		connections = node.getTargetConnections();
 		for (GraphConnection conn : connections) {
-			removeFromCache((LighthouseClass)conn.getSource().getData(),(LighthouseClass)node.getData());
+			removeFromCache((LighthouseEntity)conn.getSource().getData(),(LighthouseEntity)node.getData());
 		}
 	}
 	
