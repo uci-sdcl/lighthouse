@@ -71,11 +71,11 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		
 		loadPersistableResources();
 		if (!model.isEmpty()) {
-			WorkbenchUtility.updateProjectIcon();
 			LighthouseModel.getInstance().fireModelChanged();
 		} 
 		thread = new DatabaseActionsThread(buffer);
 		thread.start(context);
+		WorkbenchUtility.updateProjectIcon();
 	}
 
 	@Override
