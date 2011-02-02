@@ -37,21 +37,6 @@ public class SoftLockAction extends Action {
 	public void run() {
 		Graph graph = (Graph) container;
 		
-	//	test(selectedNodes); 
-		/*
-		for(Iterator i = graph.getSelection().iterator(); i.hasNext();){
-			GraphNode current = (GraphNode) i.next(); 
-			if(lockedNodes.contains(current)){
-				super.setChecked(true); 
-				System.out.println("what is this: " + super.getText()); 
-			}
-			//else super.setChecked(false); 
-		}
-		lockedNodes = addNewSelected();  
-		updateFigures(lockedNodes, true); 
-		*/
-	//	highlightNodes(selectedNodes);
-	//----------------------------------	
 		for(Iterator i = graph.getSelection().iterator(); i.hasNext();){
 			GraphNode node = (GraphNode) i.next(); 
 			if(lockedNodes.contains(node)){
