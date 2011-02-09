@@ -17,7 +17,7 @@ public final class ColorFactory implements ColorConstants{
 	
 	public static final Color classBackground = ColorConstants.white;
 	public static final Color classHighlight = ColorConstants.tooltipBackground;
-	public static final Color classSoftLock = ColorConstants.titleBackground; 
+	public static final Color classSoftLock = new Color(null,143 ,188,143); 
 	public static final Color classLinkWithEditor = aliceBlue;
 	
 	public static final Color classEventSeparator = new Color(null,239,239,239);

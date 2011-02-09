@@ -1,17 +1,17 @@
 package edu.uci.lighthouse.ui.views;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import org.apache.log4j.Logger;
-import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
@@ -35,11 +35,14 @@ import edu.uci.lighthouse.ui.views.actions.ZoomDropDownAction;
 public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbenchPart{
 	
 	private EditorListener editorListener = new EditorListener();
-	private FilterManager filterManager;
 	private static GraphViewer viewer = null;
 	private static Logger logger = Logger.getLogger(EmergingDesignView.class);
+
+	private FilterManager filterManager;
+	private HighlightManager highlightManager;
 	
-	private Action softLockAction;
+	private SoftLockAction softLockAction;
+	
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -47,10 +50,10 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		
 		viewer = new GraphViewer(parent, SWT.NONE);
 		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
-		//Create the FilterManager instance
-		filterManager = new FilterManager(viewer);
 		
-//		viewer.setContentProvider(new LighthouseRelationshipContentProvider());
+		filterManager = new FilterManager(viewer);
+		highlightManager = new HighlightManager(viewer);
+		
 		viewer.setContentProvider(new LighthouseEntityContentProvider());
 		viewer.setLabelProvider(new LighthouseLabelProvider());
 		viewer.setLayoutAlgorithm(new GridLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));		
@@ -69,7 +72,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 	
 	private void createActions() {
 		//FIXME: Erase EditorListener and put everything in LinkWithEditorAction
-		LinkWithEditorAction linkAction = new LinkWithEditorAction(viewer);
+		LinkWithEditorAction linkAction = new LinkWithEditorAction(highlightManager);
 		FilterActiveClassAction activeClassAction = new FilterActiveClassAction(viewer);
 //		FilterOpenEditorAction openEditorAction = new FilterOpenEditorAction(viewer);
 		editorListener.addEditorSelectionListener(activeClassAction);
@@ -79,7 +82,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
 		
 		//toolbarManager.add(linkAction);
-		toolbarManager.add(new HighlightDropDownAction(viewer.getGraphControl()));
+		toolbarManager.add(new HighlightDropDownAction(highlightManager));
 		toolbarManager.add(new LayoutDropDownAction(viewer.getGraphControl()));
 		toolbarManager.add(new DiagramModeDropDownAction(viewer.getGraphControl()));
 		toolbarManager.add(new FilterAuthorAction(viewer.getGraphControl()));
@@ -91,7 +94,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		//toolbarManager.add(new SoftLockAction2(viewer.getGraphControl()));
 		
 		//TODO (danielle): Create the action here
-		softLockAction = new SoftLockAction(viewer.getGraphControl());
+		softLockAction = new SoftLockAction(highlightManager);
 		
 		//FIXME: Change this to a decorator
 		new OpenInEditorAction(viewer.getGraphControl());
@@ -113,6 +116,10 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 	}
 	
 	private void fillContextMenu(IMenuManager manager) {
+		if (softLockAction instanceof IContextMenuAction) {
+			IContextMenuAction contextAction = (IContextMenuAction) softLockAction;
+			contextAction.beforeFill();
+		}
 		manager.add(softLockAction);
 	}
 

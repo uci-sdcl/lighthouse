@@ -1,7 +1,5 @@
 package edu.uci.lighthouse.ui.views.actions;
 
-import java.util.Iterator;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -10,6 +8,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.GraphItem;
@@ -19,24 +18,29 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.ui.LighthouseUIPlugin;
 import edu.uci.lighthouse.ui.swt.util.ColorFactory;
+import edu.uci.lighthouse.ui.views.HighlightManager;
 import edu.uci.lighthouse.ui.views.IEditorSelectionListener;
+import edu.uci.lighthouse.ui.views.IHightlightAction;
 
 public class LinkWithEditorAction extends Action implements
-		IEditorSelectionListener {
+		IEditorSelectionListener, IHightlightAction {
 
-	// protected IContainer container;
 	private GraphViewer viewer;
+	/** Caches the current selected file in the editor */
 	private IFile selectedFile;
-	private GraphNode lastHightlightedNode;
+	/** Caches the current highlighted node */
+	private GraphNode currentHighlightedNode;
+	private HighlightManager manager;
 
 	private static final String ICON = "/icons/synced.gif";
 	private static final String DESCRIPTION = "Highlight the active class";
 
 	private static Logger logger = Logger.getLogger(LinkWithEditorAction.class);
 
-	public LinkWithEditorAction(GraphViewer viewer) {
+	public LinkWithEditorAction(HighlightManager manager) {
 		super(null, IAction.AS_CHECK_BOX);
-		this.viewer = viewer;
+		this.viewer = manager.getViewer();
+		this.manager = manager;
 		init();
 		setChecked(true);
 	}
@@ -53,27 +57,7 @@ public class LinkWithEditorAction extends Action implements
 		if (isChecked()) {
 			highlightClassInDiagram(selectedFile);
 		} else {
-//			unhighlightAll();
-			if (!lastHightlightedNode.isDisposed()) {
-				lastHightlightedNode.setBackgroundColor(ColorFactory.classBackground);
-			}
-			lastHightlightedNode = null;
-		}
-	}
-
-	@Deprecated
-	private void highlightClassInDiagram(String classShortName) {
-		logger.debug("shortName: " + classShortName);
-		for (Iterator itNodes = viewer.getGraphControl().getNodes().iterator(); itNodes
-				.hasNext();) {
-			GraphNode node = (GraphNode) itNodes.next();
-			if (!isSelected(node)) {
-				if (classShortName.equals(node.getText())) {
-					node.setBackgroundColor(ColorFactory.classLinkWithEditor);
-				} else {
-					node.setBackgroundColor(ColorFactory.classBackground);
-				}
-			}
+			unHighlightNode(currentHighlightedNode);
 		}
 	}
 
@@ -89,29 +73,26 @@ public class LinkWithEditorAction extends Action implements
 			if (entity != null) {
 				GraphItem gItem = viewer.findGraphItem(entity);
 				if (gItem instanceof GraphNode
-						&& !gItem.equals(lastHightlightedNode)) {
-					GraphNode node = (GraphNode) gItem;
-					node.setBackgroundColor(ColorFactory.classLinkWithEditor);
-					if (lastHightlightedNode != null && !lastHightlightedNode.isDisposed()) {
-						lastHightlightedNode
-								.setBackgroundColor(ColorFactory.classBackground);
-					}
-					lastHightlightedNode = node;
+						&& !gItem.equals(currentHighlightedNode)) {
+					unHighlightNode(currentHighlightedNode);
+					highlightNode((GraphNode) gItem);
 				}
 			}
 		}
 	}
 
-	@Deprecated
-	private void unhighlightAll() {
-		highlightClassInDiagram("");
+	private void highlightNode(GraphNode node) {
+		if (node != null && !node.isDisposed()) {
+			manager.add(this, node);
+			currentHighlightedNode = node;
+		}
 	}
 
-	private boolean isSelected(GraphNode node) {
-		logger.info("isSelected: "
-				+ String.valueOf(viewer.getGraphControl().getSelection().indexOf(
-						node) != -1) + " (" + node.isSelected() + ")");
-		return viewer.getGraphControl().getSelection().indexOf(node) != -1;
+	private void unHighlightNode(GraphNode node) {
+		if (node != null && !node.isDisposed()) {
+			manager.remove(this, node);
+			currentHighlightedNode = null;
+		}
 	}
 
 	@Override
@@ -126,7 +107,17 @@ public class LinkWithEditorAction extends Action implements
 	@Override
 	public void editorClosed() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public int getPriority() {
+		return IHightlightAction.LINK_WITH_EDITOR;
+	}
+
+	@Override
+	public Color getColor() {
+		return ColorFactory.classLinkWithEditor;
 	}
 
 }
