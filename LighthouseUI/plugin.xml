@@ -16,6 +16,13 @@
             name="EmergingDesignView"
             restorable="true">
       </view>
+      <view
+            category="LighthouseUI"
+            class="edu.uci.lighthouse.ui.views.SoftLockView"
+            id="edu.uci.lighthouse.ui.views.SoftLockView"
+            name="SoftLock View"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.help.contexts">
