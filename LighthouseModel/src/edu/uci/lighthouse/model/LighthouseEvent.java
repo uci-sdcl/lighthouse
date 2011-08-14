@@ -20,18 +20,24 @@ import edu.uci.lighthouse.model.util.LHStringUtil;
  *  Select new events by using the timestamp and NOT Author
  * */
 @NamedQueries ({
-	@NamedQuery(name = "LighthouseEvent.findByTimestampAndAuthor",
+	//Lee
+	//@NamedQuery(name = "LighthouseEvent.findByTimestampAndAuthor",
+			@NamedQuery(name = "LighthouseEvent.findByTimestamp",
 				query = "SELECT event " + 
 						"FROM LighthouseEvent event " + 
 						"WHERE ( event.timestamp > :timestamp " +
 						"OR event.committedTime > :timestamp ) " +
 						"AND event.author <> :author"),
 
-	@NamedQuery(name = "LighthouseEvent.findByTimestamp",
+						//Lee: Kyle was using this but it was actually creating 
+						//an exception.  PullModel line 66 tries to pass an argument
+						//for author but there is no author parameter in this query!
+/*
+	/@NamedQuery(name = "LighthouseEvent.findByTimestamp",
 				query = "SELECT event " + 
 						"FROM LighthouseEvent event " + 
 						"WHERE ( event.timestamp > :timestamp " +
-						"OR event.committedTime > :timestamp )")
+						"OR event.committedTime > :timestamp )")*/
 })
 
 
