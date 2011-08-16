@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LighthouseQandAThreads
-Bundle-SymbolicName: edu.uci.lighthouse.LighthouseQandAThreads
+Bundle-SymbolicName: edu.uci.lighthouse.LighthouseQandAThreads;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.uci.lighthouse.lighthouseqandathreads.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ edu.uci.lighthouse.ui;bundle-version="1.0.6"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
