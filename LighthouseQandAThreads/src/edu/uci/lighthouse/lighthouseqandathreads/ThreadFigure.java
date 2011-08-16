@@ -5,7 +5,6 @@ import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 
 import org.eclipse.draw2d.FlowLayout;
-import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.Panel;
 
 import org.eclipse.swt.SWT;
@@ -16,16 +15,17 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 public class ThreadFigure extends CompartmentFigure {
 	Button questionButton;
-	private GridLayout layout;
+	private FlowLayout layout;
 
 	public ThreadFigure() {
-		layout = new GridLayout();
-		layout.numColumns = 2;
+		layout = new FlowLayout();
+		layout.setMajorAlignment(FlowLayout.ALIGN_CENTER);
+		layout.setMinorSpacing(25);
 		setLayoutManager(layout);
 		Image icon = 
 			AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/question.png").createImage();
 		questionButton =  new org.eclipse.draw2d.Button(icon);
-		
+		this.add(questionButton, new Rectangle(0, 0, 10, 10));
 
 	}
 
@@ -37,7 +37,7 @@ public class ThreadFigure extends CompartmentFigure {
 
 	@Override
 	public void populate(MODE mode) {
-		this.add(questionButton, new Rectangle(0, 0, 10, 10));
+		
 	}
 
 }
