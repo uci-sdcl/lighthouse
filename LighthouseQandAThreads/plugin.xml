@@ -4,7 +4,7 @@
    <extension
          point="edu.uci.lighthouse.ui.figures.compartment">
       <compartment
-            class="lighthouseqandathreads.CompartmentFigure:1">
+            class="edu.uci.lighthouse.lighthouseqandathreads.ThreadFigure">
       </compartment>
    </extension>
 

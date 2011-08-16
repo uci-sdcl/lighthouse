@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.uci.lighthouse.lighthouseqandathreads.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- edu.uci.lighthouse.ui;bundle-version="1.0.6"
+ edu.uci.lighthouse.ui;bundle-version="1.0.6",
+ org.eclipse.draw2d
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
