@@ -35,6 +35,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 	private String question;
 	private String subject;
+	private String reply;
 	private TeamMember tm;
 
 	
@@ -103,7 +104,7 @@ public class NewQuestionDialog extends MessageDialog {
 		// ----
 
 		Label replyLabel = new Label(composite, SWT.None);
-		replyLabel.setText("reply:");
+		replyLabel.setText("message:");
 		
 		GridData replyBoxData = new GridData(615, 100);
 		final StyledText replyBox = new StyledText(composite, SWT.BORDER);
@@ -115,8 +116,28 @@ public class NewQuestionDialog extends MessageDialog {
 			}
 		});
 
-		populateTree(FakeDataBase.getInstance().getForum());
+		Button replyButton = new Button(composite, SWT.BORDER);
+		replyButton.setText("reply");
+		replyButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				Post newPost = new Post(true, "test", reply, tm);
+				Post replyeePost = getSelectedPost();
+				
+				if(replyeePost != null){
+					FakeDataBase.getInstance().reply(replyeePost, newPost);
+					replyBox.setText("");
+				}
+			}
+		});
 
+	}
+	
+	private Post getSelectedPost(){
+		TreeItem[] items = tree.getSelection();
+		for(TreeItem item: items){
+			return (Post)item.getData();
+		}
+		return null;
 	}
 
 	private void createQuestionComposite(TabFolder tabFolder, TabItem tabItem) {
@@ -236,6 +257,14 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public String getSubject() {
 		return subject;
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
+
+	public String getReply() {
+		return reply;
 	}
 
 }

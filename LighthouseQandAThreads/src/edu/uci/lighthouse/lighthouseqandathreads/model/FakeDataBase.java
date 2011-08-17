@@ -35,6 +35,11 @@ public class FakeDataBase extends Observable{
 		DBChanged();
 	}
 	
+	public void reply(Post replyee, Post reply){
+		replyee.addResponse(reply);
+		DBChanged();
+	}
+	
 
 	private void DBChanged(){
         setChanged();
