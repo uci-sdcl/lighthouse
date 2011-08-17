@@ -10,7 +10,8 @@ public class Post {
 	private String message = "";
 	private TeamMember author;
 	
-	public Post(boolean isQuestion, String message, TeamMember author){
+	public Post(boolean isQuestion, String subject, String message, TeamMember author){
+		this.subject = subject;
 		this.question = isQuestion;
 		this.message = message;
 		this.author = author;

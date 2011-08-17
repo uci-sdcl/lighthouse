@@ -37,7 +37,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private static String[] labelArray = { "OK", "CANCEL" };
 	private Tree tree;
 	
-	//Test: only a test attribute will be removed
+	//TODO: only a test attribute will be removed
 	private Forum testForum;
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
@@ -140,12 +140,12 @@ public class NewQuestionDialog extends MessageDialog {
 	
 	private void setupTreeBranch(Thread thread){
 		TreeItem item = new TreeItem(tree,0);
-		item.setText(thread.getSubject());
+		item.setText(thread.getRootQuestion().getSubject());
 		
 		List<Post> posts = thread.getRootQuestion().getResponses();
 		for(Post child: posts){
 			TreeItem childItem = new TreeItem(item,0);
-			childItem.setText(child.getTeamMemberAuthor().getAuthor().getName());
+			childItem.setText(child.getSubject());
 			setupSubTreeBranch(child, childItem);
 		}
 	}
@@ -154,7 +154,7 @@ public class NewQuestionDialog extends MessageDialog {
 		List<Post> children = post.getResponses();
 		for(Post child: children){
 			TreeItem childItem = new TreeItem(parentItem,0);
-			childItem.setText(child.getTeamMemberAuthor().getAuthor().getName());
+			childItem.setText(child.getSubject());
 			setupSubTreeBranch(child, childItem);
 		}
 	}

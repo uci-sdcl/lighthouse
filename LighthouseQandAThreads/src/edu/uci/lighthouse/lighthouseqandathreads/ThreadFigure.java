@@ -85,21 +85,21 @@ public class ThreadFigure extends CompartmentFigure {
 			if(response == nqDialog.OK){
 				String fullyQualifiedName = le.getFullyQualifiedName();
 				String question = fullyQualifiedName+"\n"+nqDialog.getQuestion();
-				Post post = new Post(true, question,tm);
-				System.out.println(tm.getAuthor().getName()+" "+question);
+				//Post post = new Post(true, question,tm);
+				//System.out.println(tm.getAuthor().getName()+" "+question);
 			}
 		}
 	}
 	
 	
-	//TEST:
+	//TODO: REMOVE THIS!
 	private Forum getTestForum(TeamMember tm){
-		Post rootPost = new Post(true,"Bill: Can you make a getFoo()?", tm);
+		Post rootPost = new Post(true,"Need Interface","Bill: Can you make a getFoo()?", tm);
 		
-		Post response = new Post(false,"Okay!",tm);
+		Post response = new Post(false,"RE: Need Interface","Okay!",tm);
 		rootPost.addResponse(response);
 		
-		Thread thread = new Thread("NeedInterface",rootPost);
+		Thread thread = new Thread(rootPost);
 		
 		Forum forum = new Forum();
 		forum.addThread(thread);
