@@ -5,7 +5,6 @@ import java.util.Vector;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 
 public class TeamMember{
-	private Vector<Post> posts = new Vector<Post>();
 	private LighthouseAuthor author;
 	
 	public TeamMember(LighthouseAuthor author){
