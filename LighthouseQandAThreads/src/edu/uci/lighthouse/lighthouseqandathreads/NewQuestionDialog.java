@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
-import edu.uci.lighthouse.lighthouseqandathreads.model.PostTreeItem;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 
@@ -37,8 +36,9 @@ public class NewQuestionDialog extends MessageDialog {
 	public static int CANCEL = 1;
 	private static String[] labelArray = { "OK", "CANCEL" };
 	private Tree tree;
-	
-	//TODO: only a test attribute will be removed
+	private StyledText messageBox;
+
+	// TODO: only a test attribute will be removed
 	private Forum testForum;
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
@@ -56,7 +56,7 @@ public class NewQuestionDialog extends MessageDialog {
 		TabFolder tabFolder = new TabFolder(parent, SWT.BORDER);
 
 		TabItem tabItem = new TabItem(tabFolder, SWT.NULL);
-		tabItem.setText("Ask a question");
+		tabItem.setText("Create Thread");
 		createQuestionComposite(tabFolder, tabItem);
 
 		TabItem tabItem2 = new TabItem(tabFolder, SWT.NULL);
@@ -75,38 +75,38 @@ public class NewQuestionDialog extends MessageDialog {
 
 		tabItem.setControl(composite);
 
-		GridData questionLayoutData = new GridData(581, 380);
+		// ----
+		Composite treeAndMsgComp = new Composite(composite, SWT.NONE);
+		treeAndMsgComp.setLayout(new GridLayout(2, false));
+		treeAndMsgComp.setLayoutData(compsiteData);
 
-		tree = new Tree(composite, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
+		GridData questionLayoutData = new GridData(281, 380);
+		tree = new Tree(treeAndMsgComp, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
 				| SWT.H_SCROLL);
 		tree.setLayoutData(questionLayoutData);
-
 		tree.addSelectionListener(new ListListener());
-		
-		GridData replyBoxData = new GridData(600, 100);
+
+		GridData msgBoxData = new GridData(300, 400);
+		messageBox = new StyledText(treeAndMsgComp, SWT.BORDER);
+		messageBox.setLayoutData(msgBoxData);
+		// ----
+
+		GridData replyBoxData = new GridData(615, 100);
 		final StyledText replyBox = new StyledText(composite, SWT.BORDER);
 		replyBox.setLayoutData(replyBoxData);
 
 		replyBox.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				
-
+				// reply
 			}
 		});
-		
+
 		populateTree(testForum);
 
 	}
 
-	public void setTestForm(Forum test){
+	public void setTestForm(Forum test) {
 		this.testForum = test;
-	}
-	
-	private class ListListener extends SelectionAdapter {
-
-		public void widgetSelected(SelectionEvent e) {
-
-		}
 	}
 
 	private void createQuestionComposite(TabFolder tabFolder, TabItem tabItem) {
@@ -131,34 +131,56 @@ public class NewQuestionDialog extends MessageDialog {
 		});
 
 	}
-	
 
-	private void populateTree(Forum forum){
-		for(Thread thread : forum.getThreads()){
+	private void populateTree(Forum forum) {
+		for (Thread thread : forum.getThreads()) {
 			setupTreeBranch(thread);
 		}
 	}
-	
-	private void setupTreeBranch(Thread thread){
+
+	private void setupTreeBranch(Thread thread) {
 		Post rootPost = thread.getRootQuestion();
-		
-		PostTreeItem item = new PostTreeItem(rootPost,tree,0);
+
+		TreeItem item = new TreeItem(tree, 0);
+		item.setData(rootPost);
 		item.setText(thread.getRootQuestion().getSubject());
-		
+
 		List<Post> posts = thread.getRootQuestion().getResponses();
-		for(Post child: posts){
-			PostTreeItem childItem = new PostTreeItem(child,item,0);
+		for (Post child : posts) {
+			TreeItem childItem = new TreeItem(item, 0);
+			childItem.setData(child);
 			childItem.setText(child.getSubject());
 			setupSubTreeBranch(child, childItem);
 		}
 	}
 
-	private void setupSubTreeBranch(Post post, TreeItem parentItem){
+	private void setupSubTreeBranch(Post post, TreeItem parentItem) {
 		List<Post> children = post.getResponses();
-		for(Post child: children){
-			PostTreeItem childItem = new PostTreeItem(child,parentItem,0);
+		for (Post child : children) {
+			TreeItem childItem = new TreeItem(parentItem, 0);
+			childItem.setData(child);
 			childItem.setText(child.getSubject());
 			setupSubTreeBranch(child, childItem);
+		}
+	}
+
+	private class ListListener extends SelectionAdapter {
+
+		public void widgetSelected(SelectionEvent e) {
+			if(e.getSource() instanceof Tree){
+				Tree tree = (Tree)e.getSource();
+				
+				
+				TreeItem[] items = tree.getSelection();
+				for(TreeItem item : items){
+					Post post = (Post) item.getData();
+					messageBox.setText(post.getTeamMemberAuthor().getAuthor()
+							.getName()
+							+ ": \n" + post.getMessage());
+				}
+				
+			}
+
 		}
 	}
 

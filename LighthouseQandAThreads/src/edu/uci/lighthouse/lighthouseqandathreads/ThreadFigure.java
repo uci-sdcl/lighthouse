@@ -77,7 +77,7 @@ public class ThreadFigure extends CompartmentFigure {
 			
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
 					, "Threads Box", null,
-					le.getFullyQualifiedName()+" Threads", MessageDialog.INFORMATION, SWT.OK);
+					le.getFullyQualifiedName(), MessageDialog.INFORMATION, SWT.OK);
 			
 			nqDialog.setTestForm(getTestForum(tm));
 			int response = nqDialog.open();
@@ -94,9 +94,9 @@ public class ThreadFigure extends CompartmentFigure {
 	
 	//TODO: REMOVE THIS!
 	private Forum getTestForum(TeamMember tm){
-		Post rootPost = new Post(true,"Need Interface","Bill: Can you make a getFoo()?", tm);
+		Post rootPost = new Post(true,"Need Interface","Hey Bill, would you make a getFoo()?", tm);
 		
-		Post response = new Post(false,"RE: Need Interface","Okay!",tm);
+		Post response = new Post(false,"RE: Need Interface","Anyone out there?",tm);
 		rootPost.addResponse(response);
 		
 		Thread thread = new Thread(rootPost);
