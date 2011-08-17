@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Tree;
 
 public class NewQuestionDialog extends MessageDialog{
 
@@ -26,6 +27,7 @@ public class NewQuestionDialog extends MessageDialog{
 	public static int OK = 0;
 	public static int CANCEL = 1;
 	private static String [] labelArray = {"OK","CANCEL"};
+	private Tree tree;
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
@@ -68,16 +70,21 @@ public class NewQuestionDialog extends MessageDialog{
 
 
 		GridData questionLayoutData = new GridData(600,400);
-	    final StyledText st = new StyledText(composite, SWT.BORDER);
-		st.setLayoutData(questionLayoutData);
 		
-		
-		st.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e)  {
-				setQuestion(st.getText());
+		tree = new Tree(composite, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
+				| SWT.H_SCROLL);
+		tree.setLayoutData(questionLayoutData);
 
-			}
-		});
+		tree.addSelectionListener(new ListListener());
+		
+		
+	}
+	
+	private class ListListener extends SelectionAdapter {
+
+		public void widgetSelected(SelectionEvent e) {
+			
+		}
 	}
 	
 	private void createQuestionComposite(TabFolder tabFolder, TabItem tabItem){
