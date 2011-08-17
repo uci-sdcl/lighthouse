@@ -8,6 +8,7 @@ import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
 import org.eclipse.draw2d.ChangeListener;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.Panel;
 
@@ -24,59 +25,44 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.draw2d.MouseListener;
 
 public class ThreadFigure extends CompartmentFigure {
-	Button questionButton;
+	
 	private FlowLayout layout;
+	Image icon;
+	Button questionButton;
 
 	public ThreadFigure() {
 		layout = new FlowLayout();
 		layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
 		layout.setMinorSpacing(25);
 		setLayoutManager(layout);
-		Image icon = 
+		icon = 
 			AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/question.png").createImage();
-		questionButton =  new org.eclipse.draw2d.Button(icon);
-		this.add(questionButton, new Rectangle(0, 0, 10, 10));
-		
-		questionButton.addMouseListener(new ButtonListener());
 
 	}
 
-	@Override
 	public boolean isVisible(MODE mode) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
-	@Override
 	public void populate(MODE mode) {
+		QuestionButton questionButton =  new QuestionButton(icon);
+		this.add(questionButton, new Rectangle(0, 0, 10, 10));
 
 	}
-
-	private class ButtonListener implements MouseListener {
-
-		@Override
-		public void mouseDoubleClicked(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
+	
+	private class QuestionButton extends Button{
+		public QuestionButton(Image icon) {
+			super(icon);
 		}
 
-		@Override
-		public void mousePressed(MouseEvent arg0) {
+		public void handleMousePressed(MouseEvent event){
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
 					, "Question Box", null,
 					"Question", MessageDialog.INFORMATION, SWT.OK);
-
-			int response = nqDialog.open();			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
+			int response = nqDialog.open();
 		}
-
-
-
 	}
+	
 
 }
