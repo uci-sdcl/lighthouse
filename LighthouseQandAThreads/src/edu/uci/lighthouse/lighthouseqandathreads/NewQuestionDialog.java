@@ -42,12 +42,14 @@ public class NewQuestionDialog extends MessageDialog{
 		
 		
 		TabFolder tabFolder = new TabFolder(parent, SWT.BORDER);
+		
 	    TabItem tabItem = new TabItem(tabFolder, SWT.NULL);
 	    tabItem.setText("Ask a question");
-	    
 	    createQuestionComposite(tabFolder, tabItem);
  
-	    createThreadComposite(tabFolder, tabItem);
+	    TabItem tabItem2 = new TabItem(tabFolder, SWT.NULL);
+	    tabItem2.setText("Threads");
+	    createThreadComposite(tabFolder, tabItem2);
 
 
 
@@ -56,7 +58,26 @@ public class NewQuestionDialog extends MessageDialog{
 	}
 	
 	private void createThreadComposite(TabFolder tabFolder, TabItem tabItem){
+		GridData compsiteData = new GridData(650,450);
 		
+		Composite composite = new Composite(tabFolder, SWT.NONE);
+		composite.setLayout(new GridLayout(2, false));
+		composite.setLayoutData(compsiteData);
+	
+		 tabItem.setControl(composite);
+
+
+		GridData questionLayoutData = new GridData(600,400);
+	    final StyledText st = new StyledText(composite, SWT.BORDER);
+		st.setLayoutData(questionLayoutData);
+		
+		
+		st.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e)  {
+				setQuestion(st.getText());
+
+			}
+		});
 	}
 	
 	private void createQuestionComposite(TabFolder tabFolder, TabItem tabItem){

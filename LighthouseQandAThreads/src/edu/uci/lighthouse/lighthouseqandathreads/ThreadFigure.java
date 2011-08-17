@@ -71,8 +71,8 @@ public class ThreadFigure extends CompartmentFigure {
 			
 			
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
-					, le.getFullyQualifiedName()+" Threads", null,
-					"", MessageDialog.INFORMATION, SWT.OK);
+					, "Threads Box", null,
+					le.getFullyQualifiedName()+" Threads", MessageDialog.INFORMATION, SWT.OK);
 			
 			int response = nqDialog.open();
 			
