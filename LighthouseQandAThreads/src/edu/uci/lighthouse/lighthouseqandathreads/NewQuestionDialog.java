@@ -163,6 +163,8 @@ public class NewQuestionDialog extends MessageDialog {
 			public void widgetSelected(SelectionEvent e) {
 				Post newPost = new Post(true, subject, question, tm);
 				FakeDataBase.getInstance().addNewThread(newPost);
+				questionText.setText("");
+				stSubject.setText("");
 			}
 		});
 

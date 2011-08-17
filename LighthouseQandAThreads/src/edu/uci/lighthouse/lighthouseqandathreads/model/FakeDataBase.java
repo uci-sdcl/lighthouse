@@ -18,7 +18,6 @@ public class FakeDataBase extends Observable{
 		
 		Thread thread = new Thread(rootPost);
 		
-		Forum forum = new Forum();
 		forum.addThread(thread);
 		DBChanged();
 	}
