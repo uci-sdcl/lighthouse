@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import java.util.List;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
@@ -19,6 +21,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
+
+import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
+import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
+
+import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 
 public class NewQuestionDialog extends MessageDialog {
 
@@ -63,7 +71,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 		tabItem.setControl(composite);
 
-		GridData questionLayoutData = new GridData(600, 400);
+		GridData questionLayoutData = new GridData(581, 380);
 
 		tree = new Tree(composite, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
 				| SWT.H_SCROLL);
@@ -71,7 +79,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 		tree.addSelectionListener(new ListListener());
 		
-		GridData replyBoxData = new GridData(600, 400);
+		GridData replyBoxData = new GridData(600, 100);
 		final StyledText replyBox = new StyledText(composite, SWT.BORDER);
 		replyBox.setLayoutData(replyBoxData);
 
@@ -112,6 +120,34 @@ public class NewQuestionDialog extends MessageDialog {
 			}
 		});
 
+	}
+	
+
+	private void populateTree(Forum forum){
+		for(Thread thread : forum.getThreads()){
+			setupTreeBranch(thread);
+		}
+	}
+	
+	private void setupTreeBranch(Thread thread){
+		List<Post> posts = thread.getResponses();
+		TreeItem item = new TreeItem(tree,0);
+	
+		item.setText(thread.getSubject());
+		for(Post child: posts){
+			TreeItem childItem = new TreeItem(item,0);
+			childItem.setText(child.getTeamMemberAuthor().getAuthor().getName());
+			setupSubTreeBranch(child, childItem);
+		}
+	}
+
+	private void setupSubTreeBranch(Post post, TreeItem parentItem){
+		List<Post> children = post.getResponses();
+		for(Post child: children){
+			TreeItem childItem = new TreeItem(parentItem,0);
+			childItem.setText(child.getTeamMemberAuthor().getAuthor().getName());
+			setupSubTreeBranch(child, childItem);
+		}
 	}
 
 	public void setQuestion(String question) {

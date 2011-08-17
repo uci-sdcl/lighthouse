@@ -24,7 +24,7 @@ public class Post {
 	public void setAuthor(TeamMember author) {
 		this.author = author;
 	}
-	public TeamMember getAuthor() {
+	public TeamMember getTeamMemberAuthor() {
 		return author;
 	}
 	public void setQuestion(boolean question) {
