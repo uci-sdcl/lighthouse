@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
+import edu.uci.lighthouse.lighthouseqandathreads.model.PostTreeItem;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 
@@ -139,12 +140,14 @@ public class NewQuestionDialog extends MessageDialog {
 	}
 	
 	private void setupTreeBranch(Thread thread){
-		TreeItem item = new TreeItem(tree,0);
+		Post rootPost = thread.getRootQuestion();
+		
+		PostTreeItem item = new PostTreeItem(rootPost,tree,0);
 		item.setText(thread.getRootQuestion().getSubject());
 		
 		List<Post> posts = thread.getRootQuestion().getResponses();
 		for(Post child: posts){
-			TreeItem childItem = new TreeItem(item,0);
+			PostTreeItem childItem = new PostTreeItem(child,item,0);
 			childItem.setText(child.getSubject());
 			setupSubTreeBranch(child, childItem);
 		}
@@ -153,7 +156,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private void setupSubTreeBranch(Post post, TreeItem parentItem){
 		List<Post> children = post.getResponses();
 		for(Post child: children){
-			TreeItem childItem = new TreeItem(parentItem,0);
+			PostTreeItem childItem = new PostTreeItem(child,parentItem,0);
 			childItem.setText(child.getSubject());
 			setupSubTreeBranch(child, childItem);
 		}
