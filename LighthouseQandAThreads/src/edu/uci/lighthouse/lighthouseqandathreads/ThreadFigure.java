@@ -53,10 +53,7 @@ public class ThreadFigure extends CompartmentFigure {
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
 		
-		//for testing
-		LighthouseAuthor author = ModelUtility.getAuthor();
-		TeamMember tm = new TeamMember(author);
-		FakeDataBase.getInstance().populate(tm);
+
 		
 
 	}
@@ -69,6 +66,8 @@ public class ThreadFigure extends CompartmentFigure {
 
 		QuestionButton questionButton = new QuestionButton(icon);
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
+		
+
 
 	}
 
@@ -82,7 +81,9 @@ public class ThreadFigure extends CompartmentFigure {
 			LighthouseEntity le = getUmlClass();
 			LighthouseAuthor author = ModelUtility.getAuthor();
 			TeamMember tm = new TeamMember(author);
-
+			//for testing
+			FakeDataBase.getInstance().populate(tm);
+			
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI
 					.getWorkbench().getDisplay().getActiveShell(), "Forum",
 					null, le.getFullyQualifiedName(),

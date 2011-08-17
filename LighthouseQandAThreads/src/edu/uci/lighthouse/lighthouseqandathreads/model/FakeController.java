@@ -18,6 +18,7 @@ public class FakeController implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		nqDialog.clearTree();
 		nqDialog.populateTree(FakeDataBase.getInstance().getForum());
 		
 	}

@@ -36,6 +36,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private String question;
 	private String subject;
 	private String reply;
+	private String replySubject;
 	private TeamMember tm;
 
 	
@@ -103,6 +104,24 @@ public class NewQuestionDialog extends MessageDialog {
 		messageBox.setLayoutData(msgBoxData);
 		// ----
 
+		
+		Label subjectLabel = new Label(composite, SWT.None);
+		subjectLabel.setText("subject:");
+
+		GridData subjectData = new GridData(400, 30);
+		final StyledText stSubject = new StyledText(composite, SWT.BORDER);
+		stSubject.setLayoutData(subjectData);
+		
+		stSubject.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				setReplySubject(stSubject.getText());
+
+			}
+		});
+		
+		
+		
+		
 		Label replyLabel = new Label(composite, SWT.None);
 		replyLabel.setText("message:");
 		
@@ -112,7 +131,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 		replyBox.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				// reply
+				setReply(replyBox.getText());
 			}
 		});
 
@@ -120,7 +139,7 @@ public class NewQuestionDialog extends MessageDialog {
 		replyButton.setText("reply");
 		replyButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				Post newPost = new Post(true, "test", reply, tm);
+				Post newPost = new Post(true, replySubject, reply, tm);
 				Post replyeePost = getSelectedPost();
 				
 				if(replyeePost != null){
@@ -167,7 +186,7 @@ public class NewQuestionDialog extends MessageDialog {
 		Label messageLabel = new Label(composite, SWT.None);
 		messageLabel.setText("message:");
 		
-		GridData questionLayoutData = new GridData(600, 400);
+		GridData questionLayoutData = new GridData(600, 600);
 		final StyledText questionText = new StyledText(composite, SWT.BORDER);
 		questionText.setLayoutData(questionLayoutData);
 
@@ -195,6 +214,10 @@ public class NewQuestionDialog extends MessageDialog {
 		for (Thread thread : forum.getThreads()) {
 			setupTreeBranch(thread);
 		}
+	}
+	
+	public void clearTree(){
+		tree.removeAll();
 	}
 
 	private void setupTreeBranch(Thread thread) {
@@ -265,6 +288,14 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public String getReply() {
 		return reply;
+	}
+
+	public void setReplySubject(String replySubject) {
+		this.replySubject = replySubject;
+	}
+
+	public String getReplySubject() {
+		return replySubject;
 	}
 
 }
