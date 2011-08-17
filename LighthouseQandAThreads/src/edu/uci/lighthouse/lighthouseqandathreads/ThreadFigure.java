@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
@@ -79,33 +80,22 @@ public class ThreadFigure extends CompartmentFigure {
 					, "Forum", null,
 					le.getFullyQualifiedName(), MessageDialog.INFORMATION, SWT.OK);
 			
-			nqDialog.setTestForm(getTestForum(tm));
+			FakeDataBase.getInstance().populate(tm);
+			
 			int response = nqDialog.open();
 			
 			if(response == nqDialog.OK){
-				String fullyQualifiedName = le.getFullyQualifiedName();
-				String question = fullyQualifiedName+"\n"+nqDialog.getQuestion();
-				//Post post = new Post(true, question,tm);
-				//System.out.println(tm.getAuthor().getName()+" "+question);
+				
+				String question = nqDialog.getQuestion();
+				String subject = nqDialog.getSubject();
+				
+				Post newPost = new Post(true,subject, question,tm);
+				Thread newThread = new Thread(newPost);
+				
 			}
 		}
 	}
 	
-	
-	//TODO: REMOVE THIS!
-	private Forum getTestForum(TeamMember tm){
-		Post rootPost = new Post(true,"Need Interface","Hey Bill, would you make a getFoo()?", tm);
-		
-		Post response = new Post(false,"RE: Need Interface","Anyone out there?",tm);
-		rootPost.addResponse(response);
-		
-		Thread thread = new Thread(rootPost);
-		
-		Forum forum = new Forum();
-		forum.addThread(thread);
-		
-		return forum;
-	}
 	
 
 }

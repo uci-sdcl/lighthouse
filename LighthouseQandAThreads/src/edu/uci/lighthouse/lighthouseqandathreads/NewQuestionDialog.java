@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 
@@ -31,15 +32,13 @@ import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 public class NewQuestionDialog extends MessageDialog {
 
 	private String question;
+	private String subject;
 
 	public static int OK = 0;
 	public static int CANCEL = 1;
 	private static String[] labelArray = { "OK", "CANCEL" };
 	private Tree tree;
 	private StyledText messageBox;
-
-	// TODO: only a test attribute will be removed
-	private Forum testForum;
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
@@ -111,12 +110,8 @@ public class NewQuestionDialog extends MessageDialog {
 			}
 		});
 
-		populateTree(testForum);
+		populateTree(FakeDataBase.getInstance().getForum());
 
-	}
-
-	public void setTestForm(Forum test) {
-		this.testForum = test;
 	}
 
 	private void createQuestionComposite(TabFolder tabFolder, TabItem tabItem) {
@@ -210,6 +205,14 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public String getQuestion() {
 		return question;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getSubject() {
+		return subject;
 	}
 
 }
