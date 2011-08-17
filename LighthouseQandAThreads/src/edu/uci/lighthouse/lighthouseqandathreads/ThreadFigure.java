@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -31,6 +32,8 @@ import org.eclipse.draw2d.ActionListener;
 import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.draw2d.MouseListener;
+
+import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 
 public class ThreadFigure extends CompartmentFigure {
 	
@@ -68,26 +71,40 @@ public class ThreadFigure extends CompartmentFigure {
 		public void handleMouseReleased(MouseEvent event){
 			
 			LighthouseEntity le = getUmlClass();
+			LighthouseAuthor author = ModelUtility.getAuthor();
+			TeamMember tm = new TeamMember(author);
 			
 			
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
 					, "Threads Box", null,
 					le.getFullyQualifiedName()+" Threads", MessageDialog.INFORMATION, SWT.OK);
 			
+			nqDialog.setTestForm(getTestForum(tm));
 			int response = nqDialog.open();
 			
 			if(response == nqDialog.OK){
-				
-				LighthouseAuthor author = ModelUtility.getAuthor();
-				
 				String fullyQualifiedName = le.getFullyQualifiedName();
 				String question = fullyQualifiedName+"\n"+nqDialog.getQuestion();
-				
-				TeamMember tm = new TeamMember(author);
 				Post post = new Post(true, question,tm);
 				System.out.println(tm.getAuthor().getName()+" "+question);
 			}
 		}
+	}
+	
+	
+	//TEST:
+	private Forum getTestForum(TeamMember tm){
+		Post rootPost = new Post(true,"Bill: Can you make a getFoo()?", tm);
+		
+		Post response = new Post(false,"Okay!",tm);
+		rootPost.addResponse(response);
+		
+		Thread thread = new Thread("NeedInterface",rootPost);
+		
+		Forum forum = new Forum();
+		forum.addThread(thread);
+		
+		return forum;
 	}
 	
 

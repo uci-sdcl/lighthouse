@@ -7,7 +7,6 @@ public class Thread {
 	private String subject;
 	private Post rootQuestion;
 	private Solution solution;
-	private ArrayList<Post> responses = new ArrayList<Post>();
 	public ThreadCreator threadCreator;
 
 	public Thread(String subject, Post question) {
@@ -15,9 +14,6 @@ public class Thread {
 		rootQuestion = question;
 	}
 	
-	public List<Post> getResponses(){
-		return responses;
-	}
 	
 	public String getSubject(){
 		return subject;

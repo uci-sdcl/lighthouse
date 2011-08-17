@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
+	private String subject;
 	private boolean question;
 	private ArrayList<Post> responses = new ArrayList<Post>();
 	private String message = "";
@@ -40,5 +41,13 @@ public class Post {
 	
 	public void addResponse(Post post){
 		responses.add(post);
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getSubject() {
+		return subject;
 	}
 }
