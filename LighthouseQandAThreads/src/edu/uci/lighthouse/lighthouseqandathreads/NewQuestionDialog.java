@@ -80,7 +80,14 @@ public class NewQuestionDialog extends MessageDialog {
 		treeAndMsgComp.setLayout(new GridLayout(2, false));
 		treeAndMsgComp.setLayoutData(compsiteData);
 
+		Label threadsLabel = new Label(treeAndMsgComp, SWT.None);
+		threadsLabel.setText("threads:");
+		
+		Label responsesLabel = new Label(treeAndMsgComp, SWT.None);
+		responsesLabel.setText("resposes:");
+		
 		GridData questionLayoutData = new GridData(281, 380);
+
 		tree = new Tree(treeAndMsgComp, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
 				| SWT.H_SCROLL);
 		tree.setLayoutData(questionLayoutData);
@@ -91,6 +98,9 @@ public class NewQuestionDialog extends MessageDialog {
 		messageBox.setLayoutData(msgBoxData);
 		// ----
 
+		Label replyLabel = new Label(composite, SWT.None);
+		replyLabel.setText("reply:");
+		
 		GridData replyBoxData = new GridData(615, 100);
 		final StyledText replyBox = new StyledText(composite, SWT.BORDER);
 		replyBox.setLayoutData(replyBoxData);
@@ -114,18 +124,28 @@ public class NewQuestionDialog extends MessageDialog {
 		GridData compsiteData = new GridData(650, 450);
 
 		Composite composite = new Composite(tabFolder, SWT.NONE);
-		composite.setLayout(new GridLayout(2, false));
+		composite.setLayout(new GridLayout(1, false));
 		composite.setLayoutData(compsiteData);
 
 		tabItem.setControl(composite);
+		
+		Label subjectLabel = new Label(composite, SWT.None);
+		subjectLabel.setText("subject:");
 
+		GridData subjectData = new GridData(400, 30);
+		final StyledText stSubject = new StyledText(composite, SWT.BORDER);
+		stSubject.setLayoutData(subjectData);
+		
+		Label messageLabel = new Label(composite, SWT.None);
+		messageLabel.setText("message:");
+		
 		GridData questionLayoutData = new GridData(600, 400);
-		final StyledText st = new StyledText(composite, SWT.BORDER);
-		st.setLayoutData(questionLayoutData);
+		final StyledText questionText = new StyledText(composite, SWT.BORDER);
+		questionText.setLayoutData(questionLayoutData);
 
-		st.addModifyListener(new ModifyListener() {
+		questionText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				setQuestion(st.getText());
+				setQuestion(questionText.getText());
 
 			}
 		});

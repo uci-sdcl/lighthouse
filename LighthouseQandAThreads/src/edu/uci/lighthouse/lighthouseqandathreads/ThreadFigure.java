@@ -76,7 +76,7 @@ public class ThreadFigure extends CompartmentFigure {
 			
 			
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
-					, "Threads Box", null,
+					, "Forum", null,
 					le.getFullyQualifiedName(), MessageDialog.INFORMATION, SWT.OK);
 			
 			nqDialog.setTestForm(getTestForum(tm));
