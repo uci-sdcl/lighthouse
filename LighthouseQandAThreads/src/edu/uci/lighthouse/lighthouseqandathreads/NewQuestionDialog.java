@@ -16,6 +16,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 
 public class NewQuestionDialog extends MessageDialog{
 
@@ -37,14 +39,38 @@ public class NewQuestionDialog extends MessageDialog{
 		
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 
-		GridData compsiteData = new GridData(550,350);
+		
+		
+		TabFolder tabFolder = new TabFolder(parent, SWT.BORDER);
+	    TabItem tabItem = new TabItem(tabFolder, SWT.NULL);
+	    tabItem.setText("Ask a question");
+	    
+	    createQuestionComposite(tabFolder, tabItem);
+ 
+	    createThreadComposite(tabFolder, tabItem);
 
-		Composite composite = new Composite(parent, SWT.NONE);
+
+
+	    
+	    return tabFolder;
+	}
+	
+	private void createThreadComposite(TabFolder tabFolder, TabItem tabItem){
+		
+	}
+	
+	private void createQuestionComposite(TabFolder tabFolder, TabItem tabItem){
+		
+		GridData compsiteData = new GridData(650,450);
+	
+		Composite composite = new Composite(tabFolder, SWT.NONE);
 		composite.setLayout(new GridLayout(2, false));
 		composite.setLayoutData(compsiteData);
+	
+		 tabItem.setControl(composite);
 
 
-		GridData questionLayoutData = new GridData(500,300);
+		GridData questionLayoutData = new GridData(600,400);
 	    final StyledText st = new StyledText(composite, SWT.BORDER);
 		st.setLayoutData(questionLayoutData);
 		
@@ -55,9 +81,8 @@ public class NewQuestionDialog extends MessageDialog{
 
 			}
 		});
-
-	    
-	    return composite;
+		
+		
 	}
 
 	public void setQuestion(String question) {

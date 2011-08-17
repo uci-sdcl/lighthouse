@@ -66,14 +66,18 @@ public class ThreadFigure extends CompartmentFigure {
 		}
 
 		public void handleMouseReleased(MouseEvent event){
+			
+			LighthouseEntity le = getUmlClass();
+			
+			
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
-					, "Question Box", null,
-					"Ask a question.", MessageDialog.INFORMATION, SWT.OK);
+					, le.getFullyQualifiedName()+" Threads", null,
+					"", MessageDialog.INFORMATION, SWT.OK);
 			
 			int response = nqDialog.open();
 			
 			if(response == nqDialog.OK){
-				LighthouseEntity le = getUmlClass();
+				
 				LighthouseAuthor author = ModelUtility.getAuthor();
 				
 				String fullyQualifiedName = le.getFullyQualifiedName();
