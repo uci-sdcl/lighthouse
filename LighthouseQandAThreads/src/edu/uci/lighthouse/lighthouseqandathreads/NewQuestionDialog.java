@@ -136,6 +136,13 @@ public class NewQuestionDialog extends MessageDialog {
 		final StyledText stSubject = new StyledText(composite, SWT.BORDER);
 		stSubject.setLayoutData(subjectData);
 		
+		stSubject.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				setSubject(stSubject.getText());
+
+			}
+		});
+		
 		Label messageLabel = new Label(composite, SWT.None);
 		messageLabel.setText("message:");
 		
@@ -151,6 +158,7 @@ public class NewQuestionDialog extends MessageDialog {
 		});
 		
 		Button submitButton = new Button(composite, SWT.BORDER);
+		submitButton.setText("submit");
 		submitButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				Post newPost = new Post(true, subject, question, tm);
