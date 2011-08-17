@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -16,6 +18,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
@@ -23,6 +26,7 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.PlatformUI;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
@@ -102,6 +106,8 @@ public class NewQuestionDialog extends MessageDialog {
 		GridData msgBoxData = new GridData(300, 400);
 		messageBox = new StyledText(treeAndMsgComp, SWT.BORDER);
 		messageBox.setLayoutData(msgBoxData);
+		
+
 		// ----
 
 		
@@ -143,6 +149,9 @@ public class NewQuestionDialog extends MessageDialog {
 				Post replyeePost = getSelectedPost();
 				
 				if(replyeePost != null){
+					
+					
+					
 					FakeDataBase.getInstance().reply(replyeePost, newPost);
 					replyBox.setText("");
 				}
@@ -256,9 +265,26 @@ public class NewQuestionDialog extends MessageDialog {
 				TreeItem[] items = tree.getSelection();
 				for(TreeItem item : items){
 					Post post = (Post) item.getData();
-					messageBox.setText(post.getTeamMemberAuthor().getAuthor()
-							.getName()
+					
+					String name = post.getTeamMemberAuthor().getAuthor()
+					.getName();
+					messageBox.setText(name
 							+ ": \n" + post.getMessage());
+					
+					// make "This" bold and orange
+					StyleRange styleRange = new StyleRange();
+					styleRange.fontStyle = SWT.BOLD;
+					Display display = PlatformUI.getWorkbench().getDisplay();
+					Color orange = new Color(display, 255, 127, 0);
+					Color lime = new Color(display, 127, 255, 127);
+					Color black = new Color(display,0,0,0);
+					styleRange.start = 0;
+					styleRange.length = name.length();
+					styleRange.foreground = lime;
+					styleRange.background = black;
+					messageBox.setStyleRange(styleRange);
+					
+
 				}
 				
 			}
