@@ -269,7 +269,7 @@ public class NewQuestionDialog extends MessageDialog {
 					String name = post.getTeamMemberAuthor().getAuthor()
 					.getName();
 					messageBox.setText(name
-							+ ": \n" + post.getMessage());
+							+ "\n" + post.getMessage());
 					
 					// make "This" bold and orange
 					StyleRange styleRange = new StyleRange();
