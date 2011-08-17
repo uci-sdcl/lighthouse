@@ -1,10 +1,44 @@
 package edu.uci.lighthouse.lighthouseqandathreads.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
 	private boolean question;
-	private List<Post> responses;
-	private String message;
+	private ArrayList<Post> responses = new ArrayList<Post>();
+	private String message = "";
 	private TeamMember author;
+	
+	public Post(boolean isQuestion, String message, TeamMember author){
+		this.question = isQuestion;
+		this.message = message;
+		this.author = author;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setAuthor(TeamMember author) {
+		this.author = author;
+	}
+	public TeamMember getAuthor() {
+		return author;
+	}
+	public void setQuestion(boolean question) {
+		this.question = question;
+	}
+	public boolean isQuestion() {
+		return question;
+	}
+	
+	public List<Post> getResponses(){
+		return responses;
+	}
+	
+	public void addResponse(Post post){
+		responses.add(post);
+	}
 }

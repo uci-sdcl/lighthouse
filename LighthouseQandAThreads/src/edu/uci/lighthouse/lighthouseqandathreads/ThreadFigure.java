@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
+import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
@@ -66,6 +68,11 @@ public class ThreadFigure extends CompartmentFigure {
 					"Ask a question.", MessageDialog.INFORMATION, SWT.OK);
 			
 			int response = nqDialog.open();
+			
+			if(response == SWT.OK){
+				TeamMember tm = new TeamMember();
+				Post post = new Post(true, nqDialog.getQuestion(),tm);
+			}
 		}
 	}
 	

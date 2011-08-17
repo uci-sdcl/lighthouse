@@ -37,7 +37,7 @@ public class NewQuestionDialog extends MessageDialog{
 		
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 
-		GridData compsiteData = new GridData(500,350);
+		GridData compsiteData = new GridData(550,350);
 
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, false));
