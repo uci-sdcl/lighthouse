@@ -55,7 +55,7 @@ public class ThreadFigure extends CompartmentFigure {
 			super(icon);
 		}
 
-		public void handleMousePressed(MouseEvent event){
+		public void handleMouseReleased(MouseEvent event){
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
 					, "Question Box", null,
 					"Question", MessageDialog.INFORMATION, SWT.OK);
