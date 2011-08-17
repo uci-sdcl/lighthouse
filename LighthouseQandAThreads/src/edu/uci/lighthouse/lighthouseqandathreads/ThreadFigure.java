@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import edu.uci.lighthouse.lighthouseqandathreads.model.FakeController;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
@@ -37,18 +38,21 @@ import org.eclipse.draw2d.MouseListener;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 
 public class ThreadFigure extends CompartmentFigure {
-	
-	private FlowLayout layout;
-	Image icon;
-	Button questionButton;
 
+	private FlowLayout layout;
+	private Image icon;
+	private Button questionButton;
+	//testing
+	private FakeController controller;
+	
 	public ThreadFigure() {
 		layout = new FlowLayout();
 		layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
 		layout.setMinorSpacing(25);
 		setLayoutManager(layout);
-		icon = 
-			AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/question.png").createImage();
+		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+				"/icons/question.png").createImage();
+		
 
 	}
 
@@ -57,45 +61,35 @@ public class ThreadFigure extends CompartmentFigure {
 	}
 
 	public void populate(MODE mode) {
-		
-		QuestionButton questionButton =  new QuestionButton(icon);		
+
+		QuestionButton questionButton = new QuestionButton(icon);
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
 
 	}
-	
 
-	private class QuestionButton extends Button{
+	private class QuestionButton extends Button {
 		public QuestionButton(Image icon) {
 			super(icon);
 		}
 
-		public void handleMouseReleased(MouseEvent event){
-			
+		public void handleMouseReleased(MouseEvent event) {
+
 			LighthouseEntity le = getUmlClass();
 			LighthouseAuthor author = ModelUtility.getAuthor();
 			TeamMember tm = new TeamMember(author);
-			
-			
-			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
-					, "Forum", null,
-					le.getFullyQualifiedName(), MessageDialog.INFORMATION, SWT.OK);
-			
+			//for testing
 			FakeDataBase.getInstance().populate(tm);
-			
+
+			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI
+					.getWorkbench().getDisplay().getActiveShell(), "Forum",
+					null, le.getFullyQualifiedName(),
+					MessageDialog.INFORMATION, SWT.OK,tm);
+
+			controller = new FakeController(nqDialog);
+
 			int response = nqDialog.open();
-			
-			if(response == nqDialog.OK){
-				
-				String question = nqDialog.getQuestion();
-				String subject = nqDialog.getSubject();
-				
-				Post newPost = new Post(true,subject, question,tm);
-				Thread newThread = new Thread(newPost);
-				
-			}
+
 		}
 	}
-	
-	
 
 }

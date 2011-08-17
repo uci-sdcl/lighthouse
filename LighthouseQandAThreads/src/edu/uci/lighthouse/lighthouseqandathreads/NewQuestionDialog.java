@@ -12,6 +12,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -26,6 +27,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
+import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 
@@ -33,19 +35,22 @@ public class NewQuestionDialog extends MessageDialog {
 
 	private String question;
 	private String subject;
+	private TeamMember tm;
 
-	public static int OK = 0;
-	public static int CANCEL = 1;
-	private static String[] labelArray = { "OK", "CANCEL" };
+	
+	public static int CLOSE = 0;
+	private static String[] labelArray = { "Close" };
 	private Tree tree;
 	private StyledText messageBox;
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
-			int defaultIndex) {
+			int defaultIndex, TeamMember tm) {
 
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage,
 				dialogImageType, labelArray, defaultIndex);
+		
+		this.tm = tm;
 	}
 
 	public Control createCustomArea(Composite parent) {
@@ -144,10 +149,18 @@ public class NewQuestionDialog extends MessageDialog {
 
 			}
 		});
+		
+		Button submitButton = new Button(composite, SWT.BORDER);
+		submitButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				Post newPost = new Post(true, subject, question, tm);
+				FakeDataBase.getInstance().addNewThread(newPost);
+			}
+		});
 
 	}
 
-	private void populateTree(Forum forum) {
+	public void populateTree(Forum forum) {
 		for (Thread thread : forum.getThreads()) {
 			setupTreeBranch(thread);
 		}

@@ -1,8 +1,11 @@
 package edu.uci.lighthouse.lighthouseqandathreads.model;
 
-public class FakeDataBase {
-	Forum forum = new Forum();
+import java.util.Observable;
 
+public class FakeDataBase extends Observable{
+	private Forum forum = new Forum();
+	private static FakeDataBase db;
+	
 	private FakeDataBase() {
 
 	}
@@ -17,15 +20,27 @@ public class FakeDataBase {
 		
 		Forum forum = new Forum();
 		forum.addThread(thread);
+		DBChanged();
 	}
 	
 	public static FakeDataBase getInstance(){
-		return new FakeDataBase();
+		if(db == null){
+			db = new FakeDataBase();
+		}
+		return db;
 	}
 	
 	public void addNewThread(Post root){
 		Thread thread = new Thread(root);
 		forum.addThread(thread);
+		DBChanged();
+	}
+	
+
+	private void DBChanged(){
+        setChanged();
+        notifyObservers();
+        clearChanged();
 	}
 	
 	public Forum getForum(){
