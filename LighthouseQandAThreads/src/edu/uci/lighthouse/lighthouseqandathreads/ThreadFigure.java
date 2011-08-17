@@ -9,11 +9,14 @@ import org.eclipse.draw2d.ChangeEvent;
 import org.eclipse.draw2d.ChangeListener;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.Panel;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.draw2d.Button;
@@ -45,11 +48,13 @@ public class ThreadFigure extends CompartmentFigure {
 	}
 
 	public void populate(MODE mode) {
-		QuestionButton questionButton =  new QuestionButton(icon);
+		
+		QuestionButton questionButton =  new QuestionButton(icon);		
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
 
 	}
 	
+
 	private class QuestionButton extends Button{
 		public QuestionButton(Image icon) {
 			super(icon);
@@ -58,7 +63,7 @@ public class ThreadFigure extends CompartmentFigure {
 		public void handleMouseReleased(MouseEvent event){
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
 					, "Question Box", null,
-					"Question", MessageDialog.INFORMATION, SWT.OK);
+					"Ask a question.", MessageDialog.INFORMATION, SWT.OK);
 			
 			int response = nqDialog.open();
 		}
