@@ -2,10 +2,12 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
+import edu.uci.lighthouse.core.util.ModelUtility;
 
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
@@ -70,13 +72,16 @@ public class ThreadFigure extends CompartmentFigure {
 			
 			int response = nqDialog.open();
 			
-			if(response == 0){
+			if(response == nqDialog.OK){
 				LighthouseEntity le = getUmlClass();
+				LighthouseAuthor author = ModelUtility.getAuthor();
+				
 				String fullyQualifiedName = le.getFullyQualifiedName();
 				String question = fullyQualifiedName+"\n"+nqDialog.getQuestion();
 				
-				TeamMember tm = new TeamMember();
+				TeamMember tm = new TeamMember(author);
 				Post post = new Post(true, question,tm);
+				System.out.println(tm.getAuthor().getName()+" "+question);
 			}
 		}
 	}
