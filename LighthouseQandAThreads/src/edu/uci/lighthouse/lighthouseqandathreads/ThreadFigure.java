@@ -8,6 +8,7 @@ import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
 import org.eclipse.draw2d.ChangeListener;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.Panel;
 
 import org.eclipse.swt.SWT;
@@ -19,6 +20,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.jface.dialogs.MessageDialog;
+
+import org.eclipse.draw2d.MouseListener;
 
 public class ThreadFigure extends CompartmentFigure {
 	Button questionButton;
@@ -34,7 +37,7 @@ public class ThreadFigure extends CompartmentFigure {
 		questionButton =  new org.eclipse.draw2d.Button(icon);
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
 		
-		questionButton.addChangeListener(new ButtonListener());
+		questionButton.addMouseListener(new ButtonListener());
 
 	}
 
@@ -49,16 +52,29 @@ public class ThreadFigure extends CompartmentFigure {
 
 	}
 
-	private class ButtonListener implements ChangeListener {
+	private class ButtonListener implements MouseListener {
 
 		@Override
-		public void handleStateChanged(ChangeEvent arg0) {
+		public void mouseDoubleClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
 			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
 					, "Question Box", null,
 					"Question", MessageDialog.INFORMATION, SWT.OK);
 
-			int response = nqDialog.open();
+			int response = nqDialog.open();			
 		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
 
 
 	}
