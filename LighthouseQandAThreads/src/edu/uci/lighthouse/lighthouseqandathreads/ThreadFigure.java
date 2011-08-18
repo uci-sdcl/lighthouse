@@ -24,6 +24,7 @@ import org.eclipse.draw2d.Panel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -84,14 +85,17 @@ public class ThreadFigure extends CompartmentFigure {
 			//for testing
 			FakeDataBase.getInstance().populate(tm);
 			
-			NewQuestionDialog nqDialog = new NewQuestionDialog(PlatformUI
-					.getWorkbench().getDisplay().getActiveShell(), "Forum",
+			Display display = Display.getDefault();
+			
+			NewQuestionDialog nqDialog = new NewQuestionDialog(display.getActiveShell(), "Forum",
 					null, le.getFullyQualifiedName(),
 					MessageDialog.INFORMATION, SWT.OK,tm);
 
 			controller = new FakeController(nqDialog);
-
+			
 			int response = nqDialog.open();
+			controller.stopObserving();
+			
 
 		}
 	}

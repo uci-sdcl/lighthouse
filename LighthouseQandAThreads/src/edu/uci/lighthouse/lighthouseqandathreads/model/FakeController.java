@@ -12,8 +12,12 @@ public class FakeController implements Observer{
 	
 	public FakeController(NewQuestionDialog dialog){
 		nqDialog = dialog;
-	
 		FakeDataBase.getInstance().addObserver(this);
+		nqDialog.populateTree(FakeDataBase.getInstance().getForum());
+	}
+	
+	public void stopObserving(){
+		FakeDataBase.getInstance().deleteObserver(this);
 	}
 
 	@Override

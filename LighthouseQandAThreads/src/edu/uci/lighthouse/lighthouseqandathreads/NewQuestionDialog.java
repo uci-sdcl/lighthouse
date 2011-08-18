@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uci.lighthouse.lighthouseqandathreads.model.FakeController;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
@@ -48,6 +49,9 @@ public class NewQuestionDialog extends MessageDialog {
 	private static String[] labelArray = { "Close" };
 	private Tree tree;
 	private StyledText messageBox;
+	
+	//testing
+	private FakeController controller;
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
@@ -57,6 +61,7 @@ public class NewQuestionDialog extends MessageDialog {
 				dialogImageType, labelArray, defaultIndex);
 		
 		this.tm = tm;
+		controller = new FakeController(this);
 	}
 
 	public Control createCustomArea(Composite parent) {
@@ -232,6 +237,8 @@ public class NewQuestionDialog extends MessageDialog {
 	private void setupTreeBranch(Thread thread) {
 		Post rootPost = thread.getRootQuestion();
 
+
+		
 		TreeItem item = new TreeItem(tree, 0);
 		item.setData(rootPost);
 		item.setText(thread.getRootQuestion().getSubject());
