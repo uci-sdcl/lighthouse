@@ -82,8 +82,6 @@ public class ThreadFigure extends CompartmentFigure {
 			LighthouseEntity le = getUmlClass();
 			LighthouseAuthor author = ModelUtility.getAuthor();
 			TeamMember tm = new TeamMember(author);
-			//for testing
-			FakeDataBase.getInstance().populate(tm);
 			
 			Display display = Display.getDefault();
 			

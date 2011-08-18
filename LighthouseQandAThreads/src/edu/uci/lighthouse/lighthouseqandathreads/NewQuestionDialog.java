@@ -50,8 +50,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private Tree tree;
 	private StyledText messageBox;
 	
-	//testing
-	private FakeController controller;
+
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
@@ -61,7 +60,7 @@ public class NewQuestionDialog extends MessageDialog {
 				dialogImageType, labelArray, defaultIndex);
 		
 		this.tm = tm;
-		controller = new FakeController(this);
+		
 	}
 
 	public Control createCustomArea(Composite parent) {
