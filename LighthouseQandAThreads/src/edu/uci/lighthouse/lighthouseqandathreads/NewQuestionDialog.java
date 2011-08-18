@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
 import java.util.List;
+import java.util.Observable;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -28,7 +29,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
-import edu.uci.lighthouse.lighthouseqandathreads.model.FakeController;
+import edu.uci.lighthouse.lighthouseqandathreads.model.Controller;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
@@ -50,7 +51,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private Tree tree;
 	private StyledText messageBox;
 	
-
+	private ObservableClass observablePoint = new ObservableClass();
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
@@ -328,6 +329,15 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public String getReplySubject() {
 		return replySubject;
+	}
+	
+
+	public ObservableClass getObservablePoint() {
+		return observablePoint;
+	}
+
+	public class ObservableClass extends Observable{
+		
 	}
 
 }

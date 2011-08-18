@@ -1,6 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
-import edu.uci.lighthouse.lighthouseqandathreads.model.FakeController;
+import edu.uci.lighthouse.lighthouseqandathreads.model.Controller;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
@@ -44,7 +44,7 @@ public class ThreadFigure extends CompartmentFigure {
 	private Image icon;
 	private Button questionButton;
 	//testing
-	private FakeController controller;
+	private Controller controller;
 	
 	public ThreadFigure() {
 		layout = new FlowLayout();
@@ -89,7 +89,7 @@ public class ThreadFigure extends CompartmentFigure {
 					null, le.getFullyQualifiedName(),
 					MessageDialog.INFORMATION, SWT.OK,tm);
 
-			controller = new FakeController(nqDialog);
+			controller = new Controller(nqDialog);
 			
 			int response = nqDialog.open();
 			controller.stopObserving();

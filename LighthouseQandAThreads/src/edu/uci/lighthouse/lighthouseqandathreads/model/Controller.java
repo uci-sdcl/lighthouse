@@ -3,15 +3,19 @@ package edu.uci.lighthouse.lighthouseqandathreads.model;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+
 import edu.uci.lighthouse.lighthouseqandathreads.NewQuestionDialog;
 
 
-public class FakeController implements Observer{
+public class Controller implements Observer{
 	NewQuestionDialog nqDialog;
 
 	
-	public FakeController(NewQuestionDialog dialog){
+	public Controller(NewQuestionDialog dialog){
 		nqDialog = dialog;
+		nqDialog.getObservablePoint().addObserver(this);
 		FakeDataBase.getInstance().addObserver(this);
 		
 	}
@@ -26,5 +30,6 @@ public class FakeController implements Observer{
 		nqDialog.populateTree(FakeDataBase.getInstance().getForum());
 		
 	}
-
+	
+	
 }
