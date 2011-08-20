@@ -26,6 +26,13 @@ public class Controller implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		
+		/*if(DataBase update){
+			//new reply Post to Post
+			
+		}else if(Dialog update){
+			//loaded?
+		}*/
 		nqDialog.clearTree();
 		nqDialog.populateTree(FakeDataBase.getInstance().getForum());
 		

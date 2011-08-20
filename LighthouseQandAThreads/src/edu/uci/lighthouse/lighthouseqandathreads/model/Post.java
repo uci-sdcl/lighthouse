@@ -3,11 +3,16 @@ package edu.uci.lighthouse.lighthouseqandathreads.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 public class Post {
 	private String subject;
 	private boolean question;
+	@OneToMany
 	private ArrayList<Post> responses = new ArrayList<Post>();
 	private String message = "";
+	@ManyToOne
 	private TeamMember author;
 	
 	public Post(boolean isQuestion, String subject, String message, TeamMember author){

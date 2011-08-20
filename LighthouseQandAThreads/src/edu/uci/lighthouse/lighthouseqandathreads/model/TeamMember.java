@@ -2,9 +2,14 @@ package edu.uci.lighthouse.lighthouseqandathreads.model;
 
 import java.util.Vector;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 import edu.uci.lighthouse.model.LighthouseAuthor;
 
+@Entity
 public class TeamMember{
+	@OneToOne
 	private LighthouseAuthor author;
 	
 	public TeamMember(LighthouseAuthor author){

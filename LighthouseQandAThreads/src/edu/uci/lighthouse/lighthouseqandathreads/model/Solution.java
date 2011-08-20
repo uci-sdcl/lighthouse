@@ -2,8 +2,12 @@ package edu.uci.lighthouse.lighthouseqandathreads.model;
 
 import java.util.Vector;
 
+import javax.persistence.OneToOne;
+
 public class Solution {
+	@OneToOne
 	private Post question;
+	@OneToOne
 	private Post answer;
 	
 	
