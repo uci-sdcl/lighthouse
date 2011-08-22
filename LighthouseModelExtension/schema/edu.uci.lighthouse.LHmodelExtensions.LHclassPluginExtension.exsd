@@ -55,7 +55,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension"/>
+                  <meta.attribute kind="java" basedOn="edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension:"/>
                </appinfo>
             </annotation>
          </attribute>
