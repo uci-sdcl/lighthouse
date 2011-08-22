@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import javax.persistence.Entity;
 
+import LHmodelExtensions.ILHclassPluginExtension;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 
-import edu.uci.lighthouse.model.extensions.ILHclassPluginExtension;
 
 
 @Entity
