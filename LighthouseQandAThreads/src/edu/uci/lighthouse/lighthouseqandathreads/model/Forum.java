@@ -8,10 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension;
+import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
-public class Forum implements ILHclassPluginExtension{
+public class Forum extends LHclassPluginExtension{
     @Id
     @GeneratedValue
     int id;

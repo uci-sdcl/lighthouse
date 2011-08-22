@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension;
+import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
 public class Post {
