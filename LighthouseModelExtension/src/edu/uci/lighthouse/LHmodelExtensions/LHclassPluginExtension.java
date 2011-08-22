@@ -11,6 +11,6 @@ import java.io.Serializable;
 public abstract class LHclassPluginExtension implements Serializable{
 	
 	// This is the ID from your extension point
-	public static final String ILHclassPluginExtension_ID = "edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension";
+	public static final String LHclassPluginExtension_ID = "edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension";
 
 }

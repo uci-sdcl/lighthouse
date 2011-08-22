@@ -3,7 +3,7 @@
 <schema targetNamespace="LighthouseModelExtension" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="LighthouseModelExtension" id="edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension" name="ILHclassPluginExtension"/>
+         <meta.schema plugin="LighthouseModelExtension" id="edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension" name="ILHclassPluginExtension"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]

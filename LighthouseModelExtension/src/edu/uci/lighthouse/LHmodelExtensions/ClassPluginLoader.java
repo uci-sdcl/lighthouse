@@ -29,7 +29,7 @@ public class ClassPluginLoader {
 		final ArrayList<LHclassPluginExtension> listOfExt = new ArrayList<LHclassPluginExtension>();
 		
 		IConfigurationElement[] config = Platform.getExtensionRegistry()
-				.getConfigurationElementsFor(LHclassPluginExtension.ILHclassPluginExtension_ID);
+				.getConfigurationElementsFor(LHclassPluginExtension.LHclassPluginExtension_ID);
 		try {
 			for (IConfigurationElement e : config) {
 				

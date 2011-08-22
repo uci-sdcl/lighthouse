@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension" name="ILHclassPluginExtension" schema="schema/edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension.exsd"/>
+   <extension-point id="edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension" name="ILHclassPluginExtension" schema="schema/edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension.exsd"/>
 
 </plugin>
