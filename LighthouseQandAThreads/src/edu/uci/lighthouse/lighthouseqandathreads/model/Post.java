@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension;
+
 @Entity
-public class Post{
+public class Post implements ILHclassPluginExtension{
 	private String subject;
 	private boolean question;
 	@OneToMany
