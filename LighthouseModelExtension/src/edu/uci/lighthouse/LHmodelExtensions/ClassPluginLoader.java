@@ -33,7 +33,7 @@ public class ClassPluginLoader {
 		try {
 			for (IConfigurationElement e : config) {
 				
-				System.out.println("Evaluating extension");
+				
 				
 				final Object o = e.createExecutableExtension("class");
 				
@@ -41,7 +41,7 @@ public class ClassPluginLoader {
 					ISafeRunnable runnable = new ISafeRunnable() {
 						
 						public void handleException(Throwable exception) {
-							System.out.println("Exception in client");
+							System.out.println("Exception in classExtension");
 						}
 				
 						public void run() throws Exception {
