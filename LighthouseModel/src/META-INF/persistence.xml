@@ -20,6 +20,8 @@
 		<class>edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent</class>
 
 		<class>edu.uci.lighthouse.model.expertise.LighthouseQuestion</class>
+		
+		
 
 		<properties>
 			<property name="hibernate.format_sql" value="true" />
@@ -27,6 +29,7 @@
 			<property name="hibernate.query.substitutions" value="true=1, false=0" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.archive.autodetection" value="class, hbm"/>
 
 			<!-- <property name="hibernate.show_sql" value="true" /> -->
 
