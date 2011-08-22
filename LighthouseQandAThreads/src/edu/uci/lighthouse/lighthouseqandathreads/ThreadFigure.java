@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Controller;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
@@ -10,7 +11,6 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
-import edu.uci.lighthouse.core.util.ModelUtility;
 
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
