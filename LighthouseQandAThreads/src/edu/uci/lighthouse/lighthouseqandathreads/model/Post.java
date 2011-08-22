@@ -3,10 +3,12 @@ package edu.uci.lighthouse.lighthouseqandathreads.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-public class Post {
+@Entity
+public class Post{
 	private String subject;
 	private boolean question;
 	@OneToMany

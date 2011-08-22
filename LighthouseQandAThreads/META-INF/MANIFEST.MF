@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.draw2d,
  edu.uci.lighthouse.model;bundle-version="1.0.6",
  edu.uci.lighthouse.core;bundle-version="1.0.6",
- edu.uci.lighthouse.services;bundle-version="1.0.0"
+ edu.uci.lighthouse.services;bundle-version="1.0.0",
+ LighthouseModelExtension
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
