@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension;
 
@@ -15,6 +16,7 @@ public class Forum implements ILHclassPluginExtension{
     @GeneratedValue
     int id;
     
+    @OneToMany
 	ArrayList<Thread> threads = new ArrayList<Thread>();
 	
 	public void addThread(Thread thread){
