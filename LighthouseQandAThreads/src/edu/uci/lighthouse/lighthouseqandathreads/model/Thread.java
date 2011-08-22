@@ -15,7 +15,7 @@ public class Thread {
     
 	private Post rootQuestion;
 	private Solution solution;
-	//public ThreadCreator threadCreator;
+	public ThreadCreator threadCreator;
 
 	public Thread(Post question) {
 		rootQuestion = question;
