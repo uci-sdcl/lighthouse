@@ -24,12 +24,12 @@ public class ClassPluginLoader {
 		return loader;
 	}
 
-	public List<ILHclassPluginExtension> loadClassPluginExtensions() {
+	public List<LHclassPluginExtension> loadClassPluginExtensions() {
 
-		final ArrayList<ILHclassPluginExtension> listOfExt = new ArrayList<ILHclassPluginExtension>();
+		final ArrayList<LHclassPluginExtension> listOfExt = new ArrayList<LHclassPluginExtension>();
 		
 		IConfigurationElement[] config = Platform.getExtensionRegistry()
-				.getConfigurationElementsFor(ILHclassPluginExtension.ILHclassPluginExtension_ID);
+				.getConfigurationElementsFor(LHclassPluginExtension.ILHclassPluginExtension_ID);
 		try {
 			for (IConfigurationElement e : config) {
 				
@@ -37,7 +37,7 @@ public class ClassPluginLoader {
 				
 				final Object o = e.createExecutableExtension("class");
 				
-				if (o instanceof ILHclassPluginExtension) {
+				if (o instanceof LHclassPluginExtension) {
 					ISafeRunnable runnable = new ISafeRunnable() {
 						
 						public void handleException(Throwable exception) {
@@ -45,7 +45,7 @@ public class ClassPluginLoader {
 						}
 				
 						public void run() throws Exception {
-							listOfExt.add((ILHclassPluginExtension)o);
+							listOfExt.add((LHclassPluginExtension)o);
 						}
 					};
 					SafeRunner.run(runnable);
