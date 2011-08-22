@@ -38,8 +38,13 @@ public class ClassPluginLoader {
 				final Object o = e.createExecutableExtension("class");
 				
 				if (o instanceof LHclassPluginExtension) {
+					
+					System.out.println(o.getClass().getName());
+
+					
 					ISafeRunnable runnable = new ISafeRunnable() {
 						
+				
 						public void handleException(Throwable exception) {
 							System.out.println("Exception in classExtension");
 						}
