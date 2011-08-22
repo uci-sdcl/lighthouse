@@ -39,7 +39,7 @@ public class ClassPluginLoader {
 				
 				if (o instanceof LHclassPluginExtension) {
 					
-					System.out.println(o.getClass().getName());
+					System.out.println("Evaluating classExtension");
 
 					
 					ISafeRunnable runnable = new ISafeRunnable() {
