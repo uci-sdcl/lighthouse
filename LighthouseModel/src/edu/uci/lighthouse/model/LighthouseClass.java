@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 
 import edu.uci.lighthouse.LHmodelExtensions.ClassPluginLoader;
-import edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension;
+import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 
 
@@ -20,7 +20,7 @@ public class LighthouseClass extends LighthouseEntity {
 	private static final long serialVersionUID = 2097778395729254060L;
 	
 	//@author: Lee
-	ArrayList<ILHclassPluginExtension> extensions = new ArrayList<ILHclassPluginExtension>(); 
+	ArrayList<LHclassPluginExtension> extensions = new ArrayList<LHclassPluginExtension>(); 
 	
 	protected LighthouseClass() {
 		this("");
@@ -42,7 +42,7 @@ public class LighthouseClass extends LighthouseEntity {
 	
 	
 	private void loadExtensions(){
-		List<ILHclassPluginExtension> listOfExt = 
+		List<LHclassPluginExtension> listOfExt = 
 			ClassPluginLoader.getInstance().loadClassPluginExtensions();
 		extensions.clear();
 		extensions.addAll(listOfExt);
