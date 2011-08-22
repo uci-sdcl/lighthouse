@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension;
+
 @Entity
-public class Forum {
+public class Forum implements ILHclassPluginExtension{
     @Id
     @GeneratedValue
     int id;

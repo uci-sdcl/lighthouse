@@ -10,7 +10,7 @@
    <extension
          point="edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension">
       <classExtension
-            class="edu.uci.lighthouse.lighthouseqandathreads.model.Post">
+            class="edu.uci.lighthouse.lighthouseqandathreads.model.Forum">
       </classExtension>
    </extension>
 
