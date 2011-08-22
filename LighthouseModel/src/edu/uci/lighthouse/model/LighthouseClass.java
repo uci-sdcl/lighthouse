@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 
+import edu.uci.lighthouse.LHmodelExtensions.ClassPluginLoader;
 import edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension;
 
 
@@ -18,14 +20,16 @@ public class LighthouseClass extends LighthouseEntity {
 	private static final long serialVersionUID = 2097778395729254060L;
 	
 	//@author: Lee
-	ArrayList<ILHclassPluginExtension> extensionPoints = new ArrayList<ILHclassPluginExtension>(); 
+	ArrayList<ILHclassPluginExtension> extensions = new ArrayList<ILHclassPluginExtension>(); 
 	
 	protected LighthouseClass() {
 		this("");
+		loadExtensions();
 	}
 
 	public LighthouseClass(String fqn) {
 		super(fqn);
+		loadExtensions();
 	}
 	
 	public boolean isAnonymous(){
@@ -36,16 +40,12 @@ public class LighthouseClass extends LighthouseEntity {
 		return getFullyQualifiedName().matches("(\\w+\\.)*(\\w+\\$)+[a-zA-Z_]+");
 	}
 	
-	//@author: Lee
-	private void addClassExtensions(){
-	//	IConfigurationElement[] config = Platform.getExtensionRegistry()
-	//	.getConfigurationElementsFor(COMPARTMENT_ID);
-	}
 	
-	//@author: Lee
-	public void addClassPluginExtension(ILHclassPluginExtension extension){
-		this.extensionPoints.add(extension);
+	private void loadExtensions(){
+		List<ILHclassPluginExtension> listOfExt = 
+			ClassPluginLoader.getInstance().loadClassPluginExtensions();
+		extensions.clear();
+		extensions.addAll(listOfExt);
 	}
-	
 	
 }
