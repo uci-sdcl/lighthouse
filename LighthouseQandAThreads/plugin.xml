@@ -8,7 +8,7 @@
       </compartment>
    </extension>
    <extension
-         point="edu.uci.lighthouse.LHmodelExtensions.ILHclassPluginExtension">
+         point="edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension">
       <classExtension
             class="edu.uci.lighthouse.lighthouseqandathreads.model.Forum">
       </classExtension>
