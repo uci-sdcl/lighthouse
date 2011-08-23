@@ -25,6 +25,12 @@ public class Controller implements Observer{
 		this.forum.addObserver(this);
 		this.entity = entity;
 		
+		populateTree(forum);
+	}
+	
+	private void populateTree(LHforum forum){
+		nqDialog.clearTree();
+		nqDialog.populateTree(forum);
 	}
 	
 
@@ -44,15 +50,18 @@ public class Controller implements Observer{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		/*if(DataBase update){
 			//new reply Post to Post
 			
 		}else if(Dialog update){
 			//loaded?
 		}*/
-		nqDialog.clearTree();
+		
+		populateTree(forum);
+		
 		//nqDialog.populateTree(FakeDataBase.getInstance().getForum());
-		nqDialog.populateTree(forum);
+
 	}
 	
 	
