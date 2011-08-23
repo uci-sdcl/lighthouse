@@ -25,7 +25,7 @@ public class Controller implements Observer{
 		this.forum.addObserver(this);
 		this.entity = entity;
 		
-		populateTree(forum);
+		
 	}
 	
 	private void populateTree(LHforum forum){
