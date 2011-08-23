@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.LHmodelExtensions;
 
 import java.io.Serializable;
+import java.util.Observable;
 
 import javax.persistence.Entity;
 
@@ -10,7 +11,7 @@ import javax.persistence.Entity;
  *
  */
 @Entity
-public abstract class LHclassPluginExtension implements Serializable{
+public abstract class LHclassPluginExtension extends Observable implements Serializable{
 	
 	/**
 	 * 
