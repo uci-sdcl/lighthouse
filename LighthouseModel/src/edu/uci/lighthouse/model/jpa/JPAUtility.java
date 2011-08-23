@@ -1,10 +1,15 @@
 package edu.uci.lighthouse.model.jpa;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
@@ -12,6 +17,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.apache.log4j.Logger;
+import org.hibernate.ejb.Ejb3Configuration;
+
+import edu.uci.lighthouse.LHmodelExtensions.ClassPluginLoader;
+import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 /**
  * Utility persistence Class
@@ -36,14 +45,59 @@ public class JPAUtility {
 	public static void initializeEntityManagerFactory(Properties dbSettings) {
 		logger.info("initializing EntityManagerFactory...");
 		try {
-			EntityManagerFactory factory = Persistence
-					.createEntityManagerFactory(PERSISTENCE_UNIT, dbSettings);
+			EntityManagerFactory factory = makeEntityFactory(dbSettings);
 			cacheFactory.add(factory);
 			// Just change the reference if no RuntimeException is throw
 			factoryEntityManager = factory;
 		} catch (RuntimeException e) {
 			logger.error(e,e);
 		}
+	}
+	
+	/**
+	 * @author lee
+	 * @return
+	 */
+	private static EntityManagerFactory makeEntityFactory(Properties dbSettings){
+		
+		
+		   
+		   EntityManagerFactory factory = null;
+		
+		   
+	
+		 //  factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT, dbSettings);
+		
+	
+		
+		List<LHclassPluginExtension> listOfExt = 
+			ClassPluginLoader.getInstance().loadClassPluginExtensions();
+		
+		Ejb3Configuration cfg = new Ejb3Configuration();
+		
+		  cfg.addProperties( dbSettings ) //add some properties    
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseClass.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseExternalClass.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseField.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseInterface.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseMethod.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseModifier.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseRelationship.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseEvent.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.LighthouseAuthor.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent.class ) //add a class to be mapped
+		     .addAnnotatedClass( edu.uci.lighthouse.model.expertise.LighthouseQuestion.class ); //add a class to be mapped
+		     
+		  
+		     for(LHclassPluginExtension ext: listOfExt){
+				System.out.println(ext.getClass().getName());			
+		    	 cfg.addAnnotatedClass(ext.getClass());
+		     }
+
+		     factory = cfg.buildEntityManagerFactory(); //Create the entity manager factory*/
+		
+		
+		return factory;
 	}
 	
 	public static void shutdownEntityManagerFactory() {

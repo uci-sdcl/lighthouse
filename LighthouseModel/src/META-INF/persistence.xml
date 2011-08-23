@@ -5,6 +5,8 @@
 	<persistence-unit name="LighthousePersistenceUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
+		 
+		
 		<class>edu.uci.lighthouse.model.LighthouseClass</class>
 		<class>edu.uci.lighthouse.model.LighthouseExternalClass</class>
 		<class>edu.uci.lighthouse.model.LighthouseField</class>
