@@ -44,6 +44,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private String reply;
 	private String replySubject;
 	private TeamMember tm;
+	private Forum forum;
 
 	
 	public static int CLOSE = 0;
@@ -55,12 +56,13 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
-			int defaultIndex, TeamMember tm) {
+			int defaultIndex, TeamMember tm, Forum forum) {
 
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage,
 				dialogImageType, labelArray, defaultIndex);
 		
 		this.tm = tm;
+		this.forum = forum;
 		
 	}
 
@@ -155,7 +157,7 @@ public class NewQuestionDialog extends MessageDialog {
 				
 				if(replyeePost != null){
 					
-					
+					replyeePost.addResponse(newPost);
 					
 					//FakeDataBase.getInstance().reply(replyeePost, newPost);
 					replyBox.setText("");
@@ -217,6 +219,7 @@ public class NewQuestionDialog extends MessageDialog {
 			public void widgetSelected(SelectionEvent e) {
 				Post newPost = new Post(true, subject, question, tm);
 				//FakeDataBase.getInstance().addNewThread(newPost);
+				forum.addThread(new Thread(newPost));
 				questionText.setText("");
 				stSubject.setText("");
 			}

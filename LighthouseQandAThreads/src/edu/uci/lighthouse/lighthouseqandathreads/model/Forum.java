@@ -22,14 +22,21 @@ public class Forum extends LHclassPluginExtension implements Serializable{
     @GeneratedValue
     int id;
     
-    @OneToMany
+    
 	ArrayList<Thread> threads = new ArrayList<Thread>();
 	
 	public void addThread(Thread thread){
 		threads.add(thread);
+		forumChanged();
 	}
 	
 	public List<Thread> getThreads(){
 		return threads;
+	}
+	
+	private void forumChanged(){
+        setChanged();
+        notifyObservers();
+        clearChanged();
 	}
 }

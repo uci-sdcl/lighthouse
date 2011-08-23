@@ -1,10 +1,15 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import java.util.List;
+
+import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Controller;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
+import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
 import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
@@ -34,7 +39,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.draw2d.MouseListener;
 
-
 public class ThreadFigure extends CompartmentFigure {
 
 	private FlowLayout layout;
@@ -42,7 +46,7 @@ public class ThreadFigure extends CompartmentFigure {
 	private Button questionButton;
 
 	private Controller controller;
-	
+
 	public ThreadFigure() {
 		layout = new FlowLayout();
 		layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
@@ -50,9 +54,6 @@ public class ThreadFigure extends CompartmentFigure {
 		setLayoutManager(layout);
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
-		
-
-		
 
 	}
 
@@ -64,8 +65,6 @@ public class ThreadFigure extends CompartmentFigure {
 
 		QuestionButton questionButton = new QuestionButton(icon);
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
-		
-
 
 	}
 
@@ -77,6 +76,19 @@ public class ThreadFigure extends CompartmentFigure {
 		public void handleMouseReleased(MouseEvent event) {
 
 			LighthouseEntity le = getUmlClass();
+			LighthouseClass clazz = (LighthouseClass)le;
+			
+			List<LHclassPluginExtension> exts = clazz.getExtensions();
+			Forum forum = null;
+			
+			for(LHclassPluginExtension ext: exts){
+				if(ext instanceof Forum){
+					forum = (Forum)ext;
+					break;
+				}
+			}
+			
+			if(forum != null){
 			LighthouseAuthor author = ModelUtility.getAuthor();
 			TeamMember tm = new TeamMember(author);
 			
@@ -84,12 +96,13 @@ public class ThreadFigure extends CompartmentFigure {
 			
 			NewQuestionDialog nqDialog = new NewQuestionDialog(display.getActiveShell(), "Forum",
 					null, le.getFullyQualifiedName(),
-					MessageDialog.INFORMATION, SWT.OK,tm);
+					MessageDialog.INFORMATION, SWT.OK,tm, forum);
 
-			controller = new Controller(nqDialog);
+			controller = new Controller(nqDialog, forum);
 			
 			int response = nqDialog.open();
 			controller.stopObserving();
+			}
 			
 
 		}

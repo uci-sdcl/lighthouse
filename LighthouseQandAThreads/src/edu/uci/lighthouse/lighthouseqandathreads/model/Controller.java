@@ -11,17 +11,21 @@ import edu.uci.lighthouse.lighthouseqandathreads.NewQuestionDialog;
 
 public class Controller implements Observer{
 	NewQuestionDialog nqDialog;
-
+	Forum forum;
 	
-	public Controller(NewQuestionDialog dialog){
+	public Controller(NewQuestionDialog dialog, Forum forum){
 		nqDialog = dialog;
 		nqDialog.getObservablePoint().addObserver(this);
 		//FakeDataBase.getInstance().addObserver(this);
+		forum.addObserver(this);
 		
 	}
 	
+
+	
 	public void stopObserving(){
 		//FakeDataBase.getInstance().deleteObserver(this);
+		forum.deleteObserver(this);
 	}
 
 	@Override
@@ -34,8 +38,8 @@ public class Controller implements Observer{
 			//loaded?
 		}*/
 		nqDialog.clearTree();
-	//	nqDialog.populateTree(FakeDataBase.getInstance().getForum());
-		
+		//nqDialog.populateTree(FakeDataBase.getInstance().getForum());
+		nqDialog.populateTree(forum);
 	}
 	
 	
