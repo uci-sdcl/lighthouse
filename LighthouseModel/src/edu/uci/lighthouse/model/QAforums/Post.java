@@ -69,6 +69,8 @@ public class Post extends Observable implements Serializable, Observer{
 	
 	public void addResponse(Post post){
 		responses.add(post);
+		post.addObserver(this);
+		PostChanged();
 	}
 
 	public void setSubject(String subject) {
@@ -78,10 +80,15 @@ public class Post extends Observable implements Serializable, Observer{
 	public String getSubject() {
 		return subject;
 	}
+	
+	private void PostChanged(){
+		setChanged();
+		notifyObservers(new Update());
+	    clearChanged();
+	}
 
-	@Override
+	
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		PostChanged();		
 	}
 }

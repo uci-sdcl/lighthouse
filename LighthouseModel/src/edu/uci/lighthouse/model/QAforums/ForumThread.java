@@ -37,6 +37,7 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	}
 	public ForumThread(Post question) {
 		rootQuestion = question;
+		rootQuestion.addObserver(this);
 	}
 	
 
@@ -51,9 +52,14 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	public Solution getSolution(){
 		return solution;
 	}
-	@Override
+	
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		ThreadChanged();
+	}
+	
+	private void ThreadChanged(){
+		setChanged();
+		notifyObservers(new Update());
+	    clearChanged();
 	}
 }
