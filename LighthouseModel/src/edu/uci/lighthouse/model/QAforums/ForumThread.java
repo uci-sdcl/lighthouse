@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class ForumThread implements Serializable{
@@ -18,9 +20,14 @@ public class ForumThread implements Serializable{
 	@Id
     @GeneratedValue
     int id;
-    
+	
+	 @OneToOne(cascade = CascadeType.ALL)
 	private Post rootQuestion;
+	
+	 @OneToOne(cascade = CascadeType.ALL)
 	private Solution solution;
+	 
+	 @OneToOne(cascade = CascadeType.ALL)
 	public LHthreadCreator threadCreator;
 
 	public ForumThread(Post question) {
