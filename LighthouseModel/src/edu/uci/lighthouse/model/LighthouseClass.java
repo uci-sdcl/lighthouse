@@ -27,15 +27,17 @@ public class LighthouseClass extends LighthouseEntity {
 	ArrayList<LHclassPluginExtension> extensions = new ArrayList<LHclassPluginExtension>(); 
 	
 	/**@author lee*/
-	private LHforum forum = new LHforum();
+	private LHforum forum;
 	
 	protected LighthouseClass() {
 		this("");
+		forum = new LHforum();
 	//	loadExtensions();
 	}
 
 	public LighthouseClass(String fqn) {
 		super(fqn);
+		forum = new LHforum();
 	//	loadExtensions();
 	}
 	

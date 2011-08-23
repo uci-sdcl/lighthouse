@@ -2,6 +2,7 @@ package edu.uci.lighthouse.model.QAforums;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,8 +23,8 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
     @GeneratedValue
     int id;
     
-    
-	ArrayList<ForumThread> threads = new ArrayList<ForumThread>();
+	@OneToMany
+	Collection<ForumThread> threads = new ArrayList<ForumThread>();
 	
 	public void addThread(Post rootPost){
 		ForumThread thread = new ForumThread(rootPost);
@@ -34,7 +35,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
 		forumChanged();
 	}
 	
-	public List<ForumThread> getThreads(){
+	public Collection<ForumThread> getThreads(){
 		return threads;
 	}
 	
