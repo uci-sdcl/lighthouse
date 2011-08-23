@@ -74,7 +74,10 @@ public class ThreadFigure extends CompartmentFigure {
 		public void handleMouseReleased(MouseEvent event) {
 
 			LighthouseEntity le = getUmlClass();
-			LighthouseClass clazz = (LighthouseClass) le;
+			
+			
+			
+		    LighthouseClass clazz = (LighthouseClass) le;
 			LHforum forum = clazz.getForum();
 			
 			/*List<LHclassPluginExtension> exts = clazz.getExtensions();
@@ -87,7 +90,12 @@ public class ThreadFigure extends CompartmentFigure {
 				}
 			}*/
 
-			if (forum != null) {
+			if(forum == null){
+				forum = new LHforum();
+				clazz.setForum(forum);
+			}
+			
+			
 				LighthouseAuthor author = ModelUtility.getAuthor();
 				TeamMember tm = new TeamMember(author);
 
@@ -98,11 +106,11 @@ public class ThreadFigure extends CompartmentFigure {
 						le.getFullyQualifiedName(), MessageDialog.INFORMATION,
 						SWT.OK, tm, forum);
 
-				controller = new Controller(nqDialog, forum);
+				controller = new Controller(nqDialog, forum, clazz);
 
 				int response = nqDialog.open();
 				controller.stopObserving();
-			}
+			
 
 		}
 	}
