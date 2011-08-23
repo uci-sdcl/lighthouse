@@ -75,8 +75,9 @@ public class ThreadFigure extends CompartmentFigure {
 
 			LighthouseEntity le = getUmlClass();
 			LighthouseClass clazz = (LighthouseClass) le;
-
-			List<LHclassPluginExtension> exts = clazz.getExtensions();
+			LHforum forum = clazz.getForum();
+			
+			/*List<LHclassPluginExtension> exts = clazz.getExtensions();
 			LHforum forum = null;
 
 			for (LHclassPluginExtension ext : exts) {
@@ -84,7 +85,7 @@ public class ThreadFigure extends CompartmentFigure {
 					forum = (LHforum) ext;
 					break;
 				}
-			}
+			}*/
 
 			if (forum != null) {
 				LighthouseAuthor author = ModelUtility.getAuthor();
