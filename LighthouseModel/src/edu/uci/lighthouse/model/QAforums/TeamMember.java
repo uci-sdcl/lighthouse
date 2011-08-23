@@ -28,7 +28,7 @@ public class TeamMember implements Serializable{
     @GeneratedValue
     int id;
 	
-	 @OneToMany
+	 @OneToMany (cascade = CascadeType.ALL)
 	Collection<Post> posts = new ArrayList<Post>();
 	
 	 public TeamMember(){}

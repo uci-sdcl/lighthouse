@@ -3,6 +3,7 @@ package edu.uci.lighthouse.model.QAforums;
 import java.io.Serializable;
 import java.util.Vector;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,9 +20,9 @@ public class Solution implements Serializable{
     @GeneratedValue
     int id;
 	
-	@OneToOne
+	@OneToOne (cascade = CascadeType.ALL)
 	private Post question;
-	@OneToOne
+	@OneToOne (cascade = CascadeType.ALL)
 	private Post answer;
 	
 	public Solution(){}

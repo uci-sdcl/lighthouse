@@ -129,6 +129,25 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		JPAUtility.closeEntityManager(entityManager);
 		return result;
 	}
+	
+	/**
+	 * @author lee
+	 * @param entity
+	 * @throws JPAException
+	 */
+	public synchronized void persist(Object entity) throws JPAException {
+		EntityManager entityManager = JPAUtility.createEntityManager();
+
+		try {
+			JPAUtility.beginTransaction(entityManager);
+			entityManager.persist(entity);
+			JPAUtility.commitTransaction(entityManager);
+		} catch (RuntimeException e) {
+			throw new JPAException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
+		}
+		JPAUtility.closeEntityManager(entityManager);
+
+	}
 
 	public synchronized void remove(T entity) throws JPAException {
 		EntityManager entityManager = JPAUtility.createEntityManager();
