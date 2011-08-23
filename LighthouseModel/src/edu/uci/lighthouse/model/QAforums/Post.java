@@ -2,6 +2,7 @@ package edu.uci.lighthouse.model.QAforums;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Post implements Serializable{
 	private String subject;
 	private boolean question;
 	@OneToMany
-	private ArrayList<Post> responses = new ArrayList<Post>();
+	private Collection<Post> responses = new ArrayList<Post>();
 	private String message = "";
 	@ManyToOne
 	private TeamMember author;
@@ -57,7 +58,7 @@ public class Post implements Serializable{
 		return question;
 	}
 	
-	public List<Post> getResponses(){
+	public Collection<Post> getResponses(){
 		return responses;
 	}
 	
