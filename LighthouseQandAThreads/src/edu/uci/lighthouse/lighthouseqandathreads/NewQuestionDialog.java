@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 
@@ -244,7 +245,7 @@ public class NewQuestionDialog extends MessageDialog {
 		item.setData(rootPost);
 		item.setText(thread.getRootQuestion().getSubject());
 
-		List<Post> posts = thread.getRootQuestion().getResponses();
+		Collection<Post> posts = thread.getRootQuestion().getResponses();
 		for (Post child : posts) {
 			TreeItem childItem = new TreeItem(item, 0);
 			childItem.setData(child);
@@ -254,7 +255,7 @@ public class NewQuestionDialog extends MessageDialog {
 	}
 
 	private void setupSubTreeBranch(Post post, TreeItem parentItem) {
-		List<Post> children = post.getResponses();
+		Collection<Post> children = post.getResponses();
 		for (Post child : children) {
 			TreeItem childItem = new TreeItem(parentItem, 0);
 			childItem.setData(child);
