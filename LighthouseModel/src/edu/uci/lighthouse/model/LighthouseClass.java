@@ -14,6 +14,7 @@ import org.hibernate.cfg.Environment;
 
 import edu.uci.lighthouse.LHmodelExtensions.ClassPluginLoader;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
+import edu.uci.lighthouse.model.QAforums.LHforum;
 
 
 
@@ -25,6 +26,8 @@ public class LighthouseClass extends LighthouseEntity {
 	/**@author: Lee*/
 	ArrayList<LHclassPluginExtension> extensions = new ArrayList<LHclassPluginExtension>(); 
 	
+	/**@author lee*/
+	private LHforum forum = new LHforum();
 	
 	protected LighthouseClass() {
 		this("");
@@ -58,6 +61,14 @@ public class LighthouseClass extends LighthouseEntity {
 	
 	public List<LHclassPluginExtension> getExtensions(){
 		return extensions;
+	}
+
+	public void setForum(LHforum forum) {
+		this.forum = forum;
+	}
+
+	public LHforum getForum() {
+		return forum;
 	}
 	
 }
