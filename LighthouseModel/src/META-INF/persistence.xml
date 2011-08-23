@@ -24,7 +24,12 @@
 		<class>edu.uci.lighthouse.model.expertise.LighthouseQuestion</class>
 		
 		<class>edu.uci.lighthouse.model.QAforums.LHforum</class>
-
+		<class>edu.uci.lighthouse.model.QAforums.ForumThread</class>
+		<class>edu.uci.lighthouse.model.QAforums.LHthreadCreator</class>
+		<class>edu.uci.lighthouse.model.QAforums.Post</class>
+		<class>edu.uci.lighthouse.model.QAforums.Solution</class>
+		<class>edu.uci.lighthouse.model.QAforums.TeamMember</class>
+		
 		<properties>
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
