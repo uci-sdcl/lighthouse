@@ -1,10 +1,13 @@
 package edu.uci.lighthouse.core.controller;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -35,6 +38,7 @@ import edu.uci.lighthouse.core.dbactions.pull.UpdateAction;
 import edu.uci.lighthouse.core.dbactions.push.CommitAction;
 import edu.uci.lighthouse.core.dbactions.push.FileEventAction;
 import edu.uci.lighthouse.core.listeners.IJavaFileStatusListener;
+import edu.uci.lighthouse.core.listeners.ILHclassPluginExtensionObserver;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.listeners.ISVNEventListener;
 import edu.uci.lighthouse.core.parser.LighthouseParser;
@@ -52,7 +56,7 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
-IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListener*/ {
+IPluginListener, IPreferencesChangeListener, Observer /*, Runnable, IPropertyChangeListener*/ {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
 	/*
@@ -64,6 +68,10 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 	private DatabaseActionsBuffer buffer;
 	private LighthouseModel model;
 	private DatabaseActionsThread thread;
+	
+	
+	
+	
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -298,5 +306,15 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		compoundAction.add(new SynchronizeModelAction(WorkbenchUtility.getSVNInfoFromWorkspace()));
 		buffer.offer(new JobDecoratorAction(compoundAction, "Synchronize Model","Synchronizing model with database..."));
 		thread.play();
+	}
+
+	/**
+	 * Plugin class extensions will notify the controller of their changes and
+	 * the Controller will update the LH model 
+	 * @author lee
+	 */
+	public void update(Observable arg0, Object arg1) {
+
+		
 	}
 }
