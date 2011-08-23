@@ -32,6 +32,8 @@ public class Post implements Serializable{
 	@ManyToOne
 	private TeamMember author;
 	
+	public Post(){}
+	
 	public Post(boolean isQuestion, String subject, String message, TeamMember author){
 		this.subject = subject;
 		this.question = isQuestion;

@@ -31,6 +31,8 @@ public class TeamMember implements Serializable{
 	 @OneToMany
 	Collection<Post> posts = new ArrayList<Post>();
 	
+	 public TeamMember(){}
+	 
 	public TeamMember(LighthouseAuthor author){
 		this.setAuthor(author);
 	}

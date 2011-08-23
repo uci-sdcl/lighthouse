@@ -30,6 +30,9 @@ public class ForumThread implements Serializable{
 	 @OneToOne(cascade = CascadeType.ALL)
 	public LHthreadCreator threadCreator;
 
+	public ForumThread(){
+		
+	}
 	public ForumThread(Post question) {
 		rootQuestion = question;
 	}

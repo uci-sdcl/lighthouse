@@ -24,6 +24,7 @@ public class Solution implements Serializable{
 	@OneToOne
 	private Post answer;
 	
+	public Solution(){}
 	
 	public void setQuestion(Post question) {
 		this.question = question;

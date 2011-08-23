@@ -26,6 +26,8 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
 	@OneToMany
 	Collection<ForumThread> threads = new ArrayList<ForumThread>();
 	
+	public LHforum(){}
+	
 	public void addThread(Post rootPost){
 		ForumThread thread = new ForumThread(rootPost);
 		addThread(thread);
