@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.lighthouseqandathreads.model;
+package edu.uci.lighthouse.lighthouseqandathreads;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -6,7 +6,7 @@ import java.util.Observer;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 
-import edu.uci.lighthouse.lighthouseqandathreads.NewQuestionDialog;
+import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 
 
 public class Controller implements Observer{

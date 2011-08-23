@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
-import edu.uci.lighthouse.lighthouseqandathreads.model.Controller;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
