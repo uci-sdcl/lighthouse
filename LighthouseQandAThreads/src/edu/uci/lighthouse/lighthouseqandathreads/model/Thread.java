@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Thread {
-    @Id
+public class Thread implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4548381815095491038L;
+
+	@Id
     @GeneratedValue
     int id;
     

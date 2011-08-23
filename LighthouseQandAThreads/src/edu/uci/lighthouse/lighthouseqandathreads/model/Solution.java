@@ -1,12 +1,17 @@
 package edu.uci.lighthouse.lighthouseqandathreads.model;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Solution {
+public class Solution implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8237475573760634640L;
 	@OneToOne
 	private Post question;
 	@OneToOne

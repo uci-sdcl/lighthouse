@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,13 @@ import javax.persistence.OneToMany;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
-public class Forum extends LHclassPluginExtension{
-    @Id
+public class Forum extends LHclassPluginExtension implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8791302461228282266L;
+
+	@Id
     @GeneratedValue
     int id;
     
