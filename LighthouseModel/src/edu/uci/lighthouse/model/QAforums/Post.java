@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +17,7 @@ import javax.persistence.OneToMany;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
-public class Post implements Serializable{
+public class Post extends Observable implements Serializable, Observer{
     /**
 	 * 
 	 */
@@ -75,5 +77,11 @@ public class Post implements Serializable{
 
 	public String getSubject() {
 		return subject;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ import javax.persistence.OneToMany;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
-public class LHforum extends LHclassPluginExtension implements Serializable{
+public class LHforum extends LHclassPluginExtension implements Serializable, Observer{
     /**
 	 * 
 	 */
@@ -46,5 +48,9 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
         setChanged();
         notifyObservers(new Update());
         clearChanged();
+	}
+
+	public void update(Observable arg0, Object arg1) {
+		
 	}
 }

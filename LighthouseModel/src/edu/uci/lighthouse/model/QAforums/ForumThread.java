@@ -3,6 +3,8 @@ package edu.uci.lighthouse.model.QAforums;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ForumThread implements Serializable{
+public class ForumThread extends Observable implements Serializable, Observer{
     /**
 	 * 
 	 */
@@ -48,5 +50,10 @@ public class ForumThread implements Serializable{
 	
 	public Solution getSolution(){
 		return solution;
+	}
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }
