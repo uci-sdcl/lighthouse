@@ -23,7 +23,7 @@
 
 		<class>edu.uci.lighthouse.model.expertise.LighthouseQuestion</class>
 		
-		
+		<class>edu.uci.lighthouse.model.QAforums.LHforum</class>
 
 		<properties>
 			<property name="hibernate.format_sql" value="true" />
