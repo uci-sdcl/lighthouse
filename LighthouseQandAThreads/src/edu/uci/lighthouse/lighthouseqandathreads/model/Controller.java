@@ -15,9 +15,11 @@ public class Controller implements Observer{
 	
 	public Controller(NewQuestionDialog dialog, Forum forum){
 		nqDialog = dialog;
-		nqDialog.getObservablePoint().addObserver(this);
+		//nqDialog.getObservablePoint().addObserver(this);
 		//FakeDataBase.getInstance().addObserver(this);
-		forum.addObserver(this);
+		this.forum = forum;
+		this.forum.addObserver(this);
+		
 		
 	}
 	

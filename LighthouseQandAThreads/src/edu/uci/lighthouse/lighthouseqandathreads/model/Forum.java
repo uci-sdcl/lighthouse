@@ -25,6 +25,10 @@ public class Forum extends LHclassPluginExtension implements Serializable{
     
 	ArrayList<Thread> threads = new ArrayList<Thread>();
 	
+	public void addThread(Post rootPost){
+		Thread thread = new Thread(rootPost);
+		addThread(thread);
+	}
 	public void addThread(Thread thread){
 		threads.add(thread);
 		forumChanged();

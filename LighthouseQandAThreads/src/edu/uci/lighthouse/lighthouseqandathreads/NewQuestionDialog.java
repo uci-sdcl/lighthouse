@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import edu.uci.lighthouse.lighthouseqandathreads.model.Controller;
-import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
@@ -219,7 +218,7 @@ public class NewQuestionDialog extends MessageDialog {
 			public void widgetSelected(SelectionEvent e) {
 				Post newPost = new Post(true, subject, question, tm);
 				//FakeDataBase.getInstance().addNewThread(newPost);
-				forum.addThread(new Thread(newPost));
+				forum.addThread(newPost);
 				questionText.setText("");
 				stSubject.setText("");
 			}
