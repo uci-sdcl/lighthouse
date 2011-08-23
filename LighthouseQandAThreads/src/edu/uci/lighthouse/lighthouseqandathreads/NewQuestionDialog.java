@@ -79,6 +79,7 @@ public class NewQuestionDialog extends MessageDialog {
 		tabItem2.setText("Threads");
 		createThreadComposite(tabFolder, tabItem2);
 
+		 DialogChanged();
 		return tabFolder;
 	}
 
@@ -340,6 +341,12 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public class ObservableClass extends Observable{
 		
+	}
+	
+	private void DialogChanged(){
+	//	observablePoint.setChanged();
+		observablePoint.notifyObservers();
+	//	observablePoint.clearChanged();
 	}
 
 }
