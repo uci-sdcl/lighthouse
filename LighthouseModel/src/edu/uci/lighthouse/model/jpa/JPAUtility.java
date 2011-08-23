@@ -66,9 +66,9 @@ public class JPAUtility {
 		
 		   
 	
-		 //  factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT, dbSettings);
+		  factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT, dbSettings);
 		
-	
+	/*
 		
 		List<LHclassPluginExtension> listOfExt = 
 			ClassPluginLoader.getInstance().loadClassPluginExtensions();
