@@ -158,11 +158,9 @@ public class NewQuestionDialog extends MessageDialog {
 				Post replyeePost = getSelectedPost();
 				
 				if(replyeePost != null){
-					
 					replyeePost.addResponse(newPost);
-					
-					//FakeDataBase.getInstance().reply(replyeePost, newPost);
 					replyBox.setText("");
+					stSubject.setText("");
 				}
 			}
 		});
