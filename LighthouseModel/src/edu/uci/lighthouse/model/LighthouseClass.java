@@ -28,12 +28,12 @@ public class LighthouseClass extends LighthouseEntity {
 	
 	protected LighthouseClass() {
 		this("");
-		loadExtensions();
+	//	loadExtensions();
 	}
 
 	public LighthouseClass(String fqn) {
 		super(fqn);
-		loadExtensions();
+	//	loadExtensions();
 	}
 	
 	public boolean isAnonymous(){
