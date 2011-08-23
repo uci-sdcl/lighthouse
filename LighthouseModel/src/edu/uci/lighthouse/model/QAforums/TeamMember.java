@@ -21,7 +21,7 @@ public class TeamMember implements Serializable{
 		this.setAuthor(author);
 	}
 	
-	public void respondToThread(Thread aThread) {
+	public void respondToThread(ForumThread aThread) {
 		throw new UnsupportedOperationException();
 	}
 

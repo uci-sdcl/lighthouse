@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Thread implements Serializable{
+public class ForumThread implements Serializable{
     /**
 	 * 
 	 */
@@ -23,7 +23,7 @@ public class Thread implements Serializable{
 	private Solution solution;
 	public ThreadCreator threadCreator;
 
-	public Thread(Post question) {
+	public ForumThread(Post question) {
 		rootQuestion = question;
 	}
 	
