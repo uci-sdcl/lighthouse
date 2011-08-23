@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.swt;bundle-version="3.4.0",
  org.eclipse.core.resources;bundle-version="3.6.0",
  LighthouseModelExtension
 Export-Package: edu.uci.lighthouse.model,
+ edu.uci.lighthouse.model.QAforums,
  edu.uci.lighthouse.model.io,
  edu.uci.lighthouse.model.jpa,
  edu.uci.lighthouse.model.repository,
