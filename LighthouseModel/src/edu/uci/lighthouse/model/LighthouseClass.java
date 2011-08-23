@@ -3,6 +3,7 @@ package edu.uci.lighthouse.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -24,9 +25,10 @@ public class LighthouseClass extends LighthouseEntity {
 	private static final long serialVersionUID = 2097778395729254060L;
 	
 	/**@author: Lee*/
-	ArrayList<LHclassPluginExtension> extensions = new ArrayList<LHclassPluginExtension>(); 
+	//ArrayList<LHclassPluginExtension> extensions = new ArrayList<LHclassPluginExtension>(); 
 	
 	/**@author lee*/
+	 @OneToOne(cascade = CascadeType.ALL)
 	private LHforum forum;
 	
 	protected LighthouseClass() {
@@ -53,7 +55,7 @@ public class LighthouseClass extends LighthouseEntity {
 	/**
 	 * @author lee
 	 */
-	private void loadExtensions(){
+	/**private void loadExtensions(){
 		List<LHclassPluginExtension> listOfExt = 
 			ClassPluginLoader.getInstance().loadClassPluginExtensions();
 		extensions.clear();
@@ -63,7 +65,7 @@ public class LighthouseClass extends LighthouseEntity {
 	
 	public List<LHclassPluginExtension> getExtensions(){
 		return extensions;
-	}
+	}**/
 
 	public void setForum(LHforum forum) {
 		this.forum = forum;
