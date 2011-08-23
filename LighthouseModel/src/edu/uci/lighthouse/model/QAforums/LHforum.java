@@ -44,7 +44,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
 	
 	private void forumChanged(){
         setChanged();
-        notifyObservers();
+        notifyObservers(new Update());
         clearChanged();
 	}
 }
