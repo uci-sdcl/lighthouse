@@ -9,6 +9,8 @@ import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
+import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
@@ -93,6 +95,7 @@ public class ThreadFigure extends CompartmentFigure {
 			if(forum == null){
 				forum = new LHforum();
 				clazz.setForum(forum);
+				
 			}
 			
 			
