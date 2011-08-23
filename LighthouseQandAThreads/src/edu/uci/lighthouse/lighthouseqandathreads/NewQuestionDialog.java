@@ -30,6 +30,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uci.lighthouse.model.QAforums.IEvent;
+import edu.uci.lighthouse.model.QAforums.Init;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
@@ -79,7 +81,7 @@ public class NewQuestionDialog extends MessageDialog {
 		tabItem2.setText("Threads");
 		createThreadComposite(tabFolder, tabItem2);
 
-		 DialogChanged();
+		DialogChanged(new Init());
 		return tabFolder;
 	}
 
@@ -167,6 +169,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 	}
 	
+	
 	private Post getSelectedPost(){
 		TreeItem[] items = tree.getSelection();
 		for(TreeItem item: items){
@@ -228,12 +231,13 @@ public class NewQuestionDialog extends MessageDialog {
 	}
 
 	public void populateTree(LHforum forum) {
+		clearTree();
 		for (ForumThread thread : forum.getThreads()) {
 			setupTreeBranch(thread);
 		}
 	}
 	
-	public void clearTree(){
+	private void clearTree(){
 		tree.removeAll();
 	}
 
@@ -341,12 +345,29 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public class ObservableClass extends Observable{
 		
+		public void changed(){
+			setChanged();
+			notifyObservers();
+		    clearChanged();
+		}
+		
+		public void changed(IEvent event){
+			setChanged();
+			notifyObservers(event);
+		    clearChanged();
+		}
 	}
 	
 	private void DialogChanged(){
-	//	observablePoint.setChanged();
-		observablePoint.notifyObservers();
-	//	observablePoint.clearChanged();
+		this.observablePoint.changed();
+	}
+	
+	private void DialogChanged(IEvent event){
+		this.observablePoint.changed(event);
 	}
 
+	public int open(){
+		int response = super.open();
+		return response;
+	}
 }

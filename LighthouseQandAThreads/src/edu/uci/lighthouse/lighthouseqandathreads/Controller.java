@@ -13,40 +13,34 @@ import edu.uci.lighthouse.model.QAforums.Update;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 
-
-public class Controller implements Observer{
+public class Controller implements Observer {
 	NewQuestionDialog nqDialog;
 	LHforum forum;
 	LighthouseEntity entity;
-	
-	public Controller(NewQuestionDialog dialog, LHforum forum, LighthouseEntity entity){
+
+	public Controller(NewQuestionDialog dialog, LHforum forum,
+			LighthouseEntity entity) {
 		nqDialog = dialog;
 		nqDialog.getObservablePoint().addObserver(this);
-		
+
 		this.forum = forum;
 		this.forum.addObserver(this);
 		this.entity = entity;
-		
-		
+
 	}
-	
-	private void populateTree(LHforum forum){
-		nqDialog.clearTree();
+
+	public void populateTree(LHforum forum) {
 		nqDialog.populateTree(forum);
 	}
-	
 
-	
-	public void stopObserving(){
-		//FakeDataBase.getInstance().deleteObserver(this);
+	public void stopObserving() {
 		forum.deleteObserver(this);
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		
-		
-		if(arg0 == forum && arg1 instanceof Update){
+
+		if (arg0 == forum && arg1 instanceof Update) {
 			populateTree(forum);
 			LHEntityDAO entityDAO = new LHEntityDAO();
 			try {
@@ -55,21 +49,11 @@ public class Controller implements Observer{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		else if(arg0 == nqDialog.getObservablePoint() && arg1 instanceof Init){
+		} else if (arg0 == nqDialog.getObservablePoint()
+				&& arg1 instanceof Init) {
 			populateTree(forum);
 		}
-		
 
-		
-		/*if(DataBase update){
-			//new reply Post to Post
-			
-		}else if(Dialog update){
-			//loaded?
-		}*/
-		
 	}
-	
-	
+
 }

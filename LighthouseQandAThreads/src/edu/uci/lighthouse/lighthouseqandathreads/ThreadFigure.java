@@ -94,8 +94,7 @@ public class ThreadFigure extends CompartmentFigure {
 
 			if(forum == null){
 				forum = new LHforum();
-				clazz.setForum(forum);
-				
+				clazz.setForum(forum);		
 			}
 			
 			
