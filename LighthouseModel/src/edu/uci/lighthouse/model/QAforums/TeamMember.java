@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,6 +23,10 @@ public class TeamMember implements Serializable{
 	private static final long serialVersionUID = 1320293063793751427L;
 	@OneToOne
 	private LighthouseAuthor author;
+	
+	@Id
+    @GeneratedValue
+    int id;
 	
 	 @OneToMany
 	Collection<Post> posts = new ArrayList<Post>();

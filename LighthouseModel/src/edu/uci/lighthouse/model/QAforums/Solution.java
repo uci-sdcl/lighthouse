@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -12,6 +14,11 @@ public class Solution implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -8237475573760634640L;
+	
+	@Id
+    @GeneratedValue
+    int id;
+	
 	@OneToOne
 	private Post question;
 	@OneToOne
