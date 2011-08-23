@@ -2,6 +2,7 @@ package edu.uci.lighthouse.lighthouseqandathreads.model;
 
 import java.util.Observable;
 
+
 public class FakeDataBase extends Observable{
 	private Forum forum = new Forum();
 	private static FakeDataBase db;

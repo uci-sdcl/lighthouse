@@ -34,8 +34,8 @@ import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
-
 import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
+
 
 public class NewQuestionDialog extends MessageDialog {
 
@@ -157,7 +157,7 @@ public class NewQuestionDialog extends MessageDialog {
 					
 					
 					
-					FakeDataBase.getInstance().reply(replyeePost, newPost);
+					//FakeDataBase.getInstance().reply(replyeePost, newPost);
 					replyBox.setText("");
 				}
 			}
@@ -216,7 +216,7 @@ public class NewQuestionDialog extends MessageDialog {
 		submitButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				Post newPost = new Post(true, subject, question, tm);
-				FakeDataBase.getInstance().addNewThread(newPost);
+				//FakeDataBase.getInstance().addNewThread(newPost);
 				questionText.setText("");
 				stSubject.setText("");
 			}

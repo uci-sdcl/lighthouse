@@ -3,8 +3,6 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.model.Controller;
 import edu.uci.lighthouse.lighthouseqandathreads.model.FakeDataBase;
-import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
-import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
 import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -36,14 +34,13 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.draw2d.MouseListener;
 
-import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
 
 public class ThreadFigure extends CompartmentFigure {
 
 	private FlowLayout layout;
 	private Image icon;
 	private Button questionButton;
-	//testing
+
 	private Controller controller;
 	
 	public ThreadFigure() {

@@ -16,12 +16,12 @@ public class Controller implements Observer{
 	public Controller(NewQuestionDialog dialog){
 		nqDialog = dialog;
 		nqDialog.getObservablePoint().addObserver(this);
-		FakeDataBase.getInstance().addObserver(this);
+		//FakeDataBase.getInstance().addObserver(this);
 		
 	}
 	
 	public void stopObserving(){
-		FakeDataBase.getInstance().deleteObserver(this);
+		//FakeDataBase.getInstance().deleteObserver(this);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class Controller implements Observer{
 			//loaded?
 		}*/
 		nqDialog.clearTree();
-		nqDialog.populateTree(FakeDataBase.getInstance().getForum());
+	//	nqDialog.populateTree(FakeDataBase.getInstance().getForum());
 		
 	}
 	
