@@ -29,10 +29,10 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
-import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
-import edu.uci.lighthouse.lighthouseqandathreads.model.Post;
-import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
-import edu.uci.lighthouse.lighthouseqandathreads.model.Thread;
+import edu.uci.lighthouse.model.QAforums.LHforum;
+import edu.uci.lighthouse.model.QAforums.Post;
+import edu.uci.lighthouse.model.QAforums.TeamMember;
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 
 
 public class NewQuestionDialog extends MessageDialog {
@@ -42,7 +42,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private String reply;
 	private String replySubject;
 	private TeamMember tm;
-	private Forum forum;
+	private LHforum forum;
 
 	
 	public static int CLOSE = 0;
@@ -54,7 +54,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
-			int defaultIndex, TeamMember tm, Forum forum) {
+			int defaultIndex, TeamMember tm, LHforum forum) {
 
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage,
 				dialogImageType, labelArray, defaultIndex);
@@ -225,8 +225,8 @@ public class NewQuestionDialog extends MessageDialog {
 
 	}
 
-	public void populateTree(Forum forum) {
-		for (Thread thread : forum.getThreads()) {
+	public void populateTree(LHforum forum) {
+		for (ForumThread thread : forum.getThreads()) {
 			setupTreeBranch(thread);
 		}
 	}
@@ -235,7 +235,7 @@ public class NewQuestionDialog extends MessageDialog {
 		tree.removeAll();
 	}
 
-	private void setupTreeBranch(Thread thread) {
+	private void setupTreeBranch(ForumThread thread) {
 		Post rootPost = thread.getRootQuestion();
 
 

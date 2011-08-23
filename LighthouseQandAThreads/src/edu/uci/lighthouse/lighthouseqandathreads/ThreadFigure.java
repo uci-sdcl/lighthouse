@@ -4,11 +4,11 @@ import java.util.List;
 
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 import edu.uci.lighthouse.core.util.ModelUtility;
-import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
-import edu.uci.lighthouse.lighthouseqandathreads.model.TeamMember;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.QAforums.LHforum;
+import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
@@ -77,11 +77,11 @@ public class ThreadFigure extends CompartmentFigure {
 			LighthouseClass clazz = (LighthouseClass) le;
 
 			List<LHclassPluginExtension> exts = clazz.getExtensions();
-			Forum forum = null;
+			LHforum forum = null;
 
 			for (LHclassPluginExtension ext : exts) {
-				if (ext instanceof Forum) {
-					forum = (Forum) ext;
+				if (ext instanceof LHforum) {
+					forum = (LHforum) ext;
 					break;
 				}
 			}

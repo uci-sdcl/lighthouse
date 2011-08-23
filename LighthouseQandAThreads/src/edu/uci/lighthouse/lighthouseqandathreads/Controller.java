@@ -6,14 +6,14 @@ import java.util.Observer;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 
-import edu.uci.lighthouse.lighthouseqandathreads.model.Forum;
+import edu.uci.lighthouse.model.QAforums.LHforum;
 
 
 public class Controller implements Observer{
 	NewQuestionDialog nqDialog;
-	Forum forum;
+	LHforum forum;
 	
-	public Controller(NewQuestionDialog dialog, Forum forum){
+	public Controller(NewQuestionDialog dialog, LHforum forum){
 		nqDialog = dialog;
 		//nqDialog.getObservablePoint().addObserver(this);
 		//FakeDataBase.getInstance().addObserver(this);
