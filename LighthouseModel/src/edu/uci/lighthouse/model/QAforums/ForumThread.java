@@ -21,7 +21,7 @@ public class ForumThread implements Serializable{
     
 	private Post rootQuestion;
 	private Solution solution;
-	public ThreadCreator threadCreator;
+	public LHthreadCreator threadCreator;
 
 	public ForumThread(Post question) {
 		rootQuestion = question;

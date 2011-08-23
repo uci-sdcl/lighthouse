@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
-public class Forum extends LHclassPluginExtension implements Serializable{
+public class LHforum extends LHclassPluginExtension implements Serializable{
     /**
 	 * 
 	 */

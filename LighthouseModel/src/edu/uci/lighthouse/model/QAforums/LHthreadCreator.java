@@ -8,14 +8,14 @@ import javax.persistence.Entity;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 
 @Entity
-public class ThreadCreator extends TeamMember implements Serializable{
+public class LHthreadCreator extends TeamMember implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4647444857832804956L;
 
-	public ThreadCreator(LighthouseAuthor author){
+	public LHthreadCreator(LighthouseAuthor author){
 		super(author);
 	}
 	
