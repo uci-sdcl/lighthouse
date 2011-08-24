@@ -9,9 +9,13 @@ import java.util.Observer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.CollectionOfElements;
 
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
@@ -26,7 +30,8 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
     @GeneratedValue
     int id;
     
-	@OneToMany (cascade = CascadeType.ALL)
+	
+	@OneToMany (fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	Collection<ForumThread> threads = new ArrayList<ForumThread>();
 	
 	public LHforum(){
