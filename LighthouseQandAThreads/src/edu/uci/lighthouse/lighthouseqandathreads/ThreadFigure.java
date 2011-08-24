@@ -8,6 +8,7 @@ import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.QAforums.LHforum;
+import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
@@ -99,7 +100,7 @@ public class ThreadFigure extends CompartmentFigure {
 			
 			
 				LighthouseAuthor author = ModelUtility.getAuthor();
-				TeamMember tm = new TeamMember(author);
+				LHthreadCreator tm = new LHthreadCreator(author);
 
 				Display display = Display.getDefault();
 
