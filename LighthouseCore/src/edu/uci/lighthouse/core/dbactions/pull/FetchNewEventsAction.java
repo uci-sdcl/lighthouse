@@ -12,6 +12,7 @@ import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.ISubscriber;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
 public class FetchNewEventsAction implements IDatabaseAction {
@@ -42,9 +43,10 @@ public class FetchNewEventsAction implements IDatabaseAction {
 		if (events.size()>0) {
 			//
 			sendSubscribersEvents(events);
-			
+			System.out.println(listOfSubs.size());
 			UpdateLighthouseModel.addEvents(events);
 			ModelUtility.fireModificationsToUI(events);
+			
 		} else {
 			logger.debug("Events fecthed from database: " + events);
 		}

@@ -97,7 +97,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 				databaseAction.run();
 				buffer.poll();
 			}			
-			//sendLighthouseEventsToSubscribers();
+			
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 				buffer.offer(new FetchNewEventsAction(Controller.getInstance().getSubscribers()));

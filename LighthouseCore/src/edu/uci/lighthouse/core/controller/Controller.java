@@ -343,8 +343,20 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		this.subscribers.add(subscriber);
 	}
 
+	/**
+	 * @author lee
+	 * @return
+	 */
 	public List<ISubscriber> getSubscribers() {
 		return subscribers;
+	}
+	
+	/**
+	 * @author lee
+	 * @return
+	 */
+	public LighthouseModel getModel(){
+		return model;
 	}
 
 
