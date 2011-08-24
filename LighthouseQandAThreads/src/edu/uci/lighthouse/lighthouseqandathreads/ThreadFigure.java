@@ -40,11 +40,16 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.draw2d.MouseListener;
 
+import org.eclipse.draw2d.Label;
+
 public class ThreadFigure extends CompartmentFigure {
 
 	private FlowLayout layout;
 	private Image icon;
 	private Button questionButton;
+	private LighthouseEntity le;
+    private LighthouseClass clazz;
+	private LHforum forum;
 
 	private Controller controller;
 
@@ -55,6 +60,8 @@ public class ThreadFigure extends CompartmentFigure {
 		setLayoutManager(layout);
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
+		
+
 
 	}
 
@@ -63,9 +70,21 @@ public class ThreadFigure extends CompartmentFigure {
 	}
 
 	public void populate(MODE mode) {
+		
+		le = getUmlClass();			
+	    clazz = (LighthouseClass) le;
+		forum = clazz.getForum();
+		if(forum == null){
+			forum = new LHforum();
+			clazz.setForum(forum);		
+		}
 
 		QuestionButton questionButton = new QuestionButton(icon);
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
+		
+		Label label = new Label();
+		this.add(label);
+
 
 	}
 
@@ -76,12 +95,6 @@ public class ThreadFigure extends CompartmentFigure {
 
 		public void handleMouseReleased(MouseEvent event) {
 
-			LighthouseEntity le = getUmlClass();
-			
-			
-			
-		    LighthouseClass clazz = (LighthouseClass) le;
-			LHforum forum = clazz.getForum();
 			
 			/*List<LHclassPluginExtension> exts = clazz.getExtensions();
 			LHforum forum = null;
@@ -93,10 +106,7 @@ public class ThreadFigure extends CompartmentFigure {
 				}
 			}*/
 
-			if(forum == null){
-				forum = new LHforum();
-				clazz.setForum(forum);		
-			}
+
 			
 			
 				LighthouseAuthor author = ModelUtility.getAuthor();
