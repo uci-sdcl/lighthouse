@@ -23,13 +23,13 @@ public class ForumThread extends Observable implements Serializable, Observer{
     @GeneratedValue
     int id;
 	
-	 @OneToOne(cascade = CascadeType.ALL)
+	 @OneToOne
 	private Post rootQuestion;
 	
-	 @OneToOne(cascade = CascadeType.ALL)
+	 @OneToOne
 	private Solution solution;
 	 
-	 @OneToOne(cascade = CascadeType.ALL)
+	 @OneToOne
 	public LHthreadCreator threadCreator;
 
 	public ForumThread(){
