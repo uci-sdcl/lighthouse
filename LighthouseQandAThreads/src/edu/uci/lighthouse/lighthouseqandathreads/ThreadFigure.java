@@ -53,7 +53,7 @@ public class ThreadFigure extends CompartmentFigure {
     private LighthouseClass clazz;
 	private LHforum forum;
 
-	private Controller controller;
+	private QAController controller;
 
 	public ThreadFigure() {
 		layout = new FlowLayout();
@@ -131,7 +131,7 @@ public class ThreadFigure extends CompartmentFigure {
 						le.getFullyQualifiedName(), MessageDialog.INFORMATION,
 						SWT.OK, tm, forum);
 
-				controller = new Controller(nqDialog, forum, clazz);
+				controller = new QAController(nqDialog, forum, clazz);
 
 				int response = nqDialog.open();
 				controller.stopObserving();

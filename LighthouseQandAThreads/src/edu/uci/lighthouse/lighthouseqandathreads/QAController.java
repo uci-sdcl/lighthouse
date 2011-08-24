@@ -13,12 +13,12 @@ import edu.uci.lighthouse.model.QAforums.Update;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 
-public class Controller implements Observer {
+public class QAController implements Observer {
 	NewQuestionDialog nqDialog;
 	LHforum forum;
 	LighthouseEntity entity;
 
-	public Controller(NewQuestionDialog dialog, LHforum forum,
+	public QAController(NewQuestionDialog dialog, LHforum forum,
 			LighthouseEntity entity) {
 		nqDialog = dialog;
 		nqDialog.getObservablePoint().addObserver(this);
@@ -44,6 +44,8 @@ public class Controller implements Observer {
 
 		if (arg0 == forum && arg1 instanceof Update) {
 			populateTree(forum);
+			
+			
 
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {
