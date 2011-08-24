@@ -329,6 +329,16 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 	public DatabaseActionsBuffer getBuffer(){
 		return buffer;
 	}
+	
+	/**
+	 * Used by other plugins to get DatabaseThread.
+	 * 
+	 * Can be used to add subscribers to this thread. 
+	 * @return
+	 */
+	public DatabaseActionsThread getDBthread(){
+		return thread;
+	}
 
 
 }

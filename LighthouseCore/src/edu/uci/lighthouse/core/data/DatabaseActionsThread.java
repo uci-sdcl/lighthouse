@@ -1,10 +1,14 @@
 package edu.uci.lighthouse.core.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 
+import edu.uci.lighthouse.core.controller.PullModel;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
@@ -12,6 +16,9 @@ import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.core.widgets.StatusWidget;
+import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 
 
@@ -30,6 +37,9 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	private DatabaseActionsBuffer buffer;
 		
 	private static Logger logger = Logger.getLogger(DatabaseActionsThread.class);
+	
+	/**@author lee*/
+	ArrayList<ISubscriber> subscribers = new ArrayList<ISubscriber>();
 	
 	public DatabaseActionsThread(DatabaseActionsBuffer buffer) {
 		super(DatabaseActionsThread.class.getName());
@@ -91,6 +101,8 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 				buffer.offer(new FetchNewEventsAction());
+				/**@author lee*/
+				sendLighthouseEventsToSubscribers();
 			}
 			backoffMultiplier = 1;
 		} catch (Exception ex) {
@@ -112,5 +124,33 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 		suspended = false;
 		StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 		notify();
+	}
+	
+	/**
+	 * Sends LighthouseEvents to subscribers
+	 * @author lee
+	 */
+	private void sendLighthouseEventsToSubscribers(){
+		LighthouseAuthor author = ModelUtility.getAuthor();
+		PullModel pullModel = PullModel.getInstance();
+		List<LighthouseEvent> events;
+		try {
+			events = pullModel.getNewEventsFromDB(author);
+			for(ISubscriber sub: subscribers){
+				sub.recive(events);
+			}
+		} catch (JPAException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * @author lee
+	 * @param subscriber
+	 */
+	public void subscribeToLighthouseEvents(ISubscriber subscriber){
+		this.subscribers.add(subscriber);
 	}
 }
