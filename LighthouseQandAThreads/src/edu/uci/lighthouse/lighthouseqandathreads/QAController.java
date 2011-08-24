@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -52,6 +54,13 @@ public class QAController implements Observer {
 			
 			Controller.getInstance().getBuffer().add(new ForumUpdateClientsAction(entity));
 
+			LighthouseAuthor author = ModelUtility.getAuthor();
+			LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,author,entity);
+			lh.setTimestamp(new Date(0));
+			ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();
+			listOfEvents.add(lh);
+			
+			Controller.getInstance().getBuffer().add(new ForumAddEventAction(listOfEvents));
 			
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {

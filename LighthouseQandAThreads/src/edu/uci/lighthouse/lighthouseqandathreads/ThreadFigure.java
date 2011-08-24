@@ -3,6 +3,7 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 import java.util.List;
 
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
+import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
@@ -54,6 +55,10 @@ public class ThreadFigure extends CompartmentFigure {
 	private LHforum forum;
 
 	private QAController controller;
+	
+	private LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
+	
+	MODE mode;
 
 	public ThreadFigure() {
 		layout = new FlowLayout();
@@ -63,7 +68,7 @@ public class ThreadFigure extends CompartmentFigure {
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
 		
-
+		//Controller.getInstance().getDBthread().subscribeToLighthouseEvents(subscriber);
 
 	}
 
@@ -72,7 +77,6 @@ public class ThreadFigure extends CompartmentFigure {
 	}
 
 	public void populate(MODE mode) {
-		
 		
 		le = getUmlClass();			
 	    clazz = (LighthouseClass) le;
