@@ -72,14 +72,12 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	}
 	
 	private void forumChanged(){
-		System.out.println("forum changed");
         setChanged();
         notifyObservers(new Update());
         clearChanged();
 	}
 
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("forum update");
 		forumChanged();
 	}
 }

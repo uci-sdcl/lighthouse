@@ -106,8 +106,6 @@ public class Post extends Observable implements Serializable, Observer{
 	}
 	
 	private void PostChanged(){
-		System.out.println("post changed");
-
 		setChanged();
 		notifyObservers(new Update());
 	    clearChanged();
@@ -115,8 +113,6 @@ public class Post extends Observable implements Serializable, Observer{
 
 	
 	public void update(Observable o, Object arg) {
-		System.out.println("post update");
-
 		PostChanged();		
 	}
 }
