@@ -24,6 +24,7 @@ public class Controller implements Observer {
 		nqDialog.getObservablePoint().addObserver(this);
 
 		this.forum = forum;
+		//need to init all the model's self observers because Observers are destroyed once model is marshaled and unmarshaled. 
 		this.forum.initObserving();
 		this.forum.addObserver(this);
 		this.entity = entity;
