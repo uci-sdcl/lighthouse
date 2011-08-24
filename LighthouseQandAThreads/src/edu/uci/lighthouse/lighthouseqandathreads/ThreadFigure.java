@@ -106,6 +106,8 @@ public class ThreadFigure extends CompartmentFigure {
 	}
 	
 
+	
+
 	private class QuestionButton extends Button {
 		public QuestionButton(Image icon) {
 			super(icon);
