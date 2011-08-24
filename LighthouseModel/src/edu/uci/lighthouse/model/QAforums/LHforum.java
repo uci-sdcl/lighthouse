@@ -71,6 +71,25 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 		initThreadObserving();
 	}
 	
+	public int countThreads(){
+		return threads.size();
+	}
+	
+	public int countSolvedThreads(){
+		int answered = 0;
+		
+		for(ForumThread thread: threads){
+			if(thread.hasSolution()){
+				answered++;
+			}
+		}
+		return answered;
+	}
+	
+	public int countUnSolvedThreads(){
+		return countThreads() - countSolvedThreads();
+	}
+	
 	private void forumChanged(){
         setChanged();
         notifyObservers(new Update());
