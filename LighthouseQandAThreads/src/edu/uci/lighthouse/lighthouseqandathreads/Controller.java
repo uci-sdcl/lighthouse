@@ -40,7 +40,6 @@ public class Controller implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("controller update");
 
 		if (arg0 == forum && arg1 instanceof Update) {
 			populateTree(forum);
