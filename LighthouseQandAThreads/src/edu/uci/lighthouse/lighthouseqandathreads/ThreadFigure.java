@@ -73,6 +73,7 @@ public class ThreadFigure extends CompartmentFigure {
 
 	public void populate(MODE mode) {
 		
+		
 		le = getUmlClass();			
 	    clazz = (LighthouseClass) le;
 		forum = clazz.getForum();
