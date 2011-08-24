@@ -20,6 +20,7 @@ import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
 import org.eclipse.draw2d.ChangeListener;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.MouseEvent;
@@ -82,11 +83,19 @@ public class ThreadFigure extends CompartmentFigure {
 		QuestionButton questionButton = new QuestionButton(icon);
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
 		
+		
+		
+		Panel panel = new Panel();
+		panel.setLayoutManager(layout);
+		
 		Label label = new Label(forum.countSolvedThreads()+"/"+forum.countThreads()+"");
-		this.add(label);
+		panel.add(new ImageFigure(icon));
+		panel.add(label);
+		this.add(panel);
 
 
 	}
+	
 
 	private class QuestionButton extends Button {
 		public QuestionButton(Image icon) {
