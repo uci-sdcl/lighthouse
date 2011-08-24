@@ -97,14 +97,11 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 				IDatabaseAction databaseAction = buffer.peek();
 				databaseAction.run();
 				buffer.poll();
-			}
-			
-			/**@author lee*/
-			sendLighthouseEventsToSubscribers();
-			
+			}			
+			//sendLighthouseEventsToSubscribers();
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-				buffer.offer(new FetchNewEventsAction());
+				buffer.offer(new FetchNewEventsAction(subscribers));
 			}
 			backoffMultiplier = 1;
 		} catch (Exception ex) {
@@ -139,7 +136,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 		try {
 			events = pullModel.getNewEventsFromDB(author);
 			for(ISubscriber sub: subscribers){
-				sub.recive(events);
+				sub.receive(events);
 			}
 		} catch (JPAException e) {
 			// TODO Auto-generated catch block

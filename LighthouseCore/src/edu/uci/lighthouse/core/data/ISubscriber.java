@@ -13,5 +13,5 @@ import edu.uci.lighthouse.model.LighthouseEvent;
  */
 public interface ISubscriber{
 
-	public void recive(List<LighthouseEvent> events);
+	public void receive(List<LighthouseEvent> events);
 }
