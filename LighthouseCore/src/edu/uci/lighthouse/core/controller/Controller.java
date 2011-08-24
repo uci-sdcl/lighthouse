@@ -351,13 +351,7 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		return subscribers;
 	}
 	
-	/**
-	 * @author lee
-	 * @return
-	 */
-	public LighthouseModel getModel(){
-		return model;
-	}
+
 
 
 }
