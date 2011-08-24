@@ -24,6 +24,7 @@ public class Controller implements Observer {
 		nqDialog.getObservablePoint().addObserver(this);
 
 		this.forum = forum;
+		this.forum.initObserving();
 		this.forum.addObserver(this);
 		this.entity = entity;
 
@@ -39,6 +40,7 @@ public class Controller implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		System.out.println("controller update");
 
 		if (arg0 == forum && arg1 instanceof Update) {
 			populateTree(forum);
