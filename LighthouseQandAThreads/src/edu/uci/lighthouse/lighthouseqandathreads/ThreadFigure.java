@@ -10,6 +10,7 @@ import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
+import edu.uci.lighthouse.model.QAforums.LighthouseQAEventSubscriber;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
@@ -68,7 +69,7 @@ public class ThreadFigure extends CompartmentFigure {
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
 		
-		Controller.getInstance().getDBthread().subscribeToLighthouseEvents(subscriber);
+		Controller.getInstance().subscribeToLighthouseEvents(subscriber);
 
 	}
 
