@@ -21,8 +21,9 @@ Eclipse-RegisterBuddy: edu.uci.lighthouse.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: 
- edu.uci.lighthouse.core.util,
+ edu.uci.lighthouse.core.controller,
  edu.uci.lighthouse.core.dbactions,
- edu.uci.lighthouse.core.controller
+ edu.uci.lighthouse.core.dbactions.pull,
+ edu.uci.lighthouse.core.util
 Bundle-ClassPath: .,
  lib/jsch-0.1.42.jar

@@ -70,10 +70,15 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 	private DatabaseActionsThread thread;
 	
 	
+	/**@author lee*/
 	private static Controller controller;
 	
 	private Controller(){}
 	
+	/**
+	 * @author lee
+	 * @return
+	 */
 	public static Controller getInstance(){
 		if(controller == null){
 			controller = new Controller();
@@ -316,6 +321,11 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		thread.play();
 	}
 	
+	/**
+	 * Used by other plugins to add DataBaseActions to the buffer
+	 * @author lee
+	 * @return
+	 */
 	public DatabaseActionsBuffer getBuffer(){
 		return buffer;
 	}
