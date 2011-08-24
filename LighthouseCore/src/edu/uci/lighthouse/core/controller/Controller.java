@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -47,6 +48,7 @@ import edu.uci.lighthouse.core.preferences.IPreferencesChangeListener;
 import edu.uci.lighthouse.core.preferences.PreferencesNotifier;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
+import edu.uci.lighthouse.model.ISubscriber;
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseFile;
@@ -72,6 +74,8 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 	
 	/**@author lee*/
 	private static Controller controller;
+	/**@author lee*/
+	ArrayList<ISubscriber> subscribers = new ArrayList<ISubscriber>();
 	
 	private Controller(){}
 	
@@ -330,14 +334,17 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		return buffer;
 	}
 	
+	
 	/**
-	 * Used by other plugins to get DatabaseThread.
-	 * 
-	 * Can be used to add subscribers to this thread. 
-	 * @return
+	 * @author lee
+	 * @param subscriber
 	 */
-	public DatabaseActionsThread getDBthread(){
-		return thread;
+	public void subscribeToLighthouseEvents(ISubscriber subscriber){
+		this.subscribers.add(subscriber);
+	}
+
+	public List<ISubscriber> getSubscribers() {
+		return subscribers;
 	}
 
 

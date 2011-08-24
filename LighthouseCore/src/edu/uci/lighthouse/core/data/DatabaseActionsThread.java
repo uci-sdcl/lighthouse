@@ -8,6 +8,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 
+import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.controller.PullModel;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
@@ -38,9 +39,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 		
 	private static Logger logger = Logger.getLogger(DatabaseActionsThread.class);
 	
-	/**@author lee*/
-	ArrayList<ISubscriber> subscribers = new ArrayList<ISubscriber>();
-	
+
 	public DatabaseActionsThread(DatabaseActionsBuffer buffer) {
 		super(DatabaseActionsThread.class.getName());
 		this.buffer = buffer;
@@ -101,7 +100,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 			//sendLighthouseEventsToSubscribers();
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-				buffer.offer(new FetchNewEventsAction(subscribers));
+				buffer.offer(new FetchNewEventsAction(Controller.getInstance().getSubscribers()));
 			}
 			backoffMultiplier = 1;
 		} catch (Exception ex) {
@@ -125,31 +124,6 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 		notify();
 	}
 	
-	/**
-	 * Sends LighthouseEvents to subscribers
-	 * @author lee
-	 */
-	private void sendLighthouseEventsToSubscribers(){
-		LighthouseAuthor author = ModelUtility.getAuthor();
-		PullModel pullModel = PullModel.getInstance();
-		List<LighthouseEvent> events;
-		try {
-			events = pullModel.getNewEventsFromDB(author);
-			for(ISubscriber sub: subscribers){
-				sub.receive(events);
-			}
-		} catch (JPAException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-	}
-	
-	/**
-	 * @author lee
-	 * @param subscriber
-	 */
-	public void subscribeToLighthouseEvents(ISubscriber subscriber){
-		this.subscribers.add(subscriber);
-	}
+
 }
