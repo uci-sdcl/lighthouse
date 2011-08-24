@@ -82,7 +82,7 @@ public class ThreadFigure extends CompartmentFigure {
 		QuestionButton questionButton = new QuestionButton(icon);
 		this.add(questionButton, new Rectangle(0, 0, 10, 10));
 		
-		Label label = new Label();
+		Label label = new Label(forum.countSolvedThreads()+"/"+forum.countThreads()+"");
 		this.add(label);
 
 
