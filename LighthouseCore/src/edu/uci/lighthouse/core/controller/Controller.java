@@ -56,7 +56,7 @@ import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.parser.ParserException;
 
 public class Controller implements ISVNEventListener, IJavaFileStatusListener,
-IPluginListener, IPreferencesChangeListener, Observer /*, Runnable, IPropertyChangeListener*/ {
+IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListener*/ {
 
 	private static Logger logger = Logger.getLogger(Controller.class);
 	/*
@@ -308,13 +308,5 @@ IPluginListener, IPreferencesChangeListener, Observer /*, Runnable, IPropertyCha
 		thread.play();
 	}
 
-	/**
-	 * Plugin class extensions will notify the controller of their changes and
-	 * the Controller will update the LH model 
-	 * @author lee
-	 */
-	public void update(Observable arg0, Object arg1) {
 
-		
-	}
 }
