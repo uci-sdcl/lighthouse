@@ -9,6 +9,7 @@ import java.util.Observer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -29,7 +30,7 @@ public class Post extends Observable implements Serializable, Observer{
     
 	private String subject;
 	private boolean question;
-	@OneToMany (cascade = CascadeType.ALL)
+	@OneToMany (fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	private Collection<Post> responses = new ArrayList<Post>();
 	private String message = "";
 	@ManyToOne (cascade = CascadeType.ALL)
