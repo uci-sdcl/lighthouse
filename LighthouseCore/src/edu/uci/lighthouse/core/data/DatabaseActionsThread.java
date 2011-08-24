@@ -98,11 +98,13 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 				databaseAction.run();
 				buffer.poll();
 			}
+			
+			/**@author lee*/
+			sendLighthouseEventsToSubscribers();
+			
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
 				buffer.offer(new FetchNewEventsAction());
-				/**@author lee*/
-				sendLighthouseEventsToSubscribers();
 			}
 			backoffMultiplier = 1;
 		} catch (Exception ex) {
