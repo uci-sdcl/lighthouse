@@ -34,7 +34,7 @@ import edu.uci.lighthouse.model.util.LHStringUtil;
 						//for author but there is no author parameter in this query!
 /*
 	/@NamedQuery(name = "LighthouseEvent.findByTimestamp",
-				query = "SELECT event " + 
+				query = "SELECT event " + how 
 						"FROM LighthouseEvent event " + 
 						"WHERE ( event.timestamp > :timestamp " +
 						"OR event.committedTime > :timestamp )")*/
