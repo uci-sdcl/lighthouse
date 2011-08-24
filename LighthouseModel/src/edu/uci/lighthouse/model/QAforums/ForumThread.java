@@ -58,6 +58,8 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	}
 	
 	private void ThreadChanged(){
+		System.out.println("thread changed");
+
 		setChanged();
 		notifyObservers(new Update());
 	    clearChanged();

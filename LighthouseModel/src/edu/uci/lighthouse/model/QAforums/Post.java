@@ -82,6 +82,8 @@ public class Post extends Observable implements Serializable, Observer{
 	}
 	
 	private void PostChanged(){
+		System.out.println("post changed");
+
 		setChanged();
 		notifyObservers(new Update());
 	    clearChanged();
