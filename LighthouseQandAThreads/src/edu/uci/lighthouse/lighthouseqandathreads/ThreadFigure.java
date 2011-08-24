@@ -19,6 +19,7 @@ import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
 import org.eclipse.draw2d.ChangeListener;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
@@ -89,6 +90,8 @@ public class ThreadFigure extends CompartmentFigure {
 		panel.setLayoutManager(layout);
 		
 		Label label = new Label(forum.countSolvedThreads()+"/"+forum.countThreads()+"");
+		label.setBackgroundColor(ColorConstants.lightGreen);
+		label.setOpaque(true);
 		panel.add(new ImageFigure(icon));
 		panel.add(label);
 		this.add(panel);
