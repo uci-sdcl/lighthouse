@@ -44,13 +44,7 @@ public class Controller implements Observer {
 
 		if (arg0 == forum && arg1 instanceof Update) {
 			populateTree(forum);
-			LHEntityDAO entityDAO = new LHEntityDAO();
-			try {
-				entityDAO.save(entity);
-			} catch (JPAException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {
 			populateTree(forum);
