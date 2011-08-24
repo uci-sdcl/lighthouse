@@ -3,9 +3,11 @@ package edu.uci.lighthouse.model.QAforums;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -30,8 +32,8 @@ public class Post extends Observable implements Serializable, Observer{
     
 	private String subject;
 	private boolean question;
-	@OneToMany (cascade = CascadeType.ALL)
-	private Collection<Post> responses = new ArrayList<Post>();
+	@OneToMany (fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Post> responses = new HashSet<Post>();
 	private String message = "";
 	@ManyToOne (cascade = CascadeType.ALL)
 	private TeamMember author;
@@ -71,7 +73,7 @@ public class Post extends Observable implements Serializable, Observer{
 		return question;
 	}
 	
-	public void setResponses(Collection<Post> responses){
+	public void setResponses(Set<Post> responses){
 		this.responses = responses;
 		observeResponses();
 	}
