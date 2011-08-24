@@ -50,7 +50,7 @@ public class Activator extends AbstractUIPlugin implements IStartup {
 	 * The constructor
 	 */
 	public Activator() {
-		Controller controller = new Controller();
+		Controller controller = Controller.getInstance();//new Controller();
 		
 		JavaFileChangedReporter jReporter = new JavaFileChangedReporter();
 		jReporter.addJavaFileStatusListener(controller);

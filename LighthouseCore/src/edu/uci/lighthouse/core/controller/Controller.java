@@ -70,8 +70,16 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 	private DatabaseActionsThread thread;
 	
 	
+	private static Controller controller;
 	
+	private Controller(){}
 	
+	public static Controller getInstance(){
+		if(controller == null){
+			controller = new Controller();
+		}
+		return controller;
+	}
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -306,6 +314,10 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		compoundAction.add(new SynchronizeModelAction(WorkbenchUtility.getSVNInfoFromWorkspace()));
 		buffer.offer(new JobDecoratorAction(compoundAction, "Synchronize Model","Synchronizing model with database..."));
 		thread.play();
+	}
+	
+	public DatabaseActionsBuffer getBuffer(){
+		return buffer;
 	}
 
 

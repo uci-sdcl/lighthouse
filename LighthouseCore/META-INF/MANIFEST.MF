@@ -22,6 +22,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: 
  edu.uci.lighthouse.core.util,
- edu.uci.lighthouse.core.dbactions
+ edu.uci.lighthouse.core.dbactions,
+ edu.uci.lighthouse.core.controller
 Bundle-ClassPath: .,
  lib/jsch-0.1.42.jar
