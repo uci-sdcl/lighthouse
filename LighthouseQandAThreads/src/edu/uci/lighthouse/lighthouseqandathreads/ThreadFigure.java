@@ -68,7 +68,7 @@ public class ThreadFigure extends CompartmentFigure {
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
 		
-		//Controller.getInstance().getDBthread().subscribeToLighthouseEvents(subscriber);
+		Controller.getInstance().getDBthread().subscribeToLighthouseEvents(subscriber);
 
 	}
 
