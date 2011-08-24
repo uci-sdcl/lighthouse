@@ -24,6 +24,7 @@ Export-Package:
  edu.uci.lighthouse.core.controller,
  edu.uci.lighthouse.core.dbactions,
  edu.uci.lighthouse.core.dbactions.pull,
- edu.uci.lighthouse.core.util
+ edu.uci.lighthouse.core.util, 
+ edu.uci.lighthouse.core.data
 Bundle-ClassPath: .,
  lib/jsch-0.1.42.jar

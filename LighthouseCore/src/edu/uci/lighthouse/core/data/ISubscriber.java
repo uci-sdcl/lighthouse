@@ -11,7 +11,7 @@ import edu.uci.lighthouse.model.LighthouseEvent;
  * @author lee
  *
  */
-public interface ISubscriber extends Observer{
+public interface ISubscriber{
 
 	public void recive(List<LighthouseEvent> events);
 }
