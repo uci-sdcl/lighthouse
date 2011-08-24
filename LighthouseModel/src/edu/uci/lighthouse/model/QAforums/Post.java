@@ -78,7 +78,7 @@ public class Post extends Observable implements Serializable, Observer{
 		observeResponses();
 	}
 	
-	public Collection<Post> getResponses(){
+	public Set<Post> getResponses(){
 		return responses;
 	}
 	

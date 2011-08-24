@@ -22,7 +22,7 @@ public class TeamMember implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1320293063793751427L;
-	@OneToOne
+	@OneToOne (cascade = CascadeType.ALL)
 	private LighthouseAuthor author;
 	
 	@Id
