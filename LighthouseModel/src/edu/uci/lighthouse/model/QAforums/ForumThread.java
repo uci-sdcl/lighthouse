@@ -33,7 +33,9 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	public LHthreadCreator threadCreator;
 
 	public ForumThread(){
-		
+		if(rootQuestion != null){
+			rootQuestion.addObserver(this);
+		}
 	}
 	public ForumThread(Post question) {
 		rootQuestion = question;
