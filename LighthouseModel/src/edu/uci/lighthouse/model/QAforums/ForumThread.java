@@ -33,11 +33,14 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	public LHthreadCreator threadCreator;
 
 	public ForumThread(){
-		if(rootQuestion != null){
-			rootQuestion.addObserver(this);
-		}
 	}
+
 	public ForumThread(Post question) {
+		rootQuestion = question;
+		rootQuestion.addObserver(this);
+	}
+	
+	public void setRootQuestion(Post question){
 		rootQuestion = question;
 		rootQuestion.addObserver(this);
 	}
@@ -51,11 +54,26 @@ public class ForumThread extends Observable implements Serializable, Observer{
 		return solution != null;
 	}
 	
+	public void setSolution(Solution solution){
+		this.solution = solution;
+	}
+	
 	public Solution getSolution(){
 		return solution;
 	}
 	
+	private void initRootQuestionObserving(){
+		rootQuestion.initObserving();
+	}
+	
+	public void initObserving(){
+		rootQuestion.addObserver(this);
+		initRootQuestionObserving();
+	}
+	
 	public void update(Observable o, Object arg) {
+		System.out.println("thread update");
+
 		ThreadChanged();
 	}
 	

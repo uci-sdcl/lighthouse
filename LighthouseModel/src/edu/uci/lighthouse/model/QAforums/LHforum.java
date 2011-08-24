@@ -29,22 +29,46 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	@OneToMany (cascade = CascadeType.ALL)
 	Collection<ForumThread> threads = new ArrayList<ForumThread>();
 	
-	public LHforum(){}
+	public LHforum(){
+		
+	}
+	
+	private void observeThreads(){
+		for(ForumThread thread : threads){
+			thread.addObserver(this);
+		}
+	}
+	
+	private void initThreadObserving(){
+		for(ForumThread thread : threads){
+			thread.initObserving();
+		}
+	}
 	
 	public void addThread(Post rootPost){
 		ForumThread thread = new ForumThread(rootPost);
-		thread.addObserver(this);
 		addThread(thread);
-		forumChanged();
+		
 	}
-	public void addThread(ForumThread thread){
+	
+	private void addThread(ForumThread thread){
 		threads.add(thread);
 		thread.addObserver(this);
 		forumChanged();
 	}
 	
+	public void setThreads(Collection<ForumThread> threads){
+		this.threads = threads;
+		observeThreads();
+	}
+	
 	public Collection<ForumThread> getThreads(){
 		return threads;
+	}
+	
+	public void initObserving(){
+		this.observeThreads();
+		initThreadObserving();
 	}
 	
 	private void forumChanged(){
@@ -55,6 +79,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	}
 
 	public void update(Observable arg0, Object arg1) {
+		System.out.println("forum update");
 		forumChanged();
 	}
 }

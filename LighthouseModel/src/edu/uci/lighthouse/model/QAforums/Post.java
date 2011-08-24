@@ -35,13 +35,20 @@ public class Post extends Observable implements Serializable, Observer{
 	@ManyToOne (cascade = CascadeType.ALL)
 	private TeamMember author;
 	
-	public Post(){}
+	public Post(){
+	}
 	
 	public Post(boolean isQuestion, String subject, String message, TeamMember author){
 		this.subject = subject;
 		this.question = isQuestion;
 		this.message = message;
 		this.author = author;
+	}
+	
+	private void observeResponses(){
+		for(Post post : responses){
+			post.addObserver(this);
+		}
 	}
 	
 	public void setMessage(String message) {
@@ -63,6 +70,11 @@ public class Post extends Observable implements Serializable, Observer{
 		return question;
 	}
 	
+	public void setResponses(Collection<Post> responses){
+		this.responses = responses;
+		observeResponses();
+	}
+	
 	public Collection<Post> getResponses(){
 		return responses;
 	}
@@ -81,6 +93,18 @@ public class Post extends Observable implements Serializable, Observer{
 		return subject;
 	}
 	
+	
+	private void initResponseObserving(){
+		for(Post post : responses){
+			post.initObserving();
+		}
+	}
+	
+	public void initObserving(){
+		observeResponses();
+		initResponseObserving();
+	}
+	
 	private void PostChanged(){
 		System.out.println("post changed");
 
@@ -91,6 +115,8 @@ public class Post extends Observable implements Serializable, Observer{
 
 	
 	public void update(Observable o, Object arg) {
+		System.out.println("post update");
+
 		PostChanged();		
 	}
 }
