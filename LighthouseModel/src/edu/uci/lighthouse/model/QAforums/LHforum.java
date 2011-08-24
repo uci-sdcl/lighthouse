@@ -104,4 +104,8 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	public void update(Observable arg0, Object arg1) {
 		forumChanged();
 	}
+	
+	public static void hi(){
+		System.out.println("hi");
+	}
 }

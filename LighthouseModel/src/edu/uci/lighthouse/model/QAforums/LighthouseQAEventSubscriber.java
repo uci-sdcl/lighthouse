@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
 
+import javax.persistence.Entity;
+
 import edu.uci.lighthouse.model.ISubscriber;
 import edu.uci.lighthouse.model.LighthouseEvent;
 
+@Entity
 public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
 
 	/**
