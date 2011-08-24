@@ -7,7 +7,11 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 
 import edu.uci.lighthouse.core.controller.Controller;
+import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
+import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.Init;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Update;
@@ -48,6 +52,7 @@ public class QAController implements Observer {
 			
 			Controller.getInstance().getBuffer().add(new ForumUpdateClientsAction(entity));
 
+			
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {
 			populateTree(forum);
