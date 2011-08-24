@@ -52,7 +52,7 @@ public class QAController implements Observer {
 		if (arg0 == forum && arg1 instanceof Update) {
 			populateTree(forum);
 			
-			Controller.getInstance().getBuffer().add(new ForumUpdateClientsAction(entity));
+			Controller.getInstance().getBuffer().offer(new ForumUpdateClientsAction(entity));
 
 			LighthouseAuthor author = ModelUtility.getAuthor();
 			LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,author,entity);
@@ -60,7 +60,7 @@ public class QAController implements Observer {
 			ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();
 			listOfEvents.add(lh);
 			
-			Controller.getInstance().getBuffer().add(new ForumAddEventAction(listOfEvents));
+			Controller.getInstance().getBuffer().offer(new ForumAddEventAction(listOfEvents));
 			
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {
