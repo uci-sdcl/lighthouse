@@ -219,7 +219,6 @@ public class NewQuestionDialog extends MessageDialog {
 		submitButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				Post newPost = new Post(true, subject, question, tm);
-				//FakeDataBase.getInstance().addNewThread(newPost);
 				forum.addThread(newPost);
 				questionText.setText("");
 				stSubject.setText("");
