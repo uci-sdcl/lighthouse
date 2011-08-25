@@ -43,7 +43,6 @@ public class FetchNewEventsAction implements IDatabaseAction {
 		if (events.size()>0) {
 			//
 			sendSubscribersEvents(events);
-			System.out.println(listOfSubs.size());
 			UpdateLighthouseModel.addEvents(events);
 			ModelUtility.fireModificationsToUI(events);
 			
