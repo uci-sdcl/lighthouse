@@ -11,7 +11,7 @@ import org.eclipse.ui.PlatformUI;
 
 ///import org.eclipse.zest.core.widgets.GraphNode;
 
-import edu.uci.lighthouse.model.ISubscriber;
+import edu.uci.lighthouse.core.dbactions.ISubscriber;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 //import edu.uci.lighthouse.ui.utils.GraphUtils;
@@ -19,7 +19,7 @@ import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
 @Entity
-public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
+public class LighthouseQAEventSubscriber  implements ISubscriber{
 
 	/**
 	 * 
