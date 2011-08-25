@@ -18,7 +18,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 import org.apache.log4j.Logger;
-import org.hibernate.annotations.ForceDiscriminator;
 
 import edu.uci.lighthouse.model.util.LHStringUtil;
 
@@ -54,7 +53,6 @@ import edu.uci.lighthouse.model.util.LHStringUtil;
 @Inheritance(strategy=InheritanceType.JOINED) 
 @DiscriminatorColumn(name = "EventType", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("LH")
-@ForceDiscriminator
 public class LighthouseEvent implements Serializable{
 	
 	private static final long serialVersionUID = 7247791395122774431L;

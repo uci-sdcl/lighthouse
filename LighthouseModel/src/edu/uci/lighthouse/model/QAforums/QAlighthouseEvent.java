@@ -8,16 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
 
-import edu.uci.lighthouse.model.PluginLighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.PluginLighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
+
 
 @Entity
 @DiscriminatorValue("QA")
-public class QAlighthouseEvent extends  PluginLighthouseEvent implements Serializable{
+@PrimaryKeyJoinColumn(name="QA_ID")
+public class QAlighthouseEvent extends  PluginLighthouseEvent{
 
 
 	/**

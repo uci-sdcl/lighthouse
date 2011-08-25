@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-import org.hibernate.annotations.ForceDiscriminator;
-
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 
 /**
@@ -22,7 +20,7 @@ import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
  */
 @Entity
 @DiscriminatorValue("p")
-public abstract class PluginLighthouseEvent extends LighthouseEvent implements Serializable{
+public abstract class PluginLighthouseEvent extends LighthouseEvent{
 	
 	/**
 	 * 
