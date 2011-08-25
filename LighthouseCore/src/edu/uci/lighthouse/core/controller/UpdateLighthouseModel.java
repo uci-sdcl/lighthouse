@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.model.IPluginLighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
@@ -30,6 +31,11 @@ public class UpdateLighthouseModel {
 		Collection<String> listClassesToRemove = new LinkedHashSet<String>(); 
 		// for each entity event
 		for (LighthouseEvent event : listEvents) {
+			
+			/**@author lee - don't process plug-in events*/
+			if(event instanceof IPluginLighthouseEvent)
+				continue;
+			
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
 				logger.debug("adding event: " + event.toString());
@@ -59,6 +65,11 @@ public class UpdateLighthouseModel {
 		}
 		// for each relationship event
 		for (LighthouseEvent event : listEvents) {
+			
+			/**@author lee - don't process plug-in events*/
+			if(event instanceof IPluginLighthouseEvent)
+				continue;
+			
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseRelationship) {
 				logger.debug("adding event: " + event.toString());

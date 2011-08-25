@@ -25,6 +25,7 @@ import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.preferences.UserPreferences;
+import edu.uci.lighthouse.model.IPluginLighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -155,6 +156,12 @@ public class ModelUtility {
 		HashMap<LighthouseRelationship, LighthouseEvent.TYPE> mapRelationshipEvent = new HashMap<LighthouseRelationship, LighthouseEvent.TYPE>();
 		LighthouseModel model = LighthouseModel.getInstance();
 		for (LighthouseEvent event : events) {
+			
+			/**@author lee - don't process plug-in events*/
+			if(event instanceof IPluginLighthouseEvent)
+				continue;
+			
+			
 			// ADD creates a new class node in the view and populates it
 			// MODIFY just re-populates the class node
 			Object artifact = event.getArtifact();
