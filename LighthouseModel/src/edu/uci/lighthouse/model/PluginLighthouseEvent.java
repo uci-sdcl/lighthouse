@@ -21,7 +21,7 @@ import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 @Entity
 @DiscriminatorValue("p")
 public abstract class PluginLighthouseEvent extends LighthouseEvent{
-	
+
 	/**
 	 * 
 	 */
@@ -30,6 +30,10 @@ public abstract class PluginLighthouseEvent extends LighthouseEvent{
 	public PluginLighthouseEvent(TYPE modify, LighthouseAuthor author,
 			LighthouseEntity entity) {
 		super(modify,author,entity);
+	}
+
+	public PluginLighthouseEvent() {
+		super();
 	}
 
 }

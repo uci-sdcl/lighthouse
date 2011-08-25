@@ -19,7 +19,6 @@ import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 
 @Entity
 @DiscriminatorValue("QA")
-@PrimaryKeyJoinColumn(name="QA_ID")
 public class QAlighthouseEvent extends  PluginLighthouseEvent{
 
 
@@ -27,6 +26,10 @@ public class QAlighthouseEvent extends  PluginLighthouseEvent{
 	 * 
 	 */
 	private static final long serialVersionUID = -1684650099628218050L;
+	
+	public QAlighthouseEvent(){
+		super();
+	}
 
 	public QAlighthouseEvent(TYPE modify, LighthouseAuthor author,
 			LighthouseEntity entity) {

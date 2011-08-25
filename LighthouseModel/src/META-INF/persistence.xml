@@ -29,7 +29,7 @@
  		<class>edu.uci.lighthouse.model.QAforums.Post</class>
  		<class>edu.uci.lighthouse.model.QAforums.Solution</class>
  		<class>edu.uci.lighthouse.model.QAforums.TeamMember</class>
-
+        <class>edu.uci.lighthouse.model.QAforums.QAlighthouseEvent</class>
  		
 		
 		<properties>
