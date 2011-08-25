@@ -56,7 +56,7 @@ public class QAController implements Observer {
 			Controller.getInstance().getBuffer().offer(new ForumUpdateClientsAction(entity));
 
 			LighthouseAuthor author = ModelUtility.getAuthor();
-			LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,author,entity);
+			QAlighthouseEvent lh = new QAlighthouseEvent(LighthouseEvent.TYPE.MODIFY,author,entity);
 			//lh.setTimestamp(new Date(0));
 			ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();
 			listOfEvents.add(lh);

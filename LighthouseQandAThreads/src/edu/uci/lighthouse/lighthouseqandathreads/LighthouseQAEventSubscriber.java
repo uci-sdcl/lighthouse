@@ -12,8 +12,10 @@ import org.eclipse.ui.PlatformUI;
 ///import org.eclipse.zest.core.widgets.GraphNode;
 
 import edu.uci.lighthouse.model.ISubscriber;
+import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 //import edu.uci.lighthouse.ui.utils.GraphUtils;
+import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
 @Entity
@@ -27,7 +29,13 @@ public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
 	public void receive(List<LighthouseEvent> events) {
 		System.out.println("HERE!"+events.size());
 		
-		//GraphUtils.rebuildFigure((GraphNode) item);
+		for(LighthouseEvent event: events){
+			if(event instanceof QAlighthouseEvent){
+				//refresh updates sent by others
+				LighthouseEntity entity = (LighthouseEntity)event.getArtifact();
+				GraphUtils.rebuildFigureForEntity(entity);
+			}
+		}
 	}
 
 }
