@@ -2,7 +2,12 @@ package edu.uci.lighthouse.model.QAforums;
 
 import java.io.Serializable;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import edu.uci.lighthouse.model.PluginLighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -11,7 +16,9 @@ import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseEvent.TYPE;
 
 @Entity
+@DiscriminatorValue("QA")
 public class QAlighthouseEvent extends  PluginLighthouseEvent implements Serializable{
+
 
 	/**
 	 * 

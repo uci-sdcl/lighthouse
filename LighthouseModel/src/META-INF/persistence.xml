@@ -29,7 +29,8 @@
  		<class>edu.uci.lighthouse.model.QAforums.Post</class>
  		<class>edu.uci.lighthouse.model.QAforums.Solution</class>
  		<class>edu.uci.lighthouse.model.QAforums.TeamMember</class>
- 		<class>edu.uci.lighthouse.model.QAforums.QAlighthouseEvent</class>
+
+ 		
 		
 		<properties>
 			<property name="hibernate.format_sql" value="true" />

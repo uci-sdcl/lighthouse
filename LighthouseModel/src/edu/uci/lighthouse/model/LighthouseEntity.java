@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.DiscriminatorType;
 
 import org.apache.log4j.Logger;
 
@@ -20,7 +22,6 @@ import edu.uci.lighthouse.model.util.LHStringUtil;
  *
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class LighthouseEntity implements Serializable {
 
 	private static final long serialVersionUID = 2190743538210738412L;
