@@ -21,6 +21,7 @@ import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Update;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
+import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class QAController implements Observer {
 	NewQuestionDialog nqDialog;
@@ -63,6 +64,10 @@ public class QAController implements Observer {
 			listOfEvents.add(lh);
 			
 			Controller.getInstance().getBuffer().offer(new ForumAddEventAction(listOfEvents));
+			
+			
+			//refresh locally
+			GraphUtils.rebuildFigureForEntity(entity);
 			
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {
