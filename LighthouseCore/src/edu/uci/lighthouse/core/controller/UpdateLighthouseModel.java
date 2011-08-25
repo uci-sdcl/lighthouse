@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.core.Activator;
 import edu.uci.lighthouse.core.util.ModelUtility;
-import edu.uci.lighthouse.model.IPluginLighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
@@ -33,8 +32,8 @@ public class UpdateLighthouseModel {
 		for (LighthouseEvent event : listEvents) {
 			
 			/**@author lee - don't process plug-in events*/
-			if(event instanceof IPluginLighthouseEvent)
-				continue;
+			//if(event instanceof PluginLighthouseEvent)
+			//	continue;
 			
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseEntity) {
@@ -67,8 +66,8 @@ public class UpdateLighthouseModel {
 		for (LighthouseEvent event : listEvents) {
 			
 			/**@author lee - don't process plug-in events*/
-			if(event instanceof IPluginLighthouseEvent)
-				continue;
+			//if(event instanceof PluginLighthouseEvent)
+			//	continue;
 			
 			Object artifact = event.getArtifact();
 			if (artifact instanceof LighthouseRelationship) {

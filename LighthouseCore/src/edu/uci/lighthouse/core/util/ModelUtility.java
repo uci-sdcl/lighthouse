@@ -25,7 +25,6 @@ import org.tigris.subversion.svnclientadapter.ISVNInfo;
 
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.preferences.UserPreferences;
-import edu.uci.lighthouse.model.IPluginLighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -158,8 +157,8 @@ public class ModelUtility {
 		for (LighthouseEvent event : events) {
 			
 			/**@author lee - don't process plug-in events*/
-			if(event instanceof IPluginLighthouseEvent)
-				continue;
+			//if(event instanceof PluginLighthouseEvent)
+			//	continue;
 			
 			
 			// ADD creates a new class node in the view and populates it
