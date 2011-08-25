@@ -37,5 +37,6 @@ Bundle-ClassPath: lib/dom4j-1.6.1.jar,
  lib/hibernate/slf4j-api-1.5.8.jar,
  lib/hibernate/slf4j-log4j12.jar,
  lib/jsch-0.1.42.jar
-Import-Package: com.jcraft.jsch
+Import-Package: com.jcraft.jsch,
+ org.eclipse.zest.core.widgets
 Bundle-Vendor: UC Irvine
