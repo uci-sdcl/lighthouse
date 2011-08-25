@@ -14,7 +14,6 @@ import org.eclipse.ui.PlatformUI;
 import edu.uci.lighthouse.model.ISubscriber;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
-import edu.uci.lighthouse.model.QAforums.QAlighthouseEvent;
 //import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
@@ -31,7 +30,7 @@ public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
 		System.out.println("HERE!"+events.size());
 		
 		for(LighthouseEvent event: events){
-			if(event instanceof QAlighthouseEvent){
+			if(event instanceof LighthouseEvent){
 				//refresh updates sent by others
 				LighthouseEntity entity = (LighthouseEntity)event.getArtifact();
 				GraphUtils.rebuildFigureForEntity(entity);

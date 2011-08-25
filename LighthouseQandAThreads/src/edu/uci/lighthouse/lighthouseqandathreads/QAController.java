@@ -16,7 +16,6 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.Init;
 import edu.uci.lighthouse.model.QAforums.LHforum;
-import edu.uci.lighthouse.model.QAforums.QAlighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.Update;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
@@ -57,7 +56,7 @@ public class QAController implements Observer {
 			Controller.getInstance().getBuffer().offer(new ForumUpdateClientsAction(entity));
 
 			LighthouseAuthor author = ModelUtility.getAuthor();
-			QAlighthouseEvent lh = new QAlighthouseEvent(LighthouseEvent.TYPE.MODIFY,author,entity);
+			LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,author,entity);
 			//lh.setTimestamp(new Date(0));
 			ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();
 			listOfEvents.add(lh);
