@@ -43,6 +43,17 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 	
 	private SoftLockAction softLockAction;
 	
+	/**@author lee*/
+	public static String Plugin_ID="LighthouseUI.EmergingDesignView";
+	
+	
+	/**
+	 * @author lee
+	 * @return
+	 */
+	public GraphViewer getGraphViewer(){
+		return viewer;
+	}
 	
 	@Override
 	public void createPartControl(Composite parent) {

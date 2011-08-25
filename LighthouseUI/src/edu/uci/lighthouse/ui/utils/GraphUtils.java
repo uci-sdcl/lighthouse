@@ -8,11 +8,17 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.Graph;
+import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
 
+import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.ui.figures.AbstractUmlBoxFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure;
+import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
 public class GraphUtils {
 
@@ -42,4 +48,28 @@ public class GraphUtils {
 		}
 		return result;
 	}
+	
+	/**
+	 * @author lee
+	 */
+	public static void rebuildFigureForEntity(LighthouseEntity entity){
+		GraphItem item = getGraphViewer().findGraphItem(entity);
+		GraphUtils.rebuildFigure((GraphNode) item);
+	}
+	
+	
+	/**
+	 * 
+	 *@author lee
+	 */
+	public static GraphViewer getGraphViewer(){
+		IViewReference ref =
+			PlatformUI.getWorkbench().
+			getActiveWorkbenchWindow().getActivePage().findViewReference(EmergingDesignView.Plugin_ID);
+		
+		EmergingDesignView view = (EmergingDesignView)ref.getView(false);
+		
+		return view.getGraphViewer();
+	}
+	
 }
