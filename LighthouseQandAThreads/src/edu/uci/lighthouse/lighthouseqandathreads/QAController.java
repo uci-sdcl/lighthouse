@@ -9,8 +9,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 
 import edu.uci.lighthouse.core.controller.Controller;
-import edu.uci.lighthouse.core.dbactions.ForumAddEventAction;
-import edu.uci.lighthouse.core.dbactions.ForumUpdateClientsAction;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
