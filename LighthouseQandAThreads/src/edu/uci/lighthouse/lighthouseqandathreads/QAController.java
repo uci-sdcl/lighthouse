@@ -16,6 +16,7 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.Init;
 import edu.uci.lighthouse.model.QAforums.LHforum;
+import edu.uci.lighthouse.model.QAforums.QAlighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.Update;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;

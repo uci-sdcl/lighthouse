@@ -14,6 +14,7 @@ import org.eclipse.ui.PlatformUI;
 import edu.uci.lighthouse.model.ISubscriber;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.QAforums.QAlighthouseEvent;
 //import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
