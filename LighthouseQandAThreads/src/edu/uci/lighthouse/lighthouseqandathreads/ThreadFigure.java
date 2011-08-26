@@ -6,6 +6,7 @@ import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
+import edu.uci.lighthouse.lighthouseqandathreads.view.VisualSummaryView;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -95,11 +96,10 @@ public class ThreadFigure extends CompartmentFigure {
 		Panel panel = new Panel();
 		panel.setLayoutManager(layout);
 		
-		Label label = new Label(forum.countSolvedThreads()+"/"+forum.countThreads()+"");
-		label.setBackgroundColor(ColorConstants.lightGreen);
-		label.setOpaque(true);
-		panel.add(new ImageFigure(icon));
-		panel.add(label);
+		VisualSummaryView vsv = new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());
+
+		panel.add(vsv);
+		panel.add(questionButton);
 		this.add(panel);
 
 
