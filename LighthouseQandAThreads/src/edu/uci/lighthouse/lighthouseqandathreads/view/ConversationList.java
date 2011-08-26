@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 import edu.uci.lighthouse.model.QAforums.ForumThread;
+import edu.uci.lighthouse.model.QAforums.TeamMember;
 
 public class ConversationList extends Composite{
 
@@ -22,8 +23,8 @@ public class ConversationList extends Composite{
 			this.setLayoutData(compsiteData);
 	}
 	
-	public void addConversationElement(ForumThread thread){
-		ThreadView threadView = new ThreadView(this, SWT.None,thread);
+	public void addConversationElement(ForumThread thread, TeamMember tm){
+		ThreadView threadView = new ThreadView(this, SWT.None,thread, tm);
 		Animation.markBegin();
 		this.layout();
 		Animation.run(300);

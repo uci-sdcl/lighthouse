@@ -28,6 +28,7 @@ public class ConversationView extends Composite{
 
 	private TeamMember tm;
 	private LHforum forum;
+	final StyledText postNewThreadBox;
 	
 	public ConversationView(Composite parent, int style, TeamMember tm, LHforum forum) {
 		super(parent, style);
@@ -49,7 +50,7 @@ public class ConversationView extends Composite{
 		postBoxCompoite.setLayoutData(postBoxCompoiteData);
 		
 		GridData postNewThreadBoxData = new GridData(350, 30);
-		final StyledText postNewThreadBox = new StyledText(postBoxCompoite, SWT.BORDER);
+		postNewThreadBox = new StyledText(postBoxCompoite, SWT.BORDER);
 		postNewThreadBox.setLayoutData(postNewThreadBoxData);
 		
 		postNewThreadBox.addModifyListener(new ModifyListener() {
@@ -79,11 +80,13 @@ public class ConversationView extends Composite{
 		public void widgetSelected(SelectionEvent e) {
 			Post newPost = new Post(true, "", message, tm);
 			forum.addThread(newPost);
+			postNewThreadBox.setText("");
+			
 		}
 	}
 	
-	public void addConversationElement(ForumThread thread){
-		cl.addConversationElement(thread);
+	public void addConversationElement(ForumThread thread, TeamMember tm){
+		cl.addConversationElement(thread,tm);
 	}
 	
 	public void addConversationElement(ConversationElement element){

@@ -243,7 +243,7 @@ public class NewQuestionDialog extends MessageDialog {
 	
 	public void populateConversationView(LHforum forum){
 		for(ForumThread thread: forum.getThreads()){
-			convoView.addConversationElement(thread);
+			convoView.addConversationElement(thread,tm);
 		}
 
 	}
@@ -251,7 +251,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public void populateConversationView(Object arg){
 		if(arg instanceof ForumThread)
-		convoView.addConversationElement((ForumThread)arg);
+		convoView.addConversationElement((ForumThread)arg,tm);
 	}
 	
 	private void clearTree(){
