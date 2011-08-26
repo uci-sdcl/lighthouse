@@ -31,9 +31,10 @@ public class ConversationView extends Composite{
 		GridData compsiteData = new GridData(510, 600);
 		this.setLayout(new GridLayout(1, false));
 		this.setLayoutData(compsiteData);
+		this.setBackground(ColorConstants.red);
 		
 		//post new thread box-----------------------------
-		GridData postBoxCompoiteData = new GridData(430, 30);
+		GridData postBoxCompoiteData = new GridData(430, 40);
 		
 		Composite postBoxCompoite = new Composite(this, SWT.NONE);
 		postBoxCompoite.setLayout(new GridLayout(2, false));
@@ -78,7 +79,7 @@ public class ConversationView extends Composite{
 	}
 	
 	public void addConversationElement(ForumThread thread){
-		ThreadView threadView = new ThreadView(cl, SWT.None,thread);
+		cl.addConversationElement(thread);
 	}
 	
 	public void addConversationElement(ConversationElement element){
