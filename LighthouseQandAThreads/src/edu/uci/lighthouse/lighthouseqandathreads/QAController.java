@@ -52,7 +52,8 @@ public class QAController implements Observer {
 	public void update(Observable arg0, Object arg1) {
 
 		if (arg0 == forum && arg1 instanceof Update) {
-			populateTree(forum);
+			//populateTree(forum);
+			nqDialog.populateConversationView(forum);
 			
 			Controller.getInstance().getBuffer().offer(new ForumUpdateClientsAction(entity));
 
@@ -70,7 +71,8 @@ public class QAController implements Observer {
 			
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {
-			populateTree(forum);
+			//populateTree(forum);
+			nqDialog.populateConversationView(forum);
 		}
 
 	}

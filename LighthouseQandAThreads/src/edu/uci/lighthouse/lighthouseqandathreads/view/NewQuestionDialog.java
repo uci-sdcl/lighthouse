@@ -54,6 +54,8 @@ public class NewQuestionDialog extends MessageDialog {
 	private StyledText messageBox;
 	
 	private ObservableClass observablePoint = new ObservableClass();
+	
+	private ConversationView convoView;
 
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
@@ -69,7 +71,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public Control createCustomArea(Composite parent) {
 		
-		ConversationView convoView = new ConversationView(parent, SWT.NULL);
+		convoView = new ConversationView(parent, SWT.NULL);
 		
 /*
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -235,6 +237,12 @@ public class NewQuestionDialog extends MessageDialog {
 		clearTree();
 		for (ForumThread thread : forum.getThreads()) {
 			setupTreeBranch(thread);
+		}
+	}
+	
+	public void populateConversationView(LHforum forum){
+		for(ForumThread thread: forum.getThreads()){
+			convoView.addConversationElement(thread);
 		}
 	}
 	

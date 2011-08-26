@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
 
+import edu.uci.lighthouse.model.QAforums.ForumThread;
+
 public class ThreadView extends ConversationElement{
 	
 	ArrayList<PostView> postViews = new ArrayList<PostView>();
+	private ForumThread thread;
 
-	public ThreadView(Composite parent, int style) {
+	public ThreadView(Composite parent, int style, ForumThread thread) {
 		super(parent, style);
-		// TODO Auto-generated constructor stub
+		this.thread = thread;
 	}
 	
 	public void addPostView(PostView postView){

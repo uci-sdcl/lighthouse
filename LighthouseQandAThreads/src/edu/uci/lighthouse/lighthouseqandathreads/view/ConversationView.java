@@ -15,6 +15,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 
 public class ConversationView extends Composite{
@@ -74,6 +75,10 @@ public class ConversationView extends Composite{
 
 		
 		
+	}
+	
+	public void addConversationElement(ForumThread thread){
+		ThreadView threadView = new ThreadView(cl, SWT.None,thread);
 	}
 	
 	public void addConversationElement(ConversationElement element){
