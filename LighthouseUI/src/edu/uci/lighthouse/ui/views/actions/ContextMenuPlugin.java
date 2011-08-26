@@ -12,4 +12,5 @@ import edu.uci.lighthouse.ui.views.IHightlightAction;
  */
 public abstract class ContextMenuPlugin extends Action implements IHightlightAction, IContextMenuAction{
 
+	public static String ID = "edu.uci.lighthouse.ui.figures.compartment";
 }

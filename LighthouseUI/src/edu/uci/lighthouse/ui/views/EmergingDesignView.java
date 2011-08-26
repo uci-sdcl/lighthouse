@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.draw2d.GridData;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -20,6 +23,8 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.GridLayoutAlgorithm;
 
 import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.ui.figures.CompartmentFigure;
+import edu.uci.lighthouse.ui.views.actions.ContextMenuPlugin;
 import edu.uci.lighthouse.ui.views.actions.DiagramModeDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.FilterActiveClassAction;
 import edu.uci.lighthouse.ui.views.actions.FilterAuthorAction;
@@ -132,6 +137,26 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 			contextAction.beforeFill();
 		}
 		manager.add(softLockAction);
+	}
+	
+	/**
+	 * @author lee
+	 */
+	private void loadContextMenuPlugins(IMenuManager manager){
+		try {
+			IConfigurationElement[] config = Platform.getExtensionRegistry()
+					.getConfigurationElementsFor(ContextMenuPlugin.ID);
+			for (IConfigurationElement e : config) {
+				final Object o = e.createExecutableExtension("class");
+				if (o instanceof ContextMenuPlugin) {
+					IContextMenuAction contextAction = (IContextMenuAction) o;
+					contextAction.beforeFill();
+					manager.add((IAction)o);
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 
 	@Override
