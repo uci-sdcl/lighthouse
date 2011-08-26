@@ -11,6 +11,7 @@ import org.eclipse.swt.events.ModifyListener;
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
