@@ -38,7 +38,9 @@ public class ConversationView extends Composite{
 		});
 		//---------------------------------------------------
 		
+		GridData scData = new GridData(400, 500);
 	      ScrolledComposite sc = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+	      sc.setLayoutData(scData);
 	      ConversationList cl = new ConversationList(sc, SWT.NONE);
 	      sc.setContent(cl);
 
