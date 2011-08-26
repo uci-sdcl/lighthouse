@@ -92,7 +92,7 @@ public class ThreadFigure extends CompartmentFigure {
 		return true;
 	}
 	
-	private void decidedToHideOrNot(int count, QuestionPanel panel){
+	private void decidedToHideOrNot(int count,QuestionPanel panel){
 		if(count == 0){
 			panel.setVisible(false);
 		}
@@ -130,12 +130,12 @@ public class ThreadFigure extends CompartmentFigure {
 
 		@Override
 		public void mouseDragged(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
+						
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
+			
 			MenuManager menuMgr = new MenuManager("#Q&A Menu");
 			menuMgr.setRemoveAllWhenShown(true);
 			menuMgr.addMenuListener(new IMenuListener() {
