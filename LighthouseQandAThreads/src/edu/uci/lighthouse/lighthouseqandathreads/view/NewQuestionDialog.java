@@ -254,6 +254,8 @@ public class NewQuestionDialog extends MessageDialog {
 		convoView.addConversationElement((ForumThread)arg,tm);
 	}
 	
+
+	
 	private void clearTree(){
 		tree.removeAll();
 	}
