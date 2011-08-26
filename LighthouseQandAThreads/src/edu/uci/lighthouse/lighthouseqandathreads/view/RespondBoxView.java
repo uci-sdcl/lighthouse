@@ -17,7 +17,7 @@ import edu.uci.lighthouse.model.QAforums.TeamMember;
 
 public class RespondBoxView extends ConversationElement {
 	private String reply = "";
-	final StyledText postNewThreadBox = null;
+	final StyledText postNewThreadBox;
 	private Post post;
 	private TeamMember tm;
 
@@ -31,7 +31,7 @@ public class RespondBoxView extends ConversationElement {
 			this.setBackground(ColorConstants.darkGray);
 			
 			GridData postNewThreadBoxData = new GridData(350, 30);
-			final StyledText postNewThreadBox = new StyledText(this, SWT.BORDER);
+			postNewThreadBox = new StyledText(this, SWT.BORDER);
 			postNewThreadBox.setLayoutData(postNewThreadBoxData);
 			
 			postNewThreadBox.addModifyListener(new ModifyListener() {
