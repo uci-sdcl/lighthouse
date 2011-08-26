@@ -64,7 +64,7 @@ public class ThreadFigure extends CompartmentFigure {
 
 	public ThreadFigure() {
 		layout = new FlowLayout();
-		layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
+		layout.setMajorAlignment(FlowLayout.ALIGN_RIGHTBOTTOM);
 		layout.setMinorSpacing(25);
 		setLayoutManager(layout);
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
@@ -88,10 +88,8 @@ public class ThreadFigure extends CompartmentFigure {
 			clazz.setForum(forum);		
 		}
 
-		QuestionButton questionButton = new QuestionButton(icon);
-		this.add(questionButton, new Rectangle(0, 0, 10, 10));
-		
-		
+	//	QuestionButton questionButton = new QuestionButton(icon);
+	//	this.add(questionButton, new Rectangle(0, 0, 10, 10));
 		
 		Panel panel = new Panel();
 		panel.setLayoutManager(layout);
@@ -99,7 +97,9 @@ public class ThreadFigure extends CompartmentFigure {
 		VisualSummaryView vsv = new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());
 
 		panel.add(vsv);
-		panel.add(questionButton);
+		
+		
+	//	panel.add(questionButton);
 		this.add(panel);
 
 

@@ -4,31 +4,37 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.Panel;
+import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.lighthouseqandathreads.Activator;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public class VisualSummaryView extends Panel{
 	private Image icon;
-	private FlowLayout layout;
+	private XYLayout layout;
 	private int total;
 	private int answered;
 
 	public VisualSummaryView(int total, int answered){
-		layout = new FlowLayout();
-		layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
-		layout.setMinorSpacing(25);
+		layout = new org.eclipse.draw2d.XYLayout();
 		setLayoutManager(layout);
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 		"/icons/visualSummary.png").createImage();
 		this.total = total;
 		this.answered = answered;
-		Label label = new Label(answered+"/"+total+"");
+		
+		
+
 		Label imageLabel = new Label();
 		imageLabel.setIcon(icon);
-		imageLabel.add(label);
-		this.add(imageLabel);
+		
+		this.add(imageLabel, new Rectangle(0,0,50,50));
+		
+		Label textLabel = new Label(answered+"/"+total);
+		this.add(textLabel, new Rectangle(0,0,50,50));
 		
 	}
 	
