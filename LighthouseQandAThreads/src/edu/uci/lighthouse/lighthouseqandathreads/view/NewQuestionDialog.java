@@ -68,7 +68,10 @@ public class NewQuestionDialog extends MessageDialog {
 	}
 
 	public Control createCustomArea(Composite parent) {
-
+		
+		ConversationView convoView = new ConversationView(parent, SWT.NULL);
+		
+/*
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 
 		TabFolder tabFolder = new TabFolder(parent, SWT.BORDER);
@@ -82,7 +85,8 @@ public class NewQuestionDialog extends MessageDialog {
 		createThreadComposite(tabFolder, tabItem2);
 
 		DialogChanged(new Init());
-		return tabFolder;
+		return tabFolder;*/
+		return convoView;
 	}
 
 	private void createThreadComposite(TabFolder tabFolder, TabItem tabItem) {

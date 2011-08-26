@@ -76,7 +76,7 @@ public class ThreadFigure extends CompartmentFigure {
 
 	public ThreadFigure() {
 		layout = new FlowLayout();
-		layout.setMajorAlignment(FlowLayout.ALIGN_RIGHTBOTTOM);
+		layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
 		layout.setMinorSpacing(25);
 		setLayoutManager(layout);
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
