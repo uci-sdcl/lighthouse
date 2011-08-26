@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view;
 
+import org.eclipse.draw2d.Animation;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -23,7 +24,9 @@ public class ConversationList extends Composite{
 	
 	public void addConversationElement(ForumThread thread){
 		ThreadView threadView = new ThreadView(this, SWT.None,thread);
+		Animation.markBegin();
 		this.layout();
+		Animation.run(300);
 	}
 	
 	public void addConversationElement(ConversationElement element){

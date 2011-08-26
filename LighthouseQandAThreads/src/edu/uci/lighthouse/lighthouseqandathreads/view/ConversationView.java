@@ -64,10 +64,10 @@ public class ConversationView extends Composite{
 		postButton.addSelectionListener(new PostListener());
 		//---------------------------------------------------
 		
-		 // GridData scData = new GridData(400, 500);
+		  GridData scData = new GridData(400, 500);
 	      sc = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-	     // sc.setLayout(new GridLayout(1, false));
-	    //  sc.setLayoutData(scData);
+	      sc.setLayout(new GridLayout(1, false));
+	      sc.setLayoutData(scData);
 	      cl = new ConversationList(sc, SWT.NONE);
 	      sc.setExpandHorizontal(true);
 	      sc.setExpandVertical(true);
@@ -92,8 +92,6 @@ public class ConversationView extends Composite{
 	
 	public void addConversationElement(ForumThread thread){
 		cl.addConversationElement(thread);
-		sc.layout();
-		
 	}
 	
 	public void addConversationElement(ConversationElement element){
