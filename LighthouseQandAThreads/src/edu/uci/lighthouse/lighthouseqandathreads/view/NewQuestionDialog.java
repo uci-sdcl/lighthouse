@@ -245,6 +245,7 @@ public class NewQuestionDialog extends MessageDialog {
 		for(ForumThread thread: forum.getThreads()){
 			convoView.addConversationElement(thread);
 		}
+
 	}
 	
 
