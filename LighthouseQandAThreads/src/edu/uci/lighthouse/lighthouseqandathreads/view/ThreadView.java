@@ -22,6 +22,7 @@ public class ThreadView extends ConversationElement{
 	ArrayList<PostView> postViews = new ArrayList<PostView>();
 	private ForumThread thread;
 	private TeamMember tm;
+	private int height = 30;
 	
 	public ThreadView(Composite parent, int style, ForumThread thread, TeamMember tm) {
 		super(parent, style);
@@ -41,12 +42,11 @@ public class ThreadView extends ConversationElement{
 	
 	
 	public void addPost(Post post){
-		GridData data = (GridData)this.getLayoutData();
-		int height = data.heightHint;
+		
 		GridData compsiteData = new GridData(550, height+30);
 		this.setLayoutData(compsiteData);
 		PostView pv = new PostView(this, SWT.None, post,tm);
-		this.layout();
+		this.getParent().layout();
 
 		addResponsePosts(post.getResponses());
 	}
@@ -56,15 +56,14 @@ public class ThreadView extends ConversationElement{
 		
 		
 		for(Post post: posts){
-			GridData data = (GridData)this.getLayoutData();
-			int height = data.heightHint;
+			
 			GridData compsiteData = new GridData(550, height+30);
 			this.setLayoutData(compsiteData);
 			
 			
 			PostView pv = new PostView(this, SWT.None, post,tm);
 			
-			this.layout();
+			this.getParent().layout();
 			
 			for(Post childPost: post.getResponses()){
 				addPost(childPost);
