@@ -109,20 +109,7 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		public void mouseReleased(MouseEvent me) {
 
-			LighthouseAuthor author = ModelUtility.getAuthor();
-			LHthreadCreator tm = new LHthreadCreator(author);
 
-			Display display = Display.getDefault();
-
-			NewQuestionDialog nqDialog = new NewQuestionDialog(
-					display.getActiveShell(), "Forum", null,
-					le.getFullyQualifiedName(), MessageDialog.INFORMATION,
-					SWT.OK, tm, forum);
-
-			controller = new QAController(nqDialog, forum, clazz);
-
-			int response = nqDialog.open();
-			controller.stopObserving();
 		}
 	}
 	
