@@ -71,7 +71,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public Control createCustomArea(Composite parent) {
 		
-		convoView = new ConversationView(parent, SWT.NULL);
+		convoView = new ConversationView(parent, SWT.NULL, tm, forum);
 		
 /*
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);

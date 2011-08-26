@@ -16,7 +16,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 import edu.uci.lighthouse.model.QAforums.ForumThread;
+import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Post;
+import edu.uci.lighthouse.model.QAforums.TeamMember;
 
 public class ConversationView extends Composite{
 
@@ -24,9 +26,14 @@ public class ConversationView extends Composite{
 	private String message;
 	private ConversationList cl;
 	ScrolledComposite sc;
+	private TeamMember tm;
+	private LHforum forum;
 	
-	public ConversationView(Composite parent, int style) {
+	public ConversationView(Composite parent, int style, TeamMember tm, LHforum forum) {
 		super(parent, style);
+		
+		this.tm = tm;
+		this.forum = forum;
 		
 		//layout
 		GridData compsiteData = new GridData(510, 600);
@@ -54,18 +61,7 @@ public class ConversationView extends Composite{
 		
 		Button postButton = new Button(postBoxCompoite, SWT.BORDER);
 		postButton.setText("post");
-		postButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				/*Post newPost = new Post(true, replySubject, reply, tm);
-				Post replyeePost = getSelectedPost();
-				
-				if(replyeePost != null){
-					replyeePost.addResponse(newPost);
-					replyBox.setText("");
-					stSubject.setText("");
-				}*/
-			}
-		});
+		postButton.addSelectionListener(new PostListener());
 		//---------------------------------------------------
 		
 		  GridData scData = new GridData(400, 500);
@@ -81,6 +77,13 @@ public class ConversationView extends Composite{
 
 		
 		
+	}
+	
+	private class PostListener extends SelectionAdapter{
+		public void widgetSelected(SelectionEvent e) {
+			Post newPost = new Post(true, "", message, tm);
+			forum.addThread(newPost);
+		}
 	}
 	
 	public void addConversationElement(ForumThread thread){
