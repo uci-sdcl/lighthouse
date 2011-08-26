@@ -39,7 +39,7 @@ public class ConversationView extends Composite{
 		GridData compsiteData = new GridData(510, 600);
 		this.setLayout(new GridLayout(1, false));
 		this.setLayoutData(compsiteData);
-		this.setBackground(ColorConstants.red);
+	
 		
 		//post new thread box-----------------------------
 		GridData postBoxCompoiteData = new GridData(430, 40);
