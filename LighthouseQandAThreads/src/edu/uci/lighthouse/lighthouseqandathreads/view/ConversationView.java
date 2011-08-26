@@ -16,5 +16,9 @@ public class ConversationView extends Composite{
 	public void addConversationElement(ConversationElement element){
 		elements.add(element);
 	}
+	
+	public void expand(){}
+	
+	public void collapse(){}
 
 }
