@@ -56,7 +56,6 @@ public class ThreadFigure extends CompartmentFigure {
     private LighthouseClass clazz;
 	private LHforum forum;
 
-	private QAController controller;
 	
 	private LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
 	
@@ -87,31 +86,19 @@ public class ThreadFigure extends CompartmentFigure {
 			forum = new LHforum();
 			clazz.setForum(forum);		
 		}
-
-
-		
+	
 		
 		VisualSummaryView vsv = 
 			new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());
 
 		
 		QuestionPanel questPanel = new QuestionPanel(vsv);
-		questPanel.addMouseListener(new Listener());
-		
 		
 		this.add(questPanel);
-
 
 	}
 	
 
-	private class Listener extends MouseListener.Stub {
-		
-		public void mouseReleased(MouseEvent me) {
-
-
-		}
-	}
 	
 
 	private class QuestionPanel extends Panel {

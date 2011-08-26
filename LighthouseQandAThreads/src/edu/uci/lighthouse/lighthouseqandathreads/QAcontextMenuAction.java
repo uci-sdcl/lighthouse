@@ -25,7 +25,9 @@ public class QAcontextMenuAction extends ContextMenuPlugin{
 	private LighthouseEntity le;
     private LighthouseClass clazz;
 	
-	QAcontextMenuAction(QAController controller, LHforum forum, LighthouseClass entity, LighthouseEntity umlClass){
+    public QAcontextMenuAction(){}
+    
+	public void init(QAController controller, LHforum forum, LighthouseClass entity, LighthouseEntity umlClass){
 		this.controller = controller;
 		this.forum = forum;
 		this.clazz = entity;
@@ -42,7 +44,8 @@ public class QAcontextMenuAction extends ContextMenuPlugin{
 				le.getFullyQualifiedName(), MessageDialog.INFORMATION,
 				SWT.OK, tm, forum);
 
-		controller = new QAController(nqDialog, forum, clazz);
+		controller = QAController.getInstance();
+		controller.setup(nqDialog, forum, clazz);
 
 		int response = nqDialog.open();
 		controller.stopObserving();
