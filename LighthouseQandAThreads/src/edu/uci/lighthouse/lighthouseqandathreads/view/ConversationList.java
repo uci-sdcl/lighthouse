@@ -16,7 +16,7 @@ public class ConversationList extends Composite{
 		super(parent, style);
 	      this.setBackground(ColorConstants.blue);
 	      
-	      GridData compsiteData = new GridData(600, 500);
+	      GridData compsiteData = new GridData(560, 500);
 
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);

@@ -36,13 +36,13 @@ public class ConversationView extends Composite{
 		this.forum = forum;
 		
 		//layout
-		GridData compsiteData = new GridData(510, 600);
+		GridData compsiteData = new GridData(600, 600);
 		this.setLayout(new GridLayout(1, false));
 		this.setLayoutData(compsiteData);
 	
 		
 		//post new thread box-----------------------------
-		GridData postBoxCompoiteData = new GridData(430, 40);
+		GridData postBoxCompoiteData = new GridData(550, 40);
 		
 		Composite postBoxCompoite = new Composite(this, SWT.NONE);
 		postBoxCompoite.setLayout(new GridLayout(2, false));
