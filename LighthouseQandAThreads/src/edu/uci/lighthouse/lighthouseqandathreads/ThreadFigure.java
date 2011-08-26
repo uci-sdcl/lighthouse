@@ -19,6 +19,7 @@ import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
+import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
@@ -29,6 +30,7 @@ import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.Panel;
 
 import org.eclipse.swt.SWT;
@@ -37,6 +39,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.draw2d.Button;
@@ -80,6 +83,8 @@ public class ThreadFigure extends CompartmentFigure {
 				"/icons/question.png").createImage();
 		
 		Controller.getInstance().subscribeToLighthouseEvents(subscriber);
+		
+		this.addMouseMotionListener(new Listener());
 
 	}
 
@@ -98,24 +103,6 @@ public class ThreadFigure extends CompartmentFigure {
 		}
 	
 		
-		
-		
-		MenuManager menuMgr = new MenuManager("#Q&A Menu");
-		menuMgr.setRemoveAllWhenShown(true);
-		menuMgr.addMenuListener(new IMenuListener() {
-			public void menuAboutToShow(IMenuManager manager) {
-				QAcontextMenuAction qaAction = new QAcontextMenuAction(forum, clazz, le);
-				manager.add(qaAction);
-				
-			}
-		});
-		
-		GraphViewer viewer = GraphUtils.getGraphViewer();
-		
-		Menu menu = menuMgr.createContextMenu(viewer.getControl());
-		viewer.getControl().setMenu(menu);
-		//getSite().registerContextMenu(menuMgr, viewer);		
-		
 		VisualSummaryView vsv = 
 			new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());
 
@@ -124,6 +111,59 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		this.add(questPanel);
 
+	}
+	
+	private class Listener implements MouseMotionListener{
+
+
+		@Override
+		public void mouseDragged(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			MenuManager menuMgr = new MenuManager("#Q&A Menu");
+			menuMgr.setRemoveAllWhenShown(true);
+			menuMgr.addMenuListener(new IMenuListener() {
+				public void menuAboutToShow(IMenuManager manager) {
+					QAcontextMenuAction qaAction = new QAcontextMenuAction(forum, clazz, le);
+					manager.add(qaAction);
+					
+				}
+			});
+			
+			GraphViewer viewer = GraphUtils.getGraphViewer();
+			
+			Menu menu = menuMgr.createContextMenu(viewer.getControl());
+			viewer.getControl().setMenu(menu);
+			IViewReference ref =
+				PlatformUI.getWorkbench().
+				getActiveWorkbenchWindow().getActivePage().findViewReference(EmergingDesignView.Plugin_ID);
+			EmergingDesignView view = (EmergingDesignView)ref.getView(false);
+
+			view.getSite().registerContextMenu(menuMgr, viewer);	
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseHover(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 

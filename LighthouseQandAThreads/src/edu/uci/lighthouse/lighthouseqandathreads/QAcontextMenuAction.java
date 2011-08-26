@@ -31,6 +31,7 @@ public class QAcontextMenuAction extends Action{
 		this.forum = forum;
 		this.clazz = entity;
 		this.le = umlClass;
+		setText(clazz.getShortName()+" "+"forum");
 	}
 	public void run() {
 		LighthouseAuthor author = ModelUtility.getAuthor();
