@@ -26,33 +26,17 @@ public class QAController implements Observer {
 	NewQuestionDialog nqDialog;
 	LHforum forum;
 	LighthouseEntity entity;
-	private static QAController controller;
-	private boolean setup = false;
 
-	private QAController() {
-	}
-
-	public static QAController getInstance() {
-		if (controller == null) {
-			controller = new QAController();
-		}
-		return controller;
-	}
-
-	public void setup(NewQuestionDialog dialog, LHforum forum,
+	public QAController(NewQuestionDialog dialog, LHforum forum,
 			LighthouseEntity entity) {
-		if (!setup) {
-			nqDialog = dialog;
-			nqDialog.getObservablePoint().addObserver(this);
+		nqDialog = dialog;
+		nqDialog.getObservablePoint().addObserver(this);
 
-			this.forum = forum;
-			// need to init all the model's self observers because Observers are
-			// destroyed once model is marshaled and unmarshaled.
-			this.forum.initObserving();
-			this.forum.addObserver(this);
-			this.entity = entity;
-			setup = true;
-		}
+		this.forum = forum;
+		//need to init all the model's self observers because Observers are destroyed once model is marshaled and unmarshaled. 
+		this.forum.initObserving();
+		this.forum.addObserver(this);
+		this.entity = entity;
 
 	}
 
@@ -69,23 +53,21 @@ public class QAController implements Observer {
 
 		if (arg0 == forum && arg1 instanceof Update) {
 			populateTree(forum);
-
-			Controller.getInstance().getBuffer()
-					.offer(new ForumUpdateClientsAction(entity));
+			
+			Controller.getInstance().getBuffer().offer(new ForumUpdateClientsAction(entity));
 
 			LighthouseAuthor author = ModelUtility.getAuthor();
-			LighthouseEvent lh = new LighthouseEvent(
-					LighthouseEvent.TYPE.MODIFY, author, entity);
-			// lh.setTimestamp(new Date(0));
+			LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,author,entity);
+			//lh.setTimestamp(new Date(0));
 			ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();
 			listOfEvents.add(lh);
-
-			Controller.getInstance().getBuffer()
-					.offer(new ForumAddEventAction(listOfEvents));
-
-			// refresh locally
+			
+			Controller.getInstance().getBuffer().offer(new ForumAddEventAction(listOfEvents));
+			
+			
+			//refresh locally
 			GraphUtils.rebuildFigureForEntity(entity);
-
+			
 		} else if (arg0 == nqDialog.getObservablePoint()
 				&& arg1 instanceof Init) {
 			populateTree(forum);

@@ -18,6 +18,7 @@ import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
+import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
@@ -34,6 +35,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -41,7 +43,15 @@ import org.eclipse.draw2d.Button;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.eclipse.draw2d.ActionListener;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
+
+import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.Graph;
+import org.eclipse.zest.core.widgets.GraphItem;
+import org.eclipse.zest.core.widgets.GraphNode;
 
 import org.eclipse.draw2d.MouseListener;
 
@@ -87,6 +97,24 @@ public class ThreadFigure extends CompartmentFigure {
 			clazz.setForum(forum);		
 		}
 	
+		
+		
+		
+		MenuManager menuMgr = new MenuManager("#Q&A Menu");
+		menuMgr.setRemoveAllWhenShown(true);
+		menuMgr.addMenuListener(new IMenuListener() {
+			public void menuAboutToShow(IMenuManager manager) {
+				QAcontextMenuAction qaAction = new QAcontextMenuAction(forum, clazz, le);
+				manager.add(qaAction);
+				
+			}
+		});
+		
+		GraphViewer viewer = GraphUtils.getGraphViewer();
+		
+		Menu menu = menuMgr.createContextMenu(viewer.getControl());
+		viewer.getControl().setMenu(menu);
+		//getSite().registerContextMenu(menuMgr, viewer);		
 		
 		VisualSummaryView vsv = 
 			new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());

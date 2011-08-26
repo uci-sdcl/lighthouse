@@ -3,6 +3,7 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 import java.util.Collection;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -19,16 +20,14 @@ import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.actions.ContextMenuPlugin;
 
-public class QAcontextMenuAction extends ContextMenuPlugin{
+public class QAcontextMenuAction extends Action{
 	private QAController controller;
 	private LHforum forum;
 	private LighthouseEntity le;
     private LighthouseClass clazz;
 	
-    public QAcontextMenuAction(){}
     
-	public void init(QAController controller, LHforum forum, LighthouseClass entity, LighthouseEntity umlClass){
-		this.controller = controller;
+	public  QAcontextMenuAction( LHforum forum, LighthouseClass entity, LighthouseEntity umlClass){
 		this.forum = forum;
 		this.clazz = entity;
 		this.le = umlClass;
@@ -44,28 +43,13 @@ public class QAcontextMenuAction extends ContextMenuPlugin{
 				le.getFullyQualifiedName(), MessageDialog.INFORMATION,
 				SWT.OK, tm, forum);
 
-		controller = QAController.getInstance();
-		controller.setup(nqDialog, forum, clazz);
+		QAController controller = new QAController(nqDialog, forum, clazz);
+
 
 		int response = nqDialog.open();
 		controller.stopObserving();
 	}
 	
-	@Override
-	public int getPriority() {
-		return 0;
-	}
 
-	@Override
-	public Color getColor() {
-		return ColorConstants.white;
-	}
-	
-
-	@Override
-	public void beforeFill() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
