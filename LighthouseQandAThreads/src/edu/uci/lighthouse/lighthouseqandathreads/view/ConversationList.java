@@ -5,6 +5,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 
@@ -22,6 +23,7 @@ public class ConversationList extends Composite{
 	
 	public void addConversationElement(ForumThread thread){
 		ThreadView threadView = new ThreadView(this, SWT.None,thread);
+		this.layout();
 	}
 	
 	public void addConversationElement(ConversationElement element){

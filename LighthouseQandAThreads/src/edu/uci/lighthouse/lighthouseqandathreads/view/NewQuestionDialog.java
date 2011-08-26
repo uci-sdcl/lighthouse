@@ -247,6 +247,12 @@ public class NewQuestionDialog extends MessageDialog {
 		}
 	}
 	
+
+	public void populateConversationView(Object arg){
+		if(arg instanceof ForumThread)
+		convoView.addConversationElement((ForumThread)arg);
+	}
+	
 	private void clearTree(){
 		tree.removeAll();
 	}

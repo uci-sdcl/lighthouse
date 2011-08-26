@@ -93,6 +93,7 @@ public class ConversationView extends Composite{
 	
 	public void addConversationElement(ConversationElement element){
 		cl.addConversationElement(element);
+
 	}
 	
 	public void expand(){}

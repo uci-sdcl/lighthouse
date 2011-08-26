@@ -15,6 +15,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Init;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Update;
@@ -53,7 +54,9 @@ public class QAController implements Observer {
 
 		if (arg0 == forum && arg1 instanceof Update) {
 			//populateTree(forum);
-			nqDialog.populateConversationView(forum);
+			nqDialog.populateConversationView(((Update)arg1).getArgument());
+			
+			
 			
 			Controller.getInstance().getBuffer().offer(new ForumUpdateClientsAction(entity));
 
@@ -64,8 +67,7 @@ public class QAController implements Observer {
 			listOfEvents.add(lh);
 			
 			Controller.getInstance().getBuffer().offer(new ForumAddEventAction(listOfEvents));
-			
-			
+
 			//refresh locally
 			GraphUtils.rebuildFigureForEntity(entity);
 			
