@@ -2,7 +2,9 @@ package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import java.util.ArrayList;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -18,13 +20,12 @@ public class ConversationView extends Composite{
 	public ConversationView(Composite parent, int style) {
 		super(parent, style);
 		
-		
+		//layout
 		GridData compsiteData = new GridData(450, 550);
-
 		this.setLayout(new GridLayout(1, false));
 		this.setLayoutData(compsiteData);
 		
-		
+		//post new thread box-----------------------------
 		GridData subjectData = new GridData(400, 30);
 		final StyledText postNewThreadBox = new StyledText(this, SWT.BORDER);
 		postNewThreadBox.setLayoutData(subjectData);
@@ -35,7 +36,13 @@ public class ConversationView extends Composite{
 
 			}
 		});
+		//---------------------------------------------------
 		
+	      ScrolledComposite sc = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+	      ConversationList cl = new ConversationList(sc, SWT.NONE);
+	      sc.setContent(cl);
+
+
 		
 		
 	}
