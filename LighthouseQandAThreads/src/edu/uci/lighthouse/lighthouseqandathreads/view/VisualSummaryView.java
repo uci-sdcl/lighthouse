@@ -25,8 +25,10 @@ public class VisualSummaryView extends Panel{
 		this.total = total;
 		this.answered = answered;
 		Label label = new Label(answered+"/"+total+"");
-		label.setIcon(icon);
-		this.add(label);
+		Label imageLabel = new Label();
+		imageLabel.setIcon(icon);
+		imageLabel.add(label);
+		this.add(imageLabel);
 		
 	}
 	
