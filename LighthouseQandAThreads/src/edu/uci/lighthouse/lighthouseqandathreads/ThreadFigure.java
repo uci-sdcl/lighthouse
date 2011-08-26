@@ -96,6 +96,8 @@ public class ThreadFigure extends CompartmentFigure {
 
 		
 		QuestionPanel questPanel = new QuestionPanel(vsv);
+		questPanel.addMouseListener(new Listener());
+		
 		
 		this.add(questPanel);
 
@@ -103,9 +105,29 @@ public class ThreadFigure extends CompartmentFigure {
 	}
 	
 
+	private class Listener extends MouseListener.Stub {
+		
+		public void mouseReleased(MouseEvent me) {
+
+			LighthouseAuthor author = ModelUtility.getAuthor();
+			LHthreadCreator tm = new LHthreadCreator(author);
+
+			Display display = Display.getDefault();
+
+			NewQuestionDialog nqDialog = new NewQuestionDialog(
+					display.getActiveShell(), "Forum", null,
+					le.getFullyQualifiedName(), MessageDialog.INFORMATION,
+					SWT.OK, tm, forum);
+
+			controller = new QAController(nqDialog, forum, clazz);
+
+			int response = nqDialog.open();
+			controller.stopObserving();
+		}
+	}
 	
 
-	private class QuestionPanel extends Button {
+	private class QuestionPanel extends Panel {
 		private FlowLayout QuestionPanel_layout;
 
 		public QuestionPanel(VisualSummaryView vsv) {
@@ -113,45 +135,11 @@ public class ThreadFigure extends CompartmentFigure {
 			QuestionPanel_layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
 			QuestionPanel_layout.setMinorSpacing(25);
 			setLayoutManager(QuestionPanel_layout);
-			
-			this.setBorder(null);
-			this.setBackgroundColor(ColorConstants.white);			
+		
 			this.add(vsv);
 		}
 
-		public void handleMouseReleased(MouseEvent event) {
 
-			
-			/*List<LHclassPluginExtension> exts = clazz.getExtensions();
-			LHforum forum = null;
-
-			for (LHclassPluginExtension ext : exts) {
-				if (ext instanceof LHforum) {
-					forum = (LHforum) ext;
-					break;
-				}
-			}*/
-
-
-			
-			
-				LighthouseAuthor author = ModelUtility.getAuthor();
-				LHthreadCreator tm = new LHthreadCreator(author);
-
-				Display display = Display.getDefault();
-
-				NewQuestionDialog nqDialog = new NewQuestionDialog(
-						display.getActiveShell(), "Forum", null,
-						le.getFullyQualifiedName(), MessageDialog.INFORMATION,
-						SWT.OK, tm, forum);
-
-				controller = new QAController(nqDialog, forum, clazz);
-
-				int response = nqDialog.open();
-				controller.stopObserving();
-			
-
-		}
 	}
 
 }
