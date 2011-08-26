@@ -51,7 +51,7 @@ public class ThreadFigure extends CompartmentFigure {
 
 	private FlowLayout layout;
 	private Image icon;
-	private Button questionButton;
+	
 	private LighthouseEntity le;
     private LighthouseClass clazz;
 	private LHforum forum;
@@ -88,19 +88,16 @@ public class ThreadFigure extends CompartmentFigure {
 			clazz.setForum(forum);		
 		}
 
-	//	QuestionButton questionButton = new QuestionButton(icon);
-	//	this.add(questionButton, new Rectangle(0, 0, 10, 10));
-		
-		Panel panel = new Panel();
-		panel.setLayoutManager(layout);
-		
-		VisualSummaryView vsv = new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());
 
-		panel.add(vsv);
 		
 		
-	//	panel.add(questionButton);
-		this.add(panel);
+		VisualSummaryView vsv = 
+			new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());
+
+		
+		QuestionPanel questPanel = new QuestionPanel(vsv);
+		
+		this.add(questPanel);
 
 
 	}
@@ -108,9 +105,18 @@ public class ThreadFigure extends CompartmentFigure {
 
 	
 
-	private class QuestionButton extends Button {
-		public QuestionButton(Image icon) {
-			super(icon);
+	private class QuestionPanel extends Button {
+		private FlowLayout QuestionPanel_layout;
+
+		public QuestionPanel(VisualSummaryView vsv) {
+			QuestionPanel_layout = new FlowLayout();
+			QuestionPanel_layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
+			QuestionPanel_layout.setMinorSpacing(25);
+			setLayoutManager(QuestionPanel_layout);
+			
+			this.setBorder(null);
+			this.setBackgroundColor(ColorConstants.white);			
+			this.add(vsv);
 		}
 
 		public void handleMouseReleased(MouseEvent event) {
