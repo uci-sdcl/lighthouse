@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="edu.uci.lighthouse.ui.figures.compartment" name="Lighthouse Figure Compartment" schema="schema/edu.uci.lighthouse.ui.figures.compartment.exsd"/>
+   <extension-point id="edu.uci.lighthouse.ui.views.actions.ContextMenuPlugin" name="Context Menu" schema="schema/edu.uci.lighthouse.ui.views.actions.ContextMenuPlugin.exsd"/>
 
    <extension
          point="org.eclipse.ui.views">
