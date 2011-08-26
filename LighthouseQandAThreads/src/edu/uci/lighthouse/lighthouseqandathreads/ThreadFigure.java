@@ -91,6 +91,15 @@ public class ThreadFigure extends CompartmentFigure {
 	public boolean isVisible(MODE mode) {
 		return true;
 	}
+	
+	private void decidedToHideOrNot(int count, QuestionPanel panel){
+		if(count == 0){
+			panel.setVisible(false);
+		}
+		else{
+			panel.setVisible(true);
+		}
+	}
 
 	public void populate(MODE mode) {
 		
@@ -103,11 +112,14 @@ public class ThreadFigure extends CompartmentFigure {
 		}
 	
 		
+		
 		VisualSummaryView vsv = 
 			new VisualSummaryView(forum.countThreads(),forum.countSolvedThreads());
 
 		
 		QuestionPanel questPanel = new QuestionPanel(vsv);
+		
+		decidedToHideOrNot(forum.countThreads(), questPanel);
 		
 		this.add(questPanel);
 
