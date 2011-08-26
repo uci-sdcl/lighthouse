@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.MouseEvent;
@@ -32,23 +33,46 @@ public class ThreadView extends ConversationElement{
 			this.setLayoutData(compsiteData);
 			this.setBackground(ColorConstants.white);
 		
+		
 			addPost(thread.getRootQuestion());
 	
 	}
 	
+	
+	
 	public void addPost(Post post){
 		PostView pv = new PostView(this, SWT.None, post,tm);
 		
-		GridData data = (GridData)this.getLayoutData();
-		int height = data.heightHint;
-		GridData compsiteData = new GridData(550, height+30);
-		this.setLayoutData(compsiteData);
-		this.layout();
+		addResponsePosts(post.getResponses());
+	}
+	
+	public void addResponsePosts(Set<Post> posts){
 		
-		for(Post childPost: post.getResponses()){
-			System.out.println(childPost.getMessage());
-			addPost(childPost);
+		
+		
+		for(Post post: posts){
+			GridData data = (GridData)this.getLayoutData();
+			int height = data.heightHint;
+			GridData compsiteData = new GridData(550, height+30);
+			this.setLayoutData(compsiteData);
+			
+			
+			PostView pv = new PostView(this, SWT.None, post,tm);
+			
+			this.layout();
+			
+			for(Post childPost: post.getResponses()){
+				addPost(childPost);
+			}
+
 		}
+		
+		
+		
+		
+
+		
+
 	}
 	
 	public void addPostView(PostView postView){
