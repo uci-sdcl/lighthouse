@@ -62,6 +62,7 @@ public class RespondBoxView extends ConversationElement {
 			if(replyeePost != null){
 				replyeePost.addResponse(newPost);
 				postNewThreadBox.setText("");
+				RespondBoxView.this.dispose();
 			}
 		}
 	}
