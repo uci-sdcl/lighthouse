@@ -88,6 +88,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 		DialogChanged(new Init());
 		return tabFolder;*/
+		DialogChanged(new Init());
 		return convoView;
 	}
 

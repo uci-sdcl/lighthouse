@@ -23,6 +23,7 @@ public class ConversationView extends Composite{
 	ArrayList<ConversationElement> elements = new ArrayList<ConversationElement>();
 	private String message;
 	private ConversationList cl;
+	ScrolledComposite sc;
 	
 	public ConversationView(Composite parent, int style) {
 		super(parent, style);
@@ -68,10 +69,14 @@ public class ConversationView extends Composite{
 		//---------------------------------------------------
 		
 		  GridData scData = new GridData(400, 500);
-	      ScrolledComposite sc = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+	      sc = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 	      sc.setLayoutData(scData);
 	      cl = new ConversationList(sc, SWT.NONE);
 	      sc.setContent(cl);
+	      sc.setExpandHorizontal(true);
+	      sc.setExpandVertical(true);
+	      sc.setMinSize(cl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+	      
 
 
 		
@@ -80,6 +85,7 @@ public class ConversationView extends Composite{
 	
 	public void addConversationElement(ForumThread thread){
 		cl.addConversationElement(thread);
+		
 	}
 	
 	public void addConversationElement(ConversationElement element){

@@ -19,6 +19,7 @@ public class PostView extends Composite{
 			
 		Label label = new Label(this,SWT.None);
 		label.setText(post.getMessage());
+		
 	}
 
 }
