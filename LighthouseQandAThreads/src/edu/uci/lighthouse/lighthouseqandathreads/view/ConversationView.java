@@ -63,17 +63,9 @@ public class ConversationView extends Composite{
 		postButton.setText("post");
 		postButton.addSelectionListener(new PostListener());
 		//---------------------------------------------------
-		
-		  GridData scData = new GridData(400, 500);
-	      sc = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-	      sc.setLayout(new GridLayout(1, false));
-	      sc.setLayoutData(scData);
-	      cl = new ConversationList(sc, SWT.NONE);
-	      sc.setExpandHorizontal(true);
-	      sc.setExpandVertical(true);
-	      sc.setContent(cl);
-	      sc.setMinSize(cl.getSize());
-	      sc.setAlwaysShowScrollBars(true);
+
+	      cl = new ConversationList(sc, SWT.V_SCROLL | SWT.BORDER);
+
 
 
 	      
