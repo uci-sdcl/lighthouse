@@ -25,7 +25,7 @@ public class ConversationView extends Composite{
 	ArrayList<ConversationElement> elements = new ArrayList<ConversationElement>();
 	private String message;
 	private ConversationList cl;
-	ScrolledComposite sc;
+
 	private TeamMember tm;
 	private LHforum forum;
 	
@@ -64,7 +64,7 @@ public class ConversationView extends Composite{
 		postButton.addSelectionListener(new PostListener());
 		//---------------------------------------------------
 
-	      cl = new ConversationList(sc, SWT.V_SCROLL | SWT.BORDER);
+	      cl = new ConversationList(this, SWT.V_SCROLL | SWT.BORDER);
 
 
 
