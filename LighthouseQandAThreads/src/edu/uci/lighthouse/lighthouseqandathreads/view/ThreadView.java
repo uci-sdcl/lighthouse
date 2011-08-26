@@ -2,6 +2,7 @@ package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import java.util.ArrayList;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -22,7 +23,7 @@ public class ThreadView extends ConversationElement{
 
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);
-			
+			this.setBackground(ColorConstants.white);
 		PostView pv = new PostView(this, SWT.None, thread.getRootQuestion());
 	}
 	

@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -16,7 +17,7 @@ public class PostView extends Composite{
 
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);
-			
+			this.setBackground(ColorConstants.white);
 		Label label = new Label(this,SWT.None);
 		label.setText(post.getMessage());
 		
