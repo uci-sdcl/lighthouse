@@ -24,7 +24,7 @@ public class PostView extends Composite{
 			this.setLayoutData(compsiteData);
 			
 		Label label = new Label(this,SWT.None);
-		label.setText(post.getMessage());
+		label.setText(tm.getAuthor().getName()+" - "+post.getMessage());
 		this.addMouseListener(new Listener());
 	}
 	
