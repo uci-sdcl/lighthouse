@@ -38,6 +38,21 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 		
 	}
 	
+	/**
+	 * 
+	 * @param root
+	 * @return Will return null if this method does not find thread
+	 * with root question root.
+	 */
+	public ForumThread getThreadWithRoot(Post root){
+		for(ForumThread thread: threads){
+			if(thread.getRootQuestion() == root){
+				return thread;
+			}
+		}
+		return null;
+	}
+	
 	private void observeThreads(){
 		for(ForumThread thread : threads){
 			thread.addObserver(this);
@@ -95,6 +110,12 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 		return countThreads() - countSolvedThreads();
 	}
 	
+	private void forumChanged(ForumThread thread){
+        setChanged();
+        notifyObservers(new Update<ForumThread>(thread));
+        clearChanged();
+	}
+	
 	private void forumChanged(){
         setChanged();
         notifyObservers(new Update());
@@ -105,7 +126,5 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 		forumChanged();
 	}
 	
-	public static void hi(){
-		System.out.println("hi");
-	}
+
 }
