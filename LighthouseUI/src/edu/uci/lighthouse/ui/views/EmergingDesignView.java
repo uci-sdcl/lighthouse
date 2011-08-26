@@ -137,6 +137,8 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 			contextAction.beforeFill();
 		}
 		manager.add(softLockAction);
+		
+		loadContextMenuPlugins(manager);
 	}
 	
 	/**
