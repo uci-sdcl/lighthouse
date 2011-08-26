@@ -41,8 +41,13 @@ public class ThreadView extends ConversationElement{
 	
 	
 	public void addPost(Post post){
+		GridData data = (GridData)this.getLayoutData();
+		int height = data.heightHint;
+		GridData compsiteData = new GridData(550, height+30);
+		this.setLayoutData(compsiteData);
 		PostView pv = new PostView(this, SWT.None, post,tm);
-		
+		this.layout();
+
 		addResponsePosts(post.getResponses());
 	}
 	
