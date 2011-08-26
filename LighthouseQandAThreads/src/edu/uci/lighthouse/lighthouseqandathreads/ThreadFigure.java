@@ -104,7 +104,7 @@ public class ThreadFigure extends CompartmentFigure {
 	
 		
 		VisualSummaryView vsv = 
-			new VisualSummaryView(forum.countSolvedThreads(), forum.countThreads());
+			new VisualSummaryView(forum.countThreads(),forum.countSolvedThreads());
 
 		
 		QuestionPanel questPanel = new QuestionPanel(vsv);
