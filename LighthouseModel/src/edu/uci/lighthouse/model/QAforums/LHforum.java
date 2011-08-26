@@ -74,7 +74,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	private void addThread(ForumThread thread){
 		threads.add(thread);
 		thread.addObserver(this);
-		forumChanged();
+		forumChanged(thread);
 	}
 	
 	public void setThreads(Collection<ForumThread> threads){
