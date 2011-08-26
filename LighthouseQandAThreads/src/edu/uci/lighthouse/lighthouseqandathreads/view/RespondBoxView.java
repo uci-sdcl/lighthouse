@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.lighthouseqandathreads;
+package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import org.eclipse.swt.widgets.Composite;
 
