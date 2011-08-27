@@ -21,7 +21,6 @@ import edu.uci.lighthouse.model.QAforums.TeamMember;
 
 public class ThreadView extends ConversationElement implements IHasObservablePoint, Observer{
 	
-	ArrayList<PostView> postViews = new ArrayList<PostView>();
 	private ForumThread thread;
 	private TeamMember tm;
 	private int height = 30;
@@ -42,7 +41,10 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 	
 	}
 	
-	
+
+	public ForumThread getThread(){
+		return thread;
+	}
 	
 	public void addPost(Post post){
 		
@@ -89,7 +91,7 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 
 	@Override
 	public void update(Observable o, Object arg) {
-		this.getObservablePoint().changed(arg);
+		this.getObservablePoint().changed(this);
 		
 	}
 	
