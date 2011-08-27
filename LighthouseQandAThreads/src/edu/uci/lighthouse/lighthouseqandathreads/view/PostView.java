@@ -31,13 +31,16 @@ public class PostView extends ConversationElement{
 		this.addMouseListener(new Listener());
 	}
 	
+	public Post getPost(){
+		return post;
+	}
 
 	
 	private class Listener implements MouseListener{
 		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {		
 		}
 		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-			observablePoint.changed(post);
+			observablePoint.changed(this);
 		}
 		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {			
 		}
