@@ -16,7 +16,6 @@ public class PostView extends ConversationElement{
 
 	Post post;
 	private TeamMember tm;
-	private ObservablePoint observablePoint = new ObservablePoint();
 
 	public PostView(Composite parent, int style, Post post, TeamMember tm) {
 		super(parent, style);
@@ -40,7 +39,7 @@ public class PostView extends ConversationElement{
 		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {		
 		}
 		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-			observablePoint.changed(this);
+			PostView.this.getObservablePoint().changed(this);
 		}
 		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {			
 		}
