@@ -19,6 +19,10 @@ public class ConversationList extends ScrolledComposite{
 	public ConversationList(Composite parent, int style) {
 		super(parent, style);
 	      this.setBackground(ColorConstants.blue);
+	      
+			GridData compsiteData = new GridData(580, 450);
+			this.setLayout(new GridLayout(1, false));
+			this.setLayoutData(compsiteData);
 			
 			composite = new Composite(this, SWT.None);
 			this.setContent(composite);
@@ -29,14 +33,14 @@ public class ConversationList extends ScrolledComposite{
 	
 	public void addConversationElement(ForumThread thread, TeamMember tm){
 		ThreadView threadView = new ThreadView(composite, SWT.None,thread, tm);
-		Animation.markBegin();
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.layout();
-		Animation.run(300);
 	}
 	
 	public void addConversationElement(ConversationElement element){
-		element.setParent(this);
+		element.setParent(composite);
+		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		composite.layout();
 	}
 
 }
