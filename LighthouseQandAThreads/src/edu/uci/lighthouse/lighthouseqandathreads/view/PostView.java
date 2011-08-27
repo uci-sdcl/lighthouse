@@ -37,27 +37,12 @@ public class PostView extends Composite implements IHasObservablePoint{
 
 	
 	private class Listener implements MouseListener{
-
-
-		@Override
-		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {		
 		}
-
-		@Override
 		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-			RespondBoxView box = new RespondBoxView(getParent().getParent(),SWT.None, post,tm);
-			getParent().getParent().layout();
-			box.moveBelow(PostView.this);
-			getParent().getParent().layout(); //should this really be here? will cause problems if it doesnt have a parent!
-			observablePoint.changed();
+			observablePoint.changed(post);
 		}
-
-		@Override
-		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {			
 		}
 	}
 

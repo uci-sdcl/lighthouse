@@ -1,6 +1,8 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -17,12 +19,14 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class ThreadView extends ConversationElement{
+public class ThreadView extends ConversationElement implements IHasObservablePoint, Observer{
 	
 	ArrayList<PostView> postViews = new ArrayList<PostView>();
 	private ForumThread thread;
 	private TeamMember tm;
 	private int height = 30;
+	private ObservablePoint observablePoint = new ObservablePoint();
+
 	
 	public ThreadView(Composite parent, int style, ForumThread thread, TeamMember tm) {
 		super(parent, style);
@@ -45,7 +49,7 @@ public class ThreadView extends ConversationElement{
 		
 		GridData compsiteData = new GridData(550, height+30);
 		this.setLayoutData(compsiteData);
-		PostView pv = new PostView(this, SWT.None, post,tm);
+		addPostView(post,  tm);
 		this.getParent().layout();
 
 		addResponsePosts(post.getResponses());
@@ -61,7 +65,8 @@ public class ThreadView extends ConversationElement{
 			this.setLayoutData(compsiteData);
 			
 			
-			PostView pv = new PostView(this, SWT.None, post,tm);
+			addPostView(post,  tm);
+			
 			
 			this.getParent().layout();
 			
@@ -70,17 +75,36 @@ public class ThreadView extends ConversationElement{
 			}
 
 		}
-		
-		
-		
-		
 
-		
 
+	}
+	
+	private void addPostView(Post post, TeamMember tm){
+		PostView pv = new PostView(this, SWT.None, post,tm);
+		pv.observeThis(this);
 	}
 	
 	public void addPostView(PostView postView){
 		this.postViews.add(postView);
+	}
+
+
+
+	public void observeThis(Observer observer) {
+		observablePoint.addObserver(observer);
+	}
+
+
+	public ObservablePoint getObservablePoint() {
+		return observablePoint;
+	}
+
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		observablePoint.changed(arg);
+		
 	}
 	
 
