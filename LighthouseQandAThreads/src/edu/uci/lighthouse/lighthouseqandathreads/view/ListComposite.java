@@ -3,6 +3,7 @@ package edu.uci.lighthouse.lighthouseqandathreads.view;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 public class ListComposite extends Composite{
 
@@ -10,6 +11,20 @@ public class ListComposite extends Composite{
 	
 	public ListComposite(Composite parent, int style) {
 		super(parent, style);
+	}
+
+	public void renderList(){
+		disposeOfChildren();
+		
+		for(Composite composite : list){
+			composite.setParent(this);
+		}
+	}
+	
+	private void disposeOfChildren(){
+		for(Control child : this.getChildren()){
+			child.dispose();
+		}
 	}
 	
 	public void addBefore(Composite newComposite, Composite before){
