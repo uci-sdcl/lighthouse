@@ -39,7 +39,7 @@ public class PostView extends ConversationElement{
 		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {		
 		}
 		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-			PostView.this.getObservablePoint().changed(this);
+			PostView.this.getObservablePoint().changed(PostView.this);
 		}
 		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {			
 		}
