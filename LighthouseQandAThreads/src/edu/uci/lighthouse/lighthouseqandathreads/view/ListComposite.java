@@ -42,6 +42,14 @@ public class ListComposite extends Composite{
 
 	}
 	
+	public void clearReplyBox(){
+		for(Composite child: list){
+			if(child instanceof RespondBoxView)
+				child.setParent(temporaryParent);
+		}
+
+	}
+	
 	public void addBefore(Composite newComposite, Composite before){
 		boolean hasComposite = list.contains(before);
 		if(hasComposite){
