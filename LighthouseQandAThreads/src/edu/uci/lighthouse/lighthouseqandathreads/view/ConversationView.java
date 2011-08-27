@@ -65,7 +65,7 @@ public class ConversationView extends Composite{
 		postButton.addSelectionListener(new PostListener());
 		//---------------------------------------------------
 
-	      cl = new ConversationList(this, SWT.V_SCROLL | SWT.BORDER);
+	      cl = new ConversationList(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 
 
 
