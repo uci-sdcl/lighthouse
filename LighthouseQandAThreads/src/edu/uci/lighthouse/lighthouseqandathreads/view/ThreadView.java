@@ -81,16 +81,13 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 	
 	private void addPostView(Post post, TeamMember tm){
 		PostView pv = new PostView(this, SWT.None, post,tm);
-		pv.observeThis(this);
+		pv.observeMe(this);
 	}
 	
-	public void addPostView(PostView postView){
-		this.postViews.add(postView);
-	}
 
 
 
-	public void observeThis(Observer observer) {
+	public void observeMe(Observer observer) {
 		observablePoint.addObserver(observer);
 	}
 

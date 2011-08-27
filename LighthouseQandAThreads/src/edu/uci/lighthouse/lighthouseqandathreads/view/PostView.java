@@ -31,7 +31,7 @@ public class PostView extends Composite implements IHasObservablePoint{
 		this.addMouseListener(new Listener());
 	}
 	
-	public void observeThis(Observer observer){
+	public void observeMe(Observer observer){
 		observablePoint.addObserver(observer);
 	}	
 

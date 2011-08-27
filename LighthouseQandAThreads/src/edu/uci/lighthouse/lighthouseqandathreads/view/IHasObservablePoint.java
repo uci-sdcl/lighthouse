@@ -11,7 +11,7 @@ import java.util.Observer;
  */
 public interface IHasObservablePoint {
 
-	public void observeThis(Observer observer);
+	public void observeMe(Observer observer);
 	
 	public ObservablePoint getObservablePoint();
 	
