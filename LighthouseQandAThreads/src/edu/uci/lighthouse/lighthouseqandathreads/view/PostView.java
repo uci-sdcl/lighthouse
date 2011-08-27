@@ -61,4 +61,9 @@ public class PostView extends Composite implements IHasObservablePoint{
 		}
 	}
 
+
+	public ObservablePoint getObservablePoint() {
+		return observablePoint;
+	}
+
 }

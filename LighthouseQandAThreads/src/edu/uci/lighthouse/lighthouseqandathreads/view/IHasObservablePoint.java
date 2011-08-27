@@ -13,4 +13,6 @@ public interface IHasObservablePoint {
 
 	public void observeThis(Observer observer);
 	
+	public ObservablePoint getObservablePoint();
+	
 }
