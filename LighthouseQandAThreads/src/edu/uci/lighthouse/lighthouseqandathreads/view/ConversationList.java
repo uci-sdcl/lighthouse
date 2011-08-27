@@ -44,6 +44,7 @@ public class ConversationList extends ScrolledComposite implements Observer {
 
 	public void addConversationElement(ConversationElement element) {
 		element.setParent(composite);
+		element.observeMe(this);
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.layout();
 	}

@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Label;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class PostView extends Composite implements IHasObservablePoint{
+public class PostView extends ConversationElement{
 
 	Post post;
 	private TeamMember tm;
@@ -31,9 +31,6 @@ public class PostView extends Composite implements IHasObservablePoint{
 		this.addMouseListener(new Listener());
 	}
 	
-	public void observeMe(Observer observer){
-		observablePoint.addObserver(observer);
-	}	
 
 	
 	private class Listener implements MouseListener{
@@ -47,8 +44,5 @@ public class PostView extends Composite implements IHasObservablePoint{
 	}
 
 
-	public ObservablePoint getObservablePoint() {
-		return observablePoint;
-	}
 
 }

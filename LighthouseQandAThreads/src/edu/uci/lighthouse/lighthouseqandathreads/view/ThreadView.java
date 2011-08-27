@@ -25,7 +25,6 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 	private ForumThread thread;
 	private TeamMember tm;
 	private int height = 30;
-	private ObservablePoint observablePoint = new ObservablePoint();
 
 	
 	public ThreadView(Composite parent, int style, ForumThread thread, TeamMember tm) {
@@ -87,20 +86,10 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 
 
 
-	public void observeMe(Observer observer) {
-		observablePoint.addObserver(observer);
-	}
-
-
-	public ObservablePoint getObservablePoint() {
-		return observablePoint;
-	}
-
-
 
 	@Override
 	public void update(Observable o, Object arg) {
-		observablePoint.changed(arg);
+		this.getObservablePoint().changed(arg);
 		
 	}
 	
