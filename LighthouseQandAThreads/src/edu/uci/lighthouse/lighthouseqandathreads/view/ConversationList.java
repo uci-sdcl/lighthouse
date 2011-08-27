@@ -57,7 +57,8 @@ public class ConversationList extends ScrolledComposite implements Observer {
 			Post post = ((PostView)arg).getPost();
 			RespondBoxView box = new RespondBoxView(composite,
 					SWT.None, post, post.getTeamMemberAuthor());
-			this.layout();
+			composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			composite.layout();
 		}
 
 	}
