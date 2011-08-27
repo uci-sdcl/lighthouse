@@ -6,17 +6,19 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 
 public class ListComposite extends Composite{
 
 	ArrayList<Composite> list = new ArrayList<Composite>();
-	private Composite temporaryParent = new Composite(this, SWT.None);
+	private Composite temporaryParent = new Composite(new Shell(), SWT.None);
 	
 	public ListComposite(Composite parent, int style) {
 		super(parent, style);
 		
 		this.setLayout(new GridLayout(1, false));
-		
+		temporaryParent.setVisible(false);
+		setLayout(new GridLayout(1, false));
 	}
 
 	
@@ -26,9 +28,10 @@ public class ListComposite extends Composite{
 	
 	public void renderList(){
 		changeParents();
-		for(Composite child: list){
-			child.setParent(this);
+		for(int i = 0; i< list.size(); i++){
+			list.get(i).setParent(this);
 		}
+		this.setSize(this.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		this.layout();
 	}
 	
@@ -36,6 +39,7 @@ public class ListComposite extends Composite{
 		for(Composite child: list){
 			child.setParent(temporaryParent);
 		}
+
 	}
 	
 	public void addBefore(Composite newComposite, Composite before){
