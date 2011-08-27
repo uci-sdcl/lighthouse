@@ -37,6 +37,7 @@ public class ConversationList extends ScrolledComposite implements Observer {
 
 	public void addConversationElement(ForumThread thread, TeamMember tm) {
 		ThreadView threadView = new ThreadView(composite, SWT.None, thread, tm);
+		threadView.observeMe(this);
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.layout();
 	}
