@@ -19,12 +19,17 @@ public class ListComposite extends Composite{
 		for(Composite composite : list){
 			composite.setParent(this);
 		}
+		this.layout();
 	}
 	
 	private void disposeOfChildren(){
 		for(Control child : this.getChildren()){
 			child.dispose();
 		}
+	}
+	
+	public void add(Composite newComposite){
+		list.add(newComposite);
 	}
 	
 	public void addBefore(Composite newComposite, Composite before){
