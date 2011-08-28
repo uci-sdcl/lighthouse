@@ -72,7 +72,13 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	}
 	
 	public void update(Observable o, Object arg) {
-		ThreadChanged();
+		ThreadChanged(arg);
+	}
+	
+	private void ThreadChanged(Object arg){
+		setChanged();
+		notifyObservers(new Update(arg));
+	    clearChanged();
 	}
 	
 	private void ThreadChanged(){

@@ -116,6 +116,12 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
         clearChanged();
 	}
 	
+	private void forumChanged(Object object){
+        setChanged();
+        notifyObservers(new Update(object));
+        clearChanged();
+	}
+	
 	private void forumChanged(){
         setChanged();
         notifyObservers(new Update());
@@ -123,7 +129,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	}
 
 	public void update(Observable arg0, Object arg1) {
-		forumChanged();
+		forumChanged(arg1);
 	}
 	
 
