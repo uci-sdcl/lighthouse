@@ -54,7 +54,7 @@ public class ListComposite extends Composite{
 		for(Integer index : indexes){
 			Composite child = list.get(index);
 			child.dispose();
-			list.remove(index);
+			list.remove(index.intValue());
 		}
 		
 	}
