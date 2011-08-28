@@ -55,7 +55,9 @@ public class ConversationList extends ScrolledComposite implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-
+		if(arg instanceof RespondBoxView){
+			composite.disposeRespondBoxes();
+		}
 		if (arg instanceof ThreadView) {
 				
 			ThreadView threadView = ((ThreadView)arg);

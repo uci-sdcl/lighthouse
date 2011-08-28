@@ -74,7 +74,7 @@ public class RespondBoxView extends WindowFrame {
 	private class MenuListener extends SelectionAdapter{
 		public void widgetSelected(SelectionEvent e){
 			if(e.getSource() == closeButton){
-				RespondBoxView.this.dispose();
+				RespondBoxView.this.getObservablePoint().changed(RespondBoxView.this);
 			}
 		}
 	}
@@ -87,7 +87,7 @@ public class RespondBoxView extends WindowFrame {
 			if(replyeePost != null){
 				replyeePost.addResponse(newPost);
 				postNewThreadBox.setText("");
-				RespondBoxView.this.dispose();
+				RespondBoxView.this.getObservablePoint().changed(RespondBoxView.this);
 			}
 		}
 	}

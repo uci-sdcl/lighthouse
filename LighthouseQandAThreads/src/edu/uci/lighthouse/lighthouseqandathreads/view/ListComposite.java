@@ -51,6 +51,7 @@ public class ListComposite extends Composite{
 
 	}
 	
+
 	public void disposeRespondBoxes(){
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 		for(Composite child: list){
