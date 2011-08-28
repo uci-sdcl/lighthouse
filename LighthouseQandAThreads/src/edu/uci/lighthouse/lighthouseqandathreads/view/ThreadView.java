@@ -80,11 +80,13 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 		
 		if(root){
 			Composite rowComposite = new Composite(this, SWT.NONE);
+			rowComposite.setLayout(new RowLayout());
 			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
 			pv.observeMe(this);
 			addNewSpacer(rowComposite);
 		}else{
 			Composite rowComposite = new Composite(this, SWT.NONE);
+			rowComposite.setLayout(new RowLayout());
 			addNewSpacer(rowComposite);
 			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
 			pv.observeMe(this);
