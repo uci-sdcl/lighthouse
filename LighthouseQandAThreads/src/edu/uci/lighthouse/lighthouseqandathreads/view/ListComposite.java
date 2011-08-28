@@ -25,8 +25,9 @@ public class ListComposite extends Composite{
 		compsiteData.horizontalAlignment = SWT.CENTER;
 		
 		temporaryParent.setVisible(false);
-		setLayout(new GridLayout(1, false));
 		this.setLayoutData(compsiteData);
+		setLayout(new GridLayout(1, false));
+	
 	}
 
 	
