@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
@@ -21,7 +22,7 @@ public class PostView extends ConversationElement{
 	public PostView(Composite parent, int style, Post post, TeamMember tm) {
 		super(parent, style);
 		 this.post = post;
-	      GridData compsiteData = new GridData(LayoutMetrics.POST_VIEW_WIDTH, LayoutMetrics.POST_VIEW_HEIGHT);
+	      RowData compsiteData = new RowData(LayoutMetrics.POST_VIEW_WIDTH, LayoutMetrics.POST_VIEW_HEIGHT);
 	      this.tm = tm;
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);

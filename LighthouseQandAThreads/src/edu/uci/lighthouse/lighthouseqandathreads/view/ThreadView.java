@@ -11,6 +11,8 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import org.eclipse.swt.events.MouseListener;
@@ -24,20 +26,19 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 	private ForumThread thread;
 	private TeamMember tm;
 	private int height = 30;
+	private Composite spacer;
 	
 	
 	public ThreadView(Composite parent, int style, ForumThread thread, TeamMember tm) {
 		super(parent, style);
 		this.thread = thread;
 			this.tm = tm;
-	      GridData compsiteData = new GridData();
 
-			this.setLayout(new GridLayout(1, false));
-			this.setLayoutData(compsiteData);
+			this.setLayout(new GridLayout(1,false));
 			this.setBackground(ColorConstants.white);
 		
 		
-			addPost(thread.getRootQuestion());
+			addPost(thread.getRootQuestion(), true);
 	
 	}
 	
@@ -46,9 +47,9 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 		return thread;
 	}
 	
-	public void addPost(Post post){
+	public void addPost(Post post, boolean root){
 		
-		addPostView(post,  tm, GridData.HORIZONTAL_ALIGN_BEGINNING);
+		addPostView(post,  tm, root);
 		addResponsePosts(post.getResponses());
 	}
 	
@@ -57,10 +58,10 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 		
 		for(Post post: posts){
 			
-			addPostView(post,  tm, GridData.HORIZONTAL_ALIGN_END);
+			addPostView(post,  tm, false);
 			
 			for(Post childPost: post.getResponses()){
-				addPost(childPost);
+				addPost(childPost, false);
 			}
 
 		}
@@ -68,11 +69,28 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 
 	}
 	
-	private void addPostView(Post post, TeamMember tm, int alignment){
-		PostView pv = new PostView(this, SWT.None, post,tm);
-		pv.observeMe(this);
-		GridData data = new GridData();
-		data.horizontalAlignment = alignment;
+	private void addNewSpacer(Composite composite){
+		Composite spacer = new Composite(composite,SWT.None);
+		RowData rd = new RowData(10,10);
+		spacer.setLayoutData(rd);
+	
+	}
+	
+	private void addPostView(Post post, TeamMember tm, boolean root){
+		
+		if(root){
+			Composite rowComposite = new Composite(this, SWT.NONE);
+			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
+			pv.observeMe(this);
+			addNewSpacer(rowComposite);
+		}else{
+			Composite rowComposite = new Composite(this, SWT.NONE);
+			addNewSpacer(rowComposite);
+			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
+			pv.observeMe(this);
+		}
+		
+
 		this.setSize(this.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		this.layout();
 	}
