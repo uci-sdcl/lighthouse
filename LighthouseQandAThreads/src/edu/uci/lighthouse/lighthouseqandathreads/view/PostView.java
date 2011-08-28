@@ -2,6 +2,7 @@ package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import java.util.Observer;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
@@ -24,6 +25,8 @@ public class PostView extends ConversationElement{
 	      this.tm = tm;
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);
+			this.setBackground(ColorConstants.cyan);
+			
 			
 		Label label = new Label(this,SWT.None);
 		label.setText(tm.getAuthor().getName()+" - "+post.getMessage());

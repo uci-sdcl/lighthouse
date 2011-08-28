@@ -30,7 +30,7 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 		super(parent, style);
 		this.thread = thread;
 			this.tm = tm;
-	      GridData compsiteData = new GridData(LayoutMetrics.THREAD_VIEW_WIDTH, LayoutMetrics.THREAD_VIEW_HEIGHT);
+	      GridData compsiteData = new GridData();
 
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);
@@ -48,28 +48,16 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 	
 	public void addPost(Post post){
 		
-		GridData compsiteData = new GridData(550, height+30);
-		this.setLayoutData(compsiteData);
-		addPostView(post,  tm);
-		this.getParent().layout();
-
+		addPostView(post,  tm, GridData.HORIZONTAL_ALIGN_BEGINNING);
 		addResponsePosts(post.getResponses());
 	}
 	
 	public void addResponsePosts(Set<Post> posts){
-		
-		
+
 		
 		for(Post post: posts){
 			
-			GridData compsiteData = new GridData(550, height+30);
-			this.setLayoutData(compsiteData);
-			
-			
-			addPostView(post,  tm);
-			
-			
-			this.getParent().layout();
+			addPostView(post,  tm, GridData.HORIZONTAL_ALIGN_END);
 			
 			for(Post childPost: post.getResponses()){
 				addPost(childPost);
@@ -80,9 +68,11 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 
 	}
 	
-	private void addPostView(Post post, TeamMember tm){
+	private void addPostView(Post post, TeamMember tm, int alignment){
 		PostView pv = new PostView(this, SWT.None, post,tm);
 		pv.observeMe(this);
+		GridData data = new GridData();
+		data.horizontalAlignment = alignment;
 		this.setSize(this.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		this.layout();
 	}
