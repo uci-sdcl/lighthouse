@@ -22,6 +22,7 @@ public class RespondBoxView extends WindowFrame {
 	private TeamMember tm;
 	
 	private Composite replyComposite;
+	private Button closeButton;
 
 	public RespondBoxView(Composite parent, int style, Post post, TeamMember tm) {
 		super(parent, style);
@@ -39,10 +40,10 @@ public class RespondBoxView extends WindowFrame {
 			
 			
 			
-			Button button = new Button(replyComposite,SWT.None);
-			button.setText("x");
+			 closeButton = new Button(replyComposite,SWT.None);
+			 closeButton.setText("x");
 			
-			getElementMenu().addButton(button);
+			getElementMenu().addButton(closeButton);
 			
 			GridData postNewThreadBoxData = new GridData(350, 100);
 			postNewThreadBox = new StyledText(replyComposite, SWT.BORDER | SWT.V_SCROLL);
@@ -68,6 +69,14 @@ public class RespondBoxView extends WindowFrame {
 
 	public String getReply() {
 		return reply;
+	}
+	
+	private class MenuListener extends SelectionAdapter{
+		public void widgetSelected(SelectionEvent e){
+			if(e.getSource() == closeButton){
+				RespondBoxView.this.dispose();
+			}
+		}
 	}
 	
 	private class ReplyListener extends SelectionAdapter{
