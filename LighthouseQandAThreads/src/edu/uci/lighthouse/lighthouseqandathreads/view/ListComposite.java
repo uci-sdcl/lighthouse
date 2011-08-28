@@ -42,15 +42,24 @@ public class ListComposite extends Composite{
 
 	}
 	
-	public void clearReplyBox(){
+	public void disposeRespondBoxes(){
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
 		for(Composite child: list){
-			if(child instanceof RespondBoxView)
-				child.setParent(temporaryParent);
+			if(child instanceof RespondBoxView){
+				
+				indexes.add(list.indexOf(child));
+			}			
 		}
-
+		
+		for(Integer index : indexes){
+			Composite child = list.get(index);
+			child.dispose();
+			list.remove(index);
+		}
+		
 	}
 	
-	public void addBefore(Composite newComposite, Composite before){
+	public void addBefore(Composite newComposite, Composite before){ 
 		boolean hasComposite = list.contains(before);
 		if(hasComposite){
 			int index = list.indexOf(before);

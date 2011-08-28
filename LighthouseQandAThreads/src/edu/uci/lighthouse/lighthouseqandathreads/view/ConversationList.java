@@ -59,10 +59,12 @@ public class ConversationList extends ScrolledComposite implements Observer {
 			ThreadView threadView = ((ThreadView)arg);
 			ForumThread ft = threadView.getThread();
 			
+			composite.disposeRespondBoxes();
 			RespondBoxView box = new RespondBoxView(composite,
 					SWT.None, ft.getRootQuestion(), ft.getRootQuestion().getTeamMemberAuthor());
 			composite.addAfter(box,(ThreadView)arg);
 			composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			
 			composite.renderList();
 		}
 
