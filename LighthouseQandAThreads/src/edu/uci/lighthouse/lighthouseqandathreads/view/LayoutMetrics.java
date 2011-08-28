@@ -11,9 +11,6 @@ public class LayoutMetrics {
 	public static int RESPOND_BOX_VIEW_WIDTH = 500;
 	public static int RESPOND_BOX_VIEW_HEIGHT = 120;
 	
-	public static int LIST_COMPOSITE_WIDTH;
-	public static int LIST_COMPOSITE_HEIGHT;
-	
 	public static int QUESTION_BOX_VIEW_WIDTH = 550;
 	public static int QUESTION_BOX_VIEW_HEIGHT = 40;
 	
