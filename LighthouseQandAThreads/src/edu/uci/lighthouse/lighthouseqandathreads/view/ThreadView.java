@@ -30,7 +30,7 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 		super(parent, style);
 		this.thread = thread;
 			this.tm = tm;
-	      GridData compsiteData = new GridData(550, 30);
+	      GridData compsiteData = new GridData(LayoutMetrics.THREAD_VIEW_WIDTH, LayoutMetrics.THREAD_VIEW_HEIGHT);
 
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);

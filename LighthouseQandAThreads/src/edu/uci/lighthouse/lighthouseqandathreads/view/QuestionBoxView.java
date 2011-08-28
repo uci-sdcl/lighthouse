@@ -29,7 +29,7 @@ public class QuestionBoxView extends ConversationElement{
 		this.tm = tm;
 		
 		
-		GridData postBoxCompoiteData = new GridData(550, 40);
+		GridData postBoxCompoiteData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT, LayoutMetrics.QUESTION_BOX_VIEW_WIDTH);
 		setLayout(new GridLayout(2, false));
 		setLayoutData(postBoxCompoiteData);
 		

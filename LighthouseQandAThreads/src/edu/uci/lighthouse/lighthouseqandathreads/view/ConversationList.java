@@ -24,7 +24,7 @@ public class ConversationList extends ScrolledComposite implements Observer {
 		super(parent, style);
 		this.setBackground(ColorConstants.blue);
 
-		GridData compsiteData = new GridData(580, 450);
+		GridData compsiteData = new GridData(LayoutMetrics.CONVERSATION_LIST_HEIGHT, LayoutMetrics.CONVERSATION_LIST_WIDTH);
 		this.setLayout(new GridLayout(1, false));
 		this.setLayoutData(compsiteData);
 

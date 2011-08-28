@@ -23,7 +23,7 @@ public class RespondBoxView extends ConversationElement {
 
 	public RespondBoxView(Composite parent, int style, Post post, TeamMember tm) {
 		super(parent, style);
-	      GridData compsiteData = new GridData(500, 120);
+	      GridData compsiteData = new GridData(LayoutMetrics.RESPOND_BOX_VIEW_WIDTH, LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
 	      this.tm = tm;
 	        this.post = post;
 			this.setLayout(new GridLayout(2, false));

@@ -33,7 +33,7 @@ public class ConversationView extends Composite{
 		
 		
 		//layout
-		GridData compsiteData = new GridData(600, 600);
+		GridData compsiteData = new GridData(LayoutMetrics.CONVERSATION_VIEW_WIDTH,LayoutMetrics.CONVERSATION_VIEW_HEIGHT);
 		this.setLayout(new GridLayout(1, false));
 		this.setLayoutData(compsiteData);
 	
