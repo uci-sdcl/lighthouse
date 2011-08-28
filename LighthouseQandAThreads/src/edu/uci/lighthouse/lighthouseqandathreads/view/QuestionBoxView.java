@@ -24,14 +24,15 @@ public class QuestionBoxView extends ConversationElement{
 
 	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm) {
 		super(parent, style);
-		GridData postBoxCompoiteData = new GridData(550, 40);
 		
-		Composite postBoxCompoite = new Composite(this, SWT.NONE);
-		postBoxCompoite.setLayout(new GridLayout(2, false));
-		postBoxCompoite.setLayoutData(postBoxCompoiteData);
+		
+		
+		GridData postBoxCompoiteData = new GridData(550, 40);
+		setLayout(new GridLayout(2, false));
+		setLayoutData(postBoxCompoiteData);
 		
 		GridData postNewThreadBoxData = new GridData(350, 30);
-		postNewThreadBox = new StyledText(postBoxCompoite, SWT.BORDER);
+		postNewThreadBox = new StyledText(this, SWT.BORDER);
 		postNewThreadBox.setLayoutData(postNewThreadBoxData);
 		
 		postNewThreadBox.addModifyListener(new ModifyListener() {
@@ -41,7 +42,7 @@ public class QuestionBoxView extends ConversationElement{
 			}
 		});
 		
-		Button postButton = new Button(postBoxCompoite, SWT.BORDER);
+		Button postButton = new Button(this, SWT.BORDER);
 		postButton.setText("post");
 		postButton.addSelectionListener(new PostListener());
 		
