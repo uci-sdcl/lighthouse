@@ -25,6 +25,8 @@ public class QuestionBoxView extends ConversationElement{
 	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm) {
 		super(parent, style);
 		
+		this.forum = forum;
+		this.tm = tm;
 		
 		
 		GridData postBoxCompoiteData = new GridData(550, 40);
