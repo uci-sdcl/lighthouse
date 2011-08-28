@@ -18,7 +18,7 @@ public class LayoutMetrics {
 	public static int POST_VIEW_HEIGHT = 40;
 	
 	public static int THREAD_VIEW_WIDTH = 550;
-	public static int THREAD_VIEW_HEIGHT = 30;
+	public static int THREAD_VIEW_HEIGHT = 60;
 	
 
 }

@@ -24,7 +24,7 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 	private ForumThread thread;
 	private TeamMember tm;
 	private int height = 30;
-
+	
 	
 	public ThreadView(Composite parent, int style, ForumThread thread, TeamMember tm) {
 		super(parent, style);
