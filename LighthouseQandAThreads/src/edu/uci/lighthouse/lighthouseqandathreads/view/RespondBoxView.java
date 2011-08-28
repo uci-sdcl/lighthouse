@@ -30,6 +30,14 @@ public class RespondBoxView extends ConversationElement {
 			this.setLayoutData(compsiteData);
 			this.setBackground(ColorConstants.darkGray);
 			
+			
+			
+			ElementMenu menu = new ElementMenu(this,SWT.None);
+			Button button = new Button(this,SWT.None);
+			button.setText("x");
+			
+			menu.addButton(button);
+			
 			GridData postNewThreadBoxData = new GridData(350, 100);
 			postNewThreadBox = new StyledText(this, SWT.BORDER | SWT.V_SCROLL);
 			postNewThreadBox.setLayoutData(postNewThreadBoxData);
@@ -44,6 +52,8 @@ public class RespondBoxView extends ConversationElement {
 			Button postButton = new Button(this, SWT.BORDER);
 			postButton.setText("reply");
 			postButton.addSelectionListener(new ReplyListener());
+			
+
 	}
 
 	public void setReply(String reply) {

@@ -16,6 +16,7 @@ public class ElementMenu extends Composite{
 		super(parent, style);
 		
 		GridData compsiteData = new GridData();
+		compsiteData.horizontalAlignment = SWT.RIGHT;
 		this.setBackground(ColorConstants.black);		
 		compsiteData.horizontalAlignment = SWT.CENTER;
 		this.setLayoutData(compsiteData);
