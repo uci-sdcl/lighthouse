@@ -15,31 +15,37 @@ import org.eclipse.swt.widgets.Composite;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class RespondBoxView extends ConversationElement {
+public class RespondBoxView extends WindowFrame {
 	private String reply = "";
 	final StyledText postNewThreadBox;
 	private Post post;
 	private TeamMember tm;
+	
+	private Composite replyComposite;
 
 	public RespondBoxView(Composite parent, int style, Post post, TeamMember tm) {
 		super(parent, style);
-	      GridData compsiteData = new GridData(LayoutMetrics.RESPOND_BOX_VIEW_WIDTH, LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
-	      this.tm = tm;
-	        this.post = post;
-			this.setLayout(new GridLayout(2, false));
-			this.setLayoutData(compsiteData);
-			this.setBackground(ColorConstants.darkGray);
+	      
+		replyComposite = new Composite(this, style);
+		
+		  this.tm = tm;
+	      this.post = post;
+	        
+		      GridData compsiteData = new GridData(LayoutMetrics.RESPOND_BOX_VIEW_WIDTH, LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
+		      replyComposite.setLayout(new GridLayout(2, false));
+		      replyComposite.setLayoutData(compsiteData);
+		      replyComposite.setBackground(ColorConstants.darkGray);
 			
 			
 			
-			ElementMenu menu = new ElementMenu(this,SWT.None);
-			Button button = new Button(this,SWT.None);
+			
+			Button button = new Button(replyComposite,SWT.None);
 			button.setText("x");
 			
-			menu.addButton(button);
+			getElementMenu().addButton(button);
 			
 			GridData postNewThreadBoxData = new GridData(350, 100);
-			postNewThreadBox = new StyledText(this, SWT.BORDER | SWT.V_SCROLL);
+			postNewThreadBox = new StyledText(replyComposite, SWT.BORDER | SWT.V_SCROLL);
 			postNewThreadBox.setLayoutData(postNewThreadBoxData);
 			
 			postNewThreadBox.addModifyListener(new ModifyListener() {
@@ -49,7 +55,7 @@ public class RespondBoxView extends ConversationElement {
 				}
 			});
 			
-			Button postButton = new Button(this, SWT.BORDER);
+			Button postButton = new Button(replyComposite, SWT.BORDER);
 			postButton.setText("reply");
 			postButton.addSelectionListener(new ReplyListener());
 			

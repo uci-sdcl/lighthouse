@@ -15,7 +15,8 @@ public class ElementMenu extends Composite{
 	public ElementMenu(Composite parent, int style) {
 		super(parent, style);
 		
-		GridData compsiteData = new GridData();
+		GridData compsiteData = new GridData(GridData.FILL_HORIZONTAL);
+
 		compsiteData.horizontalAlignment = SWT.RIGHT;
 		this.setBackground(ColorConstants.black);		
 		compsiteData.horizontalAlignment = SWT.CENTER;
@@ -23,19 +24,14 @@ public class ElementMenu extends Composite{
 		setLayout(new GridLayout(3, false));
 		
 		
-		poistionOnParent();
+
 	}
 	
-	private void poistionOnParent(){
-		Point point = this.getParent().getSize();
-		int x = point.x - this.getSize().x;
-		this.setLocation(x, 0);
-		this.getParent().layout();
-	}
+
 
 	public void addButton(Button button){
 		button.setParent(this);
-		poistionOnParent();
+		
 		this.layout();
 	}
 }

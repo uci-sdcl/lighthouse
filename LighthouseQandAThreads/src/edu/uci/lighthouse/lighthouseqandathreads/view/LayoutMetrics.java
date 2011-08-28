@@ -19,5 +19,6 @@ public class LayoutMetrics {
 	
 	public static int THREAD_VIEW_WIDTH = 550;
 	public static int THREAD_VIEW_HEIGHT = 30;
+	
 
 }
