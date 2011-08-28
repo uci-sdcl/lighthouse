@@ -71,7 +71,8 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 	
 	private void addNewSpacer(Composite composite){
 		Composite spacer = new Composite(composite,SWT.None);
-		RowData rd = new RowData(10,10);
+		spacer.setVisible(false);
+		RowData rd = new RowData(15,10);
 		spacer.setLayoutData(rd);
 	
 	}
@@ -81,12 +82,14 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 		if(root){
 			Composite rowComposite = new Composite(this, SWT.NONE);
 			rowComposite.setLayout(new RowLayout());
+			rowComposite.setBackground(ColorConstants.white);
 			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
 			pv.observeMe(this);
 			addNewSpacer(rowComposite);
 		}else{
 			Composite rowComposite = new Composite(this, SWT.NONE);
 			rowComposite.setLayout(new RowLayout());
+			rowComposite.setBackground(ColorConstants.white);
 			addNewSpacer(rowComposite);
 			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
 			pv.observeMe(this);

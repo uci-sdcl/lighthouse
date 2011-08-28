@@ -26,12 +26,16 @@ public class PostView extends ConversationElement{
 	      this.tm = tm;
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);
-			this.setBackground(ColorConstants.cyan);
+			this.setBackground(ColorConstants.white);
 			
 			
 		Label label = new Label(this,SWT.None);
 		label.setText(tm.getAuthor().getName()+" - "+post.getMessage());
-		this.addMouseListener(new Listener());
+		label.setBackground(ColorConstants.white);
+		
+		Listener listener = new Listener();
+		this.addMouseListener(listener);
+		label.addMouseListener(listener);
 	}
 	
 	public Post getPost(){
