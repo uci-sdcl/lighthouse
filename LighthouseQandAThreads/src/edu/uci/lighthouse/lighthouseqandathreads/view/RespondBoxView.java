@@ -23,14 +23,14 @@ public class RespondBoxView extends ConversationElement {
 
 	public RespondBoxView(Composite parent, int style, Post post, TeamMember tm) {
 		super(parent, style);
-	      GridData compsiteData = new GridData(500, 200);
+	      GridData compsiteData = new GridData(500, 120);
 	      this.tm = tm;
 	        this.post = post;
 			this.setLayout(new GridLayout(2, false));
 			this.setLayoutData(compsiteData);
 			this.setBackground(ColorConstants.darkGray);
 			
-			GridData postNewThreadBoxData = new GridData(350, 200);
+			GridData postNewThreadBoxData = new GridData(350, 100);
 			postNewThreadBox = new StyledText(this, SWT.BORDER);
 			postNewThreadBox.setLayoutData(postNewThreadBoxData);
 			
