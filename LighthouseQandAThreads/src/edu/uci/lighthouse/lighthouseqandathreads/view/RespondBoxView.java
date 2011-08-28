@@ -31,7 +31,7 @@ public class RespondBoxView extends ConversationElement {
 			this.setBackground(ColorConstants.darkGray);
 			
 			GridData postNewThreadBoxData = new GridData(350, 100);
-			postNewThreadBox = new StyledText(this, SWT.BORDER);
+			postNewThreadBox = new StyledText(this, SWT.BORDER | SWT.V_SCROLL);
 			postNewThreadBox.setLayoutData(postNewThreadBoxData);
 			
 			postNewThreadBox.addModifyListener(new ModifyListener() {

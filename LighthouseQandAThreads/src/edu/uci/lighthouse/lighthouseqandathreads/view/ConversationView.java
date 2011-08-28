@@ -34,8 +34,10 @@ public class ConversationView extends Composite{
 		
 		//layout
 		GridData compsiteData = new GridData(LayoutMetrics.CONVERSATION_VIEW_WIDTH,LayoutMetrics.CONVERSATION_VIEW_HEIGHT);
-		this.setLayout(new GridLayout(1, false));
+		compsiteData.horizontalAlignment = SWT.CENTER;
 		this.setLayoutData(compsiteData);
+		this.setLayout(new GridLayout(1, false));
+		
 	
 		
 		//post new thread box-----------------------------

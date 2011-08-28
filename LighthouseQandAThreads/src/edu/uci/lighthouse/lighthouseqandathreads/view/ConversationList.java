@@ -22,11 +22,13 @@ public class ConversationList extends ScrolledComposite implements Observer {
 
 	public ConversationList(Composite parent, int style) {
 		super(parent, style);
-		this.setBackground(ColorConstants.blue);
+		
 
 		GridData compsiteData = new GridData(LayoutMetrics.CONVERSATION_LIST_WIDTH, LayoutMetrics.CONVERSATION_LIST_HEIGHT);
-		this.setLayout(new GridLayout(1, false));
+		compsiteData.horizontalAlignment = SWT.CENTER;
 		this.setLayoutData(compsiteData);
+		this.setLayout(new GridLayout(1, false));
+		
 
 		composite = new ListComposite(this, SWT.None);
 		this.setContent(composite);
