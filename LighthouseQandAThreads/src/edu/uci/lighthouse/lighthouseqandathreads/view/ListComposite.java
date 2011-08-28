@@ -22,11 +22,12 @@ public class ListComposite extends Composite{
 
 		this.setBackground(ColorConstants.black);
 		
-		compsiteData.horizontalAlignment = SWT.CENTER;
+		compsiteData.horizontalAlignment = GridData.CENTER;
 		
 		temporaryParent.setVisible(false);
-		this.setLayoutData(compsiteData);
+		
 		setLayout(new GridLayout(1, false));
+		this.setLayoutData(compsiteData);
 	
 	}
 
@@ -66,6 +67,7 @@ public class ListComposite extends Composite{
 			child.dispose();
 			list.remove(index.intValue());
 		}
+		
 		
 	}
 	

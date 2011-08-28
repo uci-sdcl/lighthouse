@@ -36,12 +36,13 @@ public class RespondBoxView extends WindowFrame {
 		      replyComposite.setLayout(new GridLayout(2, false));
 		      replyComposite.setLayoutData(compsiteData);
 		      replyComposite.setBackground(ColorConstants.darkGray);
-			
+			 
 			
 			
 			
 			 closeButton = new Button(replyComposite,SWT.None);
 			 closeButton.setText("x");
+			 closeButton.addSelectionListener(new MenuListener());
 			
 			getElementMenu().addButton(closeButton);
 			

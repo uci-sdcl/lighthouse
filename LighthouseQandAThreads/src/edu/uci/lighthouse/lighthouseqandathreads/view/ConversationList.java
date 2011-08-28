@@ -57,6 +57,7 @@ public class ConversationList extends ScrolledComposite implements Observer {
 	public void update(Observable o, Object arg) {
 		if(arg instanceof RespondBoxView){
 			composite.disposeRespondBoxes();
+			composite.renderList();
 		}
 		if (arg instanceof ThreadView) {
 				
@@ -66,6 +67,7 @@ public class ConversationList extends ScrolledComposite implements Observer {
 			composite.disposeRespondBoxes();
 			RespondBoxView box = new RespondBoxView(composite,
 					SWT.None, ft.getRootQuestion(), ft.getRootQuestion().getTeamMemberAuthor());
+			box.observeMe(this);
 			composite.addAfter(box,(ThreadView)arg);
 			composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 			
