@@ -251,7 +251,10 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public void populateConversationView(Object arg){
 		if(arg instanceof ForumThread)
-		convoView.addConversationElement((ForumThread)arg,tm);
+			convoView.addConversationElement((ForumThread)arg,tm);
+		else if(arg instanceof Post){
+			Post post = (Post)arg;
+		}
 	}
 	
 

@@ -2,11 +2,13 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.widgets.Composite;
 
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
@@ -27,6 +29,7 @@ public class QAController implements Observer {
 	NewQuestionDialog nqDialog;
 	LHforum forum;
 	LighthouseEntity entity;
+	HashMap<Object, Composite> modelToViewMap = new HashMap<Object, Composite>();
 
 	public QAController(NewQuestionDialog dialog, LHforum forum,
 			LighthouseEntity entity) {
@@ -47,6 +50,10 @@ public class QAController implements Observer {
 
 	public void stopObserving() {
 		forum.deleteObserver(this);
+	}
+	
+	public void map(Object from, Composite to){
+		this.modelToViewMap.put(from, to);
 	}
 
 	@Override
