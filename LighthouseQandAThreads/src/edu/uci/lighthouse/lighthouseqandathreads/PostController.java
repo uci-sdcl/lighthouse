@@ -4,10 +4,21 @@ import java.util.Observable;
 
 import org.eclipse.swt.widgets.Composite;
 
+import edu.uci.lighthouse.lighthouseqandathreads.view.ConversationElement;
+import edu.uci.lighthouse.model.QAforums.Post;
 
-public class PostController<Post> implements IController{
 
-
+public class PostController implements IController<Post> {
+	private Post post;
+	private ConversationElement view;
+	
+	public PostController(Post post, ConversationElement view){
+		this.post = post;
+		this.view = view;
+		post.addObserver(this);
+		view.observeMe(this);
+	}
+	
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		
@@ -15,14 +26,12 @@ public class PostController<Post> implements IController{
 
 
 	public Composite getView() {
-		// TODO Auto-generated method stub
-		return null;
+		return view;
 	}
 
 
 	public Post getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return post;
 	}
 
 

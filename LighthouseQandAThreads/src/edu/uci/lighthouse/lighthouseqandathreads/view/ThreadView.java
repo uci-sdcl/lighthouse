@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import org.eclipse.swt.events.MouseListener;
 
+import edu.uci.lighthouse.lighthouseqandathreads.PostController;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
@@ -84,6 +85,7 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 			rowComposite.setLayout(new RowLayout());
 			rowComposite.setBackground(ColorConstants.white);
 			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
+			PostController controller = new PostController(post,pv);
 			pv.observeMe(this);
 			addNewSpacer(rowComposite);
 		}else{
@@ -92,10 +94,11 @@ public class ThreadView extends ConversationElement implements IHasObservablePoi
 			rowComposite.setBackground(ColorConstants.white);
 			addNewSpacer(rowComposite);
 			PostView pv = new PostView(rowComposite, SWT.None, post,tm);
+			PostController controller = new PostController(post,pv);
 			pv.observeMe(this);
 		}
 		
-
+		
 		this.setSize(this.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		this.layout();
 	}

@@ -21,7 +21,6 @@ import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.actions.ContextMenuPlugin;
 
 public class QAcontextMenuAction extends Action{
-	private ForumController controller;
 	private LHforum forum;
 	private LighthouseEntity le;
     private LighthouseClass clazz;
@@ -48,7 +47,7 @@ public class QAcontextMenuAction extends Action{
 
 
 		int response = nqDialog.open();
-		controller.stopObserving();
+		//controller.stopObserving();
 	}
 	
 
