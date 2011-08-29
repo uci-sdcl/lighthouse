@@ -120,7 +120,7 @@ public class Post extends Observable implements Serializable, Observer{
 			UpdateChain chain = (UpdateChain)arg;
 			
 			UpdateChain newChain = new UpdateChain(new Update<Post>(this));
-			newChain.preFixChain(newChain);
+			newChain.preFixChain(chain);
 			PostChanged(newChain);		
 		}
 	}

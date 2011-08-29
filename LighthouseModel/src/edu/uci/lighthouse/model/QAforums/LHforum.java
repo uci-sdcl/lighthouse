@@ -113,7 +113,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	
 	private void forumChanged(UpdateChain object){
         setChanged();
-        notifyObservers(new Update(object));
+        notifyObservers(object);
         clearChanged();
 	}
 	
@@ -123,7 +123,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 			UpdateChain chain = (UpdateChain)arg1;
 			
 			UpdateChain newChain = new UpdateChain(new Update<LHforum>(this));
-			newChain.preFixChain(newChain);
+			newChain.preFixChain(chain);
 			forumChanged(newChain);		
 		}
 		
