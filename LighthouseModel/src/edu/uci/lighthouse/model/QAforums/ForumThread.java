@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ForumThread extends Observable implements Serializable, Observer{
+public class ForumThread extends Observable implements Serializable{
     /**
 	 * 
 	 */
@@ -37,12 +37,10 @@ public class ForumThread extends Observable implements Serializable, Observer{
 
 	public ForumThread(Post question) {
 		rootQuestion = question;
-		rootQuestion.addObserver(this);
 	}
 	
 	public void setRootQuestion(Post question){
 		rootQuestion = question;
-		rootQuestion.addObserver(this);
 	}
 	
 
@@ -62,20 +60,11 @@ public class ForumThread extends Observable implements Serializable, Observer{
 		return solution;
 	}
 	
-	private void initRootQuestionObserving(){
-		rootQuestion.initObserving();
-	}
+
 	
-	public void initObserving(){
-		rootQuestion.addObserver(this);
-		initRootQuestionObserving();
-	}
+
 	
-	public void update(Observable o, Object arg) {
-			ThreadChanged(arg);		
-		
-		
-	}
+
 	
 	private void ThreadChanged(Object arg){
 		setChanged();

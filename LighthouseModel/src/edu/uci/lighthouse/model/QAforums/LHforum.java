@@ -20,7 +20,7 @@ import org.hibernate.annotations.CollectionOfElements;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
-public class LHforum extends LHclassPluginExtension implements Serializable, Observer{
+public class LHforum extends LHclassPluginExtension implements Serializable{
     /**
 	 * 
 	 */
@@ -53,17 +53,9 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 		return null;
 	}
 	
-	private void observeThreads(){
-		for(ForumThread thread : threads){
-			thread.addObserver(this);
-		}
-	}
+
 	
-	private void initThreadObserving(){
-		for(ForumThread thread : threads){
-			thread.initObserving();
-		}
-	}
+
 	
 	public void addThread(Post rootPost){
 		ForumThread thread = new ForumThread(rootPost);
@@ -73,23 +65,17 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	
 	public void addThread(ForumThread thread){
 		threads.add(thread);
-		thread.addObserver(this);
 		forumChanged(new AddEvent<ForumThread,LHforum>(thread,this));
 	}
 	
 	public void setThreads(Collection<ForumThread> threads){
 		this.threads = threads;
-		observeThreads();
 	}
 	
 	public Collection<ForumThread> getThreads(){
 		return threads;
 	}
 	
-	public void initObserving(){
-		this.observeThreads();
-		initThreadObserving();
-	}
 	
 	public int countThreads(){
 		return threads.size();
@@ -118,9 +104,6 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	}
 	
 
-	public void update(Observable arg0, Object arg1) {
-			forumChanged(arg1);		
-	}
-	
+
 
 }

@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
 @Entity
-public class Post extends Observable implements Serializable, Observer{
+public class Post extends Observable implements Serializable{
     /**
 	 * 
 	 */
@@ -50,7 +50,6 @@ public class Post extends Observable implements Serializable, Observer{
 	
 	private void observeResponses(){
 		for(Post post : responses){
-			post.addObserver(this);
 		}
 	}
 	
@@ -84,7 +83,6 @@ public class Post extends Observable implements Serializable, Observer{
 	
 	public void addResponse(Post post){
 		responses.add(post);
-		post.addObserver(this);
 		PostChanged(new AddEvent<Post,Post>(post,this));
 	}
 
@@ -97,16 +95,8 @@ public class Post extends Observable implements Serializable, Observer{
 	}
 	
 	
-	private void initResponseObserving(){
-		for(Post post : responses){
-			post.initObserving();
-		}
-	}
+
 	
-	public void initObserving(){
-		observeResponses();
-		initResponseObserving();
-	}
 	
 	private void PostChanged(Object object){
 		setChanged();
@@ -115,7 +105,4 @@ public class Post extends Observable implements Serializable, Observer{
 	}
 
 	
-	public void update(Observable o, Object arg) {
-			PostChanged(arg);		
-	}
 }
