@@ -54,6 +54,7 @@ public class ForumView extends Composite{
 	
 	public void addConversationElement(ForumThread thread, TeamMember tm){
 		cl.addConversationElement(thread,tm);
+		
 	}
 	
 	public void addConversationElement(ForumElement element){

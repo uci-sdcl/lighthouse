@@ -73,6 +73,9 @@ public class NewQuestionDialog extends MessageDialog {
 		
 	}
 
+	/**
+	 * A ForumController is added to observe forum and the created ForumView
+	 */
 	public Control createCustomArea(Composite parent) {
 		
 		convoView = new ForumView(parent, SWT.NULL, tm, forum);

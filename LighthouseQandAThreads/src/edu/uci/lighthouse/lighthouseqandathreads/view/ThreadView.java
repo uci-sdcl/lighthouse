@@ -78,6 +78,12 @@ public class ThreadView extends ForumElement implements IHasObservablePoint, Obs
 	
 	}
 	
+	/**
+	 * A PostController is added to observe post and its created PostView
+	 * @param post
+	 * @param tm
+	 * @param root
+	 */
 	private void addPostView(Post post, TeamMember tm, boolean root){
 		
 		if(root){

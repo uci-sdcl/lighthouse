@@ -12,6 +12,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import edu.uci.lighthouse.lighthouseqandathreads.ThreadController;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
@@ -37,12 +38,18 @@ public class ThreadList extends ScrolledComposite implements Observer {
 		this.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 	}
 
+	/**
+	 * A ThreadController is added to observe thread and its created view
+	 * @param thread
+	 * @param tm
+	 */
 	public void addConversationElement(ForumThread thread, TeamMember tm) {
 		ThreadView threadView = new ThreadView(composite, SWT.None, thread, tm);
 		threadView.observeMe(this);
 		composite.add(threadView);
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.renderList();
+		ThreadController controller = new ThreadController(thread,threadView);
 	}
 
 	public void addConversationElement(ForumElement element) {
