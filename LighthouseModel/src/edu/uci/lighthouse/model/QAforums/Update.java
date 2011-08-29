@@ -6,6 +6,7 @@ import java.util.List;
 public class Update<T> implements IEvent{
 
 	private T argument;
+
 	
     ArrayList<Update> causalUpdates = new ArrayList<Update>();
 	
@@ -16,6 +17,7 @@ public class Update<T> implements IEvent{
 	public List<Update> getcausalUpdates(){
 		return causalUpdates;
 	}
+	
 	
 	public Update(){}
 	
@@ -30,4 +32,6 @@ public class Update<T> implements IEvent{
 	public T getArgument() {
 		return argument;
 	}
+
+
 }
