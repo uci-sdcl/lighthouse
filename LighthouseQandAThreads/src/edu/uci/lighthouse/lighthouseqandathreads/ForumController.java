@@ -39,9 +39,8 @@ public class ForumController implements IController<LHforum> {
 		this.view = view;
 
 		this.forum = forum;
-		// need to init all the model's self observers because Observers are
-		// destroyed once model is marshaled and unmarshaled.
-		this.forum.initObserving();
+
+		
 		this.forum.addObserver(this);
 		this.entity = entity;
 		this.tm = tm;
