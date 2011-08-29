@@ -4,15 +4,15 @@ import java.util.Observable;
 
 import org.eclipse.swt.widgets.Composite;
 
-import edu.uci.lighthouse.lighthouseqandathreads.view.ConversationElement;
+import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
 import edu.uci.lighthouse.model.QAforums.Post;
 
 
 public class PostController implements IController<Post> {
 	private Post post;
-	private ConversationElement view;
+	private ForumElement view;
 	
-	public PostController(Post post, ConversationElement view){
+	public PostController(Post post, ForumElement view){
 		this.post = post;
 		this.view = view;
 		post.addObserver(this);

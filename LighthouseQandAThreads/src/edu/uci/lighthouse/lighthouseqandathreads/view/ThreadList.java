@@ -16,11 +16,11 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class ConversationList extends ScrolledComposite implements Observer {
+public class ThreadList extends ScrolledComposite implements Observer {
 
 	ListComposite composite;
 
-	public ConversationList(Composite parent, int style) {
+	public ThreadList(Composite parent, int style) {
 		super(parent, style);
 		
 
@@ -45,7 +45,7 @@ public class ConversationList extends ScrolledComposite implements Observer {
 		composite.renderList();
 	}
 
-	public void addConversationElement(ConversationElement element) {
+	public void addConversationElement(ForumElement element) {
 		element.setParent(composite);
 		element.observeMe(this);
 		composite.add(element);

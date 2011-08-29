@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Composite;
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.util.ModelUtility;
-import edu.uci.lighthouse.lighthouseqandathreads.view.ConversationView;
+import edu.uci.lighthouse.lighthouseqandathreads.view.ForumView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -28,13 +28,13 @@ import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class ForumController implements IController<LHforum> {
-	ConversationView view;
+	ForumView view;
 	LHforum forum;
 	LighthouseEntity entity;
 	HashMap<Object, Composite> modelToViewMap = new HashMap<Object, Composite>();
 	TeamMember tm;
 
-	public ForumController(ConversationView view, LHforum forum,
+	public ForumController(ForumView view, LHforum forum,
 			LighthouseEntity entity, TeamMember tm) {
 		this.view = view;
 

@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Label;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class PostView extends ConversationElement{
+public class PostView extends ForumElement{
 
 	Post post;
 	private TeamMember tm;

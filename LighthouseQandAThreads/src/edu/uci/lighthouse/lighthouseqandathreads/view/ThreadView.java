@@ -22,7 +22,7 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class ThreadView extends ConversationElement implements IHasObservablePoint, Observer{
+public class ThreadView extends ForumElement implements IHasObservablePoint, Observer{
 	
 	private ForumThread thread;
 	private TeamMember tm;

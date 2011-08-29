@@ -4,11 +4,11 @@ import java.util.Observer;
 
 import org.eclipse.swt.widgets.Composite;
 
-public class ConversationElement extends Composite implements IHasObservablePoint{
+public class ForumElement extends Composite implements IHasObservablePoint{
 	private ObservablePoint observablePoint = new ObservablePoint();
 
 	
-	public ConversationElement(Composite parent, int style) {
+	public ForumElement(Composite parent, int style) {
 		super(parent, style);
 		// TODO Auto-generated constructor stub
 	}

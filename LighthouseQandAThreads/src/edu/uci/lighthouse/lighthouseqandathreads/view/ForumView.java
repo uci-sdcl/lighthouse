@@ -20,15 +20,15 @@ import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class ConversationView extends Composite{
+public class ForumView extends Composite{
 
-	ArrayList<ConversationElement> elements = new ArrayList<ConversationElement>();
-	private ConversationList cl;
+	ArrayList<ForumElement> elements = new ArrayList<ForumElement>();
+	private ThreadList cl;
 
 
 
 	
-	public ConversationView(Composite parent, int style, TeamMember tm, LHforum forum) {
+	public ForumView(Composite parent, int style, TeamMember tm, LHforum forum) {
 		super(parent, style);
 		
 		
@@ -44,7 +44,7 @@ public class ConversationView extends Composite{
 		QuestionBoxView qbv = new QuestionBoxView(this, SWT.None, forum, tm);
 		//conversation list ---------------------------------------------------
 
-	      cl = new ConversationList(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+	      cl = new ThreadList(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 
 
 		
@@ -56,7 +56,7 @@ public class ConversationView extends Composite{
 		cl.addConversationElement(thread,tm);
 	}
 	
-	public void addConversationElement(ConversationElement element){
+	public void addConversationElement(ForumElement element){
 		cl.addConversationElement(element);
 
 	}

@@ -16,7 +16,7 @@ import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class QuestionBoxView extends ConversationElement{
+public class QuestionBoxView extends ForumElement{
 	final StyledText postNewThreadBox;
 	private String message;
 	private TeamMember tm;

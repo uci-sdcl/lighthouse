@@ -8,7 +8,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
-public class WindowFrame extends ConversationElement{
+public class WindowFrame extends ForumElement{
 
 	private ElementMenu menu; 
 	

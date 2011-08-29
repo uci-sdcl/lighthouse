@@ -57,7 +57,7 @@ public class NewQuestionDialog extends MessageDialog {
 	
 	private ObservableClass observablePoint = new ObservableClass();
 	
-	private ConversationView convoView;
+	private ForumView convoView;
 	 private LighthouseClass clazz;
 	
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
@@ -75,7 +75,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 	public Control createCustomArea(Composite parent) {
 		
-		convoView = new ConversationView(parent, SWT.NULL, tm, forum);
+		convoView = new ForumView(parent, SWT.NULL, tm, forum);
 		controller = new ForumController(convoView, forum, clazz, tm);
 		controller.init();
 /*
