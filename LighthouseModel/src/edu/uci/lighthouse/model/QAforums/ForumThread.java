@@ -41,6 +41,7 @@ public class ForumThread extends Observable implements Serializable{
 	
 	public void setRootQuestion(Post question){
 		rootQuestion = question;
+		rootQuestion.setRoot(true);
 	}
 	
 

@@ -38,6 +38,8 @@ public class Post extends Observable implements Serializable{
 	@ManyToOne (cascade = CascadeType.ALL)
 	private TeamMember author;
 	
+	private boolean root;
+	
 	public Post(){
 	}
 	
@@ -102,6 +104,14 @@ public class Post extends Observable implements Serializable{
 		setChanged();
 		notifyObservers(object);
 	    clearChanged();
+	}
+
+	public void setRoot(boolean root) {
+		this.root = root;
+	}
+
+	public boolean isRoot() {
+		return root;
 	}
 
 	
