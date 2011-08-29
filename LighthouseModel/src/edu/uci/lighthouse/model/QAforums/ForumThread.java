@@ -88,9 +88,5 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	    clearChanged();
 	}
 	
-	private void ThreadChanged(){
-		setChanged();
-		notifyObservers(new Update());
-	    clearChanged();
-	}
+
 }
