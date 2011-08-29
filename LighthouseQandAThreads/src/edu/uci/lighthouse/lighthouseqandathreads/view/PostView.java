@@ -49,7 +49,7 @@ public class PostView extends ForumElement{
 		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {		
 		}
 		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-			//PostView.this.getObservablePoint().changed(PostView.this);
+			
 		}
 		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {			
 		}

@@ -26,8 +26,9 @@ public class PostController implements IController<Post> {
 		
 		if(o instanceof Post && arg instanceof AddEvent){
 			AddEvent<Post,Post> event = (AddEvent<Post,Post>)arg;
+			//really need a better way of updating view...
 			ThreadView threadView = (ThreadView)view.getParent().getParent();
-			threadView.addPost(event.getAddition(), false); 
+			threadView.addPost(event.getAddition(), event.getAddition().isRoot()); 
 		}
 
 	}
