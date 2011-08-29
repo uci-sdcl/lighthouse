@@ -21,7 +21,7 @@ import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.actions.ContextMenuPlugin;
 
 public class QAcontextMenuAction extends Action{
-	private QAController controller;
+	private ForumController controller;
 	private LHforum forum;
 	private LighthouseEntity le;
     private LighthouseClass clazz;
@@ -42,9 +42,9 @@ public class QAcontextMenuAction extends Action{
 		NewQuestionDialog nqDialog = new NewQuestionDialog(
 				display.getActiveShell(), "Forum", null,
 				le.getFullyQualifiedName(), MessageDialog.INFORMATION,
-				SWT.OK, tm, forum);
+				SWT.OK, tm, forum,clazz);
 
-		QAController controller = new QAController(nqDialog, forum, clazz);
+		
 
 
 		int response = nqDialog.open();

@@ -30,6 +30,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uci.lighthouse.lighthouseqandathreads.ForumController;
+import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.QAforums.IEvent;
 import edu.uci.lighthouse.model.QAforums.Init;
 import edu.uci.lighthouse.model.QAforums.LHforum;
@@ -46,7 +48,7 @@ public class NewQuestionDialog extends MessageDialog {
 	private String replySubject;
 	private TeamMember tm;
 	private LHforum forum;
-
+	ForumController controller ;
 	
 	public static int CLOSE = 0;
 	private static String[] labelArray = { "Close" };
@@ -56,23 +58,26 @@ public class NewQuestionDialog extends MessageDialog {
 	private ObservableClass observablePoint = new ObservableClass();
 	
 	private ConversationView convoView;
-
+	 private LighthouseClass clazz;
+	
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
-			int defaultIndex, TeamMember tm, LHforum forum) {
+			int defaultIndex, TeamMember tm, LHforum forum, LighthouseClass clazz) {
 
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage,
 				dialogImageType, labelArray, defaultIndex);
 		
 		this.tm = tm;
 		this.forum = forum;
+		this.clazz = clazz;
 		
 	}
 
 	public Control createCustomArea(Composite parent) {
 		
 		convoView = new ConversationView(parent, SWT.NULL, tm, forum);
-		
+		controller = new ForumController(convoView, forum, clazz, tm);
+		controller.init();
 /*
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 
@@ -88,7 +93,7 @@ public class NewQuestionDialog extends MessageDialog {
 
 		DialogChanged(new Init());
 		return tabFolder;*/
-		DialogChanged(new Init());
+	//	DialogChanged(new Init());
 		return convoView;
 	}
 
