@@ -21,6 +21,7 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Init;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Update;
+import edu.uci.lighthouse.model.QAforums.UpdateChain;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHEntityDAO;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
@@ -59,9 +60,13 @@ public class QAController implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 
-		if (arg0 == forum && arg1 instanceof Update) {
-			//populateTree(forum);
-			nqDialog.populateConversationView(((Update)arg1).getArgument());
+		if (arg0 == forum && arg1 instanceof UpdateChain) {
+			
+			
+			UpdateChain chain = (UpdateChain)arg1;
+			Update update = chain.getUpdates().get(0);
+			
+			nqDialog.populateConversationView(update.getArgument());
 			
 			
 			
