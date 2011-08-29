@@ -24,13 +24,17 @@ public class PostView extends ForumElement{
 		 this.post = post;
 	      RowData compsiteData = new RowData(LayoutMetrics.POST_VIEW_WIDTH, LayoutMetrics.POST_VIEW_HEIGHT);
 	      this.tm = tm;
-			this.setLayout(new GridLayout(1, false));
+			this.setLayout(new GridLayout(2, false));
 			this.setLayoutData(compsiteData);
-			this.setBackground(ColorConstants.red);
+			this.setBackground(ColorConstants.white);
 			
-			
+		
+		Label authorLabel = new Label(this,SWT.None);
+		authorLabel.setText(tm.getAuthor().getName());
+		authorLabel.setBackground(ColorConstants.lightGray);
+		
 		Label label = new Label(this,SWT.None);
-		label.setText(tm.getAuthor().getName()+" - "+post.getMessage());
+		label.setText(post.getMessage());
 		label.setBackground(ColorConstants.white);
 		
 		Listener listener = new Listener();

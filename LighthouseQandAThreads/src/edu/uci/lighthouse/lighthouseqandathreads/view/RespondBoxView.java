@@ -82,7 +82,7 @@ public class RespondBoxView extends WindowFrame {
 	
 	private class ReplyListener extends SelectionAdapter{
 		public void widgetSelected(SelectionEvent e) {
-			Post newPost = new Post(true, "", tm.getAuthor().getName()+" "+reply, tm);
+			Post newPost = new Post(true, "", reply, tm);
 			Post replyeePost = post;
 			
 			if(replyeePost != null){
