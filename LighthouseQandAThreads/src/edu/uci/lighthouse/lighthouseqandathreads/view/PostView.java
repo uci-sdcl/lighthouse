@@ -26,7 +26,7 @@ public class PostView extends ForumElement{
 	      this.tm = tm;
 			this.setLayout(new GridLayout(1, false));
 			this.setLayoutData(compsiteData);
-			this.setBackground(ColorConstants.white);
+			this.setBackground(ColorConstants.red);
 			
 			
 		Label label = new Label(this,SWT.None);
@@ -36,6 +36,8 @@ public class PostView extends ForumElement{
 		Listener listener = new Listener();
 		this.addMouseListener(listener);
 		label.addMouseListener(listener);
+		
+		
 	}
 	
 	public Post getPost(){
@@ -47,7 +49,7 @@ public class PostView extends ForumElement{
 		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {		
 		}
 		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-			PostView.this.getObservablePoint().changed(PostView.this);
+			//PostView.this.getObservablePoint().changed(PostView.this);
 		}
 		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {			
 		}

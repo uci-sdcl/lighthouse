@@ -1,6 +1,8 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
@@ -10,7 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-public class ListComposite extends Composite{
+public class ListComposite extends Composite implements Observer{
 
 	ArrayList<Composite> list = new ArrayList<Composite>();
 	private Composite temporaryParent = new Composite(new Shell(), SWT.None);
@@ -91,6 +93,16 @@ public class ListComposite extends Composite{
 			else
 				list.add(newComposite);
 		}
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg instanceof RespondBoxView){
+			this.disposeRespondBoxes();
+			this.renderList();
+		}
+		
 	}
 
 }

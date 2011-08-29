@@ -17,7 +17,7 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class ThreadList extends ScrolledComposite implements Observer {
+public class ThreadList extends ScrolledComposite  {
 
 	ListComposite composite;
 
@@ -45,7 +45,7 @@ public class ThreadList extends ScrolledComposite implements Observer {
 	 */
 	public void addConversationElement(ForumThread thread, TeamMember tm) {
 		ThreadView threadView = new ThreadView(composite, SWT.None, thread, tm);
-		threadView.observeMe(this);
+		
 		composite.add(threadView);
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.renderList();
@@ -54,33 +54,12 @@ public class ThreadList extends ScrolledComposite implements Observer {
 
 	public void addConversationElement(ForumElement element) {
 		element.setParent(composite);
-		element.observeMe(this);
+		
 		composite.add(element);
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.renderList();
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		if(arg instanceof RespondBoxView){
-			composite.disposeRespondBoxes();
-			composite.renderList();
-		}
-		if (arg instanceof ThreadView) {
-				
-			ThreadView threadView = ((ThreadView)arg);
-			ForumThread ft = threadView.getThread();
-			
-			composite.disposeRespondBoxes();
-			RespondBoxView box = new RespondBoxView(composite,
-					SWT.None, ft.getRootQuestion(), ft.getRootQuestion().getTeamMemberAuthor());
-			box.observeMe(this);
-			composite.addAfter(box,(ThreadView)arg);
-			composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-			
-			composite.renderList();
-		}
 
-	}
 
 }
