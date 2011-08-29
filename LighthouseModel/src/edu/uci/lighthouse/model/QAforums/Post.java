@@ -85,7 +85,7 @@ public class Post extends Observable implements Serializable, Observer{
 	public void addResponse(Post post){
 		responses.add(post);
 		post.addObserver(this);
-		PostChanged(new UpdateChain(new Update<Post>(this)));
+		PostChanged(new AddEvent<Post,Post>(post,this));
 	}
 
 	public void setSubject(String subject) {
@@ -108,7 +108,7 @@ public class Post extends Observable implements Serializable, Observer{
 		initResponseObserving();
 	}
 	
-	private void PostChanged(UpdateChain object){
+	private void PostChanged(Object object){
 		setChanged();
 		notifyObservers(object);
 	    clearChanged();
@@ -116,12 +116,6 @@ public class Post extends Observable implements Serializable, Observer{
 
 	
 	public void update(Observable o, Object arg) {
-		if(arg instanceof UpdateChain){
-			UpdateChain chain = (UpdateChain)arg;
-			
-			UpdateChain newChain = new UpdateChain(new Update<Post>(this));
-			newChain.preFixChain(chain);
-			PostChanged(newChain);		
-		}
+			PostChanged(arg);		
 	}
 }

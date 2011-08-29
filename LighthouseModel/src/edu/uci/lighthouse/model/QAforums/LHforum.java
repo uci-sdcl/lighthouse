@@ -71,10 +71,10 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 		
 	}
 	
-	private void addThread(ForumThread thread){
+	public void addThread(ForumThread thread){
 		threads.add(thread);
 		thread.addObserver(this);
-		forumChanged(new UpdateChain(new Update<LHforum>(this)));
+		forumChanged(new AddEvent<ForumThread,LHforum>(thread,this));
 	}
 	
 	public void setThreads(Collection<ForumThread> threads){
@@ -111,7 +111,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	}
 	
 	
-	private void forumChanged(UpdateChain object){
+	private void forumChanged(Object object){
         setChanged();
         notifyObservers(object);
         clearChanged();
@@ -119,14 +119,7 @@ public class LHforum extends LHclassPluginExtension implements Serializable, Obs
 	
 
 	public void update(Observable arg0, Object arg1) {
-		if(arg1 instanceof UpdateChain){
-			UpdateChain chain = (UpdateChain)arg1;
-			
-			UpdateChain newChain = new UpdateChain(new Update<LHforum>(this));
-			newChain.preFixChain(chain);
-			forumChanged(newChain);		
-		}
-		
+			forumChanged(arg1);		
 	}
 	
 

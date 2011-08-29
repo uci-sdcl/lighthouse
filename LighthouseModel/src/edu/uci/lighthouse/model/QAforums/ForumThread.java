@@ -72,17 +72,12 @@ public class ForumThread extends Observable implements Serializable, Observer{
 	}
 	
 	public void update(Observable o, Object arg) {
-		if(arg instanceof UpdateChain){
-			UpdateChain chain = (UpdateChain)arg;
-			
-			UpdateChain newChain = new UpdateChain(new Update<ForumThread>(this));
-			newChain.preFixChain(chain);
-			ThreadChanged(newChain);		
-		}
+			ThreadChanged(arg);		
+		
 		
 	}
 	
-	private void ThreadChanged(UpdateChain arg){
+	private void ThreadChanged(Object arg){
 		setChanged();
 		notifyObservers(arg);
 	    clearChanged();
