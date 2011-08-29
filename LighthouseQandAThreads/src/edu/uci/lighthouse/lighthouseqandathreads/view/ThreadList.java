@@ -26,7 +26,7 @@ public class ThreadList extends ScrolledComposite  {
 		
 
 		GridData compsiteData = new GridData(LayoutMetrics.CONVERSATION_LIST_WIDTH, LayoutMetrics.CONVERSATION_LIST_HEIGHT);
-		compsiteData.horizontalAlignment = SWT.CENTER;
+		compsiteData.horizontalAlignment = GridData.CENTER;
 		this.setLayoutData(compsiteData);
 		this.setLayout(new GridLayout(1, false));
 		

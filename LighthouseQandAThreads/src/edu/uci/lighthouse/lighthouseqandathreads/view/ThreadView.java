@@ -15,6 +15,7 @@ import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -40,6 +41,9 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 
 		this.setLayout(new GridLayout(1, false));
 		this.setBackground(ColorConstants.white);
+		
+		Label statsLabel = new Label(this, SWT.None);
+		statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
 
 		addPost(thread.getRootQuestion(), true);
 		
@@ -49,6 +53,8 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		
 		getElementMenu().addButton(replyButton);
 		getElementMenu().setBackground(ColorConstants.white);
+		
+
 	}
 
 	public ForumThread getThread() {

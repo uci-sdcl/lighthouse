@@ -33,7 +33,7 @@ public class QuestionBoxView extends ForumElement{
 		setLayout(new GridLayout(2, false));
 		setLayoutData(postBoxCompoiteData);
 		
-		GridData postNewThreadBoxData = new GridData(350, 30);
+		GridData postNewThreadBoxData = new GridData(450, 30);
 		postNewThreadBox = new StyledText(this, SWT.BORDER);
 		postNewThreadBox.setLayoutData(postNewThreadBoxData);
 		
