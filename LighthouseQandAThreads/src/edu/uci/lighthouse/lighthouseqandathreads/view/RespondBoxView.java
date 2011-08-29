@@ -33,12 +33,15 @@ public class RespondBoxView extends WindowFrame {
 	      this.post = post;
 	        
 		      GridData compsiteData = new GridData(LayoutMetrics.RESPOND_BOX_VIEW_WIDTH, LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
-		      replyComposite.setLayout(new GridLayout(2, false));
+		      replyComposite.setLayout(new GridLayout(1, false));
 		      replyComposite.setLayoutData(compsiteData);
-		      replyComposite.setBackground(ColorConstants.darkGray);
+		      replyComposite.setBackground(ColorConstants.lightGray);
 			 
 			
-			
+				Button postButton = new Button(replyComposite, SWT.BORDER);
+				postButton.setText("submit");
+				postButton.addSelectionListener(new ReplyListener());
+				getElementMenu().addButton(postButton);
 			
 			 closeButton = new Button(replyComposite,SWT.None);
 			 closeButton.setText("x");
@@ -46,8 +49,9 @@ public class RespondBoxView extends WindowFrame {
 			
 			getElementMenu().addButton(closeButton);
 			
-			GridData postNewThreadBoxData = new GridData(350, 100);
-			postNewThreadBox = new StyledText(replyComposite, SWT.BORDER | SWT.V_SCROLL);
+			GridData postNewThreadBoxData = new GridData(SWT.FILL,SWT.FILL,true,true);
+			
+			postNewThreadBox = new StyledText(replyComposite, SWT.BORDER | SWT.V_SCROLL );
 			postNewThreadBox.setLayoutData(postNewThreadBoxData);
 			
 			postNewThreadBox.addModifyListener(new ModifyListener() {
@@ -57,10 +61,7 @@ public class RespondBoxView extends WindowFrame {
 				}
 			});
 			
-			Button postButton = new Button(replyComposite, SWT.BORDER);
-			postButton.setText("reply");
-			postButton.addSelectionListener(new ReplyListener());
-			
+
 
 	}
 

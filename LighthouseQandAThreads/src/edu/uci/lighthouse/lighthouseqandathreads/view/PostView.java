@@ -37,6 +37,7 @@ public class PostView extends ForumElement{
 		label.setText(post.getMessage());
 		label.setBackground(ColorConstants.white);
 		
+		
 		Listener listener = new Listener();
 		this.addMouseListener(listener);
 		label.addMouseListener(listener);

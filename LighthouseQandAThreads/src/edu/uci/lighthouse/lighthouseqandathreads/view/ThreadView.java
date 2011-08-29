@@ -48,7 +48,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		 replyButton.addSelectionListener(new MenuListener());
 		
 		getElementMenu().addButton(replyButton);
-
+		getElementMenu().setBackground(ColorConstants.white);
 	}
 
 	public ForumThread getThread() {
