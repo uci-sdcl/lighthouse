@@ -4,22 +4,33 @@ import java.util.Observer;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MenuEvent;
+import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
+import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class PostView extends ForumElement{
 
 	Post post;
 	private TeamMember tm;
-
+	MenuItem answerItem;
+	Menu popUp;
+	
 	public PostView(Composite parent, int style, Post post, TeamMember tm) {
 		super(parent, style);
 		 this.post = post;
@@ -48,6 +59,12 @@ public class PostView extends ForumElement{
 		this.addMouseListener(listener);
 		label.addMouseListener(listener);
 		
+		popUp = new Menu(this.getShell(),SWT.POP_UP);
+		this.setMenu(popUp);
+		answerItem = new MenuItem(popUp, SWT.PUSH);
+		answerItem.setText("set as answer");
+		answerItem.addSelectionListener(new AnswerSelectionListener());
+		
 		
 	}
 	
@@ -55,6 +72,22 @@ public class PostView extends ForumElement{
 		return post;
 	}
 
+	private class AnswerSelectionListener implements SelectionListener{
+
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			System.out.println("Answer Chosen");
+			
+		}
+
+		@Override
+		public void widgetDefaultSelected(SelectionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
+	}
 	
 	private class Listener implements MouseListener{
 		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {		
