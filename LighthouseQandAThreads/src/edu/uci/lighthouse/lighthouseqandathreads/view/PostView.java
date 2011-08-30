@@ -13,6 +13,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -21,6 +22,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
@@ -41,8 +43,11 @@ public class PostView extends ForumElement {
 		this.setLayoutData(compsiteData);
 		this.setBackground(ColorConstants.white);
 
-		Color color = new Color(this.getDisplay(), 255, 212, 102);
-
+		Color color;
+		
+		color = new Color(this.getDisplay(), 255, 212, 102);
+		
+	
 		Color authorColor = new Color(this.getDisplay(), 33, 138, 255);
 
 		this.setBackground(color);
