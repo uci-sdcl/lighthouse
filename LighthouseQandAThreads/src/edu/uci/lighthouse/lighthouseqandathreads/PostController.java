@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
+import java.lang.reflect.Field;
 import java.util.Observable;
 
 import org.eclipse.swt.SWT;
@@ -9,6 +10,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ThreadView;
 import edu.uci.lighthouse.model.QAforums.AddEvent;
 import edu.uci.lighthouse.model.QAforums.Post;
+import edu.uci.lighthouse.model.QAforums.UpdateEvent;
 
 
 public class PostController implements IController<Post> {
