@@ -39,6 +39,7 @@ public class Post extends Observable implements Serializable{
 	private TeamMember author;
 	
 	private boolean root;
+	private boolean answer;
 	
 	public Post(){
 	}
@@ -112,6 +113,14 @@ public class Post extends Observable implements Serializable{
 
 	public boolean isRoot() {
 		return root;
+	}
+
+	public void setAnswer(boolean answer) {
+		this.answer = answer;
+	}
+
+	public boolean isAnswer() {
+		return answer;
 	}
 
 	
