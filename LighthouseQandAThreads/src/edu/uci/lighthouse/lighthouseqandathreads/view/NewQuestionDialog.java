@@ -39,7 +39,6 @@ import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 
-
 public class NewQuestionDialog extends MessageDialog {
 
 	private String question;
@@ -48,291 +47,56 @@ public class NewQuestionDialog extends MessageDialog {
 	private String replySubject;
 	private TeamMember tm;
 	private LHforum forum;
-	ForumController controller ;
-	
+	ForumController controller;
+
 	public static int CLOSE = 0;
 	private static String[] labelArray = { "Close" };
 	private Tree tree;
 	private StyledText messageBox;
-	
+
 	private ObservableClass observablePoint = new ObservableClass();
-	
+
 	private ForumView convoView;
-	 private LighthouseClass clazz;
-	
+	private LighthouseClass clazz;
+
 	public NewQuestionDialog(Shell parentShell, String dialogTitle,
 			Image dialogTitleImage, String dialogMessage, int dialogImageType,
-			int defaultIndex, TeamMember tm, LHforum forum, LighthouseClass clazz) {
+			int defaultIndex, TeamMember tm, LHforum forum,
+			LighthouseClass clazz) {
 
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage,
 				dialogImageType, labelArray, defaultIndex);
-		
+
 		this.tm = tm;
 		this.forum = forum;
 		this.clazz = clazz;
-		
+
 	}
 
 	/**
 	 * A ForumController is added to observe forum and the created ForumView
 	 */
 	public Control createCustomArea(Composite parent) {
-		
+
 		convoView = new ForumView(parent, SWT.NULL, tm, forum);
 		controller = new ForumController(convoView, forum, clazz, tm);
 		controller.init();
-/*
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 
-		TabFolder tabFolder = new TabFolder(parent, SWT.BORDER);
-
-		TabItem tabItem = new TabItem(tabFolder, SWT.NULL);
-		tabItem.setText("Create Thread");
-		createQuestionComposite(tabFolder, tabItem);
-
-		TabItem tabItem2 = new TabItem(tabFolder, SWT.NULL);
-		tabItem2.setText("Threads");
-		createThreadComposite(tabFolder, tabItem2);
-
-		DialogChanged(new Init());
-		return tabFolder;*/
-	//	DialogChanged(new Init());
 		return convoView;
 	}
 
-	private void createThreadComposite(TabFolder tabFolder, TabItem tabItem) {
-		GridData compsiteData = new GridData(650, 450);
-
-		Composite composite = new Composite(tabFolder, SWT.NONE);
-		composite.setLayout(new GridLayout(1, false));
-		composite.setLayoutData(compsiteData);
-
-		tabItem.setControl(composite);
-
-		// ----
-		Composite treeAndMsgComp = new Composite(composite, SWT.NONE);
-		treeAndMsgComp.setLayout(new GridLayout(2, false));
-		treeAndMsgComp.setLayoutData(compsiteData);
-
-		Label threadsLabel = new Label(treeAndMsgComp, SWT.None);
-		threadsLabel.setText("threads:");
-		
-		Label responsesLabel = new Label(treeAndMsgComp, SWT.None);
-		responsesLabel.setText("resposes:");
-		
-		GridData questionLayoutData = new GridData(281, 380);
-
-		tree = new Tree(treeAndMsgComp, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL
-				| SWT.H_SCROLL);
-		tree.setLayoutData(questionLayoutData);
-		tree.addSelectionListener(new ListListener());
-
-		GridData msgBoxData = new GridData(300, 400);
-		messageBox = new StyledText(treeAndMsgComp, SWT.BORDER);
-		messageBox.setLayoutData(msgBoxData);
-		
-
-		// ----
-
-		
-		Label subjectLabel = new Label(composite, SWT.None);
-		subjectLabel.setText("subject:");
-
-		GridData subjectData = new GridData(400, 30);
-		final StyledText stSubject = new StyledText(composite, SWT.BORDER);
-		stSubject.setLayoutData(subjectData);
-		
-		stSubject.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				setReplySubject(stSubject.getText());
-
-			}
-		});
-		
-		
-		
-		
-		Label replyLabel = new Label(composite, SWT.None);
-		replyLabel.setText("message:");
-		
-		GridData replyBoxData = new GridData(615, 100);
-		final StyledText replyBox = new StyledText(composite, SWT.BORDER);
-		replyBox.setLayoutData(replyBoxData);
-
-		replyBox.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				setReply(replyBox.getText());
-			}
-		});
-
-		Button replyButton = new Button(composite, SWT.BORDER);
-		replyButton.setText("reply");
-		replyButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				//Post newPost = new Post(true, replySubject, reply, tm);
-				Post replyeePost = getSelectedPost();
-				
-				if(replyeePost != null){
-				//	replyeePost.addResponse(newPost);
-					replyBox.setText("");
-					stSubject.setText("");
-				}
-			}
-		});
-
-	}
-	
-	
-	private Post getSelectedPost(){
-		TreeItem[] items = tree.getSelection();
-		for(TreeItem item: items){
-			return (Post)item.getData();
-		}
-		return null;
-	}
-
-	private void createQuestionComposite(TabFolder tabFolder, TabItem tabItem) {
-
-		GridData compsiteData = new GridData(650, 450);
-
-		Composite composite = new Composite(tabFolder, SWT.NONE);
-		composite.setLayout(new GridLayout(1, false));
-		composite.setLayoutData(compsiteData);
-
-		tabItem.setControl(composite);
-		
-		Label subjectLabel = new Label(composite, SWT.None);
-		subjectLabel.setText("subject:");
-
-		GridData subjectData = new GridData(400, 30);
-		final StyledText stSubject = new StyledText(composite, SWT.BORDER);
-		stSubject.setLayoutData(subjectData);
-		
-		stSubject.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				setSubject(stSubject.getText());
-
-			}
-		});
-		
-		Label messageLabel = new Label(composite, SWT.None);
-		messageLabel.setText("message:");
-		
-		GridData questionLayoutData = new GridData(600, 600);
-		final StyledText questionText = new StyledText(composite, SWT.BORDER);
-		questionText.setLayoutData(questionLayoutData);
-
-		questionText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				setQuestion(questionText.getText());
-
-			}
-		});
-		
-		Button submitButton = new Button(composite, SWT.BORDER);
-		submitButton.setText("submit");
-		submitButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				//Post newPost = new Post(true, subject, question, tm);
-				//forum.addThread(newPost);
-				questionText.setText("");
-				stSubject.setText("");
-			}
-		});
-
-	}
-
-	public void populateTree(LHforum forum) {
-		clearTree();
+	public void populateConversationView(LHforum forum) {
 		for (ForumThread thread : forum.getThreads()) {
-			setupTreeBranch(thread);
-		}
-	}
-	
-	public void populateConversationView(LHforum forum){
-		for(ForumThread thread: forum.getThreads()){
-			convoView.addConversationElement(thread,tm);
+			convoView.addConversationElement(thread, tm);
 		}
 
 	}
-	
 
-	public void populateConversationView(Object arg){
-		if(arg instanceof ForumThread)
-			convoView.addConversationElement((ForumThread)arg,tm);
-		else if(arg instanceof Post){
-			Post post = (Post)arg;
-		}
-	}
-	
-
-	
-	private void clearTree(){
-		tree.removeAll();
-	}
-
-	private void setupTreeBranch(ForumThread thread) {
-		Post rootPost = thread.getRootQuestion();
-
-
-		
-		TreeItem item = new TreeItem(tree, 0);
-		item.setData(rootPost);
-		item.setText(thread.getRootQuestion().getSubject());
-
-		Collection<Post> posts = thread.getRootQuestion().getResponses();
-		for (Post child : posts) {
-			TreeItem childItem = new TreeItem(item, 0);
-			childItem.setData(child);
-			childItem.setText(child.getSubject());
-			setupSubTreeBranch(child, childItem);
-		}
-	}
-
-	private void setupSubTreeBranch(Post post, TreeItem parentItem) {
-		Collection<Post> children = post.getResponses();
-		for (Post child : children) {
-			TreeItem childItem = new TreeItem(parentItem, 0);
-			childItem.setData(child);
-			childItem.setText(child.getSubject());
-			setupSubTreeBranch(child, childItem);
-		}
-	}
-
-	private class ListListener extends SelectionAdapter {
-
-		public void widgetSelected(SelectionEvent e) {
-			if(e.getSource() instanceof Tree){
-				Tree tree = (Tree)e.getSource();
-				
-				
-				TreeItem[] items = tree.getSelection();
-				for(TreeItem item : items){
-					Post post = (Post) item.getData();
-					
-					String name = post.getTeamMemberAuthor().getAuthor()
-					.getName();
-					messageBox.setText(name
-							+ "\n" + post.getMessage());
-					
-					// make "This" bold and orange
-					StyleRange styleRange = new StyleRange();
-					styleRange.fontStyle = SWT.BOLD;
-					Display display = PlatformUI.getWorkbench().getDisplay();
-					Color orange = new Color(display, 255, 127, 0);
-					Color lime = new Color(display, 127, 255, 127);
-					Color black = new Color(display,0,0,0);
-					styleRange.start = 0;
-					styleRange.length = name.length();
-					styleRange.foreground = lime;
-					styleRange.background = black;
-					messageBox.setStyleRange(styleRange);
-					
-
-				}
-				
-			}
-
+	public void populateConversationView(Object arg) {
+		if (arg instanceof ForumThread)
+			convoView.addConversationElement((ForumThread) arg, tm);
+		else if (arg instanceof Post) {
+			Post post = (Post) arg;
 		}
 	}
 
@@ -367,36 +131,27 @@ public class NewQuestionDialog extends MessageDialog {
 	public String getReplySubject() {
 		return replySubject;
 	}
-	
 
 	public ObservableClass getObservablePoint() {
 		return observablePoint;
 	}
 
-	public class ObservableClass extends Observable{
-		
-		public void changed(){
+	public class ObservableClass extends Observable {
+
+		public void changed() {
 			setChanged();
 			notifyObservers();
-		    clearChanged();
+			clearChanged();
 		}
-		
-		public void changed(IEvent event){
+
+		public void changed(IEvent event) {
 			setChanged();
 			notifyObservers(event);
-		    clearChanged();
+			clearChanged();
 		}
 	}
-	
-	private void DialogChanged(){
-		this.observablePoint.changed();
-	}
-	
-	private void DialogChanged(IEvent event){
-		this.observablePoint.changed(event);
-	}
 
-	public int open(){
+	public int open() {
 		int response = super.open();
 		return response;
 	}
