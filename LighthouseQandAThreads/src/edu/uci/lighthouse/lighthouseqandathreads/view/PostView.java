@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Label;
 
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
+import org.eclipse.swt.graphics.Color;
 
 public class PostView extends ForumElement{
 
@@ -28,15 +29,20 @@ public class PostView extends ForumElement{
 			this.setLayoutData(compsiteData);
 			this.setBackground(ColorConstants.white);
 			
-		
+			Color color = new Color(this.getDisplay(), 255,212, 102);
+			
+			Color authorColor = new Color(this.getDisplay(),33,138,255);
+			
+		this.setBackground(color);
 		Label authorLabel = new Label(this,SWT.None);
 		authorLabel.setText(tm.getAuthor().getName());
-		authorLabel.setBackground(ColorConstants.lightGray);
+		authorLabel.setForeground(authorColor);
+		authorLabel.setBackground(color);
 		
 		Label label = new Label(this,SWT.None);
 		label.setText(post.getMessage());
-		label.setBackground(ColorConstants.white);
-		
+		label.setBackground(color);
+		label.setForeground(ColorConstants.black);
 		
 		Listener listener = new Listener();
 		this.addMouseListener(listener);

@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 
 import edu.uci.lighthouse.lighthouseqandathreads.PostController;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
@@ -40,19 +41,25 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		this.tm = tm;
 
 		this.setLayout(new GridLayout(1, false));
-		this.setBackground(ColorConstants.white);
 		
-		Label statsLabel = new Label(this, SWT.None);
-		statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
+		Color backColor = new Color(this.getDisplay(),231,232,130);
+		
+		this.setBackground(backColor);
 
 		addPost(thread.getRootQuestion(), true);
 		
 		 replyButton = new Button(this,SWT.None);
 		 replyButton.setText("reply");
 		 replyButton.addSelectionListener(new MenuListener());
+		 
+			Label statsLabel = new Label(this, SWT.None);
+			statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
+			statsLabel.setBackground(backColor);
+			getElementMenu().addLabel(statsLabel);
 		
 		getElementMenu().addButton(replyButton);
-		getElementMenu().setBackground(ColorConstants.white);
+		Color menuColor = new Color(this.getDisplay(),231,232,130);
+		getElementMenu().setBackground(backColor);
 		
 
 	}
@@ -86,7 +93,8 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		spacer.setVisible(false);
 		RowData rd = new RowData(15, 10);
 		spacer.setLayoutData(rd);
-
+        Color backColor = new Color(this.getDisplay(),231,232,130);
+        spacer.setBackground(backColor);
 	}
 
 	/**
@@ -104,7 +112,8 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 			rowComposite.setBackground(ColorConstants.white);
 			PostView pv = new PostView(rowComposite, SWT.None, post, tm);
 			PostController controller = new PostController(post, pv);
-			
+	        Color backColor = new Color(this.getDisplay(),231,232,130);
+	        rowComposite.setBackground(backColor);
 			addNewSpacer(rowComposite);
 		} else {
 			Composite rowComposite = new Composite(this, SWT.NONE);
@@ -113,7 +122,8 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 			addNewSpacer(rowComposite);
 			PostView pv = new PostView(rowComposite, SWT.None, post, tm);
 			PostController controller = new PostController(post, pv);
-			
+	        Color backColor = new Color(this.getDisplay(),231,232,130);
+	        rowComposite.setBackground(backColor);
 		}
 
 		this.setSize(this.computeSize(SWT.DEFAULT, SWT.DEFAULT));
