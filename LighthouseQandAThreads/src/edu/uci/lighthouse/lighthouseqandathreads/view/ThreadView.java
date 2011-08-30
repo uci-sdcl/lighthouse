@@ -58,6 +58,9 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 			solvedLabel.setText("[SOLVED]");
 			solvedLabel.setVisible(false);
 			getElementMenu().addLabel(solvedLabel);
+			
+			if(thread.hasSolution())
+				solvedLabel.setVisible(true);
 		 
 			statsLabel = new Label(this, SWT.None);
 			statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
@@ -139,6 +142,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		}
 		if(statsLabel != null)
 			statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
+;
 		
 		this.setSize(this.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		this.layout();
