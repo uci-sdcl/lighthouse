@@ -24,7 +24,7 @@ public class ThreadController implements IController<ForumThread>{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof ForumThread && arg instanceof UpdateEvent){
-			view.setBackground(ColorConstants.red);
+			view.setSolved();
 		}
 		
 	}

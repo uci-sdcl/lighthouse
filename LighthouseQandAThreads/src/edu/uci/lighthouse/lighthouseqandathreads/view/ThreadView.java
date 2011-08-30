@@ -34,6 +34,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 	private TeamMember tm;
 	private Button replyButton;
 	private Label statsLabel;
+	private Label solvedLabel;
 	
 	public ThreadView(Composite parent, int style, ForumThread thread,
 			TeamMember tm) {
@@ -52,6 +53,11 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		 replyButton = new Button(this,SWT.None);
 		 replyButton.setText("reply");
 		 replyButton.addSelectionListener(new MenuListener());
+		 
+			solvedLabel = new Label(this, SWT.None);
+			solvedLabel.setText("[SOLVED]");
+			solvedLabel.setVisible(false);
+			getElementMenu().addLabel(solvedLabel);
 		 
 			statsLabel = new Label(this, SWT.None);
 			statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
@@ -87,6 +93,10 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 
 		}
 
+	}
+	
+	public void setSolved(){
+		solvedLabel.setVisible(true);
 	}
 	
 
