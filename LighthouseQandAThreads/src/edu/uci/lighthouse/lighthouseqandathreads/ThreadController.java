@@ -25,6 +25,8 @@ public class ThreadController implements IController<ForumThread>{
 	public void update(Observable o, Object arg) {
 		if(o instanceof ForumThread && arg instanceof UpdateEvent){
 			view.setSolved();
+			view.layout();
+			//TODO: need to update so as to add check and update visual display on ThreadFigure
 		}
 		
 	}
