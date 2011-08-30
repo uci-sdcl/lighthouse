@@ -5,8 +5,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -22,18 +26,19 @@ public class QuestionBoxView extends WindowFrame{
 	private String message;
 	private TeamMember tm;
 	private LHforum forum;
-
+	GridData compData;
+	Composite composite;
 	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm) {
 		super(parent, style);
 		
 		this.forum = forum;
 		this.tm = tm;
 		
-		GridData compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
+		compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
 		
 		
 		
-		Composite composite = new Composite(this,SWT.None);
+		composite = new Composite(this,SWT.None);
 		composite.setLayout(new GridLayout(1,false));
 		composite.setLayoutData(compData);
 		composite.setBackground(ColorConstants.black);
@@ -58,6 +63,28 @@ public class QuestionBoxView extends WindowFrame{
 				setMessage(postNewThreadBox.getText());
 
 			}
+		});
+		
+		postNewThreadBox.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseDown(MouseEvent e) {
+				//change size of postNewThreadBox here?
+				
+			}
+
+			@Override
+			public void mouseUp(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
 		
 
