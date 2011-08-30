@@ -31,6 +31,8 @@ public class RespondBoxView extends WindowFrame {
 		
 		  this.tm = tm;
 	      this.post = post;
+	      
+	      
 	        
 		      GridData compsiteData = new GridData(LayoutMetrics.RESPOND_BOX_VIEW_WIDTH, LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
 		      replyComposite.setLayout(new GridLayout(1, false));
