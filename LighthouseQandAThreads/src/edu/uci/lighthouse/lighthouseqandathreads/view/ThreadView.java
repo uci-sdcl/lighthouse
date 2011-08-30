@@ -33,6 +33,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 	private ForumThread thread;
 	private TeamMember tm;
 	private Button replyButton;
+	private Label statsLabel;
 	
 	public ThreadView(Composite parent, int style, ForumThread thread,
 			TeamMember tm) {
@@ -52,7 +53,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		 replyButton.setText("reply");
 		 replyButton.addSelectionListener(new MenuListener());
 		 
-			Label statsLabel = new Label(this, SWT.None);
+			statsLabel = new Label(this, SWT.None);
 			statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
 			statsLabel.setBackground(backColor);
 			getElementMenu().addLabel(statsLabel);
@@ -87,6 +88,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 		}
 
 	}
+	
 
 	private void addNewSpacer(Composite composite) {
 		Composite spacer = new Composite(composite, SWT.None);
@@ -125,7 +127,9 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint
 	        Color backColor = new Color(this.getDisplay(),231,232,130);
 	        rowComposite.setBackground(backColor);
 		}
-
+		if(statsLabel != null)
+			statsLabel.setText("responses: "+thread.getRootQuestion().getResponses().size());
+		
 		this.setSize(this.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		this.layout();
 	}
