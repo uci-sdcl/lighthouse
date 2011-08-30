@@ -37,6 +37,7 @@ public class ForumThread extends Observable implements Serializable{
 
 	public ForumThread(Post question) {
 		rootQuestion = question;
+		rootQuestion.setThread(this);
 	}
 	
 	public void setRootQuestion(Post question){
@@ -56,6 +57,15 @@ public class ForumThread extends Observable implements Serializable{
 	
 	public void setSolution(Solution solution){
 		this.solution = solution;
+		try {
+			ThreadChanged(new UpdateEvent<ForumThread>(this,this.getClass().getDeclaredField("solution")));
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Solution getSolution(){

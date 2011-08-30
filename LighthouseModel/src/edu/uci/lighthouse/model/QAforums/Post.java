@@ -40,6 +40,7 @@ public class Post extends Observable implements Serializable{
 	
 	private boolean root;
 	private boolean answer;
+	@ManyToOne (cascade = CascadeType.ALL)
 	private ForumThread thread;
 	
 	public Post(){
@@ -112,7 +113,7 @@ public class Post extends Observable implements Serializable{
 	public void setRoot(boolean root) {
 		this.root = root;
 		try {
-			PostChanged(new UpdateEvent<Post>(this,this.getClass().getField("root")));
+			PostChanged(new UpdateEvent<Post>(this,this.getClass().getDeclaredField("root")));
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,7 +130,7 @@ public class Post extends Observable implements Serializable{
 	public void setAnswer(boolean answer) {
 		this.answer = answer;
 		try {
-			PostChanged(new UpdateEvent<Post>(this,this.getClass().getField("answer")));
+			PostChanged(new UpdateEvent<Post>(this,this.getClass().getDeclaredField("answer")));
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
