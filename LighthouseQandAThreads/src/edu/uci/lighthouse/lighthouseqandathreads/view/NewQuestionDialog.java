@@ -169,11 +169,11 @@ public class NewQuestionDialog extends MessageDialog {
 		replyButton.setText("reply");
 		replyButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				Post newPost = new Post(true, replySubject, reply, tm);
+				//Post newPost = new Post(true, replySubject, reply, tm);
 				Post replyeePost = getSelectedPost();
 				
 				if(replyeePost != null){
-					replyeePost.addResponse(newPost);
+				//	replyeePost.addResponse(newPost);
 					replyBox.setText("");
 					stSubject.setText("");
 				}
@@ -233,8 +233,8 @@ public class NewQuestionDialog extends MessageDialog {
 		submitButton.setText("submit");
 		submitButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				Post newPost = new Post(true, subject, question, tm);
-				forum.addThread(newPost);
+				//Post newPost = new Post(true, subject, question, tm);
+				//forum.addThread(newPost);
 				questionText.setText("");
 				stSubject.setText("");
 			}

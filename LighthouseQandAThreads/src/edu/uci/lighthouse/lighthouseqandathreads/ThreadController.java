@@ -2,10 +2,12 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 
 import java.util.Observable;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.widgets.Composite;
 
 import edu.uci.lighthouse.lighthouseqandathreads.view.ThreadView;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
+import edu.uci.lighthouse.model.QAforums.UpdateEvent;
 
 public class ThreadController implements IController<ForumThread>{
 	
@@ -21,7 +23,9 @@ public class ThreadController implements IController<ForumThread>{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		if(o instanceof ForumThread && arg instanceof UpdateEvent){
+			view.setBackground(ColorConstants.red);
+		}
 		
 	}
 
