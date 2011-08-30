@@ -1,19 +1,23 @@
 package edu.uci.lighthouse.model.QAforums;
 
-public class UpdateEvent<T,G> implements IEvent{
+import java.lang.reflect.Field;
+
+public class UpdateEvent<T> implements IEvent{
 	private T updatedObject;
-	private G fieldUpdated;
+	private Field fieldUpdated;
 	
-	public UpdateEvent(T updatedObject, G fieldUpdated){
+	public UpdateEvent(T updatedObject, Field fieldUpdated){
 		this.setUpdatedObject(updatedObject);
 		this.setFieldUpdated(fieldUpdated);
+		
+
 	}
 
-	public void setFieldUpdated(G fieldUpdated) {
+	public void setFieldUpdated(Field fieldUpdated) {
 		this.fieldUpdated = fieldUpdated;
 	}
 
-	public G getFieldUpdated() {
+	public Field getFieldUpdated() {
 		return fieldUpdated;
 	}
 

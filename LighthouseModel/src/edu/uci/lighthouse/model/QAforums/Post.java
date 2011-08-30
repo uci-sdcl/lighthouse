@@ -40,6 +40,7 @@ public class Post extends Observable implements Serializable{
 	
 	private boolean root;
 	private boolean answer;
+	private ForumThread thread;
 	
 	public Post(){
 	}
@@ -86,6 +87,7 @@ public class Post extends Observable implements Serializable{
 	
 	public void addResponse(Post post){
 		responses.add(post);
+		post.setThread(this.getThread());
 		PostChanged(new AddEvent<Post,Post>(post,this));
 	}
 
@@ -109,6 +111,15 @@ public class Post extends Observable implements Serializable{
 
 	public void setRoot(boolean root) {
 		this.root = root;
+		try {
+			PostChanged(new UpdateEvent<Post>(this,this.getClass().getField("root")));
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isRoot() {
@@ -117,10 +128,33 @@ public class Post extends Observable implements Serializable{
 
 	public void setAnswer(boolean answer) {
 		this.answer = answer;
+		try {
+			PostChanged(new UpdateEvent<Post>(this,this.getClass().getField("answer")));
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(answer){
+			Solution solution = new Solution();
+			solution.setAnswer(this);
+			solution.setQuestion(thread.getRootQuestion());
+			thread.setSolution(solution);
+		}
 	}
 
 	public boolean isAnswer() {
 		return answer;
+	}
+
+	public void setThread(ForumThread thread) {
+		this.thread = thread;
+	}
+
+	public ForumThread getThread() {
+		return thread;
 	}
 
 	
