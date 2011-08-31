@@ -1,5 +1,6 @@
-package edu.uci.lighthouse.core.dbactions;
+package edu.uci.lighthouse.core.data;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Observer;
 
@@ -12,7 +13,7 @@ import edu.uci.lighthouse.model.LighthouseEvent;
  * @author lee
  *
  */
-public interface ISubscriber{
+public interface ISubscriber extends Serializable{
 
 	public void receive(List<LighthouseEvent> events);
 }

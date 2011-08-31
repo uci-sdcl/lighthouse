@@ -26,12 +26,12 @@ import org.tigris.subversion.svnclientadapter.ISVNStatus;
 import org.tigris.subversion.svnclientadapter.SVNStatusKind;
 
 import edu.uci.lighthouse.core.data.DatabaseActionsThread;
+import edu.uci.lighthouse.core.data.ISubscriber;
 import edu.uci.lighthouse.core.data.PersistableRegistry;
 import edu.uci.lighthouse.core.dbactions.CompoundAction;
 import edu.uci.lighthouse.core.dbactions.CreateNewDatabaseConnectionAction;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
-import edu.uci.lighthouse.core.dbactions.ISubscriber;
 import edu.uci.lighthouse.core.dbactions.JobDecoratorAction;
 import edu.uci.lighthouse.core.dbactions.SaveUserAction;
 import edu.uci.lighthouse.core.dbactions.pull.CheckoutAction;
@@ -49,6 +49,7 @@ import edu.uci.lighthouse.core.preferences.IPreferencesChangeListener;
 import edu.uci.lighthouse.core.preferences.PreferencesNotifier;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.core.util.WorkbenchUtility;
+
 import edu.uci.lighthouse.model.LighthouseDelta;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.LighthouseFile;
