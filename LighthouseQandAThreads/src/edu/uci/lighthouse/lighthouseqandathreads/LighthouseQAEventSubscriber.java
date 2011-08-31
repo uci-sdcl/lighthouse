@@ -18,7 +18,7 @@ import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
-@Entity
+
 public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
 
 	/**
@@ -32,6 +32,7 @@ public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
 		for(LighthouseEvent event: events){
 			if(event instanceof LighthouseEvent){
 				//refresh updates sent by others
+				
 				LighthouseEntity entity = (LighthouseEntity)event.getArtifact();
 				GraphUtils.rebuildFigureForEntity(entity);
 			}
