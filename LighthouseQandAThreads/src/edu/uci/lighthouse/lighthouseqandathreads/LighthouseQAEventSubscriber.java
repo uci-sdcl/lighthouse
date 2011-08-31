@@ -33,8 +33,11 @@ public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
 			if(event instanceof LighthouseEvent){
 				//refresh updates sent by others
 				
-				LighthouseEntity entity = (LighthouseEntity)event.getArtifact();
-				GraphUtils.rebuildFigureForEntity(entity);
+				if(event.getArtifact() != null){
+					LighthouseEntity entity = (LighthouseEntity)event.getArtifact();
+					if(entity != null && GraphUtils.getGraphViewer().findGraphItem(entity) != null)
+					GraphUtils.rebuildFigureForEntity(entity);
+				}
 			}
 		}
 	}

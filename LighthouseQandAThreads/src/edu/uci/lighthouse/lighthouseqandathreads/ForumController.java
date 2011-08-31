@@ -63,12 +63,14 @@ public class ForumController implements IController<LHforum> {
 				ForumThread thread = (ForumThread) update.getAddition();
 				view.addConversationElement(thread, tm);
 
+				//commits to database
 				Controller.getInstance().getBuffer()
 						.offer(new ForumUpdateClientsAction(entity));
 
 				LighthouseAuthor author = ModelUtility.getAuthor();
 				LighthouseEvent lh = new LighthouseEvent(
 						LighthouseEvent.TYPE.MODIFY, author, entity);
+				
 				// lh.setTimestamp(new Date(0));
 				ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();
 				listOfEvents.add(lh);
