@@ -97,7 +97,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint {
 
 			addPostView(post, tm, false);
 
-			for (Post childPost : post.getResponses()) {
+			for (Post childPost : post.orderResponses()) {
 				addPost(childPost, false);
 			}
 
@@ -185,7 +185,8 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint {
 					ListComposite tl = (ListComposite) getParent();
 					tl.disposeRespondBoxes();
 					RespondBoxView box = new RespondBoxView(tl, SWT.None,
-							ft.getRootQuestion(), tm,pu);
+							ft.getRootQuestion(), ft.getRootQuestion()
+									.getTeamMemberAuthor(),pu);
 					box.observeMe(tl);
 					tl.addAfter(box, ThreadView.this);
 					tl.setSize(tl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
