@@ -52,7 +52,7 @@ public class PostView extends ForumElement {
 
 		this.setBackground(color);
 		Label authorLabel = new Label(this, SWT.None);
-		authorLabel.setText(post.getTeamMemberAuthor().getAuthor().getName() + "/n" +post.getPostTime());
+		authorLabel.setText(post.getTeamMemberAuthor().getAuthor().getName() + "\n" +post.getPostTime());
 		authorLabel.setForeground(authorColor);
 		authorLabel.setBackground(color);
 
