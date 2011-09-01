@@ -33,10 +33,10 @@ public class ForumController implements IController<LHforum> {
 	LighthouseEntity entity;
 	HashMap<Object, Composite> modelToViewMap = new HashMap<Object, Composite>();
 	TeamMember tm;
-	private IPersistAndUpdate persisterAndUpdater;
+	private PersistAndUpdate persisterAndUpdater;
 
 	public ForumController(ForumView view, LHforum forum,
-			LighthouseEntity entity, TeamMember tm) {
+			LighthouseEntity entity, TeamMember tm, PersistAndUpdate pu) {
 		this.view = view;
 
 		this.forum = forum;
@@ -45,6 +45,7 @@ public class ForumController implements IController<LHforum> {
 		this.forum.addObserver(this);
 		this.entity = entity;
 		this.tm = tm;
+		this.persisterAndUpdater = pu;
 
 	}
 
@@ -62,10 +63,10 @@ public class ForumController implements IController<LHforum> {
 			if (update.getAddition() instanceof ForumThread) {
 
 				ForumThread thread = (ForumThread) update.getAddition();
-				view.addConversationElement(thread, tm);
+				view.addConversationElement(thread, tm, persisterAndUpdater);
 
 				//commits to database
-				
+				persisterAndUpdater.run();
 			}
 
 		}
@@ -83,17 +84,17 @@ public class ForumController implements IController<LHforum> {
 	@Override
 	public void init() {
 		for (ForumThread thread : forum.getThreads()) {
-			view.addConversationElement(thread, tm);
+			view.addConversationElement(thread, tm, persisterAndUpdater);
 		}
 	}
 
 	@Override
-	public IPersistAndUpdate getPersisterAndUpdater() {
+	public PersistAndUpdate getPersisterAndUpdater() {
 		return persisterAndUpdater;
 	}
 
 	@Override
-	public void setPersisterAndUpdater(IPersistAndUpdate persisterAndUpdater) {
+	public void setPersisterAndUpdater(PersistAndUpdate PersistAndUpdate) {
 		this.persisterAndUpdater = persisterAndUpdater;
 	}
 

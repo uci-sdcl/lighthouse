@@ -12,6 +12,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.ThreadController;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
@@ -20,11 +21,13 @@ import edu.uci.lighthouse.model.QAforums.TeamMember;
 public class ThreadList extends ScrolledComposite  {
 
 	ListComposite composite;
-
-	public ThreadList(Composite parent, int style) {
+	private PersistAndUpdate pu;
+	
+	public ThreadList(Composite parent, int style, PersistAndUpdate pu) {
 		super(parent, style);
 		
-
+		this.pu = pu;
+		
 		GridData compsiteData = new GridData(LayoutMetrics.CONVERSATION_LIST_WIDTH, LayoutMetrics.CONVERSATION_LIST_HEIGHT);
 		compsiteData.horizontalAlignment = GridData.CENTER;
 		this.setLayoutData(compsiteData);
@@ -43,13 +46,13 @@ public class ThreadList extends ScrolledComposite  {
 	 * @param thread
 	 * @param tm
 	 */
-	public void addConversationElement(ForumThread thread, TeamMember tm) {
-		ThreadView threadView = new ThreadView(composite, SWT.None, thread, tm);
+	public void addConversationElement(ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
+		ThreadView threadView = new ThreadView(composite, SWT.None, thread, tm,pu);
 		
 		composite.add(threadView);
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		composite.renderList();
-		ThreadController controller = new ThreadController(thread,threadView);
+		ThreadController controller = new ThreadController(thread,threadView,pu);
 	}
 
 	public void addConversationElement(ForumElement element) {

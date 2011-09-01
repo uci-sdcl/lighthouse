@@ -16,13 +16,14 @@ import edu.uci.lighthouse.model.QAforums.UpdateEvent;
 public class PostController implements IController<Post> {
 	private Post post;
 	private ForumElement view;
-	private IPersistAndUpdate persisterAndUpdater;
+	private PersistAndUpdate persisterAndUpdater;
 
-	public PostController(Post post, ForumElement view){
+	public PostController(Post post, ForumElement view, PersistAndUpdate pu){
 		this.post = post;
 		this.view = view;
 		post.addObserver(this);
 		view.observeMe(this);
+		this.persisterAndUpdater = pu;
 	}
 	
 	public void update(Observable o, Object arg) {
@@ -32,6 +33,9 @@ public class PostController implements IController<Post> {
 			//really need a better way of updating view...
 			ThreadView threadView = (ThreadView)view.getParent().getParent();
 			threadView.addPost(event.getAddition(), event.getAddition().isRoot()); 
+			
+			//commits to database
+			persisterAndUpdater.run();
 		}
 
 	}
@@ -54,12 +58,12 @@ public class PostController implements IController<Post> {
 	}
 
 	@Override
-	public IPersistAndUpdate getPersisterAndUpdater() {
+	public PersistAndUpdate getPersisterAndUpdater() {
 		return persisterAndUpdater;
 	}
 
 	@Override
-	public void setPersisterAndUpdater(IPersistAndUpdate persisterAndUpdater) {
+	public void setPersisterAndUpdater(PersistAndUpdate persisterAndUpdater) {
 		this.persisterAndUpdater = persisterAndUpdater;
 	}
 

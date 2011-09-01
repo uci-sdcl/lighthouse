@@ -13,6 +13,9 @@ public class PersistAndUpdate implements IPersistAndUpdate{
 
 	private LighthouseEntity entity;
 	
+	public PersistAndUpdate(LighthouseEntity entity){
+		this.entity = entity;
+	}
 	
 	
 	public void run() {

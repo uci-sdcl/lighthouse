@@ -13,13 +13,14 @@ public class ThreadController implements IController<ForumThread>{
 	
 	private ForumThread thread;
 	private ThreadView view;
-	private IPersistAndUpdate persisterAndUpdater;
+	private PersistAndUpdate persisterAndUpdater;
 
-	public ThreadController(ForumThread thread, ThreadView view){
+	public ThreadController(ForumThread thread, ThreadView view, PersistAndUpdate pu){
 		this.thread = thread;
 		this.view = view;
 		thread.addObserver(this);
 		view.observeMe(this);
+		this.persisterAndUpdater = pu;
 	}
 	
 	@Override
@@ -28,6 +29,9 @@ public class ThreadController implements IController<ForumThread>{
 			view.setSolved();
 			view.layout();
 			//TODO: need to update so as to add check and update visual display on ThreadFigure
+			
+			//commits to database
+			persisterAndUpdater.run();
 		}
 		
 	}
@@ -51,12 +55,12 @@ public class ThreadController implements IController<ForumThread>{
 	}
 
 	@Override
-	public IPersistAndUpdate getPersisterAndUpdater() {
+	public PersistAndUpdate getPersisterAndUpdater() {
 		return persisterAndUpdater;
 	}
 
 	@Override
-	public void setPersisterAndUpdater(IPersistAndUpdate persisterAndUpdater) {
+	public void setPersisterAndUpdater(PersistAndUpdate persisterAndUpdater) {
 		this.persisterAndUpdater = persisterAndUpdater;
 	}
 

@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import edu.uci.lighthouse.lighthouseqandathreads.ForumController;
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.QAforums.IEvent;
 import edu.uci.lighthouse.model.QAforums.Init;
@@ -78,27 +79,17 @@ public class NewQuestionDialog extends MessageDialog {
 	 */
 	public Control createCustomArea(Composite parent) {
 
-		convoView = new ForumView(parent, SWT.NULL, tm, forum);
-		controller = new ForumController(convoView, forum, clazz, tm);
+		PersistAndUpdate pu = new PersistAndUpdate(clazz);
+		
+		convoView = new ForumView(parent, SWT.NULL, tm, forum,pu);
+		
+		
+		controller = new ForumController(convoView, forum, clazz, tm, pu);
 		controller.init();
 
 		return convoView;
 	}
 
-	public void populateConversationView(LHforum forum) {
-		for (ForumThread thread : forum.getThreads()) {
-			convoView.addConversationElement(thread, tm);
-		}
-
-	}
-
-	public void populateConversationView(Object arg) {
-		if (arg instanceof ForumThread)
-			convoView.addConversationElement((ForumThread) arg, tm);
-		else if (arg instanceof Post) {
-			Post post = (Post) arg;
-		}
-	}
 
 	public void setQuestion(String question) {
 		this.question = question;

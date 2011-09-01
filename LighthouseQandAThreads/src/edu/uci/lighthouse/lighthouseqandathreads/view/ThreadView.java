@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.lighthouseqandathreads.Activator;
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.PostController;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
@@ -40,12 +41,13 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint {
 	private Button replyButton;
 	private Label statsLabel;
 	private Label solvedLabel;
-
+	private PersistAndUpdate pu;
 	public ThreadView(Composite parent, int style, ForumThread thread,
-			TeamMember tm) {
+			TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
 		this.thread = thread;
 		this.tm = tm;
+		this.pu = pu;
 
 		this.setLayout(new GridLayout(1, false));
 
@@ -150,7 +152,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint {
 			rowComposite.setLayout(new RowLayout());
 			rowComposite.setBackground(ColorConstants.white);
 			PostView pv = new PostView(rowComposite, SWT.None, post, tm);
-			PostController controller = new PostController(post, pv);
+			PostController controller = new PostController(post, pv,pu);
 			Color backColor = new Color(this.getDisplay(), 231, 232, 130);
 			rowComposite.setBackground(backColor);
 			addNewSpacer(rowComposite, post.isAnswer());
@@ -160,7 +162,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint {
 			rowComposite.setBackground(ColorConstants.white);
 			addNewSpacer(rowComposite, post.isAnswer());
 			PostView pv = new PostView(rowComposite, SWT.None, post, tm);
-			PostController controller = new PostController(post, pv);
+			PostController controller = new PostController(post, pv,pu);
 			Color backColor = new Color(this.getDisplay(), 231, 232, 130);
 			rowComposite.setBackground(backColor);
 		}
