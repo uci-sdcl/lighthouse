@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
@@ -25,6 +26,7 @@ public class PersistAndUpdate implements IPersistAndUpdate{
 		LighthouseAuthor author = ModelUtility.getAuthor();
 		LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,
 				author, getEntity());
+		lh.setTimestamp(new Date());
 
 		// lh.setTimestamp(new Date(0));
 		ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();

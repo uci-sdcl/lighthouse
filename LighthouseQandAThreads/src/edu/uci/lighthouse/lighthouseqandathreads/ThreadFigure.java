@@ -69,8 +69,10 @@ public class ThreadFigure extends CompartmentFigure {
     private LighthouseClass clazz;
 	private LHforum forum;
 
-	
-	private LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
+	static{
+	LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
+	Controller.getInstance().subscribeToLighthouseEvents(subscriber);
+	}
 	
 	MODE mode;
 
@@ -83,7 +85,7 @@ public class ThreadFigure extends CompartmentFigure {
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
 		
-		Controller.getInstance().subscribeToLighthouseEvents(subscriber);
+		
 		
 		this.addMouseMotionListener(new Listener());
 

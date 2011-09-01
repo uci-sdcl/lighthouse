@@ -22,7 +22,7 @@ import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
 
-public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
+public class LighthouseQAEventSubscriber  implements ISubscriber{
 
 	/**
 	 * 
