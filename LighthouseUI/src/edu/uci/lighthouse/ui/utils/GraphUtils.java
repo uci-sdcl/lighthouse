@@ -8,7 +8,12 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.Graph;
@@ -21,7 +26,9 @@ import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
 public class GraphUtils {
-
+	static EmergingDesignView view;
+	static IViewPart viewPart;
+	
 	public static void changeFigureMode(GraphNode node, ILighthouseClassFigure.MODE mode){
 		Point loc = node.getLocation();
 		Dimension size = new Dimension(-1,-1);
@@ -52,9 +59,13 @@ public class GraphUtils {
 	/**
 	 * @author lee
 	 */
-	public static void rebuildFigureForEntity(LighthouseEntity entity){
-		GraphItem item = getGraphViewer().findGraphItem(entity);
-		GraphUtils.rebuildFigure((GraphNode) item);
+	public static void rebuildFigureForEntity(final LighthouseEntity entity){
+		Display.getDefault().asyncExec(new Runnable(){
+			public void run() {
+				GraphItem item = getGraphViewer().findGraphItem(entity);
+				GraphUtils.rebuildFigure((GraphNode) item);
+			}
+		});
 	}
 	
 	
@@ -63,12 +74,21 @@ public class GraphUtils {
 	 *@author lee
 	 */
 	public static GraphViewer getGraphViewer(){
-		IViewReference ref =
-			PlatformUI.getWorkbench().
-			getActiveWorkbenchWindow().getActivePage().findViewReference(EmergingDesignView.Plugin_ID);
+
 		
-		EmergingDesignView view = (EmergingDesignView)ref.getView(false);
-		
+		Display.getDefault().syncExec(new Runnable(){
+
+			public void run() {
+				IWorkbench workbench = PlatformUI.getWorkbench();
+				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+				IWorkbenchPage page = window.getActivePage();
+				viewPart = page.findView(EmergingDesignView.Plugin_ID);
+				view = (EmergingDesignView)viewPart;
+			}
+			
+		});
+
+
 		return view.getGraphViewer();
 	}
 	
