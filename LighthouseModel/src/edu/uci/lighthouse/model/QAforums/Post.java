@@ -56,6 +56,7 @@ public class Post extends Observable implements Serializable{
 		this.question = isQuestion;
 		this.message = message;
 		this.author = author;
+		postTime = new Date();
 	}
 	
 	private void observeResponses(){
