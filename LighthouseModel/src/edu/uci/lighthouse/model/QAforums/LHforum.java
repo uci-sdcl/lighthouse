@@ -102,6 +102,15 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
         notifyObservers(object);
         clearChanged();
 	}
+
+	public int countTotalResonses() {
+		int count = 0;
+		for(ForumThread thread: this.getThreads()){
+			Post root = thread.getRootQuestion();
+			count = count + root.getResponses().size();
+		}
+		return count;
+	}
 	
 
 
