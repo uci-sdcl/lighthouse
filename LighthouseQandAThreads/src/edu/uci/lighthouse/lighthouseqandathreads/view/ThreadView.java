@@ -186,7 +186,7 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint {
 					tl.disposeRespondBoxes();
 					RespondBoxView box = new RespondBoxView(tl, SWT.None,
 							ft.getRootQuestion(), ft.getRootQuestion()
-									.getTeamMemberAuthor());
+									.getTeamMemberAuthor(),pu);
 					box.observeMe(tl);
 					tl.addAfter(box, ThreadView.this);
 					tl.setSize(tl.computeSize(SWT.DEFAULT, SWT.DEFAULT));

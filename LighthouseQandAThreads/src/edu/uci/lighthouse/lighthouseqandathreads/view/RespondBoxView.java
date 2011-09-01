@@ -13,6 +13,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
@@ -25,7 +26,7 @@ public class RespondBoxView extends WindowFrame {
 	private Composite replyComposite;
 	private Button closeButton;
 
-	public RespondBoxView(Composite parent, int style, Post post, TeamMember tm) {
+	public RespondBoxView(Composite parent, int style, Post post, TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
 
 		replyComposite = new Composite(this, style);

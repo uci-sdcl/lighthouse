@@ -30,7 +30,7 @@ public class LighthouseQAEventSubscriber  implements ISubscriber, Serializable{
 	private static final long serialVersionUID = -6013962858601965104L;
 
 	public void receive(List<LighthouseEvent> events) {
-		
+		System.out.println("[LighthouseQAEventSubscriber.recieve]");
 		for(LighthouseEvent event: events){
 			if(event instanceof LighthouseEvent){
 				//refresh updates sent by others
