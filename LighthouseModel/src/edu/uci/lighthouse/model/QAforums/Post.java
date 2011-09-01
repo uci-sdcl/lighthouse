@@ -172,6 +172,10 @@ public class Post extends Observable implements Serializable{
 		return postTime;
 	}
 	
+	/**
+	 * In Descending order most recent to oldest post
+	 * @return
+	 */
 	public List<Post> orderResponses(){
 		
 		int i;
@@ -183,7 +187,7 @@ public class Post extends Observable implements Serializable{
 		for(i = 0 ; i< this.responses.size(); i++){
 			min = i;
 			for(int j = i+1 ; j< this.responses.size(); j++){
-				if(listOfResponses.get(j).getPostTime().compareTo(listOfResponses.get(min).getPostTime()) <0){
+				if(listOfResponses.get(j).getPostTime().compareTo(listOfResponses.get(min).getPostTime()) > 0){
 					min = j;
 				}
 			}
