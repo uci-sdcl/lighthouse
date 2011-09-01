@@ -26,6 +26,7 @@ public class FetchNewEventsAction implements IDatabaseAction {
 	public FetchNewEventsAction(){}
 	
 	public FetchNewEventsAction(List<ISubscriber> subs){
+		listOfSubs.clear();
 		listOfSubs.addAll(subs);
 	}
 	
