@@ -16,7 +16,8 @@ import edu.uci.lighthouse.model.QAforums.UpdateEvent;
 public class PostController implements IController<Post> {
 	private Post post;
 	private ForumElement view;
-	
+	private IPersistAndUpdate persisterAndUpdater;
+
 	public PostController(Post post, ForumElement view){
 		this.post = post;
 		this.view = view;
@@ -50,6 +51,16 @@ public class PostController implements IController<Post> {
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public IPersistAndUpdate getPersisterAndUpdater() {
+		return persisterAndUpdater;
+	}
+
+	@Override
+	public void setPersisterAndUpdater(IPersistAndUpdate persisterAndUpdater) {
+		this.persisterAndUpdater = persisterAndUpdater;
 	}
 
 }

@@ -73,6 +73,7 @@ public class ThreadFigure extends CompartmentFigure {
 	private LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
 	
 	MODE mode;
+	private static PersistAndUpdate updater = new PersistAndUpdate();
 
 	public ThreadFigure() {
 		layout = new FlowLayout();
@@ -105,6 +106,10 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		le = getUmlClass();			
 	    clazz = (LighthouseClass) le;
+	    
+	    getUpdater().setEntity(clazz);
+	    
+	    
 		forum = clazz.getForum();
 		if(forum == null){
 			forum = new LHforum();
@@ -125,6 +130,14 @@ public class ThreadFigure extends CompartmentFigure {
 
 	}
 	
+	public static void setUpdater(PersistAndUpdate updater) {
+		ThreadFigure.updater = updater;
+	}
+
+	public static PersistAndUpdate getUpdater() {
+		return updater;
+	}
+
 	private class Listener implements MouseMotionListener{
 
 

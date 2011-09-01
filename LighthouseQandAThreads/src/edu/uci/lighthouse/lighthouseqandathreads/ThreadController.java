@@ -13,6 +13,7 @@ public class ThreadController implements IController<ForumThread>{
 	
 	private ForumThread thread;
 	private ThreadView view;
+	private IPersistAndUpdate persisterAndUpdater;
 
 	public ThreadController(ForumThread thread, ThreadView view){
 		this.thread = thread;
@@ -47,6 +48,16 @@ public class ThreadController implements IController<ForumThread>{
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public IPersistAndUpdate getPersisterAndUpdater() {
+		return persisterAndUpdater;
+	}
+
+	@Override
+	public void setPersisterAndUpdater(IPersistAndUpdate persisterAndUpdater) {
+		this.persisterAndUpdater = persisterAndUpdater;
 	}
 
 }
