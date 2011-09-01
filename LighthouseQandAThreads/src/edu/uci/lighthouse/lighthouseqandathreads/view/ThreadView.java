@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -88,10 +89,10 @@ public class ThreadView extends WindowFrame implements IHasObservablePoint {
 	public void addPost(Post post, boolean root) {
 
 		addPostView(post, tm, root);
-		addResponsePosts(post.getResponses());
+		addResponsePosts(post.orderResponses());
 	}
 
-	public void addResponsePosts(Set<Post> posts) {
+	public void addResponsePosts(List<Post> posts) {
 
 		for (Post post : posts) {
 
