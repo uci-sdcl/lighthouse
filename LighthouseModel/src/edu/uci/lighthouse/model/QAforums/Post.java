@@ -3,6 +3,7 @@ package edu.uci.lighthouse.model.QAforums;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
@@ -16,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 
@@ -42,6 +44,9 @@ public class Post extends Observable implements Serializable{
 	private boolean answer;
 	@ManyToOne (cascade = CascadeType.ALL)
 	private ForumThread thread;
+	
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date postTime;
 	
 	public Post(){
 	}
@@ -156,6 +161,38 @@ public class Post extends Observable implements Serializable{
 
 	public ForumThread getThread() {
 		return thread;
+	}
+
+	public void setPostTime(Date postTime) {
+		this.postTime = postTime;
+	}
+
+	public Date getPostTime() {
+		return postTime;
+	}
+	
+	public List<Post> orderResponses(){
+		
+		int i;
+		int min;
+		
+		ArrayList<Post> listOfResponses = new ArrayList<Post>();
+		listOfResponses.addAll(this.responses);
+		
+		for(i = 0 ; i< this.responses.size(); i++){
+			min = i;
+			for(int j = i+1 ; j< this.responses.size(); j++){
+				if(listOfResponses.get(j).getPostTime().compareTo(listOfResponses.get(min).getPostTime()) <0){
+					min = j;
+				}
+			}
+			
+			Post temp = listOfResponses.get(i);
+			listOfResponses.set(i, listOfResponses.get(min));
+			listOfResponses.set(min, temp);
+		}
+		
+		return listOfResponses;
 	}
 
 	
