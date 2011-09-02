@@ -44,10 +44,9 @@ public class PostView extends ForumElement {
 		this.setBackground(ColorConstants.white);
 
 		Color color;
-		
+
 		color = new Color(this.getDisplay(), 255, 212, 102);
-		
-	
+
 		Color authorColor = new Color(this.getDisplay(), 33, 138, 255);
 
 		this.setBackground(color);
@@ -61,15 +60,14 @@ public class PostView extends ForumElement {
 		label.setBackground(color);
 		label.setForeground(ColorConstants.black);
 
-		Listener listener = new Listener();
-		this.addMouseListener(listener);
-		label.addMouseListener(listener);
+		
 
 		popUp = new Menu(this.getShell(), SWT.POP_UP);
 		this.setMenu(popUp);
 		answerItem = new MenuItem(popUp, SWT.PUSH);
 		answerItem.setText("set as answer");
 		answerItem.addSelectionListener(new AnswerSelectionListener());
+		popUp.addMenuListener(new PostMenuListener());
 
 	}
 
@@ -79,23 +77,21 @@ public class PostView extends ForumElement {
 
 	private class AnswerSelectionListener implements SelectionListener {
 		public void widgetSelected(SelectionEvent e) {
-			post.setAnswer(true,tm);
+			post.setAnswer(true, tm);
 		}
 
 		public void widgetDefaultSelected(SelectionEvent e) {
 		}
 	}
 
-	private class Listener implements MouseListener {
-		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {
+	private class PostMenuListener implements MenuListener {
+		public void menuHidden(MenuEvent e) {
 		}
 
-		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
-
+		public void menuShown(MenuEvent e) {
+			answerItem.setEnabled(post.canSetAsAnswer(tm));
 		}
 
-		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
-		}
 	}
 
 }
