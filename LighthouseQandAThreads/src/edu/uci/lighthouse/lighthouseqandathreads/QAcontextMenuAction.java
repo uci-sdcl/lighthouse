@@ -39,8 +39,8 @@ public class QAcontextMenuAction extends Action{
 		Display display = Display.getDefault();
 
 		NewQuestionDialog nqDialog = new NewQuestionDialog(
-				display.getActiveShell(), "Forum", null,
-				le.getFullyQualifiedName(), MessageDialog.INFORMATION,
+				display.getActiveShell(), le.getFullyQualifiedName(), null,
+				"", MessageDialog.NONE,
 				SWT.OK, tm, forum,clazz);
 
 		

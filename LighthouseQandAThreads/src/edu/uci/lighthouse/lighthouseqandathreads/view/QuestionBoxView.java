@@ -35,7 +35,7 @@ public class QuestionBoxView extends WindowFrame{
 		this.tm = tm;
 		
 		compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
-		
+
 		
 		
 		composite = new Composite(this,SWT.None);

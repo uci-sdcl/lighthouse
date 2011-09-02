@@ -79,7 +79,7 @@ public class PostView extends ForumElement {
 
 	private class AnswerSelectionListener implements SelectionListener {
 		public void widgetSelected(SelectionEvent e) {
-			post.setAnswer(true);
+			post.setAnswer(true,tm);
 		}
 
 		public void widgetDefaultSelected(SelectionEvent e) {
