@@ -131,6 +131,13 @@ public class CompartmentRootPostView extends Panel {
 		}
 		
 		
+		/**
+		 * Counts bounder width as well
+		 * 
+		 * @param control
+		 * @param point
+		 * @return
+		 */
 		public boolean containsPoint(Control control, org.eclipse.swt.graphics.Point point){
 			Rectangle bounds = control.getBounds();
 			int borderWidth = control.getBorderWidth();
