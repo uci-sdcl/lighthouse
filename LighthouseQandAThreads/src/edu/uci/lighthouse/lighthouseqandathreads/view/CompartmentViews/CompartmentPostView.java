@@ -1,13 +1,29 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
+import java.util.ArrayList;
+
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.Panel;
+import org.eclipse.draw2d.MouseMotionListener;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.jface.resource.FontRegistry;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
+
+import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class CompartmentPostView extends Panel{
 
 	private int displayLength = 100;
-	private int NUM_COLUMNS = 1;
+	private int NUM_COLUMNS = 2;
+	private Label messageLabel;
+	private String prefix = "? ";
 	
 	public CompartmentPostView(){
 		GridLayout layout = new GridLayout();
@@ -30,7 +46,36 @@ public class CompartmentPostView extends Panel{
 		
 		setLayoutManager(layout);
 		
-		Label messageLabel = new Label(message.length() >= displayLength ? message.substring(0, displayLength) : message);
+		
+		messageLabel = new Label(message.length() >= displayLength ? prefix+message.substring(0, displayLength) : prefix+message);
 		this.add(messageLabel);
+		
+		PostMouseMotionListener pl = new PostMouseMotionListener();
+		
+		this.addMouseMotionListener(pl);
+		messageLabel.addMouseMotionListener(pl);
+	}
+	
+	private class PostMouseMotionListener extends MouseMotionListener.Stub{
+		public void mouseHover(MouseEvent me){
+			
+			Shell shell = new Shell(GraphUtils.getGraphViewer().getGraphControl().getDisplay().getActiveShell(), SWT.NO_TRIM);
+			
+			shell.setSize(100, 200);
+			Point location = me.getLocation();
+			//CompartmentPostView.this.translateToAbsolute(location);
+			org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer().getGraphControl().toDisplay(location.x,location.y);
+			
+			shell.setLocation(point);
+			
+			shell.open();
+		}
+		public void mouseExited(MouseEvent me){
+			CompartmentPostView.this.setBackgroundColor(null);
+			
+		}
+		public void mouseEntered(MouseEvent me){
+			CompartmentPostView.this.setBackgroundColor(ColorConstants.yellow);
+		}
 	}
 }
