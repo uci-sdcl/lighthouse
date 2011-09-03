@@ -62,7 +62,6 @@ public class CompartmentPostView extends Panel {
 
 	private class PostMouseMotionListener extends MouseMotionListener.Stub {
 		public void mouseHover(MouseEvent me) {
-			System.out.println("HOVER");
 			treadShell = new Shell(GraphUtils.getGraphViewer()
 					.getGraphControl().getDisplay().getActiveShell(),
 					SWT.NO_TRIM);
@@ -80,14 +79,9 @@ public class CompartmentPostView extends Panel {
 		}
 
 		public void mouseExited(MouseEvent me) {
-			System.out.println("EXITED");
-			//CompartmentPostView.this.setBackgroundColor(null);
-			//this will get called when your mouse enters the tread shell!!
-
 		}
 
 		public void mouseEntered(MouseEvent me) {
-			System.out.println("ENTERED");
 			CompartmentPostView.this.setBackgroundColor(ColorConstants.yellow);
 
 
@@ -96,20 +90,15 @@ public class CompartmentPostView extends Panel {
 	
 	private class ThreadTrackListener implements MouseTrackListener {
 
-		@Override
+		
 		public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
-		@Override
 		public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
+			CompartmentPostView.this.setBackgroundColor(null);
 			treadShell.close();
 			
 		}
-		@Override
 		public void mouseHover(org.eclipse.swt.events.MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 	
 	}
