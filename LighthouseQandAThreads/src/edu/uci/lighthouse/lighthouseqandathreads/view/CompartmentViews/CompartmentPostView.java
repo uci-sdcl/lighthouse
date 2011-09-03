@@ -24,6 +24,7 @@ public class CompartmentPostView extends Panel{
 	private int NUM_COLUMNS = 2;
 	private Label messageLabel;
 	private String prefix = "? ";
+	private Shell treadShell;
 	
 	public CompartmentPostView(){
 		GridLayout layout = new GridLayout();
@@ -59,19 +60,19 @@ public class CompartmentPostView extends Panel{
 	private class PostMouseMotionListener extends MouseMotionListener.Stub{
 		public void mouseHover(MouseEvent me){
 			
-			Shell shell = new Shell(GraphUtils.getGraphViewer().getGraphControl().getDisplay().getActiveShell(), SWT.NO_TRIM);
+			Shell treadShell = new Shell(GraphUtils.getGraphViewer().getGraphControl().getDisplay().getActiveShell(), SWT.NO_TRIM);
 			
-			shell.setSize(100, 200);
+			treadShell.setSize(100, 200);
 			Point location = me.getLocation();
-			//CompartmentPostView.this.translateToAbsolute(location);
 			org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer().getGraphControl().toDisplay(location.x,location.y);
 			
-			shell.setLocation(point);
+			treadShell.setLocation(point);
 			
-			shell.open();
+			treadShell.open();
 		}
 		public void mouseExited(MouseEvent me){
 			CompartmentPostView.this.setBackgroundColor(null);
+			treadShell.close();
 			
 		}
 		public void mouseEntered(MouseEvent me){
