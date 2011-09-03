@@ -11,6 +11,7 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -24,7 +25,7 @@ public class CompartmentPostView extends Panel {
 	private int NUM_COLUMNS = 2;
 	private Label messageLabel;
 	private String prefix = "? ";
-	private ArrayList<Shell> openShells = new ArrayList<Shell>();
+	private Shell treadShell;
 
 	public CompartmentPostView() {
 
@@ -62,7 +63,7 @@ public class CompartmentPostView extends Panel {
 	private class PostMouseMotionListener extends MouseMotionListener.Stub {
 		public void mouseHover(MouseEvent me) {
 			System.out.println("HOVER");
-			Shell treadShell = new Shell(GraphUtils.getGraphViewer()
+			treadShell = new Shell(GraphUtils.getGraphViewer()
 					.getGraphControl().getDisplay().getActiveShell(),
 					SWT.NO_TRIM);
 			treadShell.setSize(100, 200);
@@ -71,15 +72,16 @@ public class CompartmentPostView extends Panel {
 					.getGraphControl().toDisplay(location.x, location.y);
 
 			treadShell.setLocation(point);
-
+			treadShell.addMouseTrackListener(new ThreadTrackListener());
 			treadShell.open();
+			
 
-			openShells.add(treadShell);
+		
 		}
 
 		public void mouseExited(MouseEvent me) {
 			System.out.println("EXITED");
-			CompartmentPostView.this.setBackgroundColor(null);
+			//CompartmentPostView.this.setBackgroundColor(null);
 			//this will get called when your mouse enters the tread shell!!
 
 		}
@@ -90,5 +92,25 @@ public class CompartmentPostView extends Panel {
 
 
 		}
+	}
+	
+	private class ThreadTrackListener implements MouseTrackListener {
+
+		@Override
+		public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
+			treadShell.close();
+			
+		}
+		@Override
+		public void mouseHover(org.eclipse.swt.events.MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	
 	}
 }
