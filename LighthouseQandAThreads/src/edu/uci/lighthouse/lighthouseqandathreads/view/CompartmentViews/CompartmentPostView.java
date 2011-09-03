@@ -68,7 +68,7 @@ public class CompartmentPostView extends Panel {
 			treadShell.setSize(100, 200);
 			Point location = me.getLocation();
 			org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer()
-					.getGraphControl().toDisplay(location.x+5, location.y+5);
+					.getGraphControl().toDisplay(location.x, location.y);
 
 			treadShell.setLocation(point);
 
