@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Panel;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -48,6 +49,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 	private TeamMember tm;
 	private PersistAndUpdate pu;
 	private ListComposite listOfReplies;
+	private ScrolledComposite scroller;
 	
 	public CompartmentThreadView(Composite parent, int style, ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
@@ -58,8 +60,19 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		this.tm = tm;
 		this.pu = pu;
 		
-		listOfReplies = new ListComposite(this,SWT.None);
 		
+		scroller = new ScrolledComposite(this,SWT.V_SCROLL | SWT.H_SCROLL);
+		GridData scrollData = new GridData(LayoutMetrics.CONVERSATION_LIST_WIDTH, LayoutMetrics.CONVERSATION_LIST_HEIGHT);
+		scrollData.horizontalAlignment = GridData.CENTER;
+		scroller.setLayoutData(scrollData);
+		scroller.setLayout(new GridLayout(1, false));
+		
+		
+		
+		listOfReplies = new ListComposite(scroller,SWT.None);
+		
+		
+		//---add posts
 		for(Post post : thread.getRootQuestion().getResponses()){
 			
 			
@@ -77,6 +90,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			listOfReplies.renderList();
 		}
 		
+		scroller.setMinSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+		//-- reply box
 		
 		GridData compsiteData = new GridData(
 				LayoutMetrics.RESPOND_BOX_VIEW_WIDTH,
@@ -104,7 +120,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		postButton.addSelectionListener(new ReplyListener());
 		
 
-		Controller.getInstance().subscribeToLighthouseEvents(this);
+	//	Controller.getInstance().subscribeToLighthouseEvents(this);
 
 	}
 	
