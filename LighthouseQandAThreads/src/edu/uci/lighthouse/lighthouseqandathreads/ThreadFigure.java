@@ -137,9 +137,9 @@ public class ThreadFigure extends CompartmentFigure {
 		this.add(questPanel); */
 		LighthouseAuthor author = ModelUtility.getAuthor();
 		LHthreadCreator tm = new LHthreadCreator(author);
-		
+		PersistAndUpdate pu = new PersistAndUpdate(clazz);
 		for(ForumThread thread: forum.getThreads()){
-			CompartmentRootPostView postView = new CompartmentRootPostView(thread.getRootQuestion().getMessage(), thread,tm);
+			CompartmentRootPostView postView = new CompartmentRootPostView(thread.getRootQuestion().getMessage(), thread,tm,pu);
 			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 			//data.horizontalSpan = 2;
 			this.add(postView,data);

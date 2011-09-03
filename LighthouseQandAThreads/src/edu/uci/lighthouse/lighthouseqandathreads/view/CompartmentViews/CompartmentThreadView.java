@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.Shell;
 
 import edu.uci.lighthouse.lighthouseqandathreads.ForumController;
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
+import edu.uci.lighthouse.lighthouseqandathreads.PostController;
+import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.LayoutMetrics;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ListComposite;
@@ -33,22 +35,27 @@ public class CompartmentThreadView extends Composite {
 	private Composite replyComposite;
 	private ForumThread thread;
 	private TeamMember tm;
+	private PersistAndUpdate pu;
 	
-	public CompartmentThreadView(Composite parent, int style, ForumThread thread, TeamMember tm) {
+	public CompartmentThreadView(Composite parent, int style, ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
 
 		this.setLayout(new GridLayout(1, false));
 		this.setBackground(ColorConstants.blue);
 		this.thread = thread;
 		this.tm = tm;
-		
+		this.pu = pu;
 		ListComposite listOfReplies = new ListComposite(this,SWT.None);
 		
 		for(Post post : thread.getRootQuestion().getResponses()){
-			Composite composite = new Composite(this, SWT.None);
+			
+			
+			ForumElement composite = new ForumElement(this, SWT.None);
 			composite.setLayout(new GridLayout(1,false));
 			Label replyLabel = new Label(composite, SWT.None);
 			replyLabel.setText(post.getMessage());
+			
+			//PostController controller = new PostController(post, composite, pu);
 			
 			listOfReplies.add(composite);
 			listOfReplies.renderList();

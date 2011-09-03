@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
@@ -30,8 +31,9 @@ public class CompartmentRootPostView extends Panel {
 	private Shell treadShell;
 	private ForumThread thread;
 	private TeamMember tm;
+	private PersistAndUpdate pu;
 
-	public CompartmentRootPostView(String message,  ForumThread thread, TeamMember tm) {
+	public CompartmentRootPostView(String message,  ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
 
 		this.tm = tm;
 		
@@ -41,6 +43,7 @@ public class CompartmentRootPostView extends Panel {
 		layout.numColumns = NUM_COLUMNS;
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
+		this.pu = pu;
 
 		setLayoutManager(layout);
 		
@@ -76,7 +79,7 @@ public class CompartmentRootPostView extends Panel {
 			
 			
 			
-			CompartmentThreadView view = new CompartmentThreadView(treadShell,SWT.None, thread,tm);
+			CompartmentThreadView view = new CompartmentThreadView(treadShell,SWT.None, thread,tm,pu);
 			
 			
 			treadShell.setSize(treadShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
