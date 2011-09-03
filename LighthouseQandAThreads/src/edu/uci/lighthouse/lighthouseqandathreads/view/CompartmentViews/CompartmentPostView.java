@@ -60,7 +60,7 @@ public class CompartmentPostView extends Panel{
 	private class PostMouseMotionListener extends MouseMotionListener.Stub{
 		public void mouseHover(MouseEvent me){
 			
-			Shell treadShell = new Shell(GraphUtils.getGraphViewer().getGraphControl().getDisplay().getActiveShell(), SWT.NO_TRIM);
+			treadShell = new Shell(GraphUtils.getGraphViewer().getGraphControl().getDisplay().getActiveShell(), SWT.NO_TRIM);
 			
 			treadShell.setSize(100, 200);
 			Point location = me.getLocation();
