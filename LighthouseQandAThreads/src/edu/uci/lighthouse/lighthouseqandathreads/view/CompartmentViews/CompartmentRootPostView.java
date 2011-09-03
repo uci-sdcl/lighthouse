@@ -15,6 +15,7 @@ import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -69,14 +70,14 @@ public class CompartmentRootPostView extends Panel {
 			treadShell = new Shell(GraphUtils.getGraphViewer()
 					.getGraphControl().getDisplay().getActiveShell(),
 					SWT.NO_TRIM | SWT.DRAG | SWT.RESIZE);
-		//	treadShell.setSize(100, 200);
+
 			Point location = me.getLocation();
 			org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer()
 					.getGraphControl().toDisplay(location.x, location.y);
 
+
 			treadShell.setLocation(point);
 			treadShell.addMouseTrackListener(new ThreadTrackListener());
-			treadShell.addMouseMoveListener(new ThreadMouseMoveListener(treadShell.getBounds()));
 			
 			treadShell.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
 			
@@ -94,7 +95,9 @@ public class CompartmentRootPostView extends Panel {
 		
 		}
 
-		public void mouseExited(MouseEvent me) {
+		public void mouseExited(MouseEvent e) {
+
+			
 		}
 
 		public void mouseEntered(MouseEvent me) {
@@ -104,35 +107,40 @@ public class CompartmentRootPostView extends Panel {
 		}
 	}
 	
-	private class ThreadMouseMoveListener implements MouseMoveListener{
+
+	
+	private class ThreadTrackListener implements MouseTrackListener {
 		
-		Rectangle bounds;
-		
-		public ThreadMouseMoveListener(Rectangle bounds){
-			this.bounds = bounds;
+		public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
 		}
-		@Override
-		public void mouseMove(org.eclipse.swt.events.MouseEvent e) {
+		public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
 			org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x,e.y);
+	
 			
-			if(!bounds.contains(point)){
+			
+			
+			for(Control control : treadShell.getChildren()){
+				if(containsPoint(control,point))
+					return;
+			}
+			
+			if(!containsPoint(treadShell,point)){
 				treadShell.close();
 			}
 			
 		}
 		
-	}
-	
-	private class ThreadTrackListener implements MouseTrackListener {
-
 		
-		public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
-		}
-		public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
-			//CompartmentPostView.this.setBackgroundColor(null);
-			//treadShell.close();
+		public boolean containsPoint(Control control, org.eclipse.swt.graphics.Point point){
+			Rectangle bounds = control.getBounds();
+			int borderWidth = control.getBorderWidth();
 			
+			bounds.height = bounds.height+borderWidth;
+			bounds.width = bounds.width+borderWidth;
+			
+			return bounds.contains(point);
 		}
+		
 		public void mouseHover(org.eclipse.swt.events.MouseEvent e) {
 		}
 	
