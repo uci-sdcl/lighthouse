@@ -21,7 +21,7 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
-public class CompartmentPostView extends Panel {
+public class CompartmentRootPostView extends Panel {
 
 	private int displayLength = 100;
 	private int NUM_COLUMNS = 2;
@@ -31,7 +31,7 @@ public class CompartmentPostView extends Panel {
 	private ForumThread thread;
 	private TeamMember tm;
 
-	public CompartmentPostView(String message,  ForumThread thread, TeamMember tm) {
+	public CompartmentRootPostView(String message,  ForumThread thread, TeamMember tm) {
 
 		this.tm = tm;
 		

@@ -7,7 +7,7 @@ import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.lighthouseqandathreads.view.VisualSummaryView;
-import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentPostView;
+import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentRootPostView;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -139,7 +139,7 @@ public class ThreadFigure extends CompartmentFigure {
 		LHthreadCreator tm = new LHthreadCreator(author);
 		
 		for(ForumThread thread: forum.getThreads()){
-			CompartmentPostView postView = new CompartmentPostView(thread.getRootQuestion().getMessage(), thread,tm);
+			CompartmentRootPostView postView = new CompartmentRootPostView(thread.getRootQuestion().getMessage(), thread,tm);
 			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 			//data.horizontalSpan = 2;
 			this.add(postView,data);
