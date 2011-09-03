@@ -7,9 +7,11 @@ import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.lighthouseqandathreads.view.VisualSummaryView;
+import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentPostView;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
@@ -26,6 +28,8 @@ import org.eclipse.draw2d.ChangeEvent;
 import org.eclipse.draw2d.ChangeListener;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.GridData;
+import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LightweightSystem;
@@ -68,6 +72,7 @@ public class ThreadFigure extends CompartmentFigure {
 	private LighthouseEntity le;
     private LighthouseClass clazz;
 	private LHforum forum;
+	private int NUM_COLUMNS = 1;
 
 	static{
 	LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
@@ -78,10 +83,15 @@ public class ThreadFigure extends CompartmentFigure {
 
 
 	public ThreadFigure() {
-		layout = new FlowLayout();
-		layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
-		layout.setMinorSpacing(25);
+		GridLayout layout = new GridLayout();
+		//layout.horizontalSpacing = 0;
+		//layout.verticalSpacing = 0;
+		layout.numColumns = NUM_COLUMNS;			
+		//layout.marginHeight = 0;
+		//layout.marginWidth = 0; 
+		
 		setLayoutManager(layout);
+		
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
 		
@@ -116,7 +126,7 @@ public class ThreadFigure extends CompartmentFigure {
 	
 		
 		
-		VisualSummaryView vsv = 
+	/*	VisualSummaryView vsv = 
 			new VisualSummaryView(forum.countThreads(),forum.countSolvedThreads(),forum.countTotalResonses());
 
 		
@@ -124,8 +134,19 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		decidedToHideOrNot(forum.countThreads(), questPanel);
 		
-		this.add(questPanel);
-
+		this.add(questPanel); */
+		
+		
+		
+		for(ForumThread thread: forum.getThreads()){
+			CompartmentPostView postView = new CompartmentPostView(thread.getRootQuestion().getMessage());
+			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
+			//data.horizontalSpan = 2;
+			this.add(postView,data);
+		}
+	
+		
+		
 	}
 	
 	private class Listener implements MouseMotionListener{
