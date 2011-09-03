@@ -82,7 +82,7 @@ public class CompartmentPostView extends Panel {
 		}
 
 		public void mouseEntered(MouseEvent me) {
-			CompartmentPostView.this.setBackgroundColor(ColorConstants.yellow);
+			//CompartmentPostView.this.setBackgroundColor(ColorConstants.yellow);
 
 
 		}
@@ -94,7 +94,7 @@ public class CompartmentPostView extends Panel {
 		public void mouseEnter(org.eclipse.swt.events.MouseEvent e) {
 		}
 		public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
-			CompartmentPostView.this.setBackgroundColor(null);
+			//CompartmentPostView.this.setBackgroundColor(null);
 			treadShell.close();
 			
 		}
