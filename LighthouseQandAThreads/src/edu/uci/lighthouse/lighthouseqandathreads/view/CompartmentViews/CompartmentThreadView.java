@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
+import java.util.List;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Panel;
 import org.eclipse.swt.SWT;
@@ -16,6 +18,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
+import edu.uci.lighthouse.core.controller.Controller;
+import edu.uci.lighthouse.core.data.ISubscriber;
 import edu.uci.lighthouse.lighthouseqandathreads.ForumController;
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.PostController;
@@ -25,11 +29,18 @@ import edu.uci.lighthouse.lighthouseqandathreads.view.LayoutMetrics;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ListComposite;
 import edu.uci.lighthouse.lighthouseqandathreads.view.RespondBoxView;
 
+import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class CompartmentThreadView extends Composite {
+public class CompartmentThreadView extends Composite implements ISubscriber{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6013962858601965104L;
+	
 	final StyledText postNewThreadBox;
 	private String reply = "";
 	private Composite replyComposite;
@@ -93,7 +104,7 @@ public class CompartmentThreadView extends Composite {
 		postButton.addSelectionListener(new ReplyListener());
 		
 
-
+		Controller.getInstance().subscribeToLighthouseEvents(this);
 
 	}
 	
@@ -134,6 +145,12 @@ public class CompartmentThreadView extends Composite {
 			listOfReplies.renderList();
 			this.layout();
 		}
+	}
+
+	@Override
+	public void receive(List<LighthouseEvent> events) {
+		updateView();
+		
 	}
 	
 

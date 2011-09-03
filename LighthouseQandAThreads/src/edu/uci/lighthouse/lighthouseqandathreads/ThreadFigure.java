@@ -96,7 +96,7 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		
 		
-		this.addMouseMotionListener(new Listener());
+	//	this.addMouseMotionListener(new Listener());
 
 	}
 
@@ -142,6 +142,7 @@ public class ThreadFigure extends CompartmentFigure {
 			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 			//data.horizontalSpan = 2;
 			this.add(postView,data);
+			
 			
 		}
 	
