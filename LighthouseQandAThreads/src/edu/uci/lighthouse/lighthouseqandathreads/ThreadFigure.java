@@ -135,11 +135,11 @@ public class ThreadFigure extends CompartmentFigure {
 		decidedToHideOrNot(forum.countThreads(), questPanel);
 		
 		this.add(questPanel); */
-		
-		
+		LighthouseAuthor author = ModelUtility.getAuthor();
+		LHthreadCreator tm = new LHthreadCreator(author);
 		
 		for(ForumThread thread: forum.getThreads()){
-			CompartmentPostView postView = new CompartmentPostView(thread.getRootQuestion().getMessage(), thread);
+			CompartmentPostView postView = new CompartmentPostView(thread.getRootQuestion().getMessage(), thread,tm);
 			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 			//data.horizontalSpan = 2;
 			this.add(postView,data);

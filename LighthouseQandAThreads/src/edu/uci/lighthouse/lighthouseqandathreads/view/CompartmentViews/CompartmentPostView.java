@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 import edu.uci.lighthouse.model.QAforums.ForumThread;
+import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class CompartmentPostView extends Panel {
@@ -28,10 +29,12 @@ public class CompartmentPostView extends Panel {
 	private String prefix = "? ";
 	private Shell treadShell;
 	private ForumThread thread;
+	private TeamMember tm;
 
+	public CompartmentPostView(String message,  ForumThread thread, TeamMember tm) {
 
-	public CompartmentPostView(String message,  ForumThread thread) {
-
+		this.tm = tm;
+		
 		GridLayout layout = new GridLayout();
 		layout.horizontalSpacing = 0;
 		layout.verticalSpacing = 0;
@@ -40,9 +43,12 @@ public class CompartmentPostView extends Panel {
 		layout.marginWidth = 0;
 
 		setLayoutManager(layout);
+		
+		String author = thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName();
+		
 
-		messageLabel = new Label(message.length() >= displayLength ? prefix
-				+ message.substring(0, displayLength) : prefix + message);
+
+		messageLabel = new Label(message.length() >= displayLength ? author + " " + message.substring(0,displayLength) : author + " " + message);
 		this.add(messageLabel);
 
 		PostMouseMotionListener pl = new PostMouseMotionListener();
@@ -57,7 +63,7 @@ public class CompartmentPostView extends Panel {
 		public void mouseHover(MouseEvent me) {
 			treadShell = new Shell(GraphUtils.getGraphViewer()
 					.getGraphControl().getDisplay().getActiveShell(),
-					SWT.NO_TRIM);
+					SWT.NO_TRIM | SWT.DRAG | SWT.RESIZE);
 		//	treadShell.setSize(100, 200);
 			Point location = me.getLocation();
 			org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer()
@@ -70,7 +76,7 @@ public class CompartmentPostView extends Panel {
 			
 			
 			
-			CompartmentThreadView view = new CompartmentThreadView(treadShell,SWT.None, thread);
+			CompartmentThreadView view = new CompartmentThreadView(treadShell,SWT.None, thread,tm);
 			
 			
 			treadShell.setSize(treadShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
