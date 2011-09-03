@@ -62,10 +62,11 @@ public class ListComposite extends Composite implements Observer{
 		}
 		
 		for(Integer index : indexes){
-			Composite child = list.get(index);
+			Composite child = list.get(index.intValue());
 			child.dispose();
-			list.remove(index.intValue());
 		}
+		
+		list.clear();
 		
 		
 	}
@@ -80,7 +81,7 @@ public class ListComposite extends Composite implements Observer{
 		}
 		
 		for(Integer index : indexes){
-			Composite child = list.get(index);
+			Composite child = list.get(index.intValue());
 			child.dispose();
 			list.remove(index.intValue());
 		}
