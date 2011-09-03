@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class CompartmentPostView extends Panel {
@@ -26,20 +27,10 @@ public class CompartmentPostView extends Panel {
 	private Label messageLabel;
 	private String prefix = "? ";
 	private Shell treadShell;
+	private ForumThread thread;
 
-	public CompartmentPostView() {
 
-		GridLayout layout = new GridLayout();
-		layout.horizontalSpacing = 0;
-		layout.verticalSpacing = 0;
-		layout.numColumns = NUM_COLUMNS;
-		layout.marginHeight = 0;
-		layout.marginWidth = 0;
-
-		setLayoutManager(layout);
-	}
-
-	public CompartmentPostView(String message) {
+	public CompartmentPostView(String message,  ForumThread thread) {
 
 		GridLayout layout = new GridLayout();
 		layout.horizontalSpacing = 0;
@@ -58,6 +49,8 @@ public class CompartmentPostView extends Panel {
 
 		this.addMouseMotionListener(pl);
 		messageLabel.addMouseMotionListener(pl);
+		
+		this.thread = thread;
 	}
 
 	private class PostMouseMotionListener extends MouseMotionListener.Stub {
@@ -65,13 +58,23 @@ public class CompartmentPostView extends Panel {
 			treadShell = new Shell(GraphUtils.getGraphViewer()
 					.getGraphControl().getDisplay().getActiveShell(),
 					SWT.NO_TRIM);
-			treadShell.setSize(100, 200);
+		//	treadShell.setSize(100, 200);
 			Point location = me.getLocation();
 			org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer()
 					.getGraphControl().toDisplay(location.x, location.y);
 
 			treadShell.setLocation(point);
 			treadShell.addMouseTrackListener(new ThreadTrackListener());
+			
+			treadShell.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+			
+			
+			
+			CompartmentThreadView view = new CompartmentThreadView(treadShell,SWT.None, thread);
+			
+			
+			treadShell.setSize(treadShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			
 			treadShell.open();
 			
 
@@ -95,7 +98,7 @@ public class CompartmentPostView extends Panel {
 		}
 		public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
 			//CompartmentPostView.this.setBackgroundColor(null);
-			treadShell.close();
+			//treadShell.close();
 			
 		}
 		public void mouseHover(org.eclipse.swt.events.MouseEvent e) {

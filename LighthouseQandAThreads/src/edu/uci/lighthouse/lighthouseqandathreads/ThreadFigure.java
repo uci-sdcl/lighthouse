@@ -139,7 +139,7 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		
 		for(ForumThread thread: forum.getThreads()){
-			CompartmentPostView postView = new CompartmentPostView(thread.getRootQuestion().getMessage());
+			CompartmentPostView postView = new CompartmentPostView(thread.getRootQuestion().getMessage(), thread);
 			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 			//data.horizontalSpan = 2;
 			this.add(postView,data);
