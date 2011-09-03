@@ -11,8 +11,10 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -74,8 +76,10 @@ public class CompartmentRootPostView extends Panel {
 
 			treadShell.setLocation(point);
 			treadShell.addMouseTrackListener(new ThreadTrackListener());
+			treadShell.addMouseMoveListener(new ThreadMouseMoveListener(treadShell.getBounds()));
 			
 			treadShell.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+			
 			
 			
 			
@@ -98,6 +102,25 @@ public class CompartmentRootPostView extends Panel {
 
 
 		}
+	}
+	
+	private class ThreadMouseMoveListener implements MouseMoveListener{
+		
+		Rectangle bounds;
+		
+		public ThreadMouseMoveListener(Rectangle bounds){
+			this.bounds = bounds;
+		}
+		@Override
+		public void mouseMove(org.eclipse.swt.events.MouseEvent e) {
+			org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x,e.y);
+			
+			if(!bounds.contains(point)){
+				treadShell.close();
+			}
+			
+		}
+		
 	}
 	
 	private class ThreadTrackListener implements MouseTrackListener {
