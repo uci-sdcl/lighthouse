@@ -54,7 +54,22 @@ public class ListComposite extends Composite implements Observer{
 
 	}
 	
-
+	public void clearChildren(){
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		for(Composite child: list){		
+				indexes.add(list.indexOf(child));
+		
+		}
+		
+		for(Integer index : indexes){
+			Composite child = list.get(index);
+			child.dispose();
+			list.remove(index.intValue());
+		}
+		
+		
+	}
+	
 	public void disposeRespondBoxes(){
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 		for(Composite child: list){

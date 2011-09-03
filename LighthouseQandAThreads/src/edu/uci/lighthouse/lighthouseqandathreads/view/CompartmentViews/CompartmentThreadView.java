@@ -36,6 +36,7 @@ public class CompartmentThreadView extends Composite {
 	private ForumThread thread;
 	private TeamMember tm;
 	private PersistAndUpdate pu;
+	private ListComposite listOfReplies;
 	
 	public CompartmentThreadView(Composite parent, int style, ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
@@ -45,12 +46,16 @@ public class CompartmentThreadView extends Composite {
 		this.thread = thread;
 		this.tm = tm;
 		this.pu = pu;
-		ListComposite listOfReplies = new ListComposite(this,SWT.None);
+		
+		listOfReplies = new ListComposite(this,SWT.None);
 		
 		for(Post post : thread.getRootQuestion().getResponses()){
 			
 			
 			ForumElement composite = new ForumElement(this, SWT.None);
+			GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
+				LayoutMetrics.POST_VIEW_HEIGHT);
+			composite.setLayoutData(data);
 			composite.setLayout(new GridLayout(1,false));
 			Label replyLabel = new Label(composite, SWT.None);
 			replyLabel.setText(post.getMessage());
@@ -79,7 +84,7 @@ public class CompartmentThreadView extends Composite {
 		postNewThreadBox.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				setReply(postNewThreadBox.getText());
-
+				
 			}
 		});
 		
@@ -108,10 +113,28 @@ public class CompartmentThreadView extends Composite {
 			if (replyeePost != null) {
 				replyeePost.addResponse(newPost);
 				postNewThreadBox.setText("");
+				updateView();
 			}
+			pu.run();
 		}
 	}
 	
+	public void updateView(){
+		listOfReplies.clearChildren();
+		for(Post post : thread.getRootQuestion().getResponses()){	
+			ForumElement composite = new ForumElement(this, SWT.None);
+			GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
+				LayoutMetrics.POST_VIEW_HEIGHT);
+			composite.setLayoutData(data);
+			composite.setLayout(new GridLayout(1,false));
+			Label replyLabel = new Label(composite, SWT.None);
+			replyLabel.setText(post.getMessage());		
+			
+			listOfReplies.add(composite);
+			listOfReplies.renderList();
+			this.layout();
+		}
+	}
 	
 
 }

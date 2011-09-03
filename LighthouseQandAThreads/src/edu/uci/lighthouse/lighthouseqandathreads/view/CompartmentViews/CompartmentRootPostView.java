@@ -3,6 +3,7 @@ package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 import java.util.ArrayList;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MouseEvent;
@@ -28,17 +29,20 @@ import edu.uci.lighthouse.ui.utils.GraphUtils;
 public class CompartmentRootPostView extends Panel {
 
 	private int displayLength = 100;
-	private int NUM_COLUMNS = 2;
+	private int NUM_COLUMNS = 1;
 	private Label messageLabel;
 	private String prefix = "? ";
 	private Shell treadShell;
 	private ForumThread thread;
 	private TeamMember tm;
 	private PersistAndUpdate pu;
-
+	private CompartmentThreadView view;
+	
 	public CompartmentRootPostView(String message,  ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
 
 		this.tm = tm;
+		this.thread = thread;
+		this.pu = pu;
 		
 		GridLayout layout = new GridLayout();
 		layout.horizontalSpacing = 0;
@@ -46,15 +50,14 @@ public class CompartmentRootPostView extends Panel {
 		layout.numColumns = NUM_COLUMNS;
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
-		this.pu = pu;
 
 		setLayoutManager(layout);
 		
 		String author = thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName();
 		
+		GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 
-
-		messageLabel = new Label(message.length() >= displayLength ? author + " " + message.substring(0,displayLength) : author + " " + message);
+		messageLabel = new Label(message.length() >= displayLength ? "["+author + "] " + message.substring(0,displayLength) : "["+author + "] " + message);
 		this.add(messageLabel);
 
 		PostMouseMotionListener pl = new PostMouseMotionListener();
@@ -62,7 +65,11 @@ public class CompartmentRootPostView extends Panel {
 		this.addMouseMotionListener(pl);
 		messageLabel.addMouseMotionListener(pl);
 		
-		this.thread = thread;
+		
+	}
+	
+	public void updateView(){
+		view.updateView();
 	}
 
 	private class PostMouseMotionListener extends MouseMotionListener.Stub {
@@ -84,7 +91,7 @@ public class CompartmentRootPostView extends Panel {
 			
 			
 			
-			CompartmentThreadView view = new CompartmentThreadView(treadShell,SWT.None, thread,tm,pu);
+			view = new CompartmentThreadView(treadShell,SWT.None, thread,tm,pu);
 			
 			
 			treadShell.setSize(treadShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));

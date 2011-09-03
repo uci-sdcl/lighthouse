@@ -89,7 +89,6 @@ public class ThreadFigure extends CompartmentFigure {
 		layout.numColumns = NUM_COLUMNS;			
 		//layout.marginHeight = 0;
 		//layout.marginWidth = 0; 
-		
 		setLayoutManager(layout);
 		
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
@@ -143,6 +142,7 @@ public class ThreadFigure extends CompartmentFigure {
 			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 			//data.horizontalSpan = 2;
 			this.add(postView,data);
+			
 		}
 	
 		
