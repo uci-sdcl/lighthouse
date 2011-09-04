@@ -98,11 +98,13 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		//-- reply box
 		
 		GridData compsiteData = new GridData(
-				LayoutMetrics.RESPOND_BOX_VIEW_WIDTH,
+				LayoutMetrics.CONVERSATION_LIST_WIDTH,
 				LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
+		compsiteData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
 		replyComposite = new Composite(this, style);
 		replyComposite.setLayout(new GridLayout(2, false));
 		replyComposite.setLayoutData(compsiteData);
+		
 		Color replyBorderColor = new Color(this.getDisplay(), 33, 138, 255);
 		replyComposite.setBackground(replyBorderColor);
 

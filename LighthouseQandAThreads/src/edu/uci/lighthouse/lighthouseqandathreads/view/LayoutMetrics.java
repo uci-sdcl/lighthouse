@@ -8,7 +8,7 @@ public class LayoutMetrics {
 	public static int CONVERSATION_LIST_HEIGHT = 300;
 	
 	
-	public static int RESPOND_BOX_VIEW_WIDTH = 380;
+	public static int RESPOND_BOX_VIEW_WIDTH = 400;
 	public static int RESPOND_BOX_VIEW_HEIGHT = 50;
 	
 	public static int QUESTION_BOX_VIEW_WIDTH = 550;
