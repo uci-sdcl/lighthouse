@@ -21,10 +21,10 @@ public class ListComposite extends Composite implements Observer{
 		super(parent, style);
 		
 		GridData compsiteData = new GridData();
-
+		compsiteData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
 		this.setBackground(ColorConstants.black);
 		
-		compsiteData.horizontalAlignment = GridData.CENTER;
+		//compsiteData.horizontalAlignment = GridData.CENTER;
 		
 		temporaryParent.setVisible(false);
 		
