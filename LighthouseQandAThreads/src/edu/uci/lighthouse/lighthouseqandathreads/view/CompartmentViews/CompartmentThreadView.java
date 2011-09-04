@@ -68,9 +68,11 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		scroller.setLayout(new GridLayout(1, false));
 		
 		
+
 		
 		listOfReplies = new ListComposite(scroller,SWT.None);
-		
+		scroller.setContent(listOfReplies);
+		scroller.setMinSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
 		//---add posts
 		for(Post post : thread.getRootQuestion().getResponses()){
@@ -87,10 +89,11 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			//PostController controller = new PostController(post, composite, pu);
 			
 			listOfReplies.add(composite);
+			listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
 			listOfReplies.renderList();
 		}
 		
-		scroller.setMinSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 		//-- reply box
 		
@@ -159,8 +162,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			
 			listOfReplies.add(composite);
 			listOfReplies.renderList();
-			this.layout();
 		}
+		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		this.layout();
 	}
 
 	@Override
