@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.lighthouseqandathreads.view;
+package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
@@ -16,6 +16,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
+import edu.uci.lighthouse.lighthouseqandathreads.view.LayoutMetrics;
+import edu.uci.lighthouse.lighthouseqandathreads.view.WindowFrame;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Post;
@@ -29,13 +32,16 @@ public class QuestionBoxView extends WindowFrame{
 	GridData compData;
 	Composite composite;
 	Button postButton;
+	PersistAndUpdate pu;
 	
-	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm) {
+	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
 		
 		this.forum = forum;
 		this.tm = tm;
 		this.setLayout(new GridLayout(1, false));
+		this.pu = pu;
+		
 		compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
 
 		
@@ -102,7 +108,7 @@ public class QuestionBoxView extends WindowFrame{
 				Post newPost = new Post(true, "", message, tm);
 				forum.addThread(newPost);
 				postNewThreadBox.setText("");
-
+				pu.run();
 
 			
 		}

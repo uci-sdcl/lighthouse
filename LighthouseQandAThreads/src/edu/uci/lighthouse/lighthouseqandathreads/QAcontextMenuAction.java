@@ -48,8 +48,7 @@ public class QAcontextMenuAction extends Action{
 		
 		
 		postShell = new Shell(GraphUtils.getGraphViewer()
-				.getGraphControl().getDisplay().getActiveShell(),
-				SWT.NO_TRIM);
+				.getGraphControl().getDisplay().getActiveShell());
 		
 	//	Point location = me.getLocation();
 	//	org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer()

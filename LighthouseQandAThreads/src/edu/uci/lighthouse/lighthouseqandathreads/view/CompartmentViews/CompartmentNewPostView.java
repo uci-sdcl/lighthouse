@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Composite;
 
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumView;
-import edu.uci.lighthouse.lighthouseqandathreads.view.QuestionBoxView;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
@@ -20,7 +19,7 @@ public class CompartmentNewPostView extends Composite{
 		
 		this.setLayout(new GridLayout(1, false));
 		
-		QuestionBoxView view = new QuestionBoxView(this, SWT.None,forum,tm);
+		QuestionBoxView view = new QuestionBoxView(this, SWT.None,forum,tm, pu);
 	}
 
 }
