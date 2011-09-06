@@ -9,10 +9,10 @@ public class LayoutMetrics {
 	
 	
 	public static int RESPOND_BOX_VIEW_WIDTH = 400;
-	public static int RESPOND_BOX_VIEW_HEIGHT = 50;
+	public static int RESPOND_BOX_VIEW_HEIGHT = 450;
 	
 	public static int QUESTION_BOX_VIEW_WIDTH = 550;
-	public static int QUESTION_BOX_VIEW_HEIGHT = 60;
+	public static int QUESTION_BOX_VIEW_HEIGHT = 460;
 	
 	public static int POST_VIEW_WIDTH = 380;
 	public static int POST_VIEW_HEIGHT = 30;
