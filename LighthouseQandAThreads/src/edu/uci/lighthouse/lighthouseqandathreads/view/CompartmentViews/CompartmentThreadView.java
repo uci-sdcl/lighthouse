@@ -1,9 +1,11 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Panel;
+import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
@@ -12,8 +14,11 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -79,20 +84,46 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		Color scrollerBack = new Color(this.getDisplay(),231,232,130);
 		scroller.setBackground(scrollerBack);
 		
-		//---add posts
+		
+		//root question
+		
+		ForumElement composite = new ForumElement(this, SWT.None);
+		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
+			LayoutMetrics.POST_VIEW_HEIGHT);
+		composite.setLayoutData(data);
+		composite.setLayout(new GridLayout(1,false));
+		Label replyLabel = new Label(composite, SWT.None);
+		
+		
+		composite.setBackground(postBack);
+		Color labelBack = new Color(this.getDisplay(),255, 212, 102);
+		replyLabel.setBackground(labelBack);
+		replyLabel.setText(thread.getRootQuestion().getMessage());
+		
+		//PostController controller = new PostController(post, composite, pu);
+
+		
+		listOfReplies.add(composite);
+		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+		listOfReplies.renderList();
+		
+		
+		
+		//---add reply posts
 		for(Post post : thread.getRootQuestion().getResponses()){
 			
 			
-			ForumElement composite = new ForumElement(this, SWT.None);
-			GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
-				LayoutMetrics.POST_VIEW_HEIGHT);
+			 composite = new ForumElement(this, SWT.None);
+
 			composite.setLayoutData(data);
-			composite.setLayout(new GridLayout(1,false));
-			Label replyLabel = new Label(composite, SWT.None);
+			composite.setLayout(new RowLayout());
+			addNewSpacer(composite,false);
+			 replyLabel = new Label(composite, SWT.None);
 			
-			
+			 
+			 
 			composite.setBackground(postBack);
-			Color labelBack = new Color(this.getDisplay(),255, 212, 102);
 			replyLabel.setBackground(labelBack);
 			replyLabel.setText(post.getMessage());
 			
@@ -147,6 +178,35 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 
 	public String getReply() {
 		return reply;
+	}
+	
+	private void addNewSpacer(Composite composite, boolean check) {
+		Composite spacer = new Composite(composite, SWT.None);
+		spacer.setLayout(new RowLayout());
+		spacer.setVisible(false);
+		RowData rd = new RowData(20, LayoutMetrics.POST_VIEW_HEIGHT);
+		spacer.setLayoutData(rd);
+
+		
+		if(check){
+			spacer.setVisible(true);
+			Label label = new Label(spacer,SWT.None);
+			FontRegistry fr = new FontRegistry(this.getDisplay());
+			Color backColor = new Color(this.getDisplay(), 231, 232, 130);
+			spacer.setBackground(backColor);
+			
+			ArrayList<FontData> fdList = new ArrayList<FontData>();
+			FontData fd = new FontData("Courier New",14,SWT.BOLD);
+			fd.setHeight(20);
+			fdList.add(fd);
+			
+			fr.put("checkFont",fdList.toArray(new FontData[0]));
+			
+			label.setFont(fr.get("checkFont"));
+			label.setText("\u2713");
+			label.setBackground(backColor);
+			
+		}
 	}
 	
 	private class ReplyListener extends SelectionAdapter {
