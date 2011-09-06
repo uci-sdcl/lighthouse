@@ -28,7 +28,7 @@ import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class CompartmentRootPostView extends Panel {
 
-	private int displayLength = 100;
+	private int displayLength = 22;
 	private int NUM_COLUMNS = 1;
 	private Label messageLabel;
 	private String prefix = "? ";
@@ -57,7 +57,7 @@ public class CompartmentRootPostView extends Panel {
 		
 		GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 
-		messageLabel = new Label(message.length() >= displayLength ? "["+author + "] " + message.substring(0,displayLength) : "["+author + "] " + message);
+		messageLabel = new Label(message.length() >= displayLength ? ""+author + ": " + message.substring(0,displayLength) +"...": ""+author + ": " + message);
 		this.add(messageLabel);
 
 		PostMouseMotionListener pl = new PostMouseMotionListener();

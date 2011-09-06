@@ -98,7 +98,8 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		composite.setBackground(postBack);
 		Color labelBack = new Color(this.getDisplay(),255, 212, 102);
 		replyLabel.setBackground(labelBack);
-		replyLabel.setText(thread.getRootQuestion().getMessage());
+		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
+		replyLabel.setText(poster.getAuthor().getName()+": "+thread.getRootQuestion().getMessage());
 		
 		//PostController controller = new PostController(post, composite, pu);
 
@@ -125,8 +126,8 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			 
 			composite.setBackground(postBack);
 			replyLabel.setBackground(labelBack);
-			replyLabel.setText(post.getMessage());
-			
+			poster = post.getTeamMemberAuthor();
+			replyLabel.setText(poster.getAuthor().getName()+": "+post.getMessage());			
 			//PostController controller = new PostController(post, composite, pu);
 
 			
