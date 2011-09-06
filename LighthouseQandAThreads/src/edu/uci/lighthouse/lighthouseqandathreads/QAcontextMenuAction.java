@@ -64,7 +64,7 @@ public class QAcontextMenuAction extends Action{
 		CompartmentNewPostView npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu);
 		
 		
-		
+		postShell.setBackground(ColorConstants.black);
 		
 		postShell.setSize(postShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
