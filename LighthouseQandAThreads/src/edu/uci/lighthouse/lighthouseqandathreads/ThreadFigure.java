@@ -2,7 +2,6 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 
 import java.util.List;
 
-import editParts.ClassEditPart;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
@@ -74,7 +73,7 @@ public class ThreadFigure extends CompartmentFigure {
     private LighthouseClass clazz;
 	private LHforum forum;
 	private int NUM_COLUMNS = 1;
-	private ClassEditPart cep;
+
 	
 	static{
 	LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
@@ -97,8 +96,7 @@ public class ThreadFigure extends CompartmentFigure {
 				"/icons/question.png").createImage();
 		
 		
-		cep = new ClassEditPart();
-		cep.setView(this);
+
 	//	this.addMouseMotionListener(new Listener());
 
 	}
@@ -143,7 +141,7 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		
 		
-		cep.setModel(clazz);
+
 		
 		for(ForumThread thread: forum.getThreads()){
 			CompartmentRootPostView postView = new CompartmentRootPostView(thread.getRootQuestion().getMessage(), thread,tm,pu);
