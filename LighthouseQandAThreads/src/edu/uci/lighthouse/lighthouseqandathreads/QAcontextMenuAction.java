@@ -68,6 +68,8 @@ public class QAcontextMenuAction extends Action{
 		
 		postShell.setSize(postShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
+		postShell.setText(clazz.getFullyQualifiedName());
+		
 		postShell.open();
 
 	/*	NewQuestionDialog nqDialog = new NewQuestionDialog(

@@ -47,7 +47,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 	 */
 	private static final long serialVersionUID = -6013962858601965104L;
 	
-	final StyledText postNewThreadBox;
+	//final StyledText postNewThreadBox;
 	private String reply = "";
 	private Composite replyComposite;
 	private ForumThread thread;
@@ -140,7 +140,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 
 		//-- reply box
 		
-		GridData compsiteData = new GridData(
+	/*	GridData compsiteData = new GridData(
 				LayoutMetrics.CONVERSATION_LIST_WIDTH,
 				LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
 		compsiteData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
@@ -162,11 +162,11 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 				setReply(postNewThreadBox.getText());
 				
 			}
-		});
+		});*/
 		
-		Button postButton = new Button(replyComposite, SWT.BORDER);
+		/*Button postButton = new Button(replyComposite, SWT.BORDER);
 		postButton.setText("submit");
-		postButton.addSelectionListener(new ReplyListener());
+		postButton.addSelectionListener(new ReplyListener());*/
 		
 
 	//	Controller.getInstance().subscribeToLighthouseEvents(this);
@@ -210,7 +210,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		}
 	}
 	
-	private class ReplyListener extends SelectionAdapter {
+	/*private class ReplyListener extends SelectionAdapter {
 		public void widgetSelected(SelectionEvent e) {
 			Post newPost = new Post(true, "", reply, tm);
 			Post replyeePost = thread.getRootQuestion();
@@ -222,7 +222,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			}
 			pu.run();
 		}
-	}
+	}*/
 	
 	public void updateView(){
 		listOfReplies.clearChildren();
