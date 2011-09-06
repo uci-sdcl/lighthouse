@@ -73,7 +73,8 @@ public class ThreadFigure extends CompartmentFigure {
     private LighthouseClass clazz;
 	private LHforum forum;
 	private int NUM_COLUMNS = 1;
-
+	private PersistAndUpdate pu;
+	private LHthreadCreator tm;
 	
 	static{
 	LighthouseQAEventSubscriber subscriber = new LighthouseQAEventSubscriber();
@@ -136,8 +137,8 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		this.add(questPanel); */
 		LighthouseAuthor author = ModelUtility.getAuthor();
-		LHthreadCreator tm = new LHthreadCreator(author);
-		PersistAndUpdate pu = new PersistAndUpdate(clazz);
+		tm = new LHthreadCreator(author);
+		pu = new PersistAndUpdate(clazz);
 		
 		
 		
@@ -151,8 +152,10 @@ public class ThreadFigure extends CompartmentFigure {
 			
 			
 		}
-	
 		
+		
+		this.addMouseMotionListener(new Listener());
+	
 		
 	}
 	
@@ -167,11 +170,11 @@ public class ThreadFigure extends CompartmentFigure {
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			
-			MenuManager menuMgr = new MenuManager("#Q&A Menu");
+			MenuManager menuMgr = new MenuManager("#Q&A Post");
 			menuMgr.setRemoveAllWhenShown(true);
 			menuMgr.addMenuListener(new IMenuListener() {
 				public void menuAboutToShow(IMenuManager manager) {
-					QAcontextMenuAction qaAction = new QAcontextMenuAction(forum, clazz, le);
+					QAcontextMenuAction qaAction = new QAcontextMenuAction(forum, clazz, le,tm,pu);
 					manager.add(qaAction);
 					
 				}
