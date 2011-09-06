@@ -28,12 +28,14 @@ public class QuestionBoxView extends WindowFrame{
 	private LHforum forum;
 	GridData compData;
 	Composite composite;
+	Button postButton;
+	
 	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm) {
 		super(parent, style);
 		
 		this.forum = forum;
 		this.tm = tm;
-		
+		this.setLayout(new GridLayout(1, false));
 		compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
 
 		
@@ -44,14 +46,14 @@ public class QuestionBoxView extends WindowFrame{
 		composite.setBackground(ColorConstants.black);
 		
 		
+		PostListener postListener = new PostListener();
 		
-		Button postButton = new Button(this, SWT.BORDER );
+		postButton = new Button(this, SWT.BORDER );
 		postButton.setText("post");
-		postButton.addSelectionListener(new PostListener());
+		postButton.addSelectionListener(postListener);
 		
 		this.getElementMenu().addButton(postButton);
 		
-
 		
 		GridData postNewThreadBoxData = new GridData(SWT.FILL,SWT.FILL,true,true);
 		postNewThreadBox = new StyledText(composite, SWT.BORDER | SWT.V_SCROLL);
@@ -95,9 +97,13 @@ public class QuestionBoxView extends WindowFrame{
 	
 	private class PostListener extends SelectionAdapter{
 		public void widgetSelected(SelectionEvent e) {
-			Post newPost = new Post(true, "", message, tm);
-			forum.addThread(newPost);
-			postNewThreadBox.setText("");
+			
+			
+				Post newPost = new Post(true, "", message, tm);
+				forum.addThread(newPost);
+				postNewThreadBox.setText("");
+
+
 			
 		}
 	}
