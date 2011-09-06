@@ -55,7 +55,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		super(parent, style);
 
 		this.setLayout(new GridLayout(1, false));
-		this.setBackground(ColorConstants.blue);
+		Color threadBack2 = new Color(this.getDisplay(),231,232,130);
+		
+		this.setBackground(threadBack2);
 		this.thread = thread;
 		this.tm = tm;
 		this.pu = pu;
@@ -73,6 +75,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		listOfReplies = new ListComposite(scroller,SWT.None);
 		scroller.setContent(listOfReplies);
 		scroller.setMinSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
+		Color scrollerBack = new Color(this.getDisplay(),231,232,130);
+		scroller.setBackground(scrollerBack);
 		
 		//---add posts
 		for(Post post : thread.getRootQuestion().getResponses()){
@@ -84,9 +89,15 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			composite.setLayoutData(data);
 			composite.setLayout(new GridLayout(1,false));
 			Label replyLabel = new Label(composite, SWT.None);
+			
+			
+			composite.setBackground(postBack);
+			Color labelBack = new Color(this.getDisplay(),255, 212, 102);
+			replyLabel.setBackground(labelBack);
 			replyLabel.setText(post.getMessage());
 			
 			//PostController controller = new PostController(post, composite, pu);
+
 			
 			listOfReplies.add(composite);
 			listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
@@ -106,6 +117,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		replyComposite.setLayoutData(compsiteData);
 		
 		Color replyBorderColor = new Color(this.getDisplay(), 33, 138, 255);
+		
 		replyComposite.setBackground(replyBorderColor);
 
 		postNewThreadBox = new StyledText(replyComposite, SWT.BORDER | SWT.V_SCROLL);
