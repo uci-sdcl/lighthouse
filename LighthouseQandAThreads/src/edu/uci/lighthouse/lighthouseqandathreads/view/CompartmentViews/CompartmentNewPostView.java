@@ -2,6 +2,7 @@ package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
 import org.eclipse.draw2d.Panel;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -18,6 +19,10 @@ public class CompartmentNewPostView extends Composite{
 		super(parent,style);
 		
 		this.setLayout(new GridLayout(1, false));
+		
+		Color threadBack2 = new Color(this.getDisplay(),231,232,130);
+		
+		this.setBackground(threadBack2);
 		
 		QuestionBoxView view = new QuestionBoxView(this, SWT.None,forum,tm, pu);
 	}

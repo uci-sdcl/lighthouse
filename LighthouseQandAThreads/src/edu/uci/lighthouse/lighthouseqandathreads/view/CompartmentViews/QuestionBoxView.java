@@ -11,6 +11,7 @@ import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -41,15 +42,20 @@ public class QuestionBoxView extends WindowFrame{
 		this.tm = tm;
 		this.setLayout(new GridLayout(1, false));
 		this.pu = pu;
-		
+		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
+		this.setBackground(postBack);
 		compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
 
-		
+
 		
 		composite = new Composite(this,SWT.None);
 		composite.setLayout(new GridLayout(1,false));
 		composite.setLayoutData(compData);
 		composite.setBackground(ColorConstants.black);
+		
+		Color replyBorderColor = new Color(this.getDisplay(), 33, 138, 255);
+		
+		composite.setBackground(replyBorderColor);
 		
 		
 		PostListener postListener = new PostListener();
@@ -59,6 +65,7 @@ public class QuestionBoxView extends WindowFrame{
 		postButton.addSelectionListener(postListener);
 		
 		this.getElementMenu().addButton(postButton);
+		this.getElementMenu().setBackground(postBack);
 		
 		
 		GridData postNewThreadBoxData = new GridData(SWT.FILL,SWT.FILL,true,true);
