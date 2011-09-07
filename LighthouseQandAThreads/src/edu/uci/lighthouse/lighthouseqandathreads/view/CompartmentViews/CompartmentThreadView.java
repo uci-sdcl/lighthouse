@@ -9,6 +9,7 @@ import org.eclipse.draw2d.Panel;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -166,11 +167,16 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		menuMgr.addMenuListener(new IMenuListener() {
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
-				ReplyMenuAction rmAction = new ReplyMenuAction(thread,tm,pu);
-				manager.add(rmAction);
 				
 				AnswerMenuAction ama = new AnswerMenuAction();
 				manager.add(ama);
+				
+				manager.add( new Separator());
+				
+				ReplyMenuAction rmAction = new ReplyMenuAction(thread,tm,pu);
+				manager.add(rmAction);
+				
+
 				
 				CloseThreadMenuAction ctma = new CloseThreadMenuAction();
 				manager.add(ctma);

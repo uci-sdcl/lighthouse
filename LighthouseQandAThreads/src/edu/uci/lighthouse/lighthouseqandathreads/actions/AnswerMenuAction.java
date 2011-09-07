@@ -22,6 +22,8 @@ public class AnswerMenuAction extends Action{
 	public  AnswerMenuAction(){
 
 		setText("Set As Answer");
+		
+		this.setEnabled(false);
 	}
 	public void run() {
 
