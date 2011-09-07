@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Label;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -58,7 +59,7 @@ public class ReplyMenuAction extends Action{
 		
 		postShell.setSize(postShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
-		//postShell.setText(clazz.getFullyQualifiedName());
+		postShell.setText("Reply");
 		
 		postShell.open();
 		
@@ -66,6 +67,8 @@ public class ReplyMenuAction extends Action{
 		
 
 	}
+	
+
 	
 
 

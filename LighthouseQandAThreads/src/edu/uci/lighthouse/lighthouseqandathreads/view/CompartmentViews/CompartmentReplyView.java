@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
@@ -22,6 +23,8 @@ public class CompartmentReplyView extends Composite{
 		
 		this.setBackground(threadBack2);
 		
+		Label post = new Label(this,SWT.None);
+		post.setText(thread.getRootQuestion().getMessage());
 		ReplyBoxView view = new ReplyBoxView(this, SWT.None,thread,tm, pu);
 	}
 
