@@ -8,28 +8,34 @@ import org.eclipse.swt.widgets.Shell;
 
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentNewPostView;
+import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentReplyView;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
+import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class ReplyMenuAction extends Action{
-	private LHforum forum;
-	private LighthouseEntity le;
-    private LighthouseClass clazz;
 	private Shell postShell;
 	private TeamMember tm;
     private PersistAndUpdate pu;
-    
-	public  ReplyMenuAction(){// LHforum forum, LighthouseClass entity, LighthouseEntity umlClass, TeamMember tm, PersistAndUpdate pu){
+    private ForumThread thread;
+   
+	public  ReplyMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu){
+		// LHforum forum, LighthouseClass entity, LighthouseEntity umlClass, TeamMember tm, PersistAndUpdate pu){
+	
 		/*this.forum = forum;
 		this.clazz = entity;
-		this.le = umlClass;
+		this.le = umlClass;*/
 		this.tm = tm;
-		this.pu = pu;*/
+		this.pu = pu;
+		
+		this.thread = thread;
+		
 		setText("Reply To Question");
 	}
 	public void run() {
@@ -45,16 +51,19 @@ public class ReplyMenuAction extends Action{
 		postShell.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
 		
 		
-		CompartmentNewPostView npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu);
+		CompartmentReplyView npv = new CompartmentReplyView(postShell, SWT.None,thread,tm,pu);
 		
 		
 		postShell.setBackground(ColorConstants.black);
 		
 		postShell.setSize(postShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
-		postShell.setText(clazz.getFullyQualifiedName());
+		//postShell.setText(clazz.getFullyQualifiedName());
 		
 		postShell.open();
+		
+		
+		
 
 	}
 	
