@@ -54,7 +54,22 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
 	}
 	
 
-	
+	/**
+	 * Returns first thread that has a root post equal to the
+	 * argument.  Equality for post is determined if their messages
+	 * are equal. 
+	 * 
+	 * @param post
+	 * @return
+	 */
+	public ForumThread getThreadWithRootQuestion(Post post){
+		for(ForumThread thread: threads){
+			Post root = thread.getRootQuestion();
+			if(root.getMessage().equals(post.getMessage()))
+				return thread;
+		}
+		return null;
+	}
 
 	
 	public void addThread(Post rootPost){
