@@ -158,7 +158,7 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		this.addMouseMotionListener(new Listener());
 	
-		ViewManager.getInstance().updateShells();
+		ViewManager.getInstance().updateShells(forum);
 		
 	}
 	

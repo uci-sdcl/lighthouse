@@ -57,6 +57,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.view.RespondBoxView;
 
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
+import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
@@ -65,14 +66,14 @@ import edu.uci.lighthouse.ui.views.EmergingDesignView;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
-public class CompartmentThreadView extends Composite implements ISubscriber{
+public class CompartmentThreadView extends Composite implements ISubscriber {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6013962858601965104L;
-	
-	//final StyledText postNewThreadBox;
+
+	// final StyledText postNewThreadBox;
 	private String reply = "";
 	private Composite replyComposite;
 	private ForumThread thread;
@@ -80,81 +81,74 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 	private PersistAndUpdate pu;
 	private ListComposite listOfReplies;
 	private ScrolledComposite scroller;
-	
-	public CompartmentThreadView(Composite parent, int style, final ForumThread thread, final TeamMember tm, final PersistAndUpdate pu) {
+
+	public CompartmentThreadView(Composite parent, int style,
+			final ForumThread thread, final TeamMember tm,
+			final PersistAndUpdate pu) {
 		super(parent, style);
 
 		this.setLayout(new GridLayout(1, false));
-		Color threadBack2 = new Color(this.getDisplay(),231,232,130);
-		
+		Color threadBack2 = new Color(this.getDisplay(), 231, 232, 130);
+
 		this.setBackground(threadBack2);
 		this.thread = thread;
 		this.tm = tm;
 		this.pu = pu;
-		
-		
-		scroller = new ScrolledComposite(this,SWT.V_SCROLL | SWT.H_SCROLL);
-		GridData scrollData = new GridData(LayoutMetrics.CONVERSATION_LIST_WIDTH, LayoutMetrics.CONVERSATION_LIST_HEIGHT);
+
+		scroller = new ScrolledComposite(this, SWT.V_SCROLL | SWT.H_SCROLL);
+		GridData scrollData = new GridData(
+				LayoutMetrics.CONVERSATION_LIST_WIDTH,
+				LayoutMetrics.CONVERSATION_LIST_HEIGHT);
 		scrollData.horizontalAlignment = GridData.CENTER;
 		scroller.setLayoutData(scrollData);
 		scroller.setLayout(new GridLayout(1, false));
-		
-		
 
-		
-		listOfReplies = new ListComposite(scroller,SWT.None);
+		listOfReplies = new ListComposite(scroller, SWT.None);
 		scroller.setContent(listOfReplies);
 		scroller.setMinSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
-		Color scrollerBack = new Color(this.getDisplay(),231,232,130);
+		Color scrollerBack = new Color(this.getDisplay(), 231, 232, 130);
 		scroller.setBackground(scrollerBack);
-		
 
-		
-		
-		//root question
+		// root question
 
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
-		
-		CompartmentPostView cpv = new CompartmentPostView(this,SWT.None, thread.getRootQuestion(),poster, false, thread, pu);
 
+		CompartmentPostView cpv = new CompartmentPostView(this, SWT.None,
+				thread.getRootQuestion(), poster, false, thread, pu);
 
-		
 		listOfReplies.add(cpv);
-		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT,
+				SWT.DEFAULT));
 
 		listOfReplies.renderList();
-		
-		
-		
-		//---add reply posts
-		for(Post post : thread.getRootQuestion().getResponses()){
-			
+
+		// ---add reply posts
+		for (Post post : thread.getRootQuestion().getResponses()) {
 
 			poster = post.getTeamMemberAuthor();
-			CompartmentPostView cpv2 = new CompartmentPostView(this,SWT.None, post,poster, true, thread, pu);
+			CompartmentPostView cpv2 = new CompartmentPostView(this, SWT.None,
+					post, poster, true, thread, pu);
 
-			
 			listOfReplies.add(cpv2);
-			listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT,
+					SWT.DEFAULT));
 
 			listOfReplies.renderList();
 		}
-		
 
 		MenuManager menuMgr = new MenuManager("Thread");
 		menuMgr.addMenuListener(new IMenuListener() {
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
-				
-				ReplyMenuAction rmAction = new ReplyMenuAction(thread,tm,pu);
-				manager.add(rmAction);
-				
 
-				
-				CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,tm,pu);
+				ReplyMenuAction rmAction = new ReplyMenuAction(thread, tm, pu);
+				manager.add(rmAction);
+
+				CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,
+						tm, pu);
 				manager.add(ctma);
-				
+
 			}
 		});
 		menuMgr.setRemoveAllWhenShown(true);
@@ -162,13 +156,8 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		Menu menuBar = new Menu(this.getShell(), SWT.BAR);
 		menuMgr.fill(menuBar, -1);
 		this.getShell().setMenuBar(menuBar);
-		
-		
-		
 
-	
 	}
-	
 
 	public void setReply(String reply) {
 		this.reply = reply;
@@ -177,34 +166,43 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 	public String getReply() {
 		return reply;
 	}
-	
 
-	
-
-	
-	public void updateView(){
+	public void updateView(LHforum forum) {
+		
+		ForumThread updatedThread = forum.getThreadWithRoot(thread.getRootQuestion());
 		listOfReplies.clearChildren();
-		for(Post post : thread.getRootQuestion().getResponses()){	
-			ForumElement composite = new ForumElement(this, SWT.None);
-			GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
-				LayoutMetrics.POST_VIEW_HEIGHT);
-			composite.setLayoutData(data);
-			composite.setLayout(new GridLayout(1,false));
-			Label replyLabel = new Label(composite, SWT.None);
-			replyLabel.setText(post.getMessage());		
-			
-			listOfReplies.add(composite);
+		TeamMember poster = updatedThread.getRootQuestion().getTeamMemberAuthor();
+
+		CompartmentPostView cpv = new CompartmentPostView(this, SWT.None,
+				updatedThread.getRootQuestion(), poster, false, updatedThread, pu);
+
+		listOfReplies.add(cpv);
+		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT,
+				SWT.DEFAULT));
+
+		listOfReplies.renderList();
+
+		// ---add reply posts
+		for (Post post : updatedThread.getRootQuestion().getResponses()) {
+
+			poster = post.getTeamMemberAuthor();
+			CompartmentPostView cpv2 = new CompartmentPostView(this, SWT.None,
+					post, poster, true, updatedThread, pu);
+
+			listOfReplies.add(cpv2);
+			listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT,
+					SWT.DEFAULT));
+
 			listOfReplies.renderList();
 		}
-		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
 		this.layout();
 	}
 
 	@Override
 	public void receive(List<LighthouseEvent> events) {
-		updateView();
-		
+		//updateView();
+
 	}
-	
 
 }

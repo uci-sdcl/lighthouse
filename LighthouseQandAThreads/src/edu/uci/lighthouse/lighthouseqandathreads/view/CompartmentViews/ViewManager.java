@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Shell;
 
+import edu.uci.lighthouse.model.QAforums.LHforum;
+
 public class ViewManager {
 	
 	private static ViewManager instance;
@@ -18,9 +20,9 @@ public class ViewManager {
 		return instance;
 	}
 	
-	public void updateShells(){
+	public void updateShells(LHforum forum){
 		for(CompartmentThreadView view: openShells){
-			view.updateView();
+			view.updateView(forum);
 		}
 	}
 	

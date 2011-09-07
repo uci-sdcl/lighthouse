@@ -71,9 +71,7 @@ public class CompartmentRootPostView extends Panel {
 		
 	}
 	
-	public void updateView(){
-		view.updateView();
-	}
+
 
 	private class PostMouseMotionListener extends MouseMotionListener.Stub {
 		public void mouseHover(MouseEvent me) {
