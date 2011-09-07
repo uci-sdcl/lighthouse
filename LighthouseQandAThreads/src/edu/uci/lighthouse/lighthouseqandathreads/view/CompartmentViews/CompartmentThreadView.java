@@ -103,18 +103,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		Color scrollerBack = new Color(this.getDisplay(),231,232,130);
 		scroller.setBackground(scrollerBack);
 		
-		MenuManager menuMgr = new MenuManager("#Reply");
-		menuMgr.addMenuListener(new IMenuListener() {
-			@Override
-			public void menuAboutToShow(IMenuManager manager) {
-				ReplyMenuAction rmAction = new ReplyMenuAction();
-				manager.add(rmAction);
-				
-			}
-		});
-		
-		Menu menu = menuMgr.createContextMenu(this);
-		this.setMenu(menu);
+
 		
 		
 		//root question
@@ -210,10 +199,23 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 	
 	
 	private void setMenu(Control control){
-		Menu menu1 = new Menu(control.getShell(), SWT.POP_UP);
-		 MenuItem item = new MenuItem(menu1, SWT.PUSH);
-		 item.setText("Popup");
-		 control.setMenu(menu1);
+		MenuManager menuMgr = new MenuManager("#Reply");
+		menuMgr.addMenuListener(new IMenuListener() {
+			@Override
+			public void menuAboutToShow(IMenuManager manager) {
+				ReplyMenuAction rmAction = new ReplyMenuAction();
+				manager.add(rmAction);
+				
+			}
+		});
+		
+		Menu menu1 = menuMgr.createContextMenu(control);
+		control.setMenu(menu1);
+		
+		//Menu menu1 = new Menu(control.getShell(), SWT.POP_UP);
+		// MenuItem item = new MenuItem(menu1, SWT.PUSH);
+		// item.setText("Popup");
+		
 		 
 	    if(control instanceof Composite){
 	    	Composite parent = (Composite)control;
