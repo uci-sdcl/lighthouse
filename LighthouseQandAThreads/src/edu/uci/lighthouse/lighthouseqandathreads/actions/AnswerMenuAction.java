@@ -29,7 +29,8 @@ public class AnswerMenuAction extends Action{
 		this.thread = thread;
 		setText("Set As Answer");
 		
-		this.setEnabled(false);
+		if(!thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName().equals(tm.getAuthor().getName()))
+			this.setEnabled(false);
 	}
 	public void run() {
 
