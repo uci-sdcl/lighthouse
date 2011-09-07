@@ -113,18 +113,13 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			LayoutMetrics.POST_VIEW_HEIGHT);
 		composite.setLayoutData(data);
 		composite.setLayout(new GridLayout(1,false));
-		Label replyLabel = new Label(composite, SWT.None);
 		
 		
 		composite.setBackground(postBack);
-		Color labelBack = new Color(this.getDisplay(),255, 212, 102);
-		replyLabel.setBackground(labelBack);
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
-		replyLabel.setText(poster.getAuthor().getName()+": "+thread.getRootQuestion().getMessage());
 		
-		
+		CompartmentPostView cpv = new CompartmentPostView(composite,SWT.None, thread.getRootQuestion(),poster);
 
-		//PostController controller = new PostController(post, composite, pu);
 
 		
 		listOfReplies.add(composite);
@@ -143,15 +138,12 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			composite.setLayoutData(data);
 			composite.setLayout(new RowLayout());
 			addNewSpacer(composite,false);
-			 replyLabel = new Label(composite, SWT.None);
 			
 			 
 			 
 			composite.setBackground(postBack);
-			replyLabel.setBackground(labelBack);
 			poster = post.getTeamMemberAuthor();
-			replyLabel.setText(poster.getAuthor().getName()+": "+post.getMessage());			
-			//PostController controller = new PostController(post, composite, pu);
+			CompartmentPostView cpv2 = new CompartmentPostView(composite,SWT.None, post,poster);
 
 			
 			listOfReplies.add(composite);
@@ -161,38 +153,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		}
 		
 
-		//-- reply box
-		
-	/*	GridData compsiteData = new GridData(
-				LayoutMetrics.CONVERSATION_LIST_WIDTH,
-				LayoutMetrics.RESPOND_BOX_VIEW_HEIGHT);
-		compsiteData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
-		replyComposite = new Composite(this, style);
-		replyComposite.setLayout(new GridLayout(2, false));
-		replyComposite.setLayoutData(compsiteData);
-		
-		Color replyBorderColor = new Color(this.getDisplay(), 33, 138, 255);
-		
-		replyComposite.setBackground(replyBorderColor);
 
-		postNewThreadBox = new StyledText(replyComposite, SWT.BORDER | SWT.V_SCROLL);
-		GridData postNewThreadBoxData = new GridData(SWT.FILL, SWT.FILL, true,
-				true);
-		postNewThreadBox.setLayoutData(postNewThreadBoxData);
-		
-		postNewThreadBox.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				setReply(postNewThreadBox.getText());
-				
-			}
-		});*/
-		
-		/*Button postButton = new Button(replyComposite, SWT.BORDER);
-		postButton.setText("submit");
-		postButton.addSelectionListener(new ReplyListener());*/
-		
-
-	//	Controller.getInstance().subscribeToLighthouseEvents(this);
 
 		setMenu(this);
 	}
@@ -211,8 +172,10 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		menuMgr.setRemoveAllWhenShown(true);
 
 		Menu menu1 = menuMgr.createContextMenu(control);
+		
 		control.setMenu(menu1);
 	
+		
 		 
 	    if(control instanceof Composite){
 	    	Composite parent = (Composite)control;
