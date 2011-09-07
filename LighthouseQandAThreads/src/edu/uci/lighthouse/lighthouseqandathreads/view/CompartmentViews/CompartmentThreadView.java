@@ -118,7 +118,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		composite.setBackground(postBack);
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
 		
-		CompartmentPostView cpv = new CompartmentPostView(composite,SWT.None, thread.getRootQuestion(),poster);
+		CompartmentPostView cpv = new CompartmentPostView(composite,SWT.None, thread.getRootQuestion(),poster, true);
 
 
 		
@@ -137,13 +137,13 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 
 			composite.setLayoutData(data);
 			composite.setLayout(new RowLayout());
-			addNewSpacer(composite,false);
+		
 			
 			 
 			 
 			composite.setBackground(postBack);
 			poster = post.getTeamMemberAuthor();
-			CompartmentPostView cpv2 = new CompartmentPostView(composite,SWT.None, post,poster);
+			CompartmentPostView cpv2 = new CompartmentPostView(composite,SWT.None, post,poster, false);
 
 			
 			listOfReplies.add(composite);
@@ -201,48 +201,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		return reply;
 	}
 	
-	private void addNewSpacer(Composite composite, boolean check) {
-		Composite spacer = new Composite(composite, SWT.None);
-		spacer.setLayout(new RowLayout());
-		spacer.setVisible(false);
-		RowData rd = new RowData(20, LayoutMetrics.POST_VIEW_HEIGHT);
-		spacer.setLayoutData(rd);
 
-		
-		if(check){
-			spacer.setVisible(true);
-			Label label = new Label(spacer,SWT.None);
-			FontRegistry fr = new FontRegistry(this.getDisplay());
-			Color backColor = new Color(this.getDisplay(), 231, 232, 130);
-			spacer.setBackground(backColor);
-			
-			ArrayList<FontData> fdList = new ArrayList<FontData>();
-			FontData fd = new FontData("Courier New",14,SWT.BOLD);
-			fd.setHeight(20);
-			fdList.add(fd);
-			
-			fr.put("checkFont",fdList.toArray(new FontData[0]));
-			
-			label.setFont(fr.get("checkFont"));
-			label.setText("\u2713");
-			label.setBackground(backColor);
-			
-		}
-	}
 	
-	/*private class ReplyListener extends SelectionAdapter {
-		public void widgetSelected(SelectionEvent e) {
-			Post newPost = new Post(true, "", reply, tm);
-			Post replyeePost = thread.getRootQuestion();
 
-			if (replyeePost != null) {
-				replyeePost.addResponse(newPost);
-				postNewThreadBox.setText("");
-				updateView();
-			}
-			pu.run();
-		}
-	}*/
 	
 	public void updateView(){
 		listOfReplies.clearChildren();
