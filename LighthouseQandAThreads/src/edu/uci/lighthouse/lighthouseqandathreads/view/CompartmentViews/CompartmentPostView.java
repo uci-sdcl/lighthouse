@@ -52,13 +52,13 @@ public class CompartmentPostView extends Composite{
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
 		
 		if(leftSpacer){
-			addNewSpacer(this,false);
+			addNewSpacer(this,post.isAnswer());
 		}
 
 		Label replyLabel = new Label(this, SWT.None);
 		
 		if(!leftSpacer){
-			addNewSpacer(this,false);
+			addNewSpacer(this,post.isAnswer());
 		}
 		
 		

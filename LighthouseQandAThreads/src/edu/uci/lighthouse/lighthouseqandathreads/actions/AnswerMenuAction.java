@@ -38,5 +38,6 @@ public class AnswerMenuAction extends Action{
 	}
 	public void run() {
 		post.setAnswer(true, tm);
+		pu.run();
 	}
 }
