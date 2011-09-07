@@ -24,7 +24,7 @@ public class CompartmentPostView extends Composite{
 		super(parent, style);
 		
 		
-		this.setLayout(new GridLayout(2,false));
+		this.setLayout(new RowLayout());
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
 		
 		if(leftSpacer){

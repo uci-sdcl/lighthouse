@@ -118,7 +118,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		composite.setBackground(postBack);
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
 		
-		CompartmentPostView cpv = new CompartmentPostView(composite,SWT.None, thread.getRootQuestion(),poster, true);
+		CompartmentPostView cpv = new CompartmentPostView(composite,SWT.None, thread.getRootQuestion(),poster, false);
 
 
 		
@@ -143,7 +143,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			 
 			composite.setBackground(postBack);
 			poster = post.getTeamMemberAuthor();
-			CompartmentPostView cpv2 = new CompartmentPostView(composite,SWT.None, post,poster, false);
+			CompartmentPostView cpv2 = new CompartmentPostView(composite,SWT.None, post,poster, true);
 
 			
 			listOfReplies.add(composite);
