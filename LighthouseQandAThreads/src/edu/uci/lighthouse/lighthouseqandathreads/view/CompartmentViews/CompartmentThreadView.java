@@ -208,10 +208,10 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 				
 			}
 		});
-		
+		menuMgr.setRemoveAllWhenShown(true);
+
 		Menu menu1 = menuMgr.createContextMenu(control);
 		control.setMenu(menu1);
-		
 		//Menu menu1 = new Menu(control.getShell(), SWT.POP_UP);
 		// MenuItem item = new MenuItem(menu1, SWT.PUSH);
 		// item.setText("Popup");
