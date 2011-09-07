@@ -22,7 +22,7 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
-public class ReplyBoxView extends WindowFrame{
+public class ReplyBoxView extends WindowFrame {
 	private TeamMember tm;
 	private ForumThread thread;
 	private PersistAndUpdate pu;
@@ -32,8 +32,8 @@ public class ReplyBoxView extends WindowFrame{
 	final StyledText postNewThreadBox;
 	private String message;
 
-	public ReplyBoxView(Composite parent, int style,
-			ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
+	public ReplyBoxView(Composite parent, int style, ForumThread thread,
+			TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
 		this.thread = thread;
 		this.tm = tm;
@@ -41,83 +41,75 @@ public class ReplyBoxView extends WindowFrame{
 		this.pu = pu;
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
 		this.setBackground(postBack);
-		compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
+		compData = new GridData(LayoutMetrics.QUESTION_BOX_VIEW_WIDTH,
+				LayoutMetrics.QUESTION_BOX_VIEW_HEIGHT);
 
-
-		
-		composite = new Composite(this,SWT.None);
-		composite.setLayout(new GridLayout(1,false));
+		composite = new Composite(this, SWT.None);
+		composite.setLayout(new GridLayout(1, false));
 		composite.setLayoutData(compData);
 		composite.setBackground(ColorConstants.black);
-		
+
 		Color replyBorderColor = new Color(this.getDisplay(), 33, 138, 255);
-		
+
 		composite.setBackground(replyBorderColor);
-		
-		
+
 		PostListener postListener = new PostListener();
-		
-		postButton = new Button(this, SWT.BORDER );
+
+		postButton = new Button(this, SWT.BORDER);
 		postButton.setText("post");
 		postButton.addSelectionListener(postListener);
-		
+
 		this.getElementMenu().addButton(postButton);
 		this.getElementMenu().setBackground(postBack);
-		
-		
-		GridData postNewThreadBoxData = new GridData(SWT.FILL,SWT.FILL,true,true);
+
+		GridData postNewThreadBoxData = new GridData(SWT.FILL, SWT.FILL, true,
+				true);
 		postNewThreadBox = new StyledText(composite, SWT.BORDER | SWT.V_SCROLL);
 
 		postNewThreadBox.setLayoutData(postNewThreadBoxData);
-		
+
 		postNewThreadBox.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				setMessage(postNewThreadBox.getText());
 
 			}
 		});
-		
-		postNewThreadBox.addMouseListener(new MouseListener(){
+
+		postNewThreadBox.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseDown(MouseEvent e) {
-				//change size of postNewThreadBox here?
-				
+				// change size of postNewThreadBox here?
+
 			}
 
 			@Override
 			public void mouseUp(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
 
-		
-
-		
 	}
-	
-	private class PostListener extends SelectionAdapter{
-		public void widgetSelected(SelectionEvent e) {
-			
-			
-			//	Post newPost = new Post(true, "", message, tm);
-			//	forum.addThread(newPost);
-			//	postNewThreadBox.setText("");
-				pu.run();
 
-			
+	private class PostListener extends SelectionAdapter {
+		public void widgetSelected(SelectionEvent e) {
+
+			Post newPost = new Post(true, "", message, tm);
+			thread.getRootQuestion().addResponse(newPost);
+			postNewThreadBox.setText("");
+			pu.run();
+
 		}
 	}
-	
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
