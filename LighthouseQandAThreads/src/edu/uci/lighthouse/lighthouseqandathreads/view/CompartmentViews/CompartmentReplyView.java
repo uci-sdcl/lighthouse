@@ -24,7 +24,7 @@ public class CompartmentReplyView extends Composite{
 		this.setBackground(threadBack2);
 		
 		Label post = new Label(this,SWT.None);
-		post.setText(thread.getRootQuestion().getMessage());
+		post.setText("Question: \n"+thread.getRootQuestion().getMessage());
 		post.setBackground(threadBack2);
 		
 		ReplyBoxView view = new ReplyBoxView(this, SWT.None,thread,tm, pu);
