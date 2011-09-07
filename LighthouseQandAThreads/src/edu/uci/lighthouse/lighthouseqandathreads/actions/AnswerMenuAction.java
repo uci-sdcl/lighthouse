@@ -12,15 +12,21 @@ import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.Compartme
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class AnswerMenuAction extends Action{
-
-	public  AnswerMenuAction(){
-
+	private TeamMember tm;
+    private PersistAndUpdate pu;
+    private ForumThread thread;
+	public  AnswerMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu){
+		this.tm = tm;
+		this.pu = pu;
+		
+		this.thread = thread;
 		setText("Set As Answer");
 		
 		this.setEnabled(false);

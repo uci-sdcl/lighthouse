@@ -28,11 +28,7 @@ public class ReplyMenuAction extends Action{
     private ForumThread thread;
    
 	public  ReplyMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu){
-		// LHforum forum, LighthouseClass entity, LighthouseEntity umlClass, TeamMember tm, PersistAndUpdate pu){
-	
-		/*this.forum = forum;
-		this.clazz = entity;
-		this.le = umlClass;*/
+
 		this.tm = tm;
 		this.pu = pu;
 		

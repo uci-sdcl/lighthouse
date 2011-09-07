@@ -110,15 +110,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		
 		
 		//root question
-		
-	//	ForumElement composite = new ForumElement(this, SWT.None);
-//		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
-//			LayoutMetrics.POST_VIEW_HEIGHT);
-	//	composite.setLayoutData(data);
-	//	composite.setLayout(new GridLayout(1,false));
-		
-		
-//		composite.setBackground(postBack);
+
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
 		
 		CompartmentPostView cpv = new CompartmentPostView(this,SWT.None, thread.getRootQuestion(),poster, false);
@@ -135,16 +127,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		//---add reply posts
 		for(Post post : thread.getRootQuestion().getResponses()){
 			
-			
-		//	 composite = new ForumElement(this, SWT.None);
-//
-	//		composite.setLayoutData(data);
-	//		composite.setLayout(new RowLayout());
-		
-			
-			 
-			 
-		//	composite.setBackground(postBack);
+
 			poster = post.getTeamMemberAuthor();
 			CompartmentPostView cpv2 = new CompartmentPostView(this,SWT.None, post,poster, true);
 
@@ -168,7 +151,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
 				
-				AnswerMenuAction ama = new AnswerMenuAction();
+				AnswerMenuAction ama = new AnswerMenuAction(thread,tm,pu);
 				manager.add(ama);
 				
 				manager.add( new Separator());
@@ -178,7 +161,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 				
 
 				
-				CloseThreadMenuAction ctma = new CloseThreadMenuAction();
+				CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,tm,pu);
 				manager.add(ctma);
 				
 			}
