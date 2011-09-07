@@ -9,6 +9,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.actions.QAcontextMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.lighthouseqandathreads.view.VisualSummaryView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentRootPostView;
+import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.ViewManager;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -157,6 +158,7 @@ public class ThreadFigure extends CompartmentFigure {
 		
 		this.addMouseMotionListener(new Listener());
 	
+		ViewManager.getInstance().updateShells();
 		
 	}
 	

@@ -17,6 +17,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentNewPostView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentThreadView;
+import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.ViewManager;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -70,6 +71,8 @@ public class QAcontextMenuAction extends Action{
 		postShell.setSize(postShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
 		postShell.setText(clazz.getFullyQualifiedName());
+		
+
 		
 		postShell.open();
 

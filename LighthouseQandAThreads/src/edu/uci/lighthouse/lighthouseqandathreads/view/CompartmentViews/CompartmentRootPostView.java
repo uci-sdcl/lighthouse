@@ -99,7 +99,11 @@ public class CompartmentRootPostView extends Panel {
 			
 			treadShell.setSize(treadShell.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 			
-			treadShell.open();
+			ViewManager viewMan = ViewManager.getInstance();
+			viewMan.addCompartmentThreadView(view);
+			
+			if(!treadShell.isDisposed())
+				treadShell.open();
 			
 
 		
@@ -134,8 +138,9 @@ public class CompartmentRootPostView extends Panel {
 					return;
 			}
 			
-			if(!shellContainsPoint(treadShell,point)){
+			if(!shellContainsPoint(treadShell,point) && !treadShell.isDisposed()){
 				treadShell.close();
+				ViewManager.getInstance().clearViews();
 			}
 			
 		}

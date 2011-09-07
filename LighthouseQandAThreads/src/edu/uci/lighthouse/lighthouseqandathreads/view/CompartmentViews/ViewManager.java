@@ -6,25 +6,30 @@ import org.eclipse.swt.widgets.Shell;
 
 public class ViewManager {
 	
-	private ViewManager instance;
+	private static ViewManager instance;
 	
-	private ArrayList<Shell> openShells = new ArrayList<Shell>();
+	private ArrayList<CompartmentThreadView> openShells = new ArrayList<CompartmentThreadView>();
 	private ViewManager(){}
 	
-	public ViewManager getInstance(){
+	public static ViewManager getInstance(){
 		if(instance == null)
 			instance = new ViewManager();
 		
 		return instance;
 	}
 	
-	
-	public void addShell(Shell shell){
-		
-		
-		for(Shell openShell: openShells){
-			openShell.close();
+	public void updateShells(){
+		for(CompartmentThreadView view: openShells){
+			view.updateView();
 		}
+	}
+	
+	public void clearViews(){
+		openShells.clear();
+	}
+	
+	
+	public void addCompartmentThreadView(CompartmentThreadView shell){
 		
 		openShells.add(shell);
 	}
