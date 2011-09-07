@@ -14,6 +14,8 @@ import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.MenuEvent;
+import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -160,6 +162,8 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		Menu menuBar = new Menu(this.getShell(), SWT.BAR);
 		menuMgr.fill(menuBar, -1);
 		this.getShell().setMenuBar(menuBar);
+		
+		
 		
 
 	

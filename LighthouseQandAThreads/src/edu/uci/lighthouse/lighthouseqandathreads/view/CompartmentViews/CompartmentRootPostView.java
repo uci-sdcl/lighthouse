@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -18,6 +20,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
@@ -131,10 +134,20 @@ public class CompartmentRootPostView extends Panel {
 					return;
 			}
 			
-			if(!containsPoint(treadShell,point)){
+			if(!shellContainsPoint(treadShell,point)){
 				treadShell.close();
 			}
 			
+		}
+		
+		public boolean containsPoint(Control control, org.eclipse.swt.graphics.Point point){
+			Rectangle bounds = control.getBounds();
+			int borderWidth = control.getBorderWidth();
+
+			bounds.height = bounds.height+borderWidth;
+			bounds.width = bounds.width+borderWidth;
+			
+			return bounds.contains(point);
 		}
 		
 		
@@ -145,14 +158,46 @@ public class CompartmentRootPostView extends Panel {
 		 * @param point
 		 * @return
 		 */
-		public boolean containsPoint(Control control, org.eclipse.swt.graphics.Point point){
+		public boolean shellContainsPoint(Control control, org.eclipse.swt.graphics.Point point){
 			Rectangle bounds = control.getBounds();
 			int borderWidth = control.getBorderWidth();
+			int menuHeight = 0;
+			Menu bar = treadShell.getMenuBar();
+			Method getBoundsMeth;
+			Rectangle menuRect = null;
 			
-			bounds.height = bounds.height+borderWidth;
+			try {
+				getBoundsMeth = Menu.class.getDeclaredMethod("getBounds", null);
+				getBoundsMeth.setAccessible(true);
+				menuRect = (Rectangle)getBoundsMeth.invoke(bar, null);
+				menuHeight = menuRect.height;
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			
+			bounds.height = bounds.height+borderWidth+menuHeight;
+			
 			bounds.width = bounds.width+borderWidth;
+
+			System.out.println(menuRect.x +", "+menuRect.y+", "+menuRect.width+", "+menuRect.height);
+			org.eclipse.swt.graphics.Point point2 = treadShell.toDisplay(point);
+			System.out.println(point2.x+", "+point2.y);
 			
-			return bounds.contains(point);
+			return (bounds.contains(point) || menuRect.contains(point2));
 		}
 		
 		public void mouseHover(org.eclipse.swt.events.MouseEvent e) {
