@@ -108,21 +108,21 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		
 		//root question
 		
-		ForumElement composite = new ForumElement(this, SWT.None);
-		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
-			LayoutMetrics.POST_VIEW_HEIGHT);
-		composite.setLayoutData(data);
-		composite.setLayout(new GridLayout(1,false));
+	//	ForumElement composite = new ForumElement(this, SWT.None);
+//		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
+//			LayoutMetrics.POST_VIEW_HEIGHT);
+	//	composite.setLayoutData(data);
+	//	composite.setLayout(new GridLayout(1,false));
 		
 		
-		composite.setBackground(postBack);
+//		composite.setBackground(postBack);
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
 		
-		CompartmentPostView cpv = new CompartmentPostView(composite,SWT.None, thread.getRootQuestion(),poster, false);
+		CompartmentPostView cpv = new CompartmentPostView(this,SWT.None, thread.getRootQuestion(),poster, false);
 
 
 		
-		listOfReplies.add(composite);
+		listOfReplies.add(cpv);
 		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 		listOfReplies.renderList();
@@ -133,20 +133,20 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		for(Post post : thread.getRootQuestion().getResponses()){
 			
 			
-			 composite = new ForumElement(this, SWT.None);
-
-			composite.setLayoutData(data);
-			composite.setLayout(new RowLayout());
+		//	 composite = new ForumElement(this, SWT.None);
+//
+	//		composite.setLayoutData(data);
+	//		composite.setLayout(new RowLayout());
 		
 			
 			 
 			 
-			composite.setBackground(postBack);
+		//	composite.setBackground(postBack);
 			poster = post.getTeamMemberAuthor();
-			CompartmentPostView cpv2 = new CompartmentPostView(composite,SWT.None, post,poster, true);
+			CompartmentPostView cpv2 = new CompartmentPostView(this,SWT.None, post,poster, true);
 
 			
-			listOfReplies.add(composite);
+			listOfReplies.add(cpv2);
 			listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 			listOfReplies.renderList();
@@ -185,7 +185,14 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			
 	    }
 	    
-
+	    if(control instanceof CompartmentPostView){
+	    	MenuItem item = new MenuItem(menu1, SWT.None);
+	    	item.setText("set as answer");
+	    	
+	    	MenuItem item2 = new MenuItem(menu1, SWT.None);
+	    	item2.setText("close thread");
+	    	
+	    }
 		
 		
 		

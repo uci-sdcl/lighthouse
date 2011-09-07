@@ -22,7 +22,10 @@ public class CompartmentPostView extends Composite{
 
 	public CompartmentPostView(Composite parent, int style, Post post, TeamMember tm, boolean leftSpacer) {
 		super(parent, style);
-		
+	
+		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
+		LayoutMetrics.POST_VIEW_HEIGHT);
+		this.setLayoutData(data);
 		
 		this.setLayout(new RowLayout());
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
