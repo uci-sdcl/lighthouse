@@ -5,12 +5,18 @@ import java.util.List;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Panel;
+
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -21,14 +27,22 @@ import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.zest.core.viewers.GraphViewer;
 
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.data.ISubscriber;
 import edu.uci.lighthouse.lighthouseqandathreads.ForumController;
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.PostController;
+import edu.uci.lighthouse.lighthouseqandathreads.QAcontextMenuAction;
+import edu.uci.lighthouse.lighthouseqandathreads.ReplyMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.LayoutMetrics;
@@ -39,6 +53,11 @@ import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
+import edu.uci.lighthouse.ui.utils.GraphUtils;
+import edu.uci.lighthouse.ui.views.EmergingDesignView;
+
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
 public class CompartmentThreadView extends Composite implements ISubscriber{
 
@@ -84,6 +103,19 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		Color scrollerBack = new Color(this.getDisplay(),231,232,130);
 		scroller.setBackground(scrollerBack);
 		
+		MenuManager menuMgr = new MenuManager("#Reply");
+		menuMgr.addMenuListener(new IMenuListener() {
+			@Override
+			public void menuAboutToShow(IMenuManager manager) {
+				ReplyMenuAction rmAction = new ReplyMenuAction();
+				manager.add(rmAction);
+				
+			}
+		});
+		
+		Menu menu = menuMgr.createContextMenu(this);
+		this.setMenu(menu);
+		
 		
 		//root question
 		
@@ -101,6 +133,8 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
 		replyLabel.setText(poster.getAuthor().getName()+": "+thread.getRootQuestion().getMessage());
 		
+		
+
 		//PostController controller = new PostController(post, composite, pu);
 
 		
@@ -171,6 +205,30 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 
 	//	Controller.getInstance().subscribeToLighthouseEvents(this);
 
+		setMenu(this);
+	}
+	
+	
+	private void setMenu(Control control){
+		Menu menu1 = new Menu(control.getShell(), SWT.POP_UP);
+		 MenuItem item = new MenuItem(menu1, SWT.PUSH);
+		 item.setText("Popup");
+		 control.setMenu(menu1);
+		 
+	    if(control instanceof Composite){
+	    	Composite parent = (Composite)control;
+			for(Control child : parent.getChildren()){
+			   setMenu(child);
+			}
+			
+	    }
+	    
+
+		
+		
+		
+
+		
 	}
 	
 	public void setReply(String reply) {
