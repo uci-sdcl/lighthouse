@@ -106,6 +106,7 @@ public class ReplyBoxView extends WindowFrame {
 			thread.getRootQuestion().addResponse(newPost);
 			postNewThreadBox.setText("");
 			pu.run();
+			ReplyBoxView.this.getShell().close();
 
 		}
 	}

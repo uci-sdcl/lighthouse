@@ -116,7 +116,7 @@ public class QuestionBoxView extends WindowFrame{
 				forum.addThread(newPost);
 				postNewThreadBox.setText("");
 				pu.run();
-
+				QuestionBoxView.this.getShell().close();
 			
 		}
 	}
