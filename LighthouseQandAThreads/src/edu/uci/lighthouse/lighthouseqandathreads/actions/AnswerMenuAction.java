@@ -20,24 +20,30 @@ import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class AnswerMenuAction extends Action{
-	private TeamMember tm;
+	private TeamMember poster;
     private PersistAndUpdate pu;
     private ForumThread thread;
     private Post post;
+    private String author;
     
-	public  AnswerMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu, Post post){
-		this.tm = tm;
+	public  AnswerMenuAction(ForumThread thread, TeamMember poster, PersistAndUpdate pu, Post post){
+		this.poster = poster;
 		this.pu = pu;
 		this.post = post;
 		
 		this.thread = thread;
 		setText("Set As Answer");
 		
-		if(!thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName().equals(tm.getAuthor().getName()))
+		LighthouseAuthor LHauthor = ModelUtility.getAuthor();
+		
+		String author = LHauthor.getName();
+		
+		if(!thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName().equals(author))
 			this.setEnabled(false);
 	}
 	public void run() {
-		post.setAnswer(true, tm);
+		LighthouseAuthor LHauthor = ModelUtility.getAuthor();
+		post.setAnswer(true, new LHthreadCreator(LHauthor));
 		pu.run();
 	}
 }

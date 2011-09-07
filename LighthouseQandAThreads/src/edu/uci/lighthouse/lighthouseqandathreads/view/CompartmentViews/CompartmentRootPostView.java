@@ -17,13 +17,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
@@ -60,7 +63,20 @@ public class CompartmentRootPostView extends Panel {
 		
 		GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 
-		messageLabel = new Label(message.length() >= displayLength ? ""+author + ": " + message.substring(0,displayLength) +"...": ""+author + ": " + message);
+		messageLabel = new Label(message.length() >= displayLength ? ""+ message.substring(0,displayLength) +"...": ""+ message);
+		
+		Image icon;
+		
+		if(!thread.hasSolution()){
+			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+		"/icons/question.png").createImage();
+		}else{
+			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+			"/icons/answer.png").createImage();
+		}
+		
+		messageLabel.setIcon(icon);
+		messageLabel.setIconAlignment(SWT.LEFT);
 		this.add(messageLabel);
 
 		PostMouseMotionListener pl = new PostMouseMotionListener();
