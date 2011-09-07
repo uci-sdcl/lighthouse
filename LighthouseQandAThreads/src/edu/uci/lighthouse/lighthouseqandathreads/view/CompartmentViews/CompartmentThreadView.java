@@ -41,6 +41,8 @@ import edu.uci.lighthouse.core.data.ISubscriber;
 import edu.uci.lighthouse.lighthouseqandathreads.ForumController;
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.PostController;
+import edu.uci.lighthouse.lighthouseqandathreads.actions.AnswerMenuAction;
+import edu.uci.lighthouse.lighthouseqandathreads.actions.CloseThreadMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.actions.QAcontextMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.actions.ReplyMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
@@ -166,6 +168,12 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			public void menuAboutToShow(IMenuManager manager) {
 				ReplyMenuAction rmAction = new ReplyMenuAction(thread,tm,pu);
 				manager.add(rmAction);
+				
+				AnswerMenuAction ama = new AnswerMenuAction();
+				manager.add(ama);
+				
+				CloseThreadMenuAction ctma = new CloseThreadMenuAction();
+				manager.add(ctma);
 				
 			}
 		});
