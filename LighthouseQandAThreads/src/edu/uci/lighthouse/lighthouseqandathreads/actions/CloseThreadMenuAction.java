@@ -1,5 +1,14 @@
 package edu.uci.lighthouse.lighthouseqandathreads.actions;
 
-public class CloseThreadMenuAction {
+import org.eclipse.jface.action.Action;
 
+public class CloseThreadMenuAction extends Action{
+	public  CloseThreadMenuAction(){
+
+		setText("Close Thread");
+	}
+	public void run() {
+
+
+	}
 }
