@@ -185,14 +185,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 			
 	    }
 	    
-	    if(control instanceof CompartmentPostView){
-	    	MenuItem item = new MenuItem(menu1, SWT.None);
-	    	item.setText("set as answer");
-	    	
-	    	MenuItem item2 = new MenuItem(menu1, SWT.None);
-	    	item2.setText("close thread");
-	    	
-	    }
+
 		
 		
 		

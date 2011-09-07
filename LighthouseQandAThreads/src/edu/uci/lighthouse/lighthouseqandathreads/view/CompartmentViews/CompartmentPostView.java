@@ -12,6 +12,8 @@ import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
 import edu.uci.lighthouse.lighthouseqandathreads.view.LayoutMetrics;
@@ -41,12 +43,25 @@ public class CompartmentPostView extends Composite{
 		}
 		
 		
-		parent.setBackground(postBack);
+		this.setBackground(postBack);
 		Color labelBack = new Color(this.getDisplay(),255, 212, 102);
 		replyLabel.setBackground(labelBack);
-		this.setBackground(labelBack);
+		
 		TeamMember poster = post.getTeamMemberAuthor();
 		replyLabel.setText(poster.getAuthor().getName()+": "+post.getMessage());
+		
+	   
+
+	    	
+	    
+	}
+	
+	public void setMenuItems(Menu menu){
+    	MenuItem item = new MenuItem(this.getMenu(), SWT.None);
+    	item.setText("set as answer");
+    	
+    	MenuItem item2 = new MenuItem(this.getMenu(), SWT.None);
+    	item2.setText("close thread");
 	}
 	
 	private void addNewSpacer(Composite composite, boolean check) {
