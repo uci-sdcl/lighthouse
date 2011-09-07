@@ -198,9 +198,9 @@ public class CompartmentRootPostView extends Panel {
 			
 			bounds.width = bounds.width+borderWidth;
 
-			System.out.println(menuRect.x +", "+menuRect.y+", "+menuRect.width+", "+menuRect.height);
+			//System.out.println(menuRect.x +", "+menuRect.y+", "+menuRect.width+", "+menuRect.height);
 			org.eclipse.swt.graphics.Point point2 = treadShell.toDisplay(point);
-			System.out.println(point2.x+", "+point2.y);
+			//System.out.println(point2.x+", "+point2.y);
 			
 			return (bounds.contains(point) || menuRect.contains(point2));
 		}
