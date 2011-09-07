@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.lighthouseqandathreads;
+package edu.uci.lighthouse.lighthouseqandathreads.actions;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Label;
@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentNewPostView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentReplyView;
 import edu.uci.lighthouse.model.LighthouseAuthor;

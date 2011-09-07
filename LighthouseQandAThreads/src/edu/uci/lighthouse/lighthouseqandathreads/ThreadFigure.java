@@ -5,6 +5,7 @@ import java.util.List;
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.lighthouseqandathreads.actions.QAcontextMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.lighthouseqandathreads.view.VisualSummaryView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentRootPostView;

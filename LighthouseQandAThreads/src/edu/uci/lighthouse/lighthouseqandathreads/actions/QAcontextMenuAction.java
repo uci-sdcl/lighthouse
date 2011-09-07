@@ -1,4 +1,4 @@
-package edu.uci.lighthouse.lighthouseqandathreads;
+package edu.uci.lighthouse.lighthouseqandathreads.actions;
 
 import java.util.Collection;
 
@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Shell;
 
 
 import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.view.NewQuestionDialog;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentNewPostView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentThreadView;
