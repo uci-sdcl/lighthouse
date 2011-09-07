@@ -15,6 +15,7 @@ import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
+import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
@@ -22,9 +23,12 @@ public class AnswerMenuAction extends Action{
 	private TeamMember tm;
     private PersistAndUpdate pu;
     private ForumThread thread;
-	public  AnswerMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu){
+    private Post post;
+    
+	public  AnswerMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu, Post post){
 		this.tm = tm;
 		this.pu = pu;
+		this.post = post;
 		
 		this.thread = thread;
 		setText("Set As Answer");
@@ -33,6 +37,6 @@ public class AnswerMenuAction extends Action{
 			this.setEnabled(false);
 	}
 	public void run() {
-		//post.setAnswer(true, tm);
+		post.setAnswer(true, tm);
 	}
 }

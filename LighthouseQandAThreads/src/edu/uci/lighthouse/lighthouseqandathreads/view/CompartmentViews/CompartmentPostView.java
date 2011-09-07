@@ -34,7 +34,7 @@ public class CompartmentPostView extends Composite{
 	private ForumThread thread;
 	private PersistAndUpdate pu;
 	private TeamMember tm;
-
+	private Post post;
 	public CompartmentPostView(Composite parent, int style, Post post, TeamMember tm, boolean leftSpacer, ForumThread thread, 
 			PersistAndUpdate pu) {
 		super(parent, style);
@@ -42,7 +42,8 @@ public class CompartmentPostView extends Composite{
 		this.tm = tm;
 		this.thread = thread;
 		this.pu = pu;
-	
+		this.post = post;
+		
 		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
 		LayoutMetrics.POST_VIEW_HEIGHT);
 		this.setLayoutData(data);
@@ -70,7 +71,7 @@ public class CompartmentPostView extends Composite{
 		
 	   
 
-	    	
+	    	setMenu(this);
 	    
 	}
 	
@@ -80,7 +81,7 @@ public class CompartmentPostView extends Composite{
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
 				
-				AnswerMenuAction ama = new AnswerMenuAction(thread,tm,pu);
+				AnswerMenuAction ama = new AnswerMenuAction(thread,tm,pu, post);
 				manager.add(ama);
 				
 			}

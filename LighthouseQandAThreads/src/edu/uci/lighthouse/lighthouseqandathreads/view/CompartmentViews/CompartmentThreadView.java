@@ -29,6 +29,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
@@ -78,7 +79,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 	private ListComposite listOfReplies;
 	private ScrolledComposite scroller;
 	
-	public CompartmentThreadView(Composite parent, int style, ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
+	public CompartmentThreadView(Composite parent, int style, final ForumThread thread, final TeamMember tm, final PersistAndUpdate pu) {
 		super(parent, style);
 
 		this.setLayout(new GridLayout(1, false));
@@ -139,22 +140,10 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		}
 		
 
-
-
-		setMenu(this);
-	}
-	
-	
-	private void setMenu(Control control){
-		MenuManager menuMgr = new MenuManager("#Reply");
+		MenuManager menuMgr = new MenuManager("Thread");
 		menuMgr.addMenuListener(new IMenuListener() {
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
-				
-				AnswerMenuAction ama = new AnswerMenuAction(thread,tm,pu);
-				manager.add(ama);
-				
-				manager.add( new Separator());
 				
 				ReplyMenuAction rmAction = new ReplyMenuAction(thread,tm,pu);
 				manager.add(rmAction);
@@ -168,28 +157,15 @@ public class CompartmentThreadView extends Composite implements ISubscriber{
 		});
 		menuMgr.setRemoveAllWhenShown(true);
 
-		Menu menu1 = menuMgr.createContextMenu(control);
+		Menu menuBar = new Menu(this.getShell(), SWT.BAR);
+		menuMgr.fill(menuBar, -1);
+		this.getShell().setMenuBar(menuBar);
 		
-		control.setMenu(menu1);
+
 	
-		
-		 
-	    if(control instanceof Composite){
-	    	Composite parent = (Composite)control;
-			for(Control child : parent.getChildren()){
-			   setMenu(child);
-			}
-			
-	    }
-	    
-
-		
-		
-		
-
-		
 	}
 	
+
 	public void setReply(String reply) {
 		this.reply = reply;
 	}
