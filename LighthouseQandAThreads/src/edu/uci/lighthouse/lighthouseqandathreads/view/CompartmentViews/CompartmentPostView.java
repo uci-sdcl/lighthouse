@@ -2,6 +2,10 @@ package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
 import java.util.ArrayList;
 
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -11,19 +15,33 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
+import edu.uci.lighthouse.lighthouseqandathreads.actions.AnswerMenuAction;
+import edu.uci.lighthouse.lighthouseqandathreads.actions.CloseThreadMenuAction;
+import edu.uci.lighthouse.lighthouseqandathreads.actions.ReplyMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
 import edu.uci.lighthouse.lighthouseqandathreads.view.LayoutMetrics;
+import edu.uci.lighthouse.model.QAforums.ForumThread;
 import edu.uci.lighthouse.model.QAforums.Post;
 import edu.uci.lighthouse.model.QAforums.TeamMember;
 
 public class CompartmentPostView extends Composite{
+	private ForumThread thread;
+	private PersistAndUpdate pu;
+	private TeamMember tm;
 
-	public CompartmentPostView(Composite parent, int style, Post post, TeamMember tm, boolean leftSpacer) {
+	public CompartmentPostView(Composite parent, int style, Post post, TeamMember tm, boolean leftSpacer, ForumThread thread, 
+			PersistAndUpdate pu) {
 		super(parent, style);
+		
+		this.tm = tm;
+		this.thread = thread;
+		this.pu = pu;
 	
 		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
 		LayoutMetrics.POST_VIEW_HEIGHT);
@@ -56,13 +74,41 @@ public class CompartmentPostView extends Composite{
 	    
 	}
 	
-	public void setMenuItems(Menu menu){
-    	MenuItem item = new MenuItem(this.getMenu(), SWT.None);
-    	item.setText("set as answer");
-    	
-    	MenuItem item2 = new MenuItem(this.getMenu(), SWT.None);
-    	item2.setText("close thread");
+	private void setMenu(Control control){
+		MenuManager menuMgr = new MenuManager("#Reply");
+		menuMgr.addMenuListener(new IMenuListener() {
+			@Override
+			public void menuAboutToShow(IMenuManager manager) {
+				
+				AnswerMenuAction ama = new AnswerMenuAction(thread,tm,pu);
+				manager.add(ama);
+				
+			}
+		});
+		menuMgr.setRemoveAllWhenShown(true);
+
+		Menu menu1 = menuMgr.createContextMenu(control);
+		
+		control.setMenu(menu1);
+	
+		
+		 
+	    if(control instanceof Composite){
+	    	Composite parent = (Composite)control;
+			for(Control child : parent.getChildren()){
+			   setMenu(child);
+			}
+			
+	    }
+	    
+
+		
+		
+		
+
+		
 	}
+	
 	
 	private void addNewSpacer(Composite composite, boolean check) {
 		Composite spacer = new Composite(composite, SWT.None);

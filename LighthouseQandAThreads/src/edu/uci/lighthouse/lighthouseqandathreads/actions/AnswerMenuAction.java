@@ -33,7 +33,6 @@ public class AnswerMenuAction extends Action{
 			this.setEnabled(false);
 	}
 	public void run() {
-
-
+		//post.setAnswer(true, tm);
 	}
 }
