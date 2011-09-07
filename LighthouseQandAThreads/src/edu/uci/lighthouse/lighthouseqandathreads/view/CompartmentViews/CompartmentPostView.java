@@ -116,6 +116,7 @@ public class CompartmentPostView extends Composite{
 		spacer.setLayout(new RowLayout());
 		spacer.setVisible(false);
 		RowData rd = new RowData(20, LayoutMetrics.POST_VIEW_HEIGHT);
+		
 		spacer.setLayoutData(rd);
 
 		
@@ -123,7 +124,7 @@ public class CompartmentPostView extends Composite{
 			spacer.setVisible(true);
 			Label label = new Label(spacer,SWT.None);
 			FontRegistry fr = new FontRegistry(this.getDisplay());
-			Color backColor = new Color(this.getDisplay(), 231, 232, 130);
+			Color backColor = new Color(this.getDisplay(),255, 212, 102);
 			spacer.setBackground(backColor);
 			
 			ArrayList<FontData> fdList = new ArrayList<FontData>();
