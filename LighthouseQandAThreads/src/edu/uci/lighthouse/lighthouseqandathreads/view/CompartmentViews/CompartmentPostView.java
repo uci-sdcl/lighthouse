@@ -44,9 +44,7 @@ public class CompartmentPostView extends Composite{
 		this.pu = pu;
 		this.post = post;
 		
-		GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
-		LayoutMetrics.POST_VIEW_HEIGHT);
-		this.setLayoutData(data);
+
 		
 		this.setLayout(new RowLayout());
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
@@ -70,7 +68,14 @@ public class CompartmentPostView extends Composite{
 		replyLabel.setText(poster.getAuthor().getName()+": "+post.getMessage());
 		
 	   
-
+		this.setSize(this.computeSize(SWT.DEFAULT,
+				SWT.DEFAULT));
+		int height = this.getBounds().height;
+		
+			GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
+					height);
+			this.setLayoutData(data);
+		
 	    	setMenu(this);
 	    
 	}

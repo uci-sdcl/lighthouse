@@ -65,8 +65,12 @@ public class CompartmentRootPostView extends Panel {
 		String author = thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName();
 		
 		GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
+		
+		
+		String msg = new String (message);
+		msg = msg.replace('\n', ' ');
 
-		messageLabel = new Label(message.length() >= displayLength ? ""+ message.substring(0,displayLength) +"...": ""+ message);
+		messageLabel = new Label(message.length() >= displayLength ? ""+ msg.substring(0,displayLength) +"...": ""+ msg);
 		
 		Image icon;
 		
@@ -93,7 +97,7 @@ public class CompartmentRootPostView extends Panel {
 		this.addMouseMotionListener(pl);
 		messageLabel.addMouseMotionListener(pl);
 		
-		
+
 	}
 	
 

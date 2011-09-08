@@ -31,5 +31,6 @@ public class PinMenuAction extends Action{
 		}else{
 			this.setText("pin window");
 		}
+		
 	}
 }
