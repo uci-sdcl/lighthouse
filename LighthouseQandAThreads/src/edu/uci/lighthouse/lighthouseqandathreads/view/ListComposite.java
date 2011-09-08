@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -22,7 +23,8 @@ public class ListComposite extends Composite implements Observer{
 		
 		GridData compsiteData = new GridData();
 		compsiteData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
-		//this.setBackground(ColorConstants.black);
+		Color listBackColor = new Color(this.getDisplay(), 33, 138, 255);
+		this.setBackground(listBackColor);
 		
 		//compsiteData.horizontalAlignment = GridData.CENTER;
 		
