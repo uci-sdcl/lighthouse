@@ -35,7 +35,7 @@ public class ReplyMenuAction extends Action{
 		
 		this.thread = thread;
 		
-		setText("Reply To Question");
+		setText("Reply");
 		
 		if(thread.isClosed())
 			this.setEnabled(false);

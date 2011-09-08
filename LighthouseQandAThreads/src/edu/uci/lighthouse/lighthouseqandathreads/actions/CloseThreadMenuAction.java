@@ -19,7 +19,7 @@ public class CloseThreadMenuAction extends Action{
 		this.pu = pu;
 		
 		this.thread = thread;
-		setText("Close Thread");
+		setText("Close");
 		
 		LighthouseAuthor LHauthor = ModelUtility.getAuthor();
 		

@@ -185,7 +185,8 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		
 	
 		ToolBar bar = tbm.createControl(this);
-		
+		GridData barData = new GridData(SWT.FILL,SWT.FILL,true,true);
+		bar.setLayoutData(barData);
 		
 	//	this.getShell().setMenuBar(menuBar);
 
