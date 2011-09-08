@@ -146,7 +146,7 @@ public class ThreadFigure extends CompartmentFigure {
 		
 
 		
-		for(ForumThread thread: forum.getThreads()){
+		for(ForumThread thread: forum.orderThreads()){
 			CompartmentRootPostView postView = new CompartmentRootPostView(thread.getRootQuestion().getMessage(), thread,tm,pu);
 			GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 			//data.horizontalSpan = 2;
