@@ -6,6 +6,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
+import edu.uci.lighthouse.model.QAforums.ForumThread;
+
 /**
  * Mouse Exit events are send every x ms so it is possible to move the mouse fast outside of a swt shell
  * and the widget will never receive the mouse exit event. This class constantly monitors the mous coordinates
@@ -15,10 +17,13 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class MouseExitObserver implements Runnable {
 
-	Shell shell;
-
-	MouseExitObserver(Shell shell) {
+	private Shell shell;
+	private ForumThread thread;
+	
+	MouseExitObserver(Shell shell, ForumThread thread) {
 		this.shell = shell;
+		this.thread = thread;
+		
 	}
 
 	@Override
@@ -49,6 +54,8 @@ public class MouseExitObserver implements Runnable {
 					if (!childHasIt && !shell.isDisposed()
 							&& !containsPoint(shell, point)) {
 						shell.close();
+						ViewManager.getInstance().clearViews();
+						ViewManager.getInstance().removeOpenThread(thread);
 					}
 
 				}

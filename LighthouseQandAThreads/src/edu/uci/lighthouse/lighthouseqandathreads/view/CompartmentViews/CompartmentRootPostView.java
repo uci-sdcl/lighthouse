@@ -147,7 +147,7 @@ public class CompartmentRootPostView extends Panel {
 			}
 
 			
-			Thread javaThread = new Thread(new MouseExitObserver(treadShell));
+			Thread javaThread = new Thread(new MouseExitObserver(treadShell,thread));
 			javaThread.start();
 		
 		}
