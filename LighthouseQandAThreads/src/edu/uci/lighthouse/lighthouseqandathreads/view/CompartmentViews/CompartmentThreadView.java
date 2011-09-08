@@ -115,9 +115,12 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		// root question
 
 		TeamMember poster = thread.getRootQuestion().getTeamMemberAuthor();
+		
+		GridData postViewData = new GridData(SWT.FILL,SWT.FILL,true,true);
 
 		CompartmentPostView cpv = new CompartmentPostView(this, SWT.None,
 				thread.getRootQuestion(), poster, false, thread, pu);
+		
 
 		listOfReplies.add(cpv);
 		listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT,
@@ -129,8 +132,12 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		for (Post post : thread.getRootQuestion().orderResponses()) {
 
 			poster = post.getTeamMemberAuthor();
+
 			CompartmentPostView cpv2 = new CompartmentPostView(this, SWT.None,
 					post, poster, true, thread, pu);
+			
+
+			
 
 			listOfReplies.add(cpv2);
 			listOfReplies.setSize(listOfReplies.computeSize(SWT.DEFAULT,

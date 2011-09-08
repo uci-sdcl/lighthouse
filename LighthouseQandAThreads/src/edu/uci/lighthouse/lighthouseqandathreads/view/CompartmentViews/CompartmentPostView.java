@@ -46,7 +46,7 @@ public class CompartmentPostView extends Composite{
 		
 
 		
-		this.setLayout(new RowLayout());
+		this.setLayout(new GridLayout(2,false));
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
 		
 		if(leftSpacer){
@@ -72,6 +72,10 @@ public class CompartmentPostView extends Composite{
 		replyLabel.setText(poster.getAuthor().getName()+": "+post.getMessage());
 		
 	   
+		
+		
+
+		
 		this.setSize(this.computeSize(SWT.DEFAULT,
 				SWT.DEFAULT));
 		int height = this.getBounds().height;
@@ -79,6 +83,11 @@ public class CompartmentPostView extends Composite{
 			GridData data = new GridData(LayoutMetrics.POST_VIEW_WIDTH,
 					height);
 			this.setLayoutData(data);
+			
+
+			GridData barData = new GridData(SWT.FILL,SWT.FILL,true,true);
+			barView.setLayoutData(barData);
+			
 		
 	    	setMenu(this);
 	    
@@ -124,7 +133,7 @@ public class CompartmentPostView extends Composite{
 		Composite spacer = new Composite(composite, SWT.None);
 		spacer.setLayout(new RowLayout());
 		spacer.setVisible(false);
-		RowData rd = new RowData(20, LayoutMetrics.POST_VIEW_HEIGHT);
+		GridData rd = new GridData(20, LayoutMetrics.POST_VIEW_HEIGHT);
 		
 		spacer.setLayoutData(rd);
 
