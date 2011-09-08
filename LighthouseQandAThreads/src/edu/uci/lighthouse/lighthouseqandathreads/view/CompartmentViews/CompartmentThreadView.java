@@ -10,6 +10,7 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -35,6 +36,7 @@ import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.PlatformUI;
@@ -151,35 +153,41 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 			listOfReplies.renderList();
 		}
 
-		MenuManager menuMgr = new MenuManager("Thread");
-		menuMgr.addMenuListener(new IMenuListener() {
-			@Override
-			public void menuAboutToShow(IMenuManager manager) {
+	//	MenuManager menuMgr = new MenuManager("Thread");
+	//	menuMgr.addMenuListener(new IMenuListener() {
+	//		@Override
+	//		public void menuAboutToShow(IMenuManager manager) {
+//
+	//			
+//
+	//		}
+	//	});
+		
+		
+		
+	//	menuMgr.setRemoveAllWhenShown(true);
 
-				ReplyMenuAction rmAction = new ReplyMenuAction(thread, tm, pu);
-				manager.add(rmAction);
+	//	Menu menuBar = new Menu(this.getShell(), SWT.BAR);
+	//	menuMgr.fill(menuBar, -1);
+		
+		ToolBarManager tbm = new ToolBarManager();
 
-				CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,
-						tm, pu);
-				manager.add(ctma);
-				
-				manager.add(new Separator());
-				manager.add(new PinMenuAction(CompartmentThreadView.this));
+		
+		ReplyMenuAction rmAction = new ReplyMenuAction(thread, tm, pu);
+		tbm.add(rmAction);
 
-			}
-		});
+		CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,
+				tm, pu);
+		tbm.add(ctma);
+		
+		tbm.add(new Separator());
+		tbm.add(new PinMenuAction(CompartmentThreadView.this));
+		
+	
+		ToolBar bar = tbm.createControl(this);
 		
 		
-		
-		menuMgr.setRemoveAllWhenShown(true);
-
-		Menu menuBar = new Menu(this.getShell(), SWT.BAR);
-		menuMgr.fill(menuBar, -1);
-		
-		
-		
-		
-		this.getShell().setMenuBar(menuBar);
+	//	this.getShell().setMenuBar(menuBar);
 
 	}
 

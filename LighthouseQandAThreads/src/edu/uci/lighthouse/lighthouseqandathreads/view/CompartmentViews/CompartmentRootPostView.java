@@ -175,7 +175,7 @@ public class CompartmentRootPostView extends Panel {
 				}
 			}
 			
-			if(!shellContainsPoint(treadShell,point) && !treadShell.isDisposed() && !view.isPin()){
+			if(!containsPoint(treadShell,point) && !treadShell.isDisposed() && !view.isPin()){
 				treadShell.close();
 				ViewManager.getInstance().clearViews();
 				ViewManager.getInstance().removeOpenThread(thread);
@@ -197,58 +197,7 @@ public class CompartmentRootPostView extends Panel {
 		}
 		
 		
-		/**
-		 * Counts bounder width as well
-		 * 
-		 * @param control
-		 * @param point
-		 * @return
-		 */
-		public boolean shellContainsPoint(Control control, org.eclipse.swt.graphics.Point point){
-			if(control.isDisposed())
-				return false;
-			
-			Rectangle bounds = control.getBounds();
-			int borderWidth = control.getBorderWidth();
-			int menuHeight = 0;
-			Menu bar = treadShell.getMenuBar();
 
-			Method getBoundsMeth;
-			Rectangle menuRect = null;
-			
-			try {
-				getBoundsMeth = Menu.class.getDeclaredMethod("getBounds", null);
-				getBoundsMeth.setAccessible(true);
-				menuRect = (Rectangle)getBoundsMeth.invoke(bar, null);
-				menuHeight = menuRect.height;
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			
-			bounds.height = bounds.height+borderWidth+menuHeight;
-			
-			bounds.width = bounds.width+borderWidth;
-
-			//System.out.println(menuRect.x +", "+menuRect.y+", "+menuRect.width+", "+menuRect.height);
-			org.eclipse.swt.graphics.Point point2 = treadShell.toDisplay(point);
-			//System.out.println(point2.x+", "+point2.y);
-			
-			return (bounds.contains(point) || menuRect.contains(point2));
-		}
 		
 		public void mouseHover(org.eclipse.swt.events.MouseEvent e) {
 		}
