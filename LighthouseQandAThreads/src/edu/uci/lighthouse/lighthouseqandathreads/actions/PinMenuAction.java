@@ -8,7 +8,8 @@ import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.Compartme
 
 public class PinMenuAction extends Action{
 	
-	private static final String DESCRIPTION = "Pin window to location";
+	private static final String DESCRIPTION = "Pin";
+	private static final String DESCRIPTION2 = "Unpin";
 	private CompartmentThreadView view;
 	
 	public PinMenuAction(CompartmentThreadView view){
@@ -27,9 +28,13 @@ public class PinMenuAction extends Action{
 	public void run(){
 		view.flipPin();
 		if(view.isPin()){
-			this.setText("unpin window");
+			setToolTipText(DESCRIPTION);
+			setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+			"/icons/unpin.png"));
 		}else{
-			this.setText("pin window");
+			setToolTipText(DESCRIPTION2);
+			setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+			"/icons/pin.png"));
 		}
 		
 	}
