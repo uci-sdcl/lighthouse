@@ -3,7 +3,7 @@
 <schema targetNamespace="edu.uci.lighthouse.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="edu.uci.lighthouse.ui" id="edu.uci.lighthouse.views.ui.views.actions" name="Action"/>
+         <meta.schema plugin="edu.uci.lighthouse.ui" id="edu.uci.lighthouse.views.ui.views.actions" name="Action Plugin"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
