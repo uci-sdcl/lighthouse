@@ -53,11 +53,12 @@ public class CompartmentPostView extends Composite{
 			addNewSpacer(this,post.isAnswer());
 		}
 
-		Label replyLabel = new Label(this, SWT.WRAP);
+		Label replyLabel = new Label(this, SWT.NONE);
 		Label dateLabel = new Label(this,SWT.None);
 		dateLabel.setText(post.getPostTime().toString());
 		AnnotationBarView barView = new AnnotationBarView(this,SWT.None,replyLabel,dateLabel);
-
+		GridData barData = new GridData(SWT.FILL,SWT.FILL,true,true);
+		barView.setLayoutData(barData);
 		
 		if(!leftSpacer){
 			addNewSpacer(this,post.isAnswer());
@@ -85,12 +86,33 @@ public class CompartmentPostView extends Composite{
 			this.setLayoutData(data);
 			
 
-			GridData barData = new GridData(SWT.FILL,SWT.FILL,true,true);
-			barView.setLayoutData(barData);
+
 			
 		
 	    	setMenu(this);
 	    
+	}
+	
+	private String formatMessage(String message){
+		char[] msgChars = message.toCharArray();
+		ArrayList<Character> listOfChars = new ArrayList<Character>();
+		
+		int wrapLength = 100;
+		for(int i = 0; i<msgChars.length; i++){
+			listOfChars.add(msgChars[i]);
+			if(i == wrapLength){
+				listOfChars.add('\n');
+			}
+		}
+		
+		char[] formatedList = new char[listOfChars.size()];
+		for(int i = 0; i<listOfChars.size(); i++){
+			formatedList[i] = listOfChars.get(i);
+		}
+		
+		String formatedMessage = new String(formatedList);
+		return formatedMessage;
+		
 	}
 	
 	private void setMenu(Control control){
