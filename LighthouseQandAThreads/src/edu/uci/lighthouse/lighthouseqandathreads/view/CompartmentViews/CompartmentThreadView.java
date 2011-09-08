@@ -114,7 +114,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		scroller.setContent(listOfReplies);
 		scroller.setMinSize(listOfReplies.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
-		Color scrollerBack = new Color(this.getDisplay(), 3,232,181);
+		Color scrollerBack = new Color(this.getDisplay(), 231,232,130);
 		scroller.setBackground(scrollerBack);
 
 		// root question

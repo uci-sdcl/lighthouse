@@ -4,6 +4,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Label;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -44,12 +45,16 @@ public class ReplyMenuAction extends Action{
 		LHthreadCreator tm = new LHthreadCreator(author);
 
 		Display display = Display.getDefault();
-		
+		GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 1;
+		layout.verticalSpacing = 1;
+		layout.marginWidth = 1;
+		layout.marginHeight = 1;
 		
 		postShell = new Shell(GraphUtils.getGraphViewer()
 				.getGraphControl().getDisplay().getActiveShell());
 		
-		postShell.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+		postShell.setLayout(layout);
 		
 		
 		CompartmentReplyView npv = new CompartmentReplyView(postShell, SWT.None,thread,tm,pu);

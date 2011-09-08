@@ -40,7 +40,14 @@ public class QuestionBoxView extends WindowFrame{
 		
 		this.forum = forum;
 		this.tm = tm;
-		this.setLayout(new GridLayout(1, false));
+		
+		GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 1;
+		layout.verticalSpacing = 1;
+		layout.marginWidth = 1;
+		layout.marginHeight = 1;
+		
+		this.setLayout(layout);
 		this.pu = pu;
 		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
 		this.setBackground(postBack);
@@ -49,7 +56,7 @@ public class QuestionBoxView extends WindowFrame{
 
 		
 		composite = new Composite(this,SWT.None);
-		composite.setLayout(new GridLayout(1,false));
+		composite.setLayout(layout);
 		composite.setLayoutData(compData);
 		composite.setBackground(ColorConstants.black);
 		

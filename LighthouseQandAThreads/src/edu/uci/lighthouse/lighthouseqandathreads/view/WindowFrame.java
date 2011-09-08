@@ -15,7 +15,14 @@ public class WindowFrame extends ForumElement{
 	
 	public WindowFrame(Composite parent, int style) {
 		super(parent, style);
-		this.setLayout(new GridLayout(1, false));
+
+		GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 1;
+		layout.verticalSpacing = 1;
+		layout.marginWidth = 1;
+		layout.marginHeight = 1;
+		
+		this.setLayout(layout);
 		menu = new ElementMenu(this,SWT.None);
 		
 		data = new GridData();
