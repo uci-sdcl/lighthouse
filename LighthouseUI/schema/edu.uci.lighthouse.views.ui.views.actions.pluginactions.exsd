@@ -3,7 +3,7 @@
 <schema targetNamespace="edu.uci.lighthouse.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="edu.uci.lighthouse.ui" id="edu.uci.lighthouse.views.ui.views.actions" name="Action Plugin"/>
+         <meta.schema plugin="edu.uci.lighthouse.ui" id="edu.uci.lighthouse.views.ui.views.actions.pluginactions" name="Lighthouse Action Plugin"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <choice minOccurs="1" maxOccurs="unbounded">
-            <element ref="action"/>
+            <element ref="lhAction"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,7 +47,7 @@
       </complexType>
    </element>
 
-   <element name="action">
+   <element name="lhAction">
       <complexType>
          <attribute name="class" type="string">
             <annotation>

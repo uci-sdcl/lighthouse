@@ -10,7 +10,7 @@ import org.eclipse.zest.core.viewers.GraphViewer;
  *
  */
 public abstract class PluginAction extends Action{
-	public static String ID = "edu.uci.lighthouse.views.ui.views.actions";
+	public static String PLUGIN_ID = "edu.uci.lighthouse.views.ui.views.actions.pluginactions";
 	
 	public PluginAction(Object object, int style) {
 		

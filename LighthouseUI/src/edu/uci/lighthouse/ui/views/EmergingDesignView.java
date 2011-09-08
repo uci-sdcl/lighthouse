@@ -152,7 +152,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 	private void loadClassFilterPlugins(){
 		try {
 			IConfigurationElement[] config = Platform.getExtensionRegistry()
-					.getConfigurationElementsFor(PluginAction.ID);
+					.getConfigurationElementsFor(PluginAction.PLUGIN_ID);
 			IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
 			for (IConfigurationElement e : config) {
 				final Object o = e.createExecutableExtension("class");
