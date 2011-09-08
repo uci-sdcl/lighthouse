@@ -34,8 +34,10 @@ import edu.uci.lighthouse.ui.views.actions.HighlightDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.LayoutDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.LinkWithEditorAction;
 import edu.uci.lighthouse.ui.views.actions.OpenInEditorAction;
+import edu.uci.lighthouse.ui.views.actions.PluginAction;
 import edu.uci.lighthouse.ui.views.actions.SoftLockAction;
 import edu.uci.lighthouse.ui.views.actions.ZoomDropDownAction;
+import edu.uci.lighthouse.views.filters.IClassFilter;
 
 public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbenchPart{
 	
@@ -109,6 +111,9 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		toolbarManager.add(new ZoomDropDownAction(this));
 		//toolbarManager.add(new SoftLockAction2(viewer.getGraphControl()));
 		
+		/**@author lee*/
+		loadClassFilterPlugins();
+		
 		//TODO (danielle): Create the action here
 		softLockAction = new SoftLockAction(highlightManager);
 		
@@ -141,6 +146,24 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		loadContextMenuPlugins(manager);
 	}
 	
+	/**
+	 * @author lee
+	 */
+	private void loadClassFilterPlugins(){
+		try {
+			IConfigurationElement[] config = Platform.getExtensionRegistry()
+					.getConfigurationElementsFor(PluginAction.ID);
+			IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
+			for (IConfigurationElement e : config) {
+				final Object o = e.createExecutableExtension("class");
+				if (o instanceof PluginAction) {
+					toolbarManager.add((PluginAction)o);
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
 	/**
 	 * @author lee
 	 */
