@@ -15,9 +15,9 @@ public class AnnotationBarView extends Composite{
 		
 		this.setLayout(new GridLayout(1, false));
 		
-		Color threadBack2 = new Color(this.getDisplay(), 231, 232, 130);
+		Color postBack = new Color(this.getDisplay(), 255, 212, 102);
 
-		this.setBackground(threadBack2);
+		this.setBackground(postBack);
 		
 		
 		
@@ -27,11 +27,14 @@ public class AnnotationBarView extends Composite{
 		mainView.setParent(this);
 		mainView.setLayoutData(mainData);
 		
+		mainView.setBackground(postBack);
+		
 		GridData data = new GridData(SWT.FILL,SWT.FILL, true, true);
 		
 		data.horizontalAlignment = SWT.END;
 		annotation.setParent(this);
 		annotation.setLayoutData(data);
+		annotation.setBackground(postBack);
 
 		
 	}
