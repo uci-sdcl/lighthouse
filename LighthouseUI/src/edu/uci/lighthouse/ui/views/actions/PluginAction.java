@@ -15,6 +15,6 @@ public abstract class PluginAction extends Action{
 		
 	}
 
-	public static String ID = "edu.uci.lighthouse.ui.views.actions";
+	public static String ID = "edu.uci.lighthouse.views.ui.views.actions";
 
 }
