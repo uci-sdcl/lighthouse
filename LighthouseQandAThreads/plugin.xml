@@ -7,5 +7,11 @@
             class="edu.uci.lighthouse.lighthouseqandathreads.ThreadFigure">
       </compartment>
    </extension>
+   <extension
+         point="edu.uci.lighthouse.views.ui.views.actions">
+      <action
+            class="edu.uci.lighthouse.lighthouseqandathreads.actions.extensions.ForumFilterAction">
+      </action>
+   </extension>
 
 </plugin>
