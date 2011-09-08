@@ -76,7 +76,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		}
 		result.add(action3);
 		
-		String name4 = "has closed \u0026 answered questions";
+		String name4 = "has closed and answered questions";
 		FilterAction action4 = cachedActions.get(name4);
 		if (action4 == null) {
 			action4 = new FilterAction(name4, new ClosedAndAnsweredFilter());
