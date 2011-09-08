@@ -15,6 +15,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
@@ -110,6 +111,8 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		//toolbarManager.add(openEditorAction);
 		toolbarManager.add(new ZoomDropDownAction(this));
 		//toolbarManager.add(new SoftLockAction2(viewer.getGraphControl()));
+		
+		
 		
 		/**@author lee*/
 		loadClassFilterPlugins();
