@@ -102,9 +102,9 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		}
 
 		menu = new Menu(parent);
-		for (IAction layoutAction : createActions()) {
+		for (IAction action : createActions()) {
 			ActionContributionItem item = new ActionContributionItem(
-					layoutAction);
+					action);
 			item.fill(menu, -1);
 		}
 
