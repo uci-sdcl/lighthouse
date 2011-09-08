@@ -78,6 +78,30 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
 		
 	}
 	
+	public List<ForumThread> orderThreads(){
+		int i;
+		int min;
+
+		ArrayList<ForumThread> listOfThreads = new ArrayList<ForumThread>();
+		listOfThreads.addAll(this.threads);
+
+		for (i = 0; i < this.threads.size(); i++) {
+			min = i;
+			for (int j = i + 1; j < this.threads.size(); j++) {
+				if (listOfThreads.get(j).getRootQuestion().getPostTime()
+						.compareTo(listOfThreads.get(min).getRootQuestion().getPostTime()) < 0) {
+					min = j;
+				}
+			}
+
+			ForumThread temp = listOfThreads.get(i);
+			listOfThreads.set(i, listOfThreads.get(min));
+			listOfThreads.set(min, temp);
+		}
+
+		return listOfThreads;
+	}
+	
 	public void addThread(ForumThread thread){
 		threads.add(thread);
 		forumChanged(new AddEvent<ForumThread,LHforum>(thread,this));
