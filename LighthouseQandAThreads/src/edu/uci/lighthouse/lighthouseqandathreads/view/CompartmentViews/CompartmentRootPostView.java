@@ -164,6 +164,9 @@ public class CompartmentRootPostView extends Panel {
 		}
 		
 		public boolean containsPoint(Control control, org.eclipse.swt.graphics.Point point){
+			if(control.isDisposed())
+				return false;
+			
 			Rectangle bounds = control.getBounds();
 			int borderWidth = control.getBorderWidth();
 
@@ -182,6 +185,9 @@ public class CompartmentRootPostView extends Panel {
 		 * @return
 		 */
 		public boolean shellContainsPoint(Control control, org.eclipse.swt.graphics.Point point){
+			if(control.isDisposed())
+				return false;
+			
 			Rectangle bounds = control.getBounds();
 			int borderWidth = control.getBorderWidth();
 			int menuHeight = 0;
