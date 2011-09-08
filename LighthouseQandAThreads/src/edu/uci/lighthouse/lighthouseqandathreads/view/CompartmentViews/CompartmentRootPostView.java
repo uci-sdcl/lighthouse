@@ -67,15 +67,18 @@ public class CompartmentRootPostView extends Panel {
 		
 		Image icon;
 		
-		if(!thread.hasSolution()){
+		if(thread.isClosed() && thread.hasSolution()){
 			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
-		"/icons/question.png").createImage();
+			"/icons/closedAndAnswered.png").createImage();
 		}else if(thread.isClosed()){
 			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 			"/icons/closed.png").createImage();
-		}else{
+		}else if(thread.hasSolution()){
 			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 			"/icons/answer.png").createImage();
+		}else {
+			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+			"/icons/question.png").createImage();
 		}
 		
 		messageLabel.setIcon(icon);
