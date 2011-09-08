@@ -117,7 +117,8 @@ public class CompartmentRootPostView extends Panel {
 			org.eclipse.swt.graphics.Point point = GraphUtils.getGraphViewer()
 					.getGraphControl().toDisplay(location.x, location.y);
 
-
+			point.x = point.x -10;
+			
 			treadShell.setLocation(point);
 			treadShell.addMouseTrackListener(new ThreadTrackListener());
 			
