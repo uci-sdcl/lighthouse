@@ -175,7 +175,7 @@ public class CompartmentRootPostView extends Panel {
 		 * goes to fast?
 		 */
 		public void mouseExit(org.eclipse.swt.events.MouseEvent e) {
-			org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x,e.y);
+		/*	org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x,e.y);
 	
 			
 			if(!treadShell.isDisposed()){
@@ -190,7 +190,7 @@ public class CompartmentRootPostView extends Panel {
 				treadShell.close();
 				ViewManager.getInstance().clearViews();
 				ViewManager.getInstance().removeOpenThread(thread);
-			}
+			}*/
 			
 		}
 		
