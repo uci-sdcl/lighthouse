@@ -88,8 +88,11 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 			final ForumThread thread, final TeamMember tm,
 			final PersistAndUpdate pu) {
 		super(parent, style);
-
-		this.setLayout(new GridLayout(1, false));
+		GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 1;
+		layout.verticalSpacing = 1;
+		
+		this.setLayout(layout);
 		Color threadBack2 = new Color(this.getDisplay(), 231, 232, 130);
 
 		this.setBackground(threadBack2);
@@ -103,7 +106,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 				LayoutMetrics.CONVERSATION_LIST_HEIGHT);
 		scrollData.horizontalAlignment = GridData.CENTER;
 		scroller.setLayoutData(scrollData);
-		scroller.setLayout(new GridLayout(1, false));
+		scroller.setLayout(layout);
 
 		listOfReplies = new ListComposite(scroller, SWT.None);
 		scroller.setContent(listOfReplies);

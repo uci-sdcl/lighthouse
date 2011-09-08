@@ -22,13 +22,17 @@ public class ListComposite extends Composite implements Observer{
 		
 		GridData compsiteData = new GridData();
 		compsiteData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
-		this.setBackground(ColorConstants.black);
+		//this.setBackground(ColorConstants.black);
 		
 		//compsiteData.horizontalAlignment = GridData.CENTER;
 		
 		temporaryParent.setVisible(false);
-		
-		setLayout(new GridLayout(1, false));
+		GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 1;
+		layout.verticalSpacing = 1;
+		layout.marginWidth = 1;
+		layout.marginHeight = 1;
+		setLayout(layout);
 		this.setLayoutData(compsiteData);
 	
 	}
