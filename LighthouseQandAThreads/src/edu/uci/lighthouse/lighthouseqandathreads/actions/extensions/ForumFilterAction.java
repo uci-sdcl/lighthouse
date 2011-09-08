@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.lighthouseqandathreads.Activator;
+import edu.uci.lighthouse.lighthouseqandathreads.filters.ClosedAndAnsweredFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.ClosedThreadFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.UnSolvedThreadsFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.SolvedThreadFilter;
@@ -74,6 +75,14 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 			cachedActions.put(name3, action3);
 		}
 		result.add(action3);
+		
+		String name4 = "has closed & answered questions";
+		FilterAction action4 = cachedActions.get(name4);
+		if (action4 == null) {
+			action4 = new FilterAction(name4, new ClosedAndAnsweredFilter());
+			cachedActions.put(name4, action4);
+		}
+		result.add(action4);
 
 		return result;
 	}
