@@ -19,7 +19,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.ClosedThreadFilter;
-import edu.uci.lighthouse.lighthouseqandathreads.filters.OpenThreadFilter;
+import edu.uci.lighthouse.lighthouseqandathreads.filters.UnSolvedThreadsFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.SolvedThreadFilter;
 import edu.uci.lighthouse.ui.views.FilterManager;
 import edu.uci.lighthouse.ui.views.actions.FilterModifiedAction;
@@ -52,7 +52,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		String name1 = "has open threads";
 		FilterAction action = cachedActions.get(name1);
 		if (action == null) {
-			action = new FilterAction(name1, new OpenThreadFilter());
+			action = new FilterAction(name1, new UnSolvedThreadsFilter());
 			cachedActions.put(name1, action);
 		}
 		result.add(action);
