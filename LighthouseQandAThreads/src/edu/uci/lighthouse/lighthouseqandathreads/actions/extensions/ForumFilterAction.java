@@ -51,7 +51,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 	protected List<IAction> createActions() {
 		List<IAction> result = new ArrayList<IAction>();
 		
-		String name1 = "has unanswered questions";
+		String name1 = "unanswered questions";
 		FilterAction action = cachedActions.get(name1);
 		if (action == null) {
 			action = new FilterAction(name1, new UnSolvedThreadsFilter());
@@ -59,7 +59,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		}
 		result.add(action);
 		
-		String name2 = "has answered questions";
+		String name2 = "answered questions";
 		FilterAction action2 = cachedActions.get(name2);
 		if (action2 == null) {
 			action2 = new FilterAction(name2, new SolvedThreadFilter());
@@ -68,7 +68,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		result.add(action2);
 		
 		
-		String name3 = "has closed questions";
+		String name3 = "closed questions";
 		FilterAction action3 = cachedActions.get(name3);
 		if (action3 == null) {
 			action3 = new FilterAction(name3, new ClosedThreadFilter());
@@ -76,7 +76,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		}
 		result.add(action3);
 		
-		String name4 = "has closed and answered questions";
+		String name4 = "closed and answered questions";
 		FilterAction action4 = cachedActions.get(name4);
 		if (action4 == null) {
 			action4 = new FilterAction(name4, new ClosedAndAnsweredFilter());
