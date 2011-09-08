@@ -70,6 +70,9 @@ public class CompartmentRootPostView extends Panel {
 		if(!thread.hasSolution()){
 			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 		"/icons/question.png").createImage();
+		}else if(thread.isClosed()){
+			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+			"/icons/closed.png").createImage();
 		}else{
 			icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 			"/icons/answer.png").createImage();
