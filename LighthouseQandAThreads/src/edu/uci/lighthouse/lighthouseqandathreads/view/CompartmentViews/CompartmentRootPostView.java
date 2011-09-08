@@ -148,11 +148,12 @@ public class CompartmentRootPostView extends Panel {
 			org.eclipse.swt.graphics.Point point = new org.eclipse.swt.graphics.Point(e.x,e.y);
 	
 			
+			if(!treadShell.isDisposed()){
 			
-			
-			for(Control control : treadShell.getChildren()){
-				if(containsPoint(control,point))
-					return;
+				for(Control control : treadShell.getChildren()){
+					if(containsPoint(control,point))
+						return;
+				}
 			}
 			
 			if(!shellContainsPoint(treadShell,point) && !treadShell.isDisposed()){
