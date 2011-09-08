@@ -44,7 +44,7 @@ public class ReplyMenuAction extends Action{
 		LighthouseAuthor author = ModelUtility.getAuthor();
 		LHthreadCreator tm = new LHthreadCreator(author);
 
-		Display display = Display.getDefault();
+	
 		GridLayout layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 1;
 		layout.verticalSpacing = 1;
