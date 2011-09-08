@@ -19,10 +19,12 @@ public class MouseExitObserver implements Runnable {
 
 	private Shell shell;
 	private ForumThread thread;
+	private CompartmentThreadView view;
 	
-	MouseExitObserver(Shell shell, ForumThread thread) {
+	MouseExitObserver(Shell shell, ForumThread thread, CompartmentThreadView view) {
 		this.shell = shell;
 		this.thread = thread;
+		this.view = view;
 		
 	}
 
@@ -51,7 +53,7 @@ public class MouseExitObserver implements Runnable {
 						}
 					}
 
-					if (!childHasIt && !shell.isDisposed()
+					if (!view.isPin() && !childHasIt && !shell.isDisposed()
 							&& !containsPoint(shell, point)) {
 						shell.close();
 						ViewManager.getInstance().clearViews();
