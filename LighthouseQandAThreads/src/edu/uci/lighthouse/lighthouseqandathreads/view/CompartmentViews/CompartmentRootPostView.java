@@ -118,7 +118,13 @@ public class CompartmentRootPostView extends Panel {
 			treadShell.setLocation(point);
 			treadShell.addMouseTrackListener(new ThreadTrackListener());
 			
-			treadShell.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+			org.eclipse.swt.layout.GridLayout layout = new org.eclipse.swt.layout.GridLayout(1, false);
+			layout.horizontalSpacing = 1;
+			layout.verticalSpacing = 1;
+			layout.marginWidth = 1;
+			layout.marginHeight = 1;
+			
+			treadShell.setLayout(layout);
 			
 			
 			
