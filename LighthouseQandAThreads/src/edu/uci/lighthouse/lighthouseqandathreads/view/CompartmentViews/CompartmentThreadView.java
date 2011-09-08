@@ -171,9 +171,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 	//	menuMgr.fill(menuBar, -1);
 		
 		ToolBarManager tbm = new ToolBarManager();
-
+		PinMenuAction pma = new PinMenuAction(CompartmentThreadView.this);
 		
-		ReplyMenuAction rmAction = new ReplyMenuAction(thread, tm, pu);
+		ReplyMenuAction rmAction = new ReplyMenuAction(thread, tm, pu, this,pma);
 		tbm.add(rmAction);
 
 		CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,
@@ -181,10 +181,15 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		tbm.add(ctma);
 		
 		tbm.add(new Separator());
-		tbm.add(new PinMenuAction(CompartmentThreadView.this));
+		
+		
+		tbm.add(pma);
 		
 	
 		ToolBar bar = tbm.createControl(this);
+		
+		
+	
 		GridData barData = new GridData(SWT.FILL,SWT.FILL,true,true);
 		bar.setLayoutData(barData);
 		

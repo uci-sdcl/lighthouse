@@ -12,6 +12,7 @@ import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentNewPostView;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentReplyView;
+import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentThreadView;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
 import edu.uci.lighthouse.model.LighthouseEntity;
@@ -27,13 +28,17 @@ public class ReplyMenuAction extends Action{
 	private TeamMember tm;
     private PersistAndUpdate pu;
     private ForumThread thread;
+    private CompartmentThreadView view;
+    private PinMenuAction pma;
    
-	public  ReplyMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu){
+	public  ReplyMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu, CompartmentThreadView view, PinMenuAction pma){
 
 		this.tm = tm;
 		this.pu = pu;
 		
 		this.thread = thread;
+		this.view = view;
+		this.pma = pma;
 		
 		setText("Reply");
 		
@@ -41,6 +46,11 @@ public class ReplyMenuAction extends Action{
 			this.setEnabled(false);
 	}
 	public void run() {
+		
+		if(!view.isPin()){
+			pma.run();
+		}
+		
 		LighthouseAuthor author = ModelUtility.getAuthor();
 		LHthreadCreator tm = new LHthreadCreator(author);
 
