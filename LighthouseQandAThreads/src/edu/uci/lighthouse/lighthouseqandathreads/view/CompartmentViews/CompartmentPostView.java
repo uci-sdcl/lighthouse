@@ -70,7 +70,7 @@ public class CompartmentPostView extends Composite{
 		replyLabel.setBackground(labelBack);
 		
 		TeamMember poster = post.getTeamMemberAuthor();
-		replyLabel.setText(poster.getAuthor().getName()+": "+post.getMessage());
+		replyLabel.setText(formatMessage(poster.getAuthor().getName()+": "+post.getMessage()));
 		
 	   
 		
@@ -97,10 +97,10 @@ public class CompartmentPostView extends Composite{
 		char[] msgChars = message.toCharArray();
 		ArrayList<Character> listOfChars = new ArrayList<Character>();
 		
-		int wrapLength = 100;
+		int wrapLength = 40;
 		for(int i = 0; i<msgChars.length; i++){
 			listOfChars.add(msgChars[i]);
-			if(i == wrapLength){
+			if(i%wrapLength == 0 && i!=0){
 				listOfChars.add('\n');
 			}
 		}
