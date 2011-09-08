@@ -23,6 +23,7 @@ public class MouseExitObserver implements Runnable {
 			final int x = mouseLocation.x;
 			final int y = mouseLocation.y;
 
+			if (!shell.isDisposed())
 			shell.getDisplay().asyncExec(new Runnable() {
 
 				@Override
