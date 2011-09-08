@@ -150,6 +150,24 @@ public class LHforum extends LHclassPluginExtension implements Serializable{
 		}
 		return count;
 	}
+
+	public boolean hasSolvedThreads() {
+		for(ForumThread thread: threads){
+			if(thread.hasSolution()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasUnSolvedThreads() {
+		for(ForumThread thread: threads){
+			if(!thread.hasSolution()){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 
 
