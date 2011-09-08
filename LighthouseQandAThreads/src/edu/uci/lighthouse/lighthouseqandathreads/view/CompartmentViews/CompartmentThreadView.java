@@ -91,6 +91,8 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		GridLayout layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 1;
 		layout.verticalSpacing = 1;
+		layout.marginWidth = 1;
+		layout.marginHeight = 1;
 		
 		this.setLayout(layout);
 		Color threadBack2 = new Color(this.getDisplay(), 231, 232, 130);
