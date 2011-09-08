@@ -53,7 +53,7 @@ public class CompartmentPostView extends Composite{
 			addNewSpacer(this,post.isAnswer());
 		}
 
-		Label replyLabel = new Label(this, SWT.None);
+		Label replyLabel = new Label(this, SWT.WRAP);
 		Label dateLabel = new Label(this,SWT.None);
 		dateLabel.setText(post.getPostTime().toString());
 		AnnotationBarView barView = new AnnotationBarView(this,SWT.None,replyLabel,dateLabel);
