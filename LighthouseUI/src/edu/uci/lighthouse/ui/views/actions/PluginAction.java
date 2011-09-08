@@ -10,11 +10,12 @@ import org.eclipse.zest.core.viewers.GraphViewer;
  *
  */
 public abstract class PluginAction extends Action{
+	public static String ID = "edu.uci.lighthouse.views.ui.views.actions";
 	
 	public PluginAction(Object object, int style) {
 		
 	}
 
-	public static String ID = "edu.uci.lighthouse.views.ui.views.actions";
+	
 
 }
