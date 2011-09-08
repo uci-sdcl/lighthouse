@@ -28,11 +28,11 @@ public class PinMenuAction extends Action{
 	public void run(){
 		view.flipPin();
 		if(view.isPin()){
-			setToolTipText(DESCRIPTION);
+			setToolTipText(DESCRIPTION2);
 			setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 			"/icons/unpin.png"));
 		}else{
-			setToolTipText(DESCRIPTION2);
+			setToolTipText(DESCRIPTION);
 			setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 			"/icons/pin.png"));
 		}
