@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
 import java.awt.MouseInfo;
+import java.awt.PointerInfo;
 
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
@@ -32,8 +33,13 @@ public class MouseExitObserver implements Runnable {
 	public void run() {
 		boolean exit = false;
 		while (!exit) {
-			java.awt.Point mouseLocation = MouseInfo.getPointerInfo()
-					.getLocation();
+			PointerInfo pInfo = MouseInfo.getPointerInfo();
+			
+			if(pInfo == null)
+				continue;
+			
+			java.awt.Point mouseLocation = pInfo.getLocation();
+			
 			final int x = mouseLocation.x;
 			final int y = mouseLocation.y;
 
