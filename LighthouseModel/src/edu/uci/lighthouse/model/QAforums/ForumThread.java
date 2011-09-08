@@ -31,6 +31,8 @@ public class ForumThread extends Observable implements Serializable{
 	 
 	 @OneToOne (cascade = CascadeType.ALL)
 	public LHthreadCreator threadCreator;
+	 
+	private boolean closed = false;
 
 	public ForumThread(){
 	}
@@ -82,6 +84,23 @@ public class ForumThread extends Observable implements Serializable{
 		setChanged();
 		notifyObservers(arg);
 	    clearChanged();
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+		try {
+			ThreadChanged(new UpdateEvent<ForumThread>(this,this.getClass().getDeclaredField("closed")));
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isClosed() {
+		return closed;
 	}
 	
 
