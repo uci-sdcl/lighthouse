@@ -44,6 +44,7 @@ public class CompartmentRootPostView extends Panel {
 	private PersistAndUpdate pu;
 	private CompartmentThreadView view;
 	
+	
 	public CompartmentRootPostView(String message,  ForumThread thread, TeamMember tm, PersistAndUpdate pu) {
 
 		this.tm = tm;
@@ -97,6 +98,8 @@ public class CompartmentRootPostView extends Panel {
 
 	private class PostMouseMotionListener extends MouseMotionListener.Stub {
 		public void mouseHover(MouseEvent me) {
+			
+			if(!ViewManager.getInstance().threadOpen(thread)){
 			treadShell = new Shell(GraphUtils.getGraphViewer()
 					.getGraphControl().getDisplay().getActiveShell(),
 					SWT.NO_TRIM | SWT.DRAG | SWT.RESIZE);
@@ -121,10 +124,11 @@ public class CompartmentRootPostView extends Panel {
 			
 			ViewManager viewMan = ViewManager.getInstance();
 			viewMan.addCompartmentThreadView(view);
+			viewMan.addOpenThread(thread);
 			
 			if(!treadShell.isDisposed())
 				treadShell.open();
-			
+			}
 
 		
 		}
@@ -162,6 +166,7 @@ public class CompartmentRootPostView extends Panel {
 			if(!shellContainsPoint(treadShell,point) && !treadShell.isDisposed()){
 				treadShell.close();
 				ViewManager.getInstance().clearViews();
+				ViewManager.getInstance().removeOpenThread(thread);
 			}
 			
 		}
