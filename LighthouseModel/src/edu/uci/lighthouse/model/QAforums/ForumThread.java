@@ -75,7 +75,13 @@ public class ForumThread extends Observable implements Serializable{
 	}
 	
 
-	
+	/**
+	 * 
+	 * @return if anyone has replies to the root question of this thread
+	 */
+	public boolean hasReplies(){
+		return this.getRootQuestion().getResponses().size() > 0;
+	}
 
 	
 
