@@ -11,10 +11,12 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuCreator;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.ui.views.FilterManager;
 import edu.uci.lighthouse.ui.views.actions.FilterModifiedAction;
 import edu.uci.lighthouse.ui.views.actions.PluginAction;
@@ -35,6 +37,8 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 
 	protected void init() {
 		setToolTipText(DESCRIPTION);
+		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+		"/icons/question.png"));
 
 	}
 
