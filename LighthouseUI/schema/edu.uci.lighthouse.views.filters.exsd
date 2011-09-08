@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <choice minOccurs="1" maxOccurs="unbounded">
-            <element ref="classFilter"/>
+            <element ref="action"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,7 +47,7 @@
       </complexType>
    </element>
 
-   <element name="classFilter">
+   <element name="action">
       <complexType>
          <attribute name="class" type="string">
             <annotation>
