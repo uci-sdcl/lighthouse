@@ -29,7 +29,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 
 	private Menu menu;
 
-	ForumFilterAction() {
+	public ForumFilterAction() {
 		super(null, Action.AS_DROP_DOWN_MENU);
 		init();
 		setMenuCreator(this);
@@ -38,7 +38,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 	protected void init() {
 		setToolTipText(DESCRIPTION);
 		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
-		"/icons/question.png"));
+		"/icons/QA.png"));
 
 	}
 

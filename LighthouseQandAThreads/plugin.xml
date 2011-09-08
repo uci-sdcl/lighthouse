@@ -8,10 +8,10 @@
       </compartment>
    </extension>
    <extension
-         point="edu.uci.lighthouse.views.ui.views.actions">
-      <action
+         point="edu.uci.lighthouse.views.ui.views.actions.pluginactions">
+      <lhAction
             class="edu.uci.lighthouse.lighthouseqandathreads.actions.extensions.ForumFilterAction">
-      </action>
+      </lhAction>
    </extension>
 
 </plugin>
