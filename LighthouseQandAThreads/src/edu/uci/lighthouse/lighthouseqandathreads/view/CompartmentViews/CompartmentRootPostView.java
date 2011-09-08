@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 
+import java.awt.Event;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -163,7 +165,7 @@ public class CompartmentRootPostView extends Panel {
 				}
 			}
 			
-			if(!shellContainsPoint(treadShell,point) && !treadShell.isDisposed()){
+			if(!shellContainsPoint(treadShell,point) && !treadShell.isDisposed() && !view.isPin()){
 				treadShell.close();
 				ViewManager.getInstance().clearViews();
 				ViewManager.getInstance().removeOpenThread(thread);
@@ -200,6 +202,7 @@ public class CompartmentRootPostView extends Panel {
 			int borderWidth = control.getBorderWidth();
 			int menuHeight = 0;
 			Menu bar = treadShell.getMenuBar();
+
 			Method getBoundsMeth;
 			Rectangle menuRect = null;
 			

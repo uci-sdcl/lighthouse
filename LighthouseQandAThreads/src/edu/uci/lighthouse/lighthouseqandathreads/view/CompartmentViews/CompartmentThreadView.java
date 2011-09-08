@@ -47,6 +47,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
 import edu.uci.lighthouse.lighthouseqandathreads.PostController;
 import edu.uci.lighthouse.lighthouseqandathreads.actions.AnswerMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.actions.CloseThreadMenuAction;
+import edu.uci.lighthouse.lighthouseqandathreads.actions.PinMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.actions.QAcontextMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.actions.ReplyMenuAction;
 import edu.uci.lighthouse.lighthouseqandathreads.view.ForumElement;
@@ -81,6 +82,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 	private PersistAndUpdate pu;
 	private ListComposite listOfReplies;
 	private ScrolledComposite scroller;
+	private boolean pin = false;
 
 	public CompartmentThreadView(Composite parent, int style,
 			final ForumThread thread, final TeamMember tm,
@@ -148,13 +150,23 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 				CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,
 						tm, pu);
 				manager.add(ctma);
+				
+				manager.add(new Separator());
+				manager.add(new PinMenuAction(CompartmentThreadView.this));
 
 			}
 		});
+		
+		
+		
 		menuMgr.setRemoveAllWhenShown(true);
 
 		Menu menuBar = new Menu(this.getShell(), SWT.BAR);
 		menuMgr.fill(menuBar, -1);
+		
+		
+		
+		
 		this.getShell().setMenuBar(menuBar);
 
 	}
@@ -206,6 +218,19 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 	public void receive(List<LighthouseEvent> events) {
 		//updateView();
 
+	}
+
+	public void flipPin() {
+		pin = !pin;
+		
+	}
+
+	public void setPin(boolean pin) {
+		this.pin = pin;
+	}
+
+	public boolean isPin() {
+		return pin;
 	}
 
 }
