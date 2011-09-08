@@ -14,12 +14,14 @@ public class MouseExitObserver implements Runnable{
 
 	@Override
 	public void run() {
-		while(true){
+		boolean exit = false;
+		while(!exit){
 			java.awt.Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 			int x = mouseLocation.x;
 			int y = mouseLocation.y;
 			if(!shell.isDisposed() && !shell.getBounds().contains(x,y)){
 				shell.close();
+				exit = true;
 			}
 		}
 		
