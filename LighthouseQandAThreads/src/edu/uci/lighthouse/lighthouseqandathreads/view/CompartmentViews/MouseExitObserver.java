@@ -6,6 +6,13 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * Mouse Exit events are send every x ms so it is possible to move the mouse fast outside of a swt shell
+ * and the widget will never receive the mouse exit event. This class constantly monitors the mous coordinates
+ * and will always know when the mouse has exited a swt shell. 
+ * @author lee
+ *
+ */
 public class MouseExitObserver implements Runnable {
 
 	Shell shell;
