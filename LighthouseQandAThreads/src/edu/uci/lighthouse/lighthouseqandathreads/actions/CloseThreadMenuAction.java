@@ -21,7 +21,8 @@ public class CloseThreadMenuAction extends Action{
 			this.setEnabled(false);
 	}
 	public void run() {
-
+		thread.setClosed(true);
+		pu.run();
 
 	}
 }
