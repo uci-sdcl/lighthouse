@@ -27,6 +27,9 @@ public class CloseThreadMenuAction extends Action{
 		
 		if(!thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName().equals(author))
 			this.setEnabled(false);
+		
+		if(thread.isClosed())
+			this.setEnabled(false);
 	}
 	public void run() {
 		thread.setClosed(true);

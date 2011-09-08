@@ -40,6 +40,9 @@ public class AnswerMenuAction extends Action{
 		
 		if(!thread.getRootQuestion().getTeamMemberAuthor().getAuthor().getName().equals(author))
 			this.setEnabled(false);
+		
+		if(thread.isClosed())
+			this.setEnabled(false);
 	}
 	public void run() {
 		LighthouseAuthor LHauthor = ModelUtility.getAuthor();

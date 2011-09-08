@@ -35,6 +35,9 @@ public class ReplyMenuAction extends Action{
 		this.thread = thread;
 		
 		setText("Reply To Question");
+		
+		if(thread.isClosed())
+			this.setEnabled(false);
 	}
 	public void run() {
 		LighthouseAuthor author = ModelUtility.getAuthor();
