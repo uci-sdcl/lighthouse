@@ -21,6 +21,7 @@ import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.ClosedThreadFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.UnSolvedThreadsFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.SolvedThreadFilter;
+import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.FilterManager;
 import edu.uci.lighthouse.ui.views.actions.FilterModifiedAction;
 import edu.uci.lighthouse.ui.views.actions.PluginAction;
@@ -87,10 +88,12 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		public void run() {
 			
 			if (isChecked()) {
-			
+				FilterManager.getInstance().addViewerFilter(filter);
 			} else {
-				
+				FilterManager.getInstance().removeViewerFilter(filter);
 			}
+			GraphUtils.getGraphViewer().refresh();
+			
 		}
 	}
 
