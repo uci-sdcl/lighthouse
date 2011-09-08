@@ -3,7 +3,7 @@
 <schema targetNamespace="edu.uci.lighthouse.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="edu.uci.lighthouse.ui" id="edu.uci.lighthouse.views.filters" name="Class Filter"/>
+         <meta.schema plugin="edu.uci.lighthouse.ui" id="edu.uci.lighthouse.views.ui.views.actions" name="Action"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
