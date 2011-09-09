@@ -18,6 +18,8 @@ public class UnSolvedThreadsFilter extends ViewerFilter {
 			
 			return forum.hasUnSolvedThreads();
 			
+		}else if (element instanceof LighthouseRelationship || element instanceof EntityConnectionData){
+			return true;
 		} 
 		return false;
 	}
