@@ -208,6 +208,7 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 	public void updateView(LHforum forum) {
 		
 		ForumThread updatedThread = forum.getThreadWithRootQuestion(thread.getRootQuestion());
+		thread = updatedThread;
 		if(updatedThread == null)
 			return;
 		
