@@ -85,7 +85,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 	private ListComposite listOfReplies;
 	private ScrolledComposite scroller;
 	private boolean pin = false;
-
+	private ReplyMenuAction rmAction;
+	private CloseThreadMenuAction ctma;
+	
 	public CompartmentThreadView(Composite parent, int style,
 			final ForumThread thread, final TeamMember tm,
 			final PersistAndUpdate pu) {
@@ -173,10 +175,10 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		ToolBarManager tbm = new ToolBarManager();
 		PinMenuAction pma = new PinMenuAction(CompartmentThreadView.this);
 		
-		ReplyMenuAction rmAction = new ReplyMenuAction(thread, tm, pu, this,pma);
+		rmAction = new ReplyMenuAction(thread, tm, pu, this,pma);
 		tbm.add(rmAction);
 
-		CloseThreadMenuAction ctma = new CloseThreadMenuAction(thread,
+		ctma = new CloseThreadMenuAction(thread,
 				tm, pu);
 		tbm.add(ctma);
 		
@@ -209,6 +211,9 @@ public class CompartmentThreadView extends Composite implements ISubscriber {
 		
 		ForumThread updatedThread = forum.getThreadWithRootQuestion(thread.getRootQuestion());
 		thread = updatedThread;
+		rmAction.setThread(updatedThread);
+		ctma.setThread(updatedThread);
+		
 		if(updatedThread == null)
 			return;
 		

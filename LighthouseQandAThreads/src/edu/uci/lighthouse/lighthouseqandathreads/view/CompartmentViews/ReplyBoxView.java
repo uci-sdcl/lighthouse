@@ -35,7 +35,7 @@ public class ReplyBoxView extends WindowFrame {
 	public ReplyBoxView(Composite parent, int style, ForumThread thread,
 			TeamMember tm, PersistAndUpdate pu) {
 		super(parent, style);
-		this.thread = thread;
+		this.setThread(thread);
 		this.tm = tm;
 		
 		GridLayout layout = new GridLayout(1, false);
@@ -111,7 +111,7 @@ public class ReplyBoxView extends WindowFrame {
 		public void widgetSelected(SelectionEvent e) {
 
 			Post newPost = new Post(true, "", message, tm);
-			thread.getRootQuestion().addResponse(newPost);
+			getThread().getRootQuestion().addResponse(newPost);
 			postNewThreadBox.setText("");
 			pu.run();
 			ReplyBoxView.this.getShell().close();
@@ -125,5 +125,13 @@ public class ReplyBoxView extends WindowFrame {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public void setThread(ForumThread thread) {
+		this.thread = thread;
+	}
+
+	public ForumThread getThread() {
+		return thread;
 	}
 }

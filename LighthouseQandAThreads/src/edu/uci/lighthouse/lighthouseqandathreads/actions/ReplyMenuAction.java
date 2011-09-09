@@ -30,13 +30,14 @@ public class ReplyMenuAction extends Action{
     private ForumThread thread;
     private CompartmentThreadView view;
     private PinMenuAction pma;
+    private CompartmentReplyView npv;
    
 	public  ReplyMenuAction(ForumThread thread, TeamMember tm, PersistAndUpdate pu, CompartmentThreadView view, PinMenuAction pma){
 
 		this.tm = tm;
 		this.pu = pu;
 		
-		this.thread = thread;
+		this.setThread(thread);
 		this.view = view;
 		this.pma = pma;
 		
@@ -67,7 +68,7 @@ public class ReplyMenuAction extends Action{
 		postShell.setLayout(layout);
 		
 		
-		CompartmentReplyView npv = new CompartmentReplyView(postShell, SWT.None,thread,tm,pu);
+		npv = new CompartmentReplyView(postShell, SWT.None,getThread(),tm,pu);
 		
 		
 		postShell.setBackground(ColorConstants.black);
@@ -81,6 +82,15 @@ public class ReplyMenuAction extends Action{
 		
 		
 
+	}
+	public void setThread(ForumThread thread) {
+		this.thread = thread;
+		if(npv != null)
+			npv.setThread(thread);
+		
+	}
+	public ForumThread getThread() {
+		return thread;
 	}
 	
 
