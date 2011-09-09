@@ -91,7 +91,7 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 			action5 = new FilterAction(name5, new NoQuestionsFilter());
 			cachedActions.put(name5, action5);
 		}
-		result.add(action4);
+		result.add(action5);
 
 		return result;
 	}
