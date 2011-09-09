@@ -20,6 +20,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.ClosedAndAnsweredFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.ClosedThreadFilter;
+import edu.uci.lighthouse.lighthouseqandathreads.filters.NoQuestionsFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.UnSolvedThreadsFilter;
 import edu.uci.lighthouse.lighthouseqandathreads.filters.SolvedThreadFilter;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
@@ -81,6 +82,14 @@ public class ForumFilterAction extends PluginAction implements IMenuCreator {
 		if (action4 == null) {
 			action4 = new FilterAction(name4, new ClosedAndAnsweredFilter());
 			cachedActions.put(name4, action4);
+		}
+		result.add(action4);
+		
+		String name5 = "no questions";
+		FilterAction action5 = cachedActions.get(name5);
+		if (action5 == null) {
+			action5 = new FilterAction(name5, new NoQuestionsFilter());
+			cachedActions.put(name5, action5);
 		}
 		result.add(action4);
 
