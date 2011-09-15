@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.ui,
  edu.uci.lighthouse.core;bundle-version="1.0.6",
  edu.uci.lighthouse.services;bundle-version="1.0.0",
  LighthouseModelExtension;bundle-version="1.0.0",
- edu.uci.lighthouse.model;bundle-version="1.0.6"
+ edu.uci.lighthouse.model;bundle-version="1.0.6",
+ org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .

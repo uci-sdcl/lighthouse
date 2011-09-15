@@ -13,5 +13,18 @@
             class="edu.uci.lighthouse.lighthouseqandathreads.actions.extensions.ForumFilterAction">
       </lhAction>
    </extension>
+   <extension
+         id="questionMarker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.bookmark">
+      </super>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
 
 </plugin>
