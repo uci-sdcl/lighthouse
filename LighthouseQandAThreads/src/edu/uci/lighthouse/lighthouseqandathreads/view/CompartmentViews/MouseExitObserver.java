@@ -3,6 +3,10 @@ package edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews;
 import java.awt.MouseInfo;
 import java.awt.PointerInfo;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -16,21 +20,21 @@ import edu.uci.lighthouse.model.QAforums.ForumThread;
  * @author lee
  *
  */
-public class MouseExitObserver implements Runnable {
+public class MouseExitObserver extends Job {
 
 	private Shell shell;
 	private ForumThread thread;
 	private CompartmentThreadView view;
 	
 	MouseExitObserver(Shell shell, ForumThread thread, CompartmentThreadView view) {
+		super("MouseExitObserver");
 		this.shell = shell;
 		this.thread = thread;
 		this.view = view;
 		
 	}
 
-	@Override
-	public void run() {
+	protected IStatus run( IProgressMonitor monitor) {
 		boolean exit = false;
 		while (!exit) {
 			PointerInfo pInfo = MouseInfo.getPointerInfo();
@@ -43,7 +47,7 @@ public class MouseExitObserver implements Runnable {
 			final int x = mouseLocation.x;
 			final int y = mouseLocation.y;
 
-			if (!shell.isDisposed())
+			if (shell != null && !shell.isDisposed())
 			shell.getDisplay().asyncExec(new Runnable() {
 
 				@Override
@@ -74,6 +78,7 @@ public class MouseExitObserver implements Runnable {
 				exit = true;
 
 		}
+		return Status.OK_STATUS;
 
 	}
 

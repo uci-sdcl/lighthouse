@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
@@ -151,8 +152,9 @@ public class CompartmentRootPostView extends Panel {
 			}
 
 			
-			Thread javaThread = new Thread(new MouseExitObserver(treadShell,thread,view));
-			javaThread.start();
+			MouseExitObserver mo = new MouseExitObserver(treadShell,thread,view);
+			
+			mo.schedule();
 		
 		}
 
