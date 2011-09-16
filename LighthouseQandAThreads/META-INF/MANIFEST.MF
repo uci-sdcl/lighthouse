@@ -23,6 +23,7 @@ Import-Package: org.eclipse.gef,
  org.eclipse.gef.editpolicies,
  org.eclipse.gef.requests,
  org.eclipse.gef.tools,
+ org.eclipse.jdt.core,
  org.eclipse.zest.core.viewers,
  org.eclipse.zest.core.widgets
 
