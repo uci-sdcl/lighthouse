@@ -13,24 +13,5 @@
             class="edu.uci.lighthouse.lighthouseqandathreads.actions.extensions.ForumFilterAction">
       </lhAction>
    </extension>
-   <extension
-         id="questionMarker"
-         name="Question Marker"
-         point="org.eclipse.core.resources.markers">
-      <super
-            type="org.eclipse.core.resources.bookmark">
-      </super>
-      <persistent
-            value="true">
-      </persistent>
-   </extension>
-   <extension
-         point="org.eclipse.ui.ide.markerImageProviders">
-      <imageprovider
-            class="edu.uci.lighthouse.lighthouseqandathreads.markers.QuestionMarkerImageProvider"
-            id="edu.uci.lighthouse.LighthouseQandAThreads.imageprovider"
-            markertype="edu.uci.lighthouse.LighthouseQandAThreads.questionMarker">
-      </imageprovider>
-   </extension>
 
 </plugin>

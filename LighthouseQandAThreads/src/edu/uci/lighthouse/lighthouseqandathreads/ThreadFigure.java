@@ -2,6 +2,8 @@ package edu.uci.lighthouse.lighthouseqandathreads;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import edu.uci.lighthouse.LHmodelExtensions.LHclassPluginExtension;
 import edu.uci.lighthouse.core.controller.Controller;
 import edu.uci.lighthouse.core.util.ModelUtility;
@@ -25,6 +27,12 @@ import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 import edu.uci.lighthouse.ui.views.EmergingDesignView;
 
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ChangeEvent;
 import org.eclipse.draw2d.ChangeListener;
@@ -98,7 +106,17 @@ public class ThreadFigure extends CompartmentFigure {
 		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				"/icons/question.png").createImage();
 		
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
 		
+		try {
+			IMarker marker_test = root.createMarker("edu.uci.lighthouse.LighthouseQandAThreads.questionMarker");
+			marker_test.setAttribute(IMarker.MESSAGE, "test");
+			marker_test.setAttribute(IMarker.LOCATION,"somewhere");
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	//	this.addMouseMotionListener(new Listener());
 
