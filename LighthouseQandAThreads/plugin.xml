@@ -13,5 +13,22 @@
             class="edu.uci.lighthouse.lighthouseqandathreads.actions.extensions.ForumFilterAction">
       </lhAction>
    </extension>
+   
+
+   
+      <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            targetID="#CompilationUnitEditorContext"
+            id="org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext">
+         <action
+               label="Add Question"
+               class="edu.uci.lighthouse.lighthouseqandathreads.delegates.ContextMenuDelegate"
+               menubarPath="additions"
+               id="edu.uci.lighthouse.lighthouseqandathreads.delegates.ContextMenuDelegate">
+
+         </action>
+      </viewerContribution>
+   </extension>
 
 </plugin>
