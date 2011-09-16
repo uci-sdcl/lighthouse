@@ -30,5 +30,21 @@
          </action>
       </viewerContribution>
    </extension>
+   
+   <extension id="customMarker" name="Custom Marker"
+   point="org.eclipse.core.resources.markers">
+   <super type="org.eclipse.core.resources.bookmark" />
+   <persistent value="true"/>
+   </extension>
+   
+   <extension
+   	point="org.eclipse.ui.ide.markerImageProviders">
+   	<imageprovider
+   		markertype="com.ibm.tool.resources.custommarker"
+   		icon="/icons/question.png"
+   		class="edu.uci.lighthouse.lighthouseqandathreads.markers.QuestionMarkerImageProvider"
+   		id="edu.uci.lighthouse.LighthouseQandAThreads.imageprovider"
+   		/>   	
+   	</extension>
 
 </plugin>

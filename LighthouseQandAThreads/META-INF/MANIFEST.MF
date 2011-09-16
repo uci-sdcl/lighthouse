@@ -24,6 +24,10 @@ Import-Package: org.eclipse.gef,
  org.eclipse.gef.requests,
  org.eclipse.gef.tools,
  org.eclipse.jdt.core,
+ org.eclipse.jdt.internal.ui.javaeditor,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors.text,
+ org.eclipse.ui.texteditor,
  org.eclipse.zest.core.viewers,
  org.eclipse.zest.core.widgets
 
