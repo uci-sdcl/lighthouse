@@ -109,15 +109,6 @@ public class ThreadFigure extends CompartmentFigure {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
 		
-		try {
-			IMarker marker_test = root.createMarker("edu.uci.lighthouse.LighthouseQandAThreads.questionMarker");
-			marker_test.setAttribute(IMarker.MESSAGE, "test");
-			marker_test.setAttribute(IMarker.LOCATION,"somewhere");
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	//	this.addMouseMotionListener(new Listener());
 
 	}
