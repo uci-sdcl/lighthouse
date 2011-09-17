@@ -68,16 +68,17 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 	
 		ModelUtility mu = new ModelUtility();
 		String name = mu.getClassFullyQualifiedName(file);
-		openPostView(name);
-		
-		
 		callback = new CallBackMarkerCreator(offset,offset+length,"",startLine,file);
+
+		openPostView(name,callback);
+		
+		
 		
 
 		
 	}
 	
-	private void openPostView(String className){
+	private void openPostView(String className, CallBackMarkerCreator callback2){
 		LighthouseAuthor author = ModelUtility.getAuthor();
 		LHthreadCreator tm = new LHthreadCreator(author);
 
@@ -103,7 +104,7 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 			LighthouseClass clazz = (LighthouseClass)entity;
 			LHforum forum = clazz.getForum();
 			PersistAndUpdate pu = new PersistAndUpdate(clazz);
-			npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu,callback);
+			npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu,callback2);
 			
 			
 			postShell.setBackground(ColorConstants.black);

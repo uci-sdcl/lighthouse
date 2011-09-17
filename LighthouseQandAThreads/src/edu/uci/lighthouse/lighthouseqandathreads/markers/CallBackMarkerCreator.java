@@ -15,7 +15,7 @@ public class CallBackMarkerCreator {
 	public CallBackMarkerCreator(int charStart, int charFinish, String message, int startLine, IFile file){
 		this.charFinish = charFinish;
 		this.charStart = charStart;
-		this.message = message;
+		this.setMessage(message);
 		this.startLine = startLine;
 		this.file = file;
 	}
@@ -24,7 +24,7 @@ public class CallBackMarkerCreator {
 		IMarker marker;
 		try {
 			marker = file.createMarker("edu.uci.lighthouse.LighthouseQandAThreads.customMarker");
-			marker.setAttribute(IMarker.MESSAGE, message);
+			marker.setAttribute(IMarker.MESSAGE, getMessage());
 			marker.setAttribute(IMarker.LOCATION, "line "+startLine);
 			marker.setAttribute(IMarker.CHAR_START, charStart);
 			marker.setAttribute(IMarker.CHAR_END, charFinish);
@@ -33,5 +33,13 @@ public class CallBackMarkerCreator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	private String getMessage() {
+		return message;
 	}
 }

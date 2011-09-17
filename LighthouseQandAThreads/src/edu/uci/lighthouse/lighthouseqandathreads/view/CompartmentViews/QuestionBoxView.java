@@ -127,8 +127,11 @@ public class QuestionBoxView extends WindowFrame{
 				pu.run();
 				QuestionBoxView.this.getShell().close();
 				
-				if(callback != null)
+				if(callback != null){
+					callback.setMessage(message);
 					callback.run();
+				}
+					
 			
 		}
 	}
