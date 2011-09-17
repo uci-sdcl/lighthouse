@@ -14,6 +14,7 @@ import edu.uci.lighthouse.model.QAforums.TeamMember;
 
 public class CompartmentNewPostView extends Composite{
 	private int NUM_COLUMNS = 1;
+	private QuestionBoxView view;
 	
 	public CompartmentNewPostView(Composite parent, int style,LHforum forum, TeamMember tm, PersistAndUpdate pu){
 		super(parent,style);
@@ -24,7 +25,11 @@ public class CompartmentNewPostView extends Composite{
 		
 		this.setBackground(threadBack2);
 		
-		QuestionBoxView view = new QuestionBoxView(this, SWT.None,forum,tm, pu);
+		view = new QuestionBoxView(this, SWT.None,forum,tm, pu);
+	}
+	
+	public String getMessage(){
+		return view.getMessage();
 	}
 
 }

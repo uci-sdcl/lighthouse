@@ -44,6 +44,8 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 	
 	 private ResourceBundle resourceBundle;
 	 private Shell postShell; 
+	 private CompartmentNewPostView npv;
+	 
 	@Override
 	public void run(IAction action) {
 		IWorkbench workbench = PlatformUI.getWorkbench();
@@ -69,7 +71,7 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 		IMarker marker;
 		try {
 			marker = file.createMarker("edu.uci.lighthouse.LighthouseQandAThreads.customMarker");
-			marker.setAttribute(IMarker.MESSAGE, "This a question marker");
+			marker.setAttribute(IMarker.MESSAGE, npv.getMessage());
 			marker.setAttribute(IMarker.LOCATION, "line "+startLine);
 			marker.setAttribute(IMarker.CHAR_START, offset);
 			marker.setAttribute(IMarker.CHAR_END, offset);
@@ -109,7 +111,7 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 			LighthouseClass clazz = (LighthouseClass)entity;
 			LHforum forum = clazz.getForum();
 			PersistAndUpdate pu = new PersistAndUpdate(clazz);
-			CompartmentNewPostView npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu);
+			npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu);
 			
 			
 			postShell.setBackground(ColorConstants.black);
