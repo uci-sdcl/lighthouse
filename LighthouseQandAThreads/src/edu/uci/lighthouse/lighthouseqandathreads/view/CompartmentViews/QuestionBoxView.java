@@ -123,14 +123,16 @@ public class QuestionBoxView extends WindowFrame{
 			
 				Post newPost = new Post(true, "", message, tm);
 				forum.addThread(newPost);
-				postNewThreadBox.setText("");
-				pu.run();
-				QuestionBoxView.this.getShell().close();
-				
 				if(callback != null){
 					callback.setMessage(message);
 					callback.run();
 				}
+				
+				postNewThreadBox.setText("");
+				pu.run();
+				QuestionBoxView.this.getShell().close();
+				
+
 					
 			
 		}
