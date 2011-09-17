@@ -35,9 +35,9 @@
             id="org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext">
          <action
                label="Open Question Thread"
-               class="edu.uci.lighthouse.lighthouseqandathreads.delegates.ContextMenuDelegate"
+               class="edu.uci.lighthouse.lighthouseqandathreads.delegates.MarkerContextMenuDelegate"
                menubarPath="additions"
-               id="edu.uci.lighthouse.lighthouseqandathreads.delegates.ContextMenuDelegate">
+               id="edu.uci.lighthouse.lighthouseqandathreads.delegates.MarkerContextMenuDelegate">
 
          </action>
       </viewerContribution>
