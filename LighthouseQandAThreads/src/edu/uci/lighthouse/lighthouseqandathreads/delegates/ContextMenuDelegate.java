@@ -68,11 +68,12 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 		
 		IMarker marker;
 		try {
-			marker = file.createMarker("com.ibm.tool.resources.custommarker");
+			marker = file.createMarker("edu.uci.lighthouse.LighthouseQandAThreads.customMarker");
 			marker.setAttribute(IMarker.MESSAGE, "This a question marker");
 			marker.setAttribute(IMarker.LOCATION, "line "+startLine);
 			marker.setAttribute(IMarker.CHAR_START, offset);
 			marker.setAttribute(IMarker.CHAR_END, offset);
+		
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

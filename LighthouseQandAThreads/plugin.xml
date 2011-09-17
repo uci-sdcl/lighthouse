@@ -40,11 +40,23 @@
    <extension
    	point="org.eclipse.ui.ide.markerImageProviders">
    	<imageprovider
-   		markertype="com.ibm.tool.resources.custommarker"
+   		markertype="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"
    		icon="/icons/question.png"
    		class="edu.uci.lighthouse.lighthouseqandathreads.markers.QuestionMarkerImageProvider"
    		id="edu.uci.lighthouse.LighthouseQandAThreads.imageprovider"
    		/>   	
+   	</extension>
+   	
+   	<extension point="org.eclipse.ui.menus">
+   		<menuContribution
+  			  class="my.stuff.MarkerContributionFactory"
+  			  locationURI="popup:#AbstractTextEditorRulerContext?after=additions">
+  			<dynamic
+       		  	class="my.stuff.MarkerMenuContribution"
+        		 id="my.stuff.MarkerMenuContribution">
+  			</dynamic>
+		</menuContribution>
+   	
    	</extension>
 
 </plugin>
