@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
-Import-Package: org.eclipse.gef,
+Import-Package: org.eclipse.core.expressions,
+ org.eclipse.gef,
  org.eclipse.gef.commands,
  org.eclipse.gef.editparts,
  org.eclipse.gef.editpolicies,
@@ -26,6 +27,7 @@ Import-Package: org.eclipse.gef,
  org.eclipse.jdt.core,
  org.eclipse.jdt.internal.ui.javaeditor,
  org.eclipse.jface.text,
+ org.eclipse.jface.text.source,
  org.eclipse.ui.editors.text,
  org.eclipse.ui.texteditor,
  org.eclipse.zest.core.viewers,

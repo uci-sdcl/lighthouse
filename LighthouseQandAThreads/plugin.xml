@@ -29,6 +29,19 @@
 
          </action>
       </viewerContribution>
+      
+            <viewerContribution
+            targetID="#CompilationUnitRulerContext"
+            id="org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext">
+         <action
+               label="Open Question Thread"
+               class="edu.uci.lighthouse.lighthouseqandathreads.delegates.ContextMenuDelegate"
+               menubarPath="additions"
+               id="edu.uci.lighthouse.lighthouseqandathreads.delegates.ContextMenuDelegate">
+
+         </action>
+      </viewerContribution>
+      
    </extension>
    
    <extension point="org.eclipse.core.resources.markers"
@@ -47,16 +60,4 @@
    		/>   	
    	</extension>
    	
-   	<extension point="org.eclipse.ui.menus">
-   		<menuContribution
-  			  class="my.stuff.MarkerContributionFactory"
-  			  locationURI="popup:#AbstractTextEditorRulerContext?after=additions">
-  			<dynamic
-       		  	class="my.stuff.MarkerMenuContribution"
-        		 id="my.stuff.MarkerMenuContribution">
-  			</dynamic>
-		</menuContribution>
-   	
-   	</extension>
-
 </plugin>
