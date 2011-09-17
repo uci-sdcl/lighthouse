@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
+import edu.uci.lighthouse.lighthouseqandathreads.markers.CallBackMarkerCreator;
 import edu.uci.lighthouse.lighthouseqandathreads.view.LayoutMetrics;
 import edu.uci.lighthouse.lighthouseqandathreads.view.WindowFrame;
 import edu.uci.lighthouse.model.QAforums.ForumThread;
@@ -34,13 +35,14 @@ public class QuestionBoxView extends WindowFrame{
 	Composite composite;
 	Button postButton;
 	PersistAndUpdate pu;
+	private CallBackMarkerCreator callback;
 	
-	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm, PersistAndUpdate pu) {
+	public QuestionBoxView(Composite parent, int style, LHforum forum, TeamMember tm, PersistAndUpdate pu, CallBackMarkerCreator callback) {
 		super(parent, style);
 		
 		this.forum = forum;
 		this.tm = tm;
-		
+		this.callback = callback;
 		GridLayout layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 1;
 		layout.verticalSpacing = 1;
@@ -124,6 +126,9 @@ public class QuestionBoxView extends WindowFrame{
 				postNewThreadBox.setText("");
 				pu.run();
 				QuestionBoxView.this.getShell().close();
+				
+				if(callback != null)
+					callback.run();
 			
 		}
 	}

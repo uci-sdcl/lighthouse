@@ -29,6 +29,7 @@ import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.lighthouseqandathreads.PersistAndUpdate;
+import edu.uci.lighthouse.lighthouseqandathreads.markers.CallBackMarkerCreator;
 import edu.uci.lighthouse.lighthouseqandathreads.view.CompartmentViews.CompartmentNewPostView;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseClass;
@@ -45,6 +46,7 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 	 private ResourceBundle resourceBundle;
 	 private Shell postShell; 
 	 private CompartmentNewPostView npv;
+	 private CallBackMarkerCreator callback;
 	 
 	@Override
 	public void run(IAction action) {
@@ -68,18 +70,8 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 		String name = mu.getClassFullyQualifiedName(file);
 		openPostView(name);
 		
-		IMarker marker;
-		try {
-			marker = file.createMarker("edu.uci.lighthouse.LighthouseQandAThreads.customMarker");
-			marker.setAttribute(IMarker.MESSAGE, npv.getMessage());
-			marker.setAttribute(IMarker.LOCATION, "line "+startLine);
-			marker.setAttribute(IMarker.CHAR_START, offset);
-			marker.setAttribute(IMarker.CHAR_END, offset);
 		
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		callback = new CallBackMarkerCreator(offset,offset+length,"",startLine,file);
 		
 
 		
@@ -111,7 +103,7 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 			LighthouseClass clazz = (LighthouseClass)entity;
 			LHforum forum = clazz.getForum();
 			PersistAndUpdate pu = new PersistAndUpdate(clazz);
-			npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu);
+			npv = new CompartmentNewPostView(postShell, SWT.None,forum,tm,pu,callback);
 			
 			
 			postShell.setBackground(ColorConstants.black);

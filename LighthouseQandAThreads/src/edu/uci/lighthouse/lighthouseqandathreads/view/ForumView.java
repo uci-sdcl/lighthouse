@@ -43,7 +43,7 @@ public class ForumView extends Composite{
 	
 		
 		//post new thread box-----------------------------
-		QuestionBoxView qbv = new QuestionBoxView(this, SWT.None, forum, tm,pu);
+		QuestionBoxView qbv = new QuestionBoxView(this, SWT.None, forum, tm,pu,null);
 		//conversation list ---------------------------------------------------
 
 	      cl = new ThreadList(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER, pu);
