@@ -46,6 +46,10 @@ public class MarkerContextMenuDelegate implements IEditorActionDelegate{
 		
 		
 	}
+	
+	public void openReplyView(){
+		
+	}
 
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
