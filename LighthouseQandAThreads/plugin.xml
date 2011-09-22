@@ -29,7 +29,7 @@
 
          </action>
       </viewerContribution>
-      
+     <!-- 
             <viewerContribution
             targetID="#CompilationUnitRulerContext"
             id="org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext">
@@ -40,7 +40,7 @@
                id="edu.uci.lighthouse.lighthouseqandathreads.delegates.MarkerContextMenuDelegate">
 
          </action>
-      </viewerContribution>
+      </viewerContribution> -->
       
    </extension>
    
