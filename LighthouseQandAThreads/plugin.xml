@@ -15,7 +15,21 @@
    </extension>
    
 
+     <extension point="org.eclipse.core.resources.markers"
+   id="customMarker" name="Custom Marker">
+   <super type="org.eclipse.core.resources.textmarker" />
+   <persistent value="true"/>
+   </extension>
    
+   <extension
+   	point="org.eclipse.ui.ide.markerImageProviders">
+   	<imageprovider
+          class="edu.uci.lighthouse.lighthouseqandathreads.markers.QuestionMarkerImageProvider"
+          icon="/icons/question.png"
+          id="edu.uci.lighthouse.LighthouseQandAThreads.imageprovider"
+          markertype="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"/>   	
+   	</extension>
+   	
       <extension
          point="org.eclipse.ui.popupMenus">
       <viewerContribution
@@ -28,9 +42,9 @@
                id="edu.uci.lighthouse.lighthouseqandathreads.delegates.ContextMenuDelegate">
 
          </action>
-      </viewerContribution>
-     <!-- 
-            <viewerContribution
+      </viewerContribution> 
+      
+      <viewerContribution
             targetID="#CompilationUnitRulerContext"
             id="org.eclipse.jdt.ui.CompilationUnitEditor.RulerContext">
          <action
@@ -40,24 +54,10 @@
                id="edu.uci.lighthouse.lighthouseqandathreads.delegates.MarkerContextMenuDelegate">
 
          </action>
-      </viewerContribution> -->
+      </viewerContribution>
       
    </extension>
    
-   <extension point="org.eclipse.core.resources.markers"
-   id="customMarker" name="Custom Marker">
-   <super type="org.eclipse.core.resources.bookmark" />
-   <persistent value="true"/>
-   </extension>
-   
-   <extension
-   	point="org.eclipse.ui.ide.markerImageProviders">
-   	<imageprovider
-   		markertype="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"
-   		icon="/icons/question.png"
-   		class="edu.uci.lighthouse.lighthouseqandathreads.markers.QuestionMarkerImageProvider"
-   		id="edu.uci.lighthouse.LighthouseQandAThreads.imageprovider"
-   		/>   	
-   	</extension>
+ 
    	
 </plugin>
