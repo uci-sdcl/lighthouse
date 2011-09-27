@@ -24,6 +24,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.texteditor.*;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 
@@ -38,6 +39,7 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.model.QAforums.LHforum;
 import edu.uci.lighthouse.model.QAforums.LHthreadCreator;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
+import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 
 public class ContextMenuDelegate implements IEditorActionDelegate{
 
@@ -56,19 +58,24 @@ public class ContextMenuDelegate implements IEditorActionDelegate{
 		IEditorPart part = page.getActiveEditor();
 	
 		CompilationUnitEditor javaEditor = (CompilationUnitEditor)part;
+		
+		
 		ISelectionProvider provider = javaEditor.getSelectionProvider();
+		
 		ITextSelection selection = (ITextSelection)provider.getSelection();
 		int offset = selection.getOffset();
 		int length = selection.getLength();
 		int startLine = selection.getStartLine();
 		IEditorInput input = part.getEditorInput();
+		
+		
 	
 		IFile file = (IFile) input
 		.getAdapter(IFile.class);
 	
 		ModelUtility mu = new ModelUtility();
 		String name = mu.getClassFullyQualifiedName(file);
-		callback = new CallBackMarkerCreator(offset,offset+length,"",startLine,file);
+		callback = new CallBackMarkerCreator(offset,offset+length,"",startLine,file, part, javaEditor);
 
 		openPostView(name,callback);
 		

@@ -29,6 +29,7 @@ Import-Package: org.eclipse.core.expressions,
  org.eclipse.jface.text,
  org.eclipse.jface.text.source,
  org.eclipse.ui.editors.text,
+ org.eclipse.ui.internal.editors.text,
  org.eclipse.ui.texteditor,
  org.eclipse.zest.core.viewers,
  org.eclipse.zest.core.widgets

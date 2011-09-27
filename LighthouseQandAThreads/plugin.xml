@@ -58,6 +58,31 @@
       
    </extension>
    
+   <extension point="org.eclipse.ui.editors.annotationTypes">
+                <type markerSeverity="0"
+                                        super="org.eclipse.ui.workbench.texteditor.info"
+                                        name="edu.uci.lighthouse.lighthouseqandathreads.annotation"
+                                        markerType="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
+		id="myannotationspecification" name="MyAnnotation">
+	<specification annotationType="edu.uci.lighthouse.lighthouseqandathreads.annotation"
+			label="MyAnnotation"
+			icon="icons/question.png"
+			overviewRulerPreferenceKey="clruler"
+			overviewRulerPreferenceValue="true"
+			colorPreferenceKey="clcolor"
+			colorPreferenceValue="255,255,0"
+			textPreferenceKey="cltext"
+			textPreferenceValue="true"
+			verticalRulerPreferenceKey="clvertical"
+			verticalRulerPreferenceValue="true"
+			textStylePreferenceKey="clstyle"
+			textStylePreferenceValue="BOX">
+	</specification>
+</extension>
+   
  
    	
 </plugin>
