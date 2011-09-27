@@ -21,14 +21,14 @@
    <persistent value="true"/>
    </extension>
    
-   <extension
+   <!-- <extension
    	point="org.eclipse.ui.ide.markerImageProviders">
    	<imageprovider
           class="edu.uci.lighthouse.lighthouseqandathreads.markers.QuestionMarkerImageProvider"
           icon="/icons/question.png"
           id="edu.uci.lighthouse.LighthouseQandAThreads.imageprovider"
           markertype="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"/>   	
-   	</extension>
+   	</extension> -->
    	
       <extension
          point="org.eclipse.ui.popupMenus">
@@ -73,13 +73,13 @@
 			overviewRulerPreferenceKey="clruler"
 			overviewRulerPreferenceValue="true"
 			colorPreferenceKey="clcolor"
-			colorPreferenceValue="255,255,0"
+			colorPreferenceValue="128, 0, 128"
 			textPreferenceKey="cltext"
 			textPreferenceValue="true"
 			verticalRulerPreferenceKey="clvertical"
 			verticalRulerPreferenceValue="true"
 			textStylePreferenceKey="clstyle"
-			textStylePreferenceValue="BOX">
+			textStylePreferenceValue="IBEAM">
 	</specification>
 </extension>
    

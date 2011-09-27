@@ -41,6 +41,7 @@ public class CallBackMarkerCreator {
 			marker.setAttribute(IMarker.CHAR_END, charFinish);
 			
 			
+			
 		      //The DocumentProvider enables to get the document currently loaded in the editor
 		      IDocumentProvider documentProvider = javaEditor.getDocumentProvider();
 
