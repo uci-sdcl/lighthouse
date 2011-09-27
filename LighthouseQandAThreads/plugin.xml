@@ -59,30 +59,35 @@
    </extension>
    
    <extension point="org.eclipse.ui.editors.annotationTypes">
-                <type markerSeverity="0"
+                <type 
                                         super="org.eclipse.ui.workbench.texteditor.info"
                                         name="edu.uci.lighthouse.lighthouseqandathreads.annotation"
                                         markerType="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"/>
    </extension>
    
    <extension point="org.eclipse.ui.editors.markerAnnotationSpecification"
-		id="myannotationspecification" name="MyAnnotation">
+		id="myannotationspecification" name="Lighthouse_QandA_Annotation">
 	<specification annotationType="edu.uci.lighthouse.lighthouseqandathreads.annotation"
-			label="MyAnnotation"
+			label="Lighthouse QA Annotation"
+			contributesToHeader="true"
 			icon="icons/question.png"
+			presentationLayer="0"
 			overviewRulerPreferenceKey="clruler"
 			overviewRulerPreferenceValue="true"
 			colorPreferenceKey="clcolor"
-			colorPreferenceValue="128, 0, 128"
+			colorPreferenceValue="197, 168, 212"
+	        highlightPreferenceKey="clhighlight"
+            highlightPreferenceValue="true"
 			textPreferenceKey="cltext"
 			textPreferenceValue="true"
 			verticalRulerPreferenceKey="clvertical"
 			verticalRulerPreferenceValue="true"
 			textStylePreferenceKey="clstyle"
-			textStylePreferenceValue="IBEAM">
+			includeOnPreferencePage="true"
+			textStylePreferenceValue="BOX">
 	</specification>
 </extension>
    
- 
+
    	
 </plugin>

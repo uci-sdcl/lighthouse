@@ -6,6 +6,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.IDocumentProvider;
@@ -42,23 +43,15 @@ public class CallBackMarkerCreator {
 			
 			
 			
-		      //The DocumentProvider enables to get the document currently loaded in the editor
+			
 		      IDocumentProvider documentProvider = javaEditor.getDocumentProvider();
-
-		      //This is the document we want to connect to. This is taken from 
-		      //the current editor input.
 		      IDocument document = documentProvider.getDocument(part.getEditorInput());
-
-		      //The IannotationModel enables to add/remove/change annotation to a Document 
-		      //loaded in an Editor
 		      IAnnotationModel annoModel = documentProvider.getAnnotationModel(part.getEditorInput());
-
-		      //Note: The annotation type id specify that you want to create one of your 
-		      //annotations
+		      
+		      
 		      SimpleMarkerAnnotation ma = new SimpleMarkerAnnotation(
 						"com.ibm.example.myannotation",marker);
 
-		      //Finally add the new annotation to the model
 		      annoModel.connect(document);
 		      annoModel.addAnnotation(ma,new Position(charStart,charFinish - charStart));
 		      annoModel.disconnect(document);
