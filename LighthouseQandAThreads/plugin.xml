@@ -103,7 +103,12 @@
     name="Question Generator">
     
     	<markerTypeReference id="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"/>
-    	<markerFieldReference id="org.eclipse.ui.ide.descriptionField"/>
+   <markerFieldReference
+         id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+   <markerFieldReference
+         id="org.eclipse.ui.ide.locationField"/>
+   <markerFieldReference
+         id="org.eclipse.ui.ide.resourceField"/> 
     </markerContentGenerator>
 </extension>
    
