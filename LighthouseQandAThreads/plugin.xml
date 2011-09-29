@@ -21,14 +21,14 @@
    <persistent value="true"/>
    </extension>
    
-   <!-- <extension
+    <extension
    	point="org.eclipse.ui.ide.markerImageProviders">
    	<imageprovider
           class="edu.uci.lighthouse.lighthouseqandathreads.markers.QuestionMarkerImageProvider"
           icon="/icons/question.png"
           id="edu.uci.lighthouse.LighthouseQandAThreads.imageprovider"
           markertype="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"/>   	
-   	</extension> -->
+   	</extension> 
    	
       <extension
          point="org.eclipse.ui.popupMenus">
@@ -69,13 +69,13 @@
 		id="myannotationspecification" name="Lighthouse_QandA_Annotation">
 	<specification annotationType="edu.uci.lighthouse.lighthouseqandathreads.annotation"
 			label="Lighthouse QA Annotation"
-			contributesToHeader="true"
+			
 			icon="icons/question.png"
-			presentationLayer="0"
+			
 			overviewRulerPreferenceKey="clruler"
 			overviewRulerPreferenceValue="true"
 			colorPreferenceKey="clcolor"
-			colorPreferenceValue="197, 168, 212"
+			colorPreferenceValue="231, 252, 232"
 	        highlightPreferenceKey="clhighlight"
             highlightPreferenceValue="true"
 			textPreferenceKey="cltext"
@@ -86,6 +86,15 @@
 			includeOnPreferencePage="true"
 			textStylePreferenceValue="BOX">
 	</specification>
+</extension>
+
+<extension point="org.eclipse.ui.views">
+	<view
+    	class="edu.uci.lighthouse.lighthouseqandathreads.markerViews.QuestionMarkerView"
+        icon="icons/question.png"
+        id="edu.uci.lighthouse.lighthouseqandathreads.markerViews.QuestionMarkerView"
+        name="Questions">
+    </view>
 </extension>
    
 
