@@ -7,7 +7,7 @@ public class QuestionMarkerView extends MarkerSupportView{
 	public static String id = "edu.uci.lighthouse.lighthouseqandathreads.markerViews.QuestionMarkerView";
 	
 	public QuestionMarkerView() {
-		super(id);
+		super("edu.uci.lighthouse.lighthouseqandathreads.questionGenerator");
 	}
 
 }

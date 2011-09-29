@@ -96,6 +96,16 @@
         name="Questions">
     </view>
 </extension>
+
+<extension point="org.eclipse.ui.ide.markerSupport">
+    <markerContentGenerator
+    id="edu.uci.lighthouse.lighthouseqandathreads.questionGenerator" 
+    name="Question Generator">
+    
+    	<markerTypeReference id="edu.uci.lighthouse.LighthouseQandAThreads.customMarker"/>
+    	<markerFieldReference id="org.eclipse.ui.ide.descriptionField"/>
+    </markerContentGenerator>
+</extension>
    
 
    	
