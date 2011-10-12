@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.expertise;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import javax.annotation.Resource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -18,6 +21,7 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.Panel;
 
 import org.eclipse.draw2d.Label;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
@@ -30,24 +34,25 @@ import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 
 public class ExpertiseFigure extends CompartmentFigure {
 	private int NUM_COLUMNS = 1;
-	private Image icon;
 	private List<LighthouseAuthor> cacheOfAuthors;
 	
-	static{
-
-	}
-	
 	MODE mode;
-
+	private ExpertisePanel panel;
 
 	public ExpertiseFigure() {
 		GridLayout layout = new GridLayout();
-		layout.numColumns = NUM_COLUMNS;			
+		layout.horizontalSpacing = 0;
+		layout.verticalSpacing = 0;
+		layout.numColumns = NUM_COLUMNS;
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+			
 		setLayoutManager(layout);
-		icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
-				"/icons/question.png").createImage();
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot root = workspace.getRoot();
+		panel = new ExpertisePanel();
+		GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
+		this.add(panel, data);
+	//	IWorkspace workspace = ResourcesPlugin.getWorkspace();
+	//	IWorkspaceRoot root = workspace.getRoot();
 	}
 
 	public boolean isVisible(MODE mode) {
@@ -57,14 +62,12 @@ public class ExpertiseFigure extends CompartmentFigure {
 	
 	public void populate(MODE mode) {
 		this.mode = mode;
-		
-		
 		try {
 			cacheOfAuthors = new LHAuthorDAO().list();
 			for(LighthouseAuthor author: cacheOfAuthors){
 				String authorName = author.getName();
 				Label nameLabel = new Label(authorName);
-				this.add(nameLabel);
+				panel.add(nameLabel);
 			}
 			
 		} catch (JPAException e) {
@@ -74,43 +77,19 @@ public class ExpertiseFigure extends CompartmentFigure {
 		
 	}
 	
-	private class Listener implements MouseMotionListener{
+	private class ExpertisePanel extends Panel {
+		private FlowLayout ExpertisePanel_layout;
 
-
-		@Override
-		public void mouseDragged(MouseEvent arg0) {
-						
+		public ExpertisePanel() {
+			ExpertisePanel_layout = new FlowLayout();
+			ExpertisePanel_layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
+			ExpertisePanel_layout.setMinorSpacing(25);
+			this.setBackgroundColor(ColorConstants.black);
+			setLayoutManager(ExpertisePanel_layout);			
 		}
 
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
 
-		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseHover(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseMoved(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
 	}
 	
-
-	
-
-	private class QuestionPanel extends Panel {
-		private FlowLayout QuestionPanel_layout;
-	}
 
 }
