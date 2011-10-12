@@ -11,3 +11,4 @@ Require-Bundle: org.eclipse.ui,
  edu.uci.lighthouse.ui;bundle-version="1.0.3"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.core.resources
