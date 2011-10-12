@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.expertise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,13 +21,17 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.jpa.JPAException;
+import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
 
 public class ExpertiseFigure extends CompartmentFigure {
 	private int NUM_COLUMNS = 1;
 	private Image icon;
-
+	private List<LighthouseAuthor> cacheOfAuthors;
 	
 	static{
 
@@ -51,8 +56,21 @@ public class ExpertiseFigure extends CompartmentFigure {
 	
 	
 	public void populate(MODE mode) {
+		this.mode = mode;
 		
-
+		
+		try {
+			cacheOfAuthors = new LHAuthorDAO().list();
+			for(LighthouseAuthor author: cacheOfAuthors){
+				String authorName = author.getName();
+				Label nameLabel = new Label(authorName);
+				this.add(nameLabel);
+			}
+			
+		} catch (JPAException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

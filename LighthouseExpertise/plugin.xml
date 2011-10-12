@@ -3,6 +3,9 @@
 <plugin>
    <extension
          point="edu.uci.lighthouse.ui.figures.compartment">
+      <compartment
+            class="edu.uci.lighthouse.expertise.ExpertiseFigure">
+      </compartment>
    </extension>
 
 </plugin>
