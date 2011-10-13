@@ -20,10 +20,12 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.Panel;
+import org.eclipse.draw2d.ToolTipHelper;
 
 import org.eclipse.draw2d.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.core.util.ModelUtility;
@@ -52,6 +54,23 @@ public class ExpertiseFigure extends CompartmentFigure {
 		panel = new ExpertisePanel();
 		GridData data = new GridData(SWT.FILL,SWT.FILL,true,true);
 		this.add(panel, data);
+		
+		Image icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+				"/icons/expert_contrib.png").createImage();
+		
+		OneExpertPanel oep = new OneExpertPanel(icon,"fred", "top contributor");
+		
+		Image icon2 = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+		"/icons/expert_originator.png").createImage();
+		OneExpertPanel oep2 = new OneExpertPanel(icon2, "fred","originator");
+		Image icon3 = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+		"/icons/expert_user.png").createImage();
+		OneExpertPanel oep3 = new OneExpertPanel(icon3, "fred","top user");
+		
+		panel.add(oep);
+		panel.add(oep2);
+		panel.add(oep3);
+
 	//	IWorkspace workspace = ResourcesPlugin.getWorkspace();
 	//	IWorkspaceRoot root = workspace.getRoot();
 	}
@@ -68,7 +87,7 @@ public class ExpertiseFigure extends CompartmentFigure {
 			for(LighthouseAuthor author: cacheOfAuthors){
 				String authorName = author.getName();
 				Label nameLabel = new Label(authorName);
-				panel.add(nameLabel);
+			//	panel.add(nameLabel);
 			}
 			
 		} catch (JPAException e) {
@@ -80,20 +99,27 @@ public class ExpertiseFigure extends CompartmentFigure {
 	
 	private class OneExpertPanel extends Panel{
 		
-		Image image;
 		String name;
 		String metric;
+		Image icon;
 		
-		public OneExpertPanel(Image image, String name, String metric){
+		public OneExpertPanel(Image icon, String name, String metric){
 			GridLayout layout = new GridLayout();
 			layout.horizontalSpacing = 0;
 			layout.verticalSpacing = 0;
-			layout.numColumns = 1;
+			layout.numColumns = 2;
 			layout.marginHeight = 0;
 			layout.marginWidth = 0;
 			this.setLayoutManager(layout);
 			
+			this.icon = icon;
+			ImageFigure imageFigure = new ImageFigure(icon);
+			this.add(imageFigure);
 			
+		//	Label nameLabel = new Label(metric);
+		//	this.add(nameLabel);
+
+		
 		}
 
 	}
@@ -102,9 +128,7 @@ public class ExpertiseFigure extends CompartmentFigure {
 		private FlowLayout ExpertisePanel_layout;
 
 		public ExpertisePanel() {
-			Image icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
-			"/icons/expert.png").createImage();
-			ImageFigure imageFigure = new ImageFigure(icon);
+			
 			
 			ExpertisePanel_layout = new FlowLayout();
 			ExpertisePanel_layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
@@ -113,7 +137,6 @@ public class ExpertiseFigure extends CompartmentFigure {
 			
 			setLayoutManager(ExpertisePanel_layout);
 			
-			this.add(imageFigure);
 		}
 
 
