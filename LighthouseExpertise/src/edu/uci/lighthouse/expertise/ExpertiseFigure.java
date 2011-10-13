@@ -78,6 +78,26 @@ public class ExpertiseFigure extends CompartmentFigure {
 		
 	}
 	
+	private class OneExpertPanel extends Panel{
+		
+		Image image;
+		String name;
+		String metric;
+		
+		public OneExpertPanel(Image image, String name, String metric){
+			GridLayout layout = new GridLayout();
+			layout.horizontalSpacing = 0;
+			layout.verticalSpacing = 0;
+			layout.numColumns = 1;
+			layout.marginHeight = 0;
+			layout.marginWidth = 0;
+			this.setLayoutManager(layout);
+			
+			
+		}
+
+	}
+	
 	private class ExpertisePanel extends Panel {
 		private FlowLayout ExpertisePanel_layout;
 
