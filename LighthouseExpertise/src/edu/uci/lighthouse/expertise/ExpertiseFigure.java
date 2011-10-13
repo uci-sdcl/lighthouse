@@ -84,7 +84,7 @@ public class ExpertiseFigure extends CompartmentFigure {
 			ExpertisePanel_layout = new FlowLayout();
 			ExpertisePanel_layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
 			ExpertisePanel_layout.setMinorSpacing(25);
-			this.setBackgroundColor(ColorConstants.black);
+			//this.setBackgroundColor(ColorConstants.black);
 			setLayoutManager(ExpertisePanel_layout);			
 		}
 
