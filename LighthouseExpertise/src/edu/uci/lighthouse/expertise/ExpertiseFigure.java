@@ -15,6 +15,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
+import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
@@ -26,6 +27,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.lighthouseqandathreads.Activator;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
@@ -81,11 +83,18 @@ public class ExpertiseFigure extends CompartmentFigure {
 		private FlowLayout ExpertisePanel_layout;
 
 		public ExpertisePanel() {
+			Image icon = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+			"/icons/expert.png").createImage();
+			ImageFigure imageFigure = new ImageFigure(icon);
+			
 			ExpertisePanel_layout = new FlowLayout();
 			ExpertisePanel_layout.setMajorAlignment(FlowLayout.ALIGN_LEFTTOP);
 			ExpertisePanel_layout.setMinorSpacing(25);
 			//this.setBackgroundColor(ColorConstants.black);
-			setLayoutManager(ExpertisePanel_layout);			
+			
+			setLayoutManager(ExpertisePanel_layout);
+			
+			this.add(imageFigure);
 		}
 
 
