@@ -30,6 +30,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
+import edu.uci.lighthouse.model.LighthouseClass;
+import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
@@ -87,6 +89,12 @@ public class ExpertiseFigure extends CompartmentFigure {
 			for(LighthouseAuthor author: cacheOfAuthors){
 				String authorName = author.getName();
 				Label nameLabel = new Label(authorName);
+				LighthouseEntity entity = this.getUmlClass();
+				if(entity instanceof LighthouseClass){
+					LighthouseClass clazz = (LighthouseClass)entity;
+					
+					
+				}
 			//	panel.add(nameLabel);
 			}
 			
@@ -113,11 +121,14 @@ public class ExpertiseFigure extends CompartmentFigure {
 			this.setLayoutManager(layout);
 			
 			this.icon = icon;
+			this.metric = metric;
+			this.name = name;
+			
 			ImageFigure imageFigure = new ImageFigure(icon);
 			this.add(imageFigure);
 			
-		//	Label nameLabel = new Label(metric);
-		//	this.add(nameLabel);
+			Label nameLabel = new Label(name);
+			this.add(nameLabel);
 
 		
 		}
