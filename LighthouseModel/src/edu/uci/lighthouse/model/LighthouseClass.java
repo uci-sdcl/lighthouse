@@ -24,6 +24,7 @@ public class LighthouseClass extends LighthouseEntity {
 	
 	private static final long serialVersionUID = 2097778395729254060L;
 	
+	
 	/**@author: Lee*/
 	//ArrayList<LHclassPluginExtension> extensions = new ArrayList<LHclassPluginExtension>(); 
 	
