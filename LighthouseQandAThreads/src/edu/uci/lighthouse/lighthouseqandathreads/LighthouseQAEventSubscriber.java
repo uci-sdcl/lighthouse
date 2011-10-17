@@ -37,6 +37,7 @@ public class LighthouseQAEventSubscriber  implements ISubscriber{
 				
 				if(event.getArtifact() != null && event.getArtifact() instanceof LighthouseEntity){
 					LighthouseEntity entity = (LighthouseEntity)event.getArtifact();
+					System.out.println("artifact is a lighthouse entity");
 					if(entity != null && GraphUtils.getGraphViewer().findGraphItem(entity) != null){
 						//update model
 						LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel.getInstance());
@@ -46,6 +47,7 @@ public class LighthouseQAEventSubscriber  implements ISubscriber{
 							LighthouseClass theClazz = (LighthouseClass)clazz;
 							theClazz.setForum(((LighthouseClass)entity).getForum());
 						}
+						System.out.println("[Rebuilding figure]");
 						//rebuild figure
 						GraphUtils.rebuildFigureForEntity(entity);
 					}

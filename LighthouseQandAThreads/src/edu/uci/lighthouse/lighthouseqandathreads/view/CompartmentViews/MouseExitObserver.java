@@ -74,7 +74,7 @@ public class MouseExitObserver extends Job {
 
 			});
 
-			if (shell.isDisposed())
+			if (shell != null && shell.isDisposed())
 				exit = true;
 
 		}
