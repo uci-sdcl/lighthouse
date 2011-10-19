@@ -9,6 +9,11 @@ import edu.uci.lighthouse.model.jpa.JPAException;
 
 public class ForumAddEventAction extends AbstractEventAction{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ForumAddEventAction(Collection<LighthouseEvent> events) {
 		super(events);
 	}

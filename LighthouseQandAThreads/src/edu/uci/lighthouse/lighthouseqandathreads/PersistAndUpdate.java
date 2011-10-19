@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import edu.uci.lighthouse.core.controller.Controller;
+import edu.uci.lighthouse.core.controller.UpdateLighthouseModel;
+import edu.uci.lighthouse.core.dbactions.push.FileEventAction;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEntity;
 import edu.uci.lighthouse.model.LighthouseEvent;
+import edu.uci.lighthouse.model.LighthouseModel;
+import edu.uci.lighthouse.model.LighthouseModelManager;
 import edu.uci.lighthouse.ui.utils.GraphUtils;
 
 public class PersistAndUpdate implements IPersistAndUpdate{
@@ -32,9 +36,25 @@ public class PersistAndUpdate implements IPersistAndUpdate{
 		ArrayList<LighthouseEvent> listOfEvents = new ArrayList<LighthouseEvent>();
 		listOfEvents.add(lh);
 
+		//Controller.getInstance().getBuffer()
+		//		.offer(new ForumAddEventAction(listOfEvents));
+		//UpdateLighthouseModel.addEvents(listOfEvents);
+		
+		
+		UpdateLighthouseModel.addEvents(listOfEvents);
+		ModelUtility.fireModificationsToUI(listOfEvents);
+		
 		Controller.getInstance().getBuffer()
 				.offer(new ForumAddEventAction(listOfEvents));
-
+		
+		//FileEventAction fileEventAction = new FileEventAction(listOfEvents);
+		//Controller.getInstance().getBuffer().offer(fileEventAction);
+		
+	//	LighthouseModelManager manager = new LighthouseModelManager(LighthouseModel.getInstance());
+	//	manager.addEvent(lh);
+		
+	//	LighthouseModel.getInstance().fireModelChanged();
+		
 		// refresh locally
 		GraphUtils.rebuildFigureForEntity(getEntity());
 	}
