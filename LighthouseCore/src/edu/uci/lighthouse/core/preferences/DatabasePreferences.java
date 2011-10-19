@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import edu.uci.lighthouse.core.Activator;
+import edu.uci.lighthouse.core.util.SSHTunnel;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 import edu.uci.lighthouse.model.util.DatabaseUtility;
 
@@ -96,14 +97,14 @@ IWorkbenchPreferencePage{
 		try {
 //			SSHTunnel tunnel = null;
 //			if (isConnectingUsingSSH()) {
-//				tunnel = new SSHTunnel(getAllSettings());
+//			tunnel = new SSHTunnel(getAllSettings());
 //				tunnel.setLocalPort(12346);
 //				tunnel.start(null);
 //			}
 			JPAUtility.canConnect(getLocalDatabaseSettings());
-//			if (tunnel != null) {
-//				tunnel.stop(null);
-//			}
+	//		if (tunnel != null) {
+	//			tunnel.stop(null);
+	//		}
 			MessageDialog.openInformation(getShell(), "Database Connection", "The connection is working properly!");
 		} catch (Exception e) {
 			MessageDialog.openError(getShell(), "Database Connection", e.getMessage());

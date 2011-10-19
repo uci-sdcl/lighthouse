@@ -54,6 +54,10 @@ public class PullModel {
 		return instance;
 	}
 	
+	public Date getTimeStamp(){
+		return timestamp;
+	}
+	
 	/**
 	 * Timeout procedure will get all new events (timestamp > lastDBaccessTime)
 	 * @param lastDBaccessTime Last time that we accessed the database

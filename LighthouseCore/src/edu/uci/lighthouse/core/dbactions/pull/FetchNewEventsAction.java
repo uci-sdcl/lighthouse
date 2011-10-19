@@ -31,7 +31,9 @@ public class FetchNewEventsAction implements IDatabaseAction {
 	}
 	
 	private void sendSubscribersEvents(List<LighthouseEvent> events){
+		System.out.println(listOfSubs.size());
 		for(ISubscriber sub: listOfSubs){
+			System.out.println("sending events to subscribers");
 			sub.receive(events);
 		}
 	}
@@ -41,6 +43,8 @@ public class FetchNewEventsAction implements IDatabaseAction {
 		LighthouseAuthor author = ModelUtility.getAuthor();
 		PullModel pullModel = PullModel.getInstance();
 		List<LighthouseEvent> events = pullModel.getNewEventsFromDB(author);
+		System.out.println("pulled events "+events.size()+" after "+pullModel.getTimeStamp());
+
 		if (events.size()>0) {
 			//
 			sendSubscribersEvents(events);

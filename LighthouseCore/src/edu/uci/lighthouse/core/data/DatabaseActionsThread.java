@@ -93,6 +93,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 		try {
 			while (!buffer.isEmpty()) {
 				logger.debug("Executing "+buffer.size()+" database actions.");
+				System.out.println("Executing "+buffer.size()+" database actions.");
 				IDatabaseAction databaseAction = buffer.peek();
 				databaseAction.run();
 				buffer.poll();
@@ -100,6 +101,7 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 			
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
+				System.out.println("Getting new events commited to DB");
 				buffer.offer(new FetchNewEventsAction(Controller.getInstance().getSubscribers()));
 			}
 			backoffMultiplier = 1;

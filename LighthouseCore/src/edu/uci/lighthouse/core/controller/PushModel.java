@@ -38,6 +38,7 @@ public class PushModel {
 	}
 	
 	public void saveEventsInDatabase(Collection<LighthouseEvent> listEvents) throws JPAException {
+		System.out.println("saving events");
 		LHEventDAO dao = new LHEventDAO();
 		dao.saveListEvents(listEvents,null);		
 	}
