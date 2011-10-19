@@ -62,7 +62,9 @@ public class GraphUtils {
 	public static void rebuildFigureForEntity(final LighthouseEntity entity){
 		Display.getDefault().asyncExec(new Runnable(){
 			public void run() {
-				GraphItem item = getGraphViewer().findGraphItem(entity);
+				GraphViewer viewer = getGraphViewer();
+				System.out.println(viewer);
+				GraphItem item = viewer.findGraphItem(entity);
 				GraphUtils.rebuildFigure((GraphNode) item);
 			}
 		});
