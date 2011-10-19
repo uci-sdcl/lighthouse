@@ -74,6 +74,16 @@ CREATE TABLE `LighthouseEvent` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
+/*@author: Lee
+*This is trigger has been added to update LighthouseEvent timestamps with the system time
+*You will see someone had a similar idea when adding an event below, but they commented it out. 
+*/
+CREATE TRIGGER systemTimeUpdate BEFORE UPDATE ON LighthouseEvent
+FOR EACH ROW SET NEW.timestamp = now();
+
+
+
+
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `TRIGGER_ADDING_EVENT` BEFORE INSERT ON `LighthouseEvent` FOR EACH ROW BEGIN
