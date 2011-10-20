@@ -30,6 +30,17 @@ public class PersistAndUpdate implements IPersistAndUpdate{
 		LighthouseAuthor author = ModelUtility.getAuthor();
 		LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,
 				author, getEntity());
+		//LighthouseEvent foundEvent = LighthouseModel.getInstance().getEventByID(lh.getId());
+	
+		//if(foundEvent != null){
+	//	lh = foundEvent;
+		//	System.out.println("[found event in model]");
+	//	}else{
+	//		System.out.println("[NOT found event in model]");
+//
+//		}
+		
+		
 		//lh.setTimestamp(new Date());
 
 		// lh.setTimestamp(new Date(0));
@@ -42,6 +53,10 @@ public class PersistAndUpdate implements IPersistAndUpdate{
 		
 		
 		UpdateLighthouseModel.addEvents(listOfEvents);
+		
+		//LighthouseModelManager  mm = new LighthouseModelManager(LighthouseModel.getInstance());
+		//mm.addEvent(lh);
+		
 		ModelUtility.fireModificationsToUI(listOfEvents);
 		
 		Controller.getInstance().getBuffer()
