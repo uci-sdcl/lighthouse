@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.pde.ui.pluginContent">
+      <wizard
+            class="edu.uci.lighthouse.sdk.wizards.SimpleViewTemplateWizard"
+            icon="icons/newexprj_wiz.gif"
+            id="edu.uci.lighthouse.sdk.template.wizard"
+            name="Lighthouse Extensions Wizard">
+         <description>
+            Creates a simple view.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.pde.ui.templates">
+      <template
+            class="edu.uci.lighthouse.sdk.templates.SimpleViewTemplateSection"
+            contributingId="edu.uci.lighthouse.ui.figures.compartment"
+            id="edu.uci.lighthouse.sdk.template"
+            name="Simple View2"/>
+   </extension>
+   <extension
+         point="org.eclipse.pde.ui.newExtension">
+      <category
+            id="LighthouseSDK.category1"
+            name="LH Extensions">
+      </category>
+      <wizard
+            availableAsShortcut="true"
+            category="LighthouseSDK.category1"
+            icon="icons/newexprj_wiz.gif"
+            id="LighthouseSDK.wizard1"
+            name="Simple LH Extension"
+            template="edu.uci.lighthouse.sdk.template">
+      </wizard>
+   </extension>
+
+</plugin>

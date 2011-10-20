@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="edu.uci.lighthouse.ui.figures.compartment" name="Lighthouse Figure Compartment" schema="schema/edu.uci.lighthouse.ui.figures.compartment.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Lighthouse"
+            id="LighthouseUI">
+      </category>
+      <view
+            category="LighthouseUI"
+            class="edu.uci.lighthouse.ui.views.EmergingDesignView"
+            id="LighthouseUI.EmergingDesignView"
+            name="EmergingDesignView"
+            restorable="true">
+      </view>
+      <view
+            category="LighthouseUI"
+            class="edu.uci.lighthouse.ui.views.SoftLockView"
+            id="edu.uci.lighthouse.ui.views.SoftLockView"
+            name="SoftLock View"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>

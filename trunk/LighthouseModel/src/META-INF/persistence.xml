@@ -1,0 +1,41 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="LighthousePersistenceUnit" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<class>edu.uci.lighthouse.model.LighthouseClass</class>
+		<class>edu.uci.lighthouse.model.LighthouseExternalClass</class>
+		<class>edu.uci.lighthouse.model.LighthouseField</class>
+		<class>edu.uci.lighthouse.model.LighthouseInterface</class>
+		<class>edu.uci.lighthouse.model.LighthouseMethod</class>
+		<class>edu.uci.lighthouse.model.LighthouseModifier</class>
+		
+		<class>edu.uci.lighthouse.model.LighthouseRelationship</class>
+		
+		<class>edu.uci.lighthouse.model.LighthouseEvent</class>
+		<class>edu.uci.lighthouse.model.LighthouseAuthor</class>
+
+		<class>edu.uci.lighthouse.model.repository.LighthouseRepositoryEvent</class>
+
+		<class>edu.uci.lighthouse.model.expertise.LighthouseQuestion</class>
+
+		<properties>
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.query.substitutions" value="true=1, false=0" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+
+			<!-- <property name="hibernate.show_sql" value="true" /> -->
+
+<!--
+org.hibernate.dialect.MySQL5Dialect
+			<property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/lighthouse" />
+			<property name="hibernate.connection.username" value="lighthouse" />
+			<property name="hibernate.connection.password" value="light99" />
+-->
+		</properties>
+	</persistence-unit>
+</persistence>
