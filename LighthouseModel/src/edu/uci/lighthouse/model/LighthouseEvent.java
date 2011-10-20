@@ -95,7 +95,7 @@ public class LighthouseEvent implements Serializable{
 	 * 		OR
 	 * 		{@link LighthouseRelationship}
 	 * */
-	public LighthouseEvent(TYPE type, LighthouseAuthor author, Object artifact) {
+	protected LighthouseEvent(TYPE type, LighthouseAuthor author, Object artifact) {
 		this.author = author;
 		this.type = type;
 		this.setArtifact(artifact);
