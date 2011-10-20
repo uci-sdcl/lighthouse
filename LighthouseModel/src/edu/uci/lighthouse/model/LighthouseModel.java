@@ -169,6 +169,20 @@ public class LighthouseModel extends LighthouseAbstractModel implements IPersist
 		LinkedHashSet<LighthouseEvent> result = mapArtifactEvents.get(artifact);
 		return result != null ? result : new LinkedHashSet<LighthouseEvent>();
 	}
+	
+	/**
+	 * @author lee
+	 * @param id
+	 * @return Will return the event that has id, or null if no such
+	 * event has the id. 
+	 */
+	public LighthouseEvent getEventByID(String id){
+		for(LighthouseEvent event: this.listEvents){
+			if(event.getId().equals(id))
+				return event;
+		}
+		return null;
+	}
 
 	public LinkedHashSet<LighthouseEvent> getListEvents() {
 		return listEvents;
