@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Directory icons/</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>Directory icons/</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2005-03-11 19:25</span></dd>
+    <dt>Total Files:</dt>
+    <dd>11</dd>
+    <dt>Deleted Files:</dt>
+    <dd>1</dd>
+    <dt>Lines of Code:</dt>
+    <dd>0</dd>
+</dl>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<strong>icons</strong><br/>
+</p>
+
+<div class="section">
+<h2>Developers</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>22 (100.0%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jpdaigle.html" class="author">jpdaigle</a></th>
+        <td>9 (40.9%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>2 (9.1%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>3 (13.6%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_etremblay.html" class="author">etremblay</a></th>
+        <td>8 (36.4%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="12"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-22 23:48</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">746</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Ended name change.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        ScenarioView16.gif&#160;<span class="del">(del)</span>,
+        StategyView16.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-11 18:25</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">722</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Evaluation scenario view added. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        ScenarioView16.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-12 00:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">341</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Integrate Steve Hutchison's excellent new logo image as small icons (no text).<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        icon16.gif&#160;<span class="change">(changed)</span>,
+        icon24.gif&#160;<span class="change">(changed)</span>,
+        perspectiveIcon.gif&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-09 03:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">330</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Icons v2 - look a little choppy, maybe we should round them out in the lower-right corner.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        icon16.gif&#160;<span class="change">(changed)</span>,
+        icon24.gif&#160;<span class="change">(changed)</span>,
+        perspectiveIcon.gif&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-07 05:23</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">309</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New icons: we can use these freely without fear of copyright violations.<br />
+Restart Eclipse with the clean option to do a fresh rebuild of your plugin icons.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        icon16.gif&#160;<span class="change">(changed)</span>,
+        icon24.gif&#160;<span class="change">(changed)</span>,
+        perspectiveIcon.gif&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-31 02:53</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">265</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- Can now double click on static stub to open the associated map.<br />
+- To change the associated map of a static stub, select a stub and select a map from the list in the Connect Map section of the Stub Bindings view.<br />
+- This view is far from finished.  It's more a prototype right now that will evolve to a final version.  Eclipse Forms layouts are really not fun.  The view currently only work for static stubs.  The actions done when you add a plugin is not a command, so use the view at your own risk right now...<br />
+- New icons for dynamic stubs, path tool 24, bindings.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        Binding16.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-27 23:49</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">247</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- Hover feedback sur les empty point et stubs.<br />
+- Selection feedback sur les stubs.<br />
+- Maintenant très facile d'ajouter du feedback sur n'importe qu'elle<br />
+figure extendant PathNodeFigure.  Simplement overwriter les méthodes<br />
+setSelected ou setHover dans les sous-classes de PathNodeFigure pour<br />
+donner le comportement voulu.  Voir les figures de stubs et de empty<br />
+point pour des exemples.<br />
+- JoinStartToStub command working (redo/undo).  Drag and drop d'un<br />
+start point sur un stub.  (produit un nouveau in pour le stub).<br />
+- JoinEndToStub command working (redo/undo).  Drag and drop d'un end<br />
+point sur un stub (produit un nouveau out pour le stub).<br />
+- Le Stub peut donc avoir plusieurs in/out sans aucun problème (le<br />
+connection router n'a pas explosé et n'a pas eu besoin de<br />
+changement!!)<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        Stub16.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 17:58</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">191</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 238; new attempt at fixing images. 98% sure I found the bug.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        Node16.gif&#160;<span class="new">(new)</span>,
+        Node16d.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-14 16:36</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">144</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+The perspective is now actually doing something.  You'll have to reset your perspective in your runtime workbench to see a difference.<br />
+New file wizard for UCM files.<br />
+New responsibility view that does nothing at the moment...  But the skeleton is there for future devellopement.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        Resp16.gif&#160;<span class="new">(new)</span>,
+        sample.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-12 02:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">128</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- New icon for files<br />
+- New Polygon figure class if you want to make arbitrary filled figure (draw2d doesn't have one)<br />
+- Can insert a stub in the diagram from the palette.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        icon16.gif&#160;<span class="new">(new)</span>,
+        icon24.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-09 23:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">118</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added the class to implement the perspective with the icon for it.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        perspectiveIcon.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-11 19:25</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">40</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- Bug 102 fixed.<br />
+- User can now insert more than one responsibility or empty point in a row.<br />
+- Added some comments in BSplineConnectionRouter.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>icons</strong>:
+        AndFork16.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

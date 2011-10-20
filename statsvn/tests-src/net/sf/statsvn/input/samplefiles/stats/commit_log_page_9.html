@@ -1,0 +1,1459 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Commit Log (Page 9 of 13)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.2.4"/>
+    <link rel="stylesheet" href="statcvs.css" type="text/css"/>
+  </head>
+
+<body>
+
+
+<h1>Commit Log (Page 9 of 13)</h1>
+<p><a href="index.html">back to main page</a></p>
+<p>Pages: <a href="commit_log_page_8.html">&#171; Previous</a> <a href="commit_log.html">1</a> <a href="commit_log_page_2.html">2</a> <a href="commit_log_page_3.html">3</a> <a href="commit_log_page_4.html">4</a> <a href="commit_log_page_5.html">5</a> <a href="commit_log_page_6.html">6</a> <a href="commit_log_page_7.html">7</a> <a href="commit_log_page_8.html">8</a> 9 <a href="commit_log_page_10.html">10</a> <a href="commit_log_page_11.html">11</a> <a href="commit_log_page_12.html">12</a> <a href="commit_log_page_13.html">13</a> <a href="commit_log_page_10.html">Next &#187;</a> </p>
+<p class="summaryperiod">
+  Summary Period:
+  <span class="date">2005-05-26</span> to
+  <span class="date">2005-05-19</span>  (Commits 152-201 of 601)
+</p>
+<dl class="commitlist">
+  <dt>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-26 00:41</span>
+  </dt>
+  <dd>
+    <p class="comment">
+jpdaigle: (hopefully) fix linux build issues with better (and shorter - yay!) classpath definition. Using following patternset:<br/>
+<br/>
+	&lt;patternset id="jucmnav.classpath"&gt;<br/>
+		&lt;include name="org.apache.lucene*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.junit*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.core*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.draw*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.emf*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.gef*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.help*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.jface*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.osgi*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.swt*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.ui*/**/*.jar" /&gt;<br/>
+		&lt;include name="org.eclipse.update*/**/*.jar" /&gt;<br/>
+	&lt;/patternset&gt;<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-26 00:19</span>
+  </dt>
+  <dd>
+    <p class="comment">
+worked on some progress tests.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette</strong>:
+        UcmPaletteRoot.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/tests/progress</strong>:
+        ProgressTests.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-25 23:08</span>
+  </dt>
+  <dd>
+    <p class="comment">
+upgraded command tests to the new delegating command stack; wrote tests for all model commands except one, which will fail and invite JPD to code it.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        AddComponentRefCommand.java&#160;<span class="change">(changed)</span>,
+        AddForkOnConnectionCommand.java&#160;<span class="change">(changed)</span>,
+        CreateMapCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteNodeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        TrimEmptyNodeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/tests/commands</strong>:
+        JUCMNavCommandTests.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-25 22:31</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Updated the progress tests to include the path tool...<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/tests/progress</strong>:
+        ProgressTests.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-25 21:44</span>
+  </dt>
+  <dd>
+    <p class="comment">
+The new meta model was generated in the code.<br/>
+The start, empty and end point are not in the palette anymore.  Use the path tool to create them from now on.<br/>
+Deleted the marquee in the palette since the selection tool do the same thing...<br/>
+
+    </p>
+    <p class="commitdetails"><strong>841</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/grl</strong>:
+        GRLspec.java&#160;<span class="change">(changed)</span>,
+        GrlFactory.java&#160;<span class="change">(changed)</span>,
+        GrlPackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/grl/impl</strong>:
+        GRLspecImpl.java&#160;<span class="change">(changed)</span>,
+        GrlFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        GrlPackageImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/grl/util</strong>:
+        GrlAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        GrlSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette</strong>:
+        UcmPaletteRoot.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/emf</strong>:
+        URN.genmodel&#160;<span class="change">(changed)</span>,
+        grl.ecore&#160;<span class="change">(changed)</span>,
+        ucm.ecore&#160;<span class="change">(changed)</span>,
+        urn.ecore&#160;<span class="change">(changed)</span>,
+        urncore.ecore&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm</strong>:
+        UCMspec.java&#160;<span class="change">(changed)</span>,
+        UcmFactory.java&#160;<span class="change">(changed)</span>,
+        UcmPackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/impl</strong>:
+        UCMspecImpl.java&#160;<span class="change">(changed)</span>,
+        UcmFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        UcmPackageImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/map</strong>:
+        Abort.java&#160;<span class="change">(changed)</span>,
+        AndFork.java&#160;<span class="change">(changed)</span>,
+        AndJoin.java&#160;<span class="change">(changed)</span>,
+        ComponentRef.java&#160;<span class="change">(changed)</span>,
+        Condition.java&#160;<span class="del">(del)</span>,
+        Connect.java&#160;<span class="change">(changed)</span>,
+        DirectionArrow.java&#160;<span class="change">(changed)</span>,
+        EmptyPoint.java&#160;<span class="change">(changed)</span>,
+        EndPoint.java&#160;<span class="change">(changed)</span>,
+        FailurePoint.java&#160;<span class="change">(changed)</span>,
+        InBinding.java&#160;<span class="change">(changed)</span>,
+        Loop.java&#160;<span class="change">(changed)</span>,
+        Map.java&#160;<span class="change">(changed)</span>,
+        MapFactory.java&#160;<span class="change">(changed)</span>,
+        MapPackage.java&#160;<span class="change">(changed)</span>,
+        NodeConnection.java&#160;<span class="change">(changed)</span>,
+        OrFork.java&#160;<span class="change">(changed)</span>,
+        OrJoin.java&#160;<span class="change">(changed)</span>,
+        OutBinding.java&#160;<span class="change">(changed)</span>,
+        PathGraph.java&#160;<span class="change">(changed)</span>,
+        PathNode.java&#160;<span class="change">(changed)</span>,
+        PluginBinding.java&#160;<span class="change">(changed)</span>,
+        RespRef.java&#160;<span class="change">(changed)</span>,
+        StartPoint.java&#160;<span class="change">(changed)</span>,
+        Stub.java&#160;<span class="change">(changed)</span>,
+        Timer.java&#160;<span class="change">(changed)</span>,
+        WaitingPlace.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/map/impl</strong>:
+        AbortImpl.java&#160;<span class="change">(changed)</span>,
+        AndForkImpl.java&#160;<span class="change">(changed)</span>,
+        AndJoinImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentRefImpl.java&#160;<span class="change">(changed)</span>,
+        ConditionImpl.java&#160;<span class="del">(del)</span>,
+        ConnectImpl.java&#160;<span class="change">(changed)</span>,
+        DirectionArrowImpl.java&#160;<span class="change">(changed)</span>,
+        EmptyPointImpl.java&#160;<span class="change">(changed)</span>,
+        EndPointImpl.java&#160;<span class="change">(changed)</span>,
+        FailurePointImpl.java&#160;<span class="change">(changed)</span>,
+        InBindingImpl.java&#160;<span class="change">(changed)</span>,
+        LoopImpl.java&#160;<span class="change">(changed)</span>,
+        MapFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        MapImpl.java&#160;<span class="change">(changed)</span>,
+        MapPackageImpl.java&#160;<span class="change">(changed)</span>,
+        NodeConnectionImpl.java&#160;<span class="change">(changed)</span>,
+        OrForkImpl.java&#160;<span class="change">(changed)</span>,
+        OrJoinImpl.java&#160;<span class="change">(changed)</span>,
+        OutBindingImpl.java&#160;<span class="change">(changed)</span>,
+        PathGraphImpl.java&#160;<span class="change">(changed)</span>,
+        PathNodeImpl.java&#160;<span class="change">(changed)</span>,
+        PluginBindingImpl.java&#160;<span class="change">(changed)</span>,
+        RespRefImpl.java&#160;<span class="change">(changed)</span>,
+        StartPointImpl.java&#160;<span class="change">(changed)</span>,
+        StubImpl.java&#160;<span class="change">(changed)</span>,
+        TimerImpl.java&#160;<span class="change">(changed)</span>,
+        WaitingPlaceImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/map/util</strong>:
+        MapAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        MapSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/performance</strong>:
+        ActiveResource.java&#160;<span class="change">(changed)</span>,
+        ArrivalProcess.java&#160;<span class="change">(changed)</span>,
+        ClosedWorkload.java&#160;<span class="del">(del)</span>,
+        Demand.java&#160;<span class="change">(changed)</span>,
+        DeviceKind.java&#160;<span class="change">(changed)</span>,
+        ExternalOperation.java&#160;<span class="change">(changed)</span>,
+        GeneralResource.java&#160;<span class="change">(changed)</span>,
+        OpenWorkload.java&#160;<span class="del">(del)</span>,
+        PassiveResource.java&#160;<span class="change">(changed)</span>,
+        PerfAttribute.java&#160;<span class="change">(changed)</span>,
+        PerfMeasure.java&#160;<span class="change">(changed)</span>,
+        PerfValue.java&#160;<span class="change">(changed)</span>,
+        PerfValueKind.java&#160;<span class="change">(changed)</span>,
+        PerfValueSource.java&#160;<span class="change">(changed)</span>,
+        PerformanceFactory.java&#160;<span class="change">(changed)</span>,
+        PerformancePackage.java&#160;<span class="change">(changed)</span>,
+        ProcessingResource.java&#160;<span class="change">(changed)</span>,
+        ResponseTimeReq.java&#160;<span class="change">(changed)</span>,
+        Timestamp.java&#160;<span class="change">(changed)</span>,
+        Workload.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/performance/impl</strong>:
+        ActiveResourceImpl.java&#160;<span class="change">(changed)</span>,
+        ClosedWorkloadImpl.java&#160;<span class="del">(del)</span>,
+        DemandImpl.java&#160;<span class="change">(changed)</span>,
+        ExternalOperationImpl.java&#160;<span class="change">(changed)</span>,
+        GeneralResourceImpl.java&#160;<span class="change">(changed)</span>,
+        OpenWorkloadImpl.java&#160;<span class="del">(del)</span>,
+        PassiveResourceImpl.java&#160;<span class="change">(changed)</span>,
+        PerfMeasureImpl.java&#160;<span class="change">(changed)</span>,
+        PerfValueImpl.java&#160;<span class="change">(changed)</span>,
+        PerformanceFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        PerformancePackageImpl.java&#160;<span class="change">(changed)</span>,
+        ProcessingResourceImpl.java&#160;<span class="change">(changed)</span>,
+        ResponseTimeReqImpl.java&#160;<span class="change">(changed)</span>,
+        TimestampImpl.java&#160;<span class="change">(changed)</span>,
+        WorkloadImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/performance/util</strong>:
+        PerformanceAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        PerformanceSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/scenario</strong>:
+        ScenarioDef.java&#160;<span class="change">(changed)</span>,
+        ScenarioFactory.java&#160;<span class="change">(changed)</span>,
+        ScenarioGroup.java&#160;<span class="change">(changed)</span>,
+        ScenarioPackage.java&#160;<span class="change">(changed)</span>,
+        Variable.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/scenario/impl</strong>:
+        ScenarioDefImpl.java&#160;<span class="change">(changed)</span>,
+        ScenarioFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        ScenarioGroupImpl.java&#160;<span class="change">(changed)</span>,
+        ScenarioPackageImpl.java&#160;<span class="change">(changed)</span>,
+        VariableImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        ScenarioSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/util</strong>:
+        UcmAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        UcmSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urn</strong>:
+        URNlink.java&#160;<span class="change">(changed)</span>,
+        URNspec.java&#160;<span class="change">(changed)</span>,
+        UrnFactory.java&#160;<span class="change">(changed)</span>,
+        UrnPackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urn/impl</strong>:
+        URNlinkImpl.java&#160;<span class="change">(changed)</span>,
+        URNspecImpl.java&#160;<span class="change">(changed)</span>,
+        UrnFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        UrnPackageImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urn/util</strong>:
+        UrnAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        UrnSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urncore</strong>:
+        Component.java&#160;<span class="change">(changed)</span>,
+        ComponentElement.java&#160;<span class="change">(changed)</span>,
+        ComponentKind.java&#160;<span class="change">(changed)</span>,
+        ComponentLabel.java&#160;<span class="change">(changed)</span>,
+        ComponentRegular.java&#160;<span class="change">(changed)</span>,
+        ComponentType.java&#160;<span class="change">(changed)</span>,
+        Condition.java&#160;<span class="new">(new&#160;248)</span>,
+        DynamicRespKind.java&#160;<span class="change">(changed)</span>,
+        DynamicResponsibility.java&#160;<span class="change">(changed)</span>,
+        GRLmodelElement.java&#160;<span class="change">(changed)</span>,
+        Label.java&#160;<span class="change">(changed)</span>,
+        NewClass.java&#160;<span class="change">(changed)</span>,
+        NodeLabel.java&#160;<span class="change">(changed)</span>,
+        Pool.java&#160;<span class="change">(changed)</span>,
+        Responsibility.java&#160;<span class="change">(changed)</span>,
+        UCMmodelElement.java&#160;<span class="change">(changed)</span>,
+        URNdefinition.java&#160;<span class="change">(changed)</span>,
+        UrncoreFactory.java&#160;<span class="change">(changed)</span>,
+        UrncorePackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urncore/impl</strong>:
+        ComponentElementImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentLabelImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentRegularImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentTypeImpl.java&#160;<span class="change">(changed)</span>,
+        ConditionImpl.java&#160;<span class="new">(new&#160;593)</span>,
+        DynamicResponsibilityImpl.java&#160;<span class="change">(changed)</span>,
+        GRLmodelElementImpl.java&#160;<span class="change">(changed)</span>,
+        LabelImpl.java&#160;<span class="change">(changed)</span>,
+        NewClassImpl.java&#160;<span class="change">(changed)</span>,
+        NodeLabelImpl.java&#160;<span class="change">(changed)</span>,
+        PoolImpl.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityImpl.java&#160;<span class="change">(changed)</span>,
+        UCMmodelElementImpl.java&#160;<span class="change">(changed)</span>,
+        URNdefinitionImpl.java&#160;<span class="change">(changed)</span>,
+        UrncoreFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        UrncorePackageImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urncore/util</strong>:
+        UrncoreAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        UrncoreSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-25 21:12</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Including all jars under ECLIPSE_HOME/plugins/ broke build on jkealey's machine.<br/>
+No idea really why, it works here. Back to old (linux-incompatible) classpath.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-25 20:55</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed build.xml for linux builds. It referenced win32 plugins by name; no more.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-25 17:33</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 235 - split link now binds new elements with parent.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/changeConstraints</strong>:
+        SetConstraintCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        CutPathCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-25 10:55</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added Dynamic Stub in the palette.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette</strong>:
+        UcmPaletteRoot.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_oclift.html" class="author">oclift</a>
+    <span class="date">2005-05-25 04:34</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Clicking on a Responsibility in the Outline caused a AssertionFail<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        MultiPageTabManager.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-05-25 02:58</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Stubs and Responsabilities now rotate with spline.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>10</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        EndPointFigure.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityFigure.java&#160;<span class="change">(changed)</span>,
+        Rotateable.java&#160;<span class="new">(new&#160;10)</span>,
+        StubFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures/router</strong>:
+        BSplineConnectionRouter.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-25 01:26</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug #251 - ReqElemOrJoin creation.<br/>
+Basic implementation works, undo/redo working.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>99</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        AddOrJoinAction.java&#160;<span class="new">(new&#160;99)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/actionContributors</strong>:
+        ActionRegistryManager.java&#160;<span class="change">(changed)</span>,
+        UcmContextMenuProvider.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        GraphicalEditPartFactory.java&#160;<span class="change">(changed)</span>,
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        OrJoinFigure.java&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures/util</strong>:
+        JUCMNavFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        JoinPathsCommand.java&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-25 00:36</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 242 - added check to see if node connection lead somewhere to prevent the quick click bug<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 22:39</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 249 - code reverted. Etienne cried because it was so ugly. We'll implement a solution for each distinct path node. No generic solutions tonight :( (Furthermore, the .erase() screwed up multiple selections)<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/feedback</strong>:
+        PathNodeNonResizableEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-05-24 22:26</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Better handling of end point rotation using ET's Polygon figure.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        EndPointFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-24 22:15</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a lot of comments in PathTool.java<br/>
+Will continue to work on this to support all the behavior of the tool...<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 22:01</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 249 - hover feedback on pathnodes. is it okay?<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/feedback</strong>:
+        PathNodeNonResizableEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 21:01</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 262 fixed. this bug occurred because some preconditions weren't respected. for some reason, i'm getting emptynodes not connected to any node connections or maps. I fixed a similar bug with components.<br/>
+this bug only occurs in new maps. it seems the new maps are refreshed more than the old ones.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        BindChildren.java&#160;<span class="change">(changed)</span>,
+        BindWithParent.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        CutPathCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 20:24</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug 223 - Refactored UCMNavMultiPageEditor, commented editors package except the palette.<br/>
+New files that I recommend you take a look at if you've worked with UCMNavMultiPageEditor before: ActionRegistryManager, MultiPageTabManager, MultiPageFileManager<br/>
+
+    </p>
+    <p class="commitdetails"><strong>1044</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        DelegatingCommandStack.java&#160;<span class="change">(changed)</span>,
+        DelegatingZoomManager.java&#160;<span class="change">(changed)</span>,
+        MultiPageCommandStackListener.java&#160;<span class="new">(new&#160;173)</span>,
+        MultiPageTabManager.java&#160;<span class="new">(new&#160;259)</span>,
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>,
+        UcmEditor.java&#160;<span class="change">(changed)</span>,
+        UcmOutlinePage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/actionContributors</strong>:
+        ActionRegistryManager.java&#160;<span class="new">(new&#160;365)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/resourceManagement</strong>:
+        MultiPageFileManager.java&#160;<span class="new">(new&#160;247)</span>,
+        ResourceTracker.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 16:03</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 246 - start point smaller, found bug in eclipse framework that was fixed for 3.0.2/3.1<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        StartPointFigure.java&#160;<span class="change">(changed)</span>,
+        StubFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/property</strong>:
+        EObjectPropertySource.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 15:05</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 222 - outline now available even if there are no maps.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>,
+        UcmEditor.java&#160;<span class="change">(changed)</span>,
+        UcmOutlinePage.java&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 14:27</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 257 - map now selected when page is changed.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 14:01</span>
+  </dt>
+  <dd>
+    <p class="comment">
+property page is not enabled on nodeconnections, epropertysource now supports doubles.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        NodeConnectionEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/property</strong>:
+        EObjectPropertySource.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-24 10:54</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a new icon for the path tool and changed it's place in the palette.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette</strong>:
+        UcmPaletteRoot.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/icons</strong>:
+        pathTool.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 03:37</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 222 - you can have a file without any maps, it won't crash anymore. however, when reloaded, no outline is provided.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        AutoLayoutAction.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 03:12</span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed bug 258; end point problems.<br/>
+fixed major command stack problems relating to create map / delete map.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        DelegatingCommandStack.java&#160;<span class="change">(changed)</span>,
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>,
+        UcmEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        LabelEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures/router</strong>:
+        BSplineConnectionRouter.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        CreateMapCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        EObjectClassNameComparator.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-24 02:09</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Changed the EndPointFigure to use the Polyline figure.  We should never overwrite the paint method of our figures to draw them, or only in last resort.<br/>
+This fix the bug where the end point figure didn't refresh well when you moved the node just before.  But it doesn't fix bug 258.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        EndPointFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_oclift.html" class="author">oclift</a>
+    <span class="date">2005-05-24 00:20</span>
+  </dt>
+  <dd>
+    <p class="comment">
+24x24 Icons<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette</strong>:
+        UcmPaletteRoot.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/icons</strong>:
+        Agent24.gif&#160;<span class="new">(new)</span>,
+        AndFork24.gif&#160;<span class="new">(new)</span>,
+        AndJoin24.gif&#160;<span class="new">(new)</span>,
+        Component24.gif&#160;<span class="new">(new)</span>,
+        End24.gif&#160;<span class="new">(new)</span>,
+        FailurePoint24.gif&#160;<span class="new">(new)</span>,
+        GoalTag24.gif&#160;<span class="new">(new)</span>,
+        ISR24.gif&#160;<span class="new">(new)</span>,
+        Loop24.gif&#160;<span class="new">(new)</span>,
+        Node24.gif&#160;<span class="new">(new)</span>,
+        Object24.gif&#160;<span class="new">(new)</span>,
+        OrFork24.gif&#160;<span class="new">(new)</span>,
+        OrJoin24.gif&#160;<span class="new">(new)</span>,
+        Pool24.gif&#160;<span class="new">(new)</span>,
+        Process24.gif&#160;<span class="new">(new)</span>,
+        Resp24.gif&#160;<span class="new">(new)</span>,
+        SharedResp24.gif&#160;<span class="new">(new)</span>,
+        Start24.gif&#160;<span class="new">(new)</span>,
+        Stub24.gif&#160;<span class="new">(new)</span>,
+        Timer24.gif&#160;<span class="new">(new)</span>,
+        TimestampPoint24.gif&#160;<span class="new">(new)</span>,
+        Wait24.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-23 17:58</span>
+  </dt>
+  <dd>
+    <p class="comment">
+initial version of map deletion. note: major problem subsists with the command stack and add/delete map. discovered it while doing deletion, but exists since addition.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>70</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/element</strong>:
+        MapComponentEditPolicy.java&#160;<span class="new">(new&#160;28)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteMapCommand.java&#160;<span class="new">(new&#160;42)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-21 16:29</span>
+  </dt>
+  <dd>
+    <p class="comment">
+jordan broke the tests in build 131; added code to make them pass once again.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-21 15:50</span>
+  </dt>
+  <dd>
+    <p class="comment">
+can now add maps; see contextual menu of URNspec.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>130</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        AddMapAction.java&#160;<span class="new">(new&#160;42)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UCMNavMultiPageEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/actionContributors</strong>:
+        UcmContextMenuProvider.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        CreateMapCommand.java&#160;<span class="new">(new&#160;88)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-21 15:09</span>
+  </dt>
+  <dd>
+    <p class="comment">
+goes with last commit, looks like I forgot the file.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 21:29</span>
+  </dt>
+  <dd>
+    <p class="comment">
+connection router now always refreshes end points.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/figures/router</strong>:
+        BSplineConnectionRouter.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 21:27</span>
+  </dt>
+  <dd>
+    <p class="comment">
+even better end point rotation. now being refreshed by the connection router. seems it doesn't always get refreshed 100% properly though but we're getting there.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        plugin.properties&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        MapAndPathGraphEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>,
+        StubEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        EndPointFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures/router</strong>:
+        BSplineConnectionRouter.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-05-20 19:12</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added logic for end point rotation. Right now there is a notification problem and the PathNodeEditPart does not get notified when the spline is modified.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        EndPointFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 17:09</span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed small bug: losed gray when refreshing outline. (thanks ET for noticing)<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 16:58</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 238; new attempt at fixing images. 98% sure I found the bug.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        plugin.xml&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>icons</strong>:
+        Node16.gif&#160;<span class="new">(new)</span>,
+        Node16d.gif&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/icons</strong>:
+        Node16d.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 16:38</span>
+  </dt>
+  <dd>
+    <p class="comment">
+now can delete any pathnode with 1 in, 1 out.<br/>
+now can delete components and responsibilities in outline<br/>
+build script modified to include help.xml<br/>
+
+    </p>
+    <p class="commitdetails"><strong>167</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        ComponentRefEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/element</strong>:
+        ComponentElementComponentEditPolicy.java&#160;<span class="new">(new&#160;33)</span>,
+        ComponentRefComponentEditPolicy.java&#160;<span class="new">(new&#160;30)</span>,
+        ComponentRefEditPolicy.java&#160;<span class="del">(del)</span>,
+        PathNodeComponentEditPolicy.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityComponentEditPolicy.java&#160;<span class="new">(new&#160;35)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteComponentElementCommand.java&#160;<span class="new">(new&#160;35)</span>,
+        DeleteNodeCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteResponsibilityCommand.java&#160;<span class="new">(new&#160;34)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 15:48</span>
+  </dt>
+  <dd>
+    <p class="comment">
+improvements in outline; URNspec now is the root (because it has data); got rid of UCMspec because it doesn't contain any data. reordered empty nodes so that they appear at the end of the list. when opened, the outline no longer is scrolled to the bottom of the tree view.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>30</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UcmEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        OutlineRootEditPart.java&#160;<span class="new">(new&#160;30)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>,
+        UCMspecTreeEditPart.java&#160;<span class="del">(del)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        EObjectClassNameComparator.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 14:45</span>
+  </dt>
+  <dd>
+    <p class="comment">
+autolayout now works even if there are no empty nodes :)<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        TrimEmptyNodeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 14:06</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 238: first attempt at correcting the bug; hopefully I didn't screw up the build script :)<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_oclift.html" class="author">oclift</a>
+    <span class="date">2005-05-20 04:24</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Framework for the help added.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>44</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        help.xml&#160;<span class="new">(new&#160;44)</span>,
+        plugin.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 03:46</span>
+  </dt>
+  <dd>
+    <p class="comment">
+added orfork/andfork icons to outline<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-20 00:58</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Tests should run okay now.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-20 00:34</span>
+  </dt>
+  <dd>
+    <p class="comment">
+woops, forgot to remove the call<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-20 00:32</span>
+  </dt>
+  <dd>
+    <p class="comment">
+don't run tests from build.xml, we're going to invoke them from cruisecontrol scripts<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 21:45</span>
+  </dt>
+  <dd>
+    <p class="comment">
+added icon on map in outline.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/icons</strong>:
+        icon16.gif&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 21:22</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 244 - connection router bug; i don't know why this happens at the high level but this quick fix works. will suppose bug happens during commands, when the ucm is in an inconsistent state.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/figures/router</strong>:
+        BSplineConnectionRouter.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 21:17</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 243: thanks etienne for the code that makes undo/redo work.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UcmEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 20:56</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 239 and visual improvements in outline view. (empty points: gray, sorted alphabetically)<br/>
+
+    </p>
+    <p class="commitdetails"><strong>199</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="new">(new&#160;71)</span>,
+        RespTreeEditPart.java&#160;<span class="del">(del)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        EObjectClassNameComparator.java&#160;<span class="new">(new&#160;128)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<p>Pages: <a href="commit_log_page_8.html">&#171; Previous</a> <a href="commit_log.html">1</a> <a href="commit_log_page_2.html">2</a> <a href="commit_log_page_3.html">3</a> <a href="commit_log_page_4.html">4</a> <a href="commit_log_page_5.html">5</a> <a href="commit_log_page_6.html">6</a> <a href="commit_log_page_7.html">7</a> <a href="commit_log_page_8.html">8</a> 9 <a href="commit_log_page_10.html">10</a> <a href="commit_log_page_11.html">11</a> <a href="commit_log_page_12.html">12</a> <a href="commit_log_page_13.html">13</a> <a href="commit_log_page_10.html">Next &#187;</a> </p>
+<div id="generatedby"><p>Generated by <a href="http://statcvs.sourceforge.net">StatCVS</a> 0.2.4</p>
+</div>
+</body>
+</html>

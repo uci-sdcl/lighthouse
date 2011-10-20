@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="log" type="logType">
+		<xs:key name="revKey">
+			<xs:selector xpath="./logentry" />
+			<xs:field xpath="@revision" />
+		</xs:key>
+
+		<!-- indicates relationship between revision and copyfrom-rev, will fail on partial logs -->
+		<!-- <xs:keyref name="revRef" refer="revKey">
+			<xs:selector xpath="./logentry/paths/path"/>
+			<xs:field xpath="@copyfrom-rev"/>
+			</xs:keyref> -->
+	</xs:element>
+
+	<!-- logType: collection of log entries -->
+	<xs:complexType name="logType">
+		<xs:sequence>
+			<xs:element name="logentry" type="logentryType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- logentryType: describes one revision -->
+	<xs:complexType name="logentryType">
+		<xs:sequence>
+			<xs:element name="author" type="authorType" />
+			<xs:element name="date" type="dateType" />
+			<xs:element name="paths" type="pathsType" />
+			<xs:element name="msg" type="msgType" />
+		</xs:sequence>
+		<xs:attribute name="revision" type="revType" use="required" />
+	</xs:complexType>
+
+	<!-- pathsType: collection of path elements -->
+	<xs:complexType name="pathsType">
+		<xs:sequence>
+			<xs:element name="path" type="pathType" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- pathType: collection of path elements -->
+	<!-- "copyfrom-path": the path within repository    -->
+	<!-- "copyfrom-rev" : reference to the revision -->
+	<xs:complexType name="pathType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="action" type="actionType"
+					use="required" />
+				<xs:attribute name="copyfrom-path" type="xs:string" />
+				<xs:attribute name="copyfrom-rev" type="revType" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<!-- authorType: committer, string -->
+	<xs:simpleType name="authorType">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<!-- dateType: date & time of the revision, dateTime -->
+	<xs:simpleType name="dateType">
+		<xs:restriction base="xs:dateTime" />
+	</xs:simpleType>
+
+	<!-- msgType: commit message, string -->
+	<xs:simpleType name="msgType">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<!-- revType: revision, integer -->
+	<xs:simpleType name="revType">
+		<xs:restriction base="xs:unsignedInt" />
+	</xs:simpleType>
+
+	<!-- actionType: one character: A D M or R     -->
+	<!--  added by jkealey 22/02/2006: 
+		A: Added
+		D: Deleted
+		M: Modified
+		R: Replaced
+	-->
+	<xs:simpleType name="actionType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[ADMR]" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
+

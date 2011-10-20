@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>StatSVN Changes</title>
+	</properties>
+	<body>
+	<release version="0.7.0" date="Jan 2010" description="Maintenance">
+		<action dev="benoitx" type="add">Upgrade to StatCVS 0.7.0.</action>
+	</release>
+	<release version="0.6.0" date="Not released" description="Maintenance">
+		<action dev="benoitx" type="add">Automatic shortening of page URL, using bit.ly javascript for Twitter integration.</action>
+		<action dev="benoitx" type="add">Reduce scope for the Builder (might save some memory).</action>
+		<action dev="jkealey" due-to="Markus Schulte" type="add">Add anonymize to Ant Task.</action>
+	</release>
+        <release version="0.5.0" date="2009-05-22" description="Maintenance">
+            <action dev="benoitx" type="add">Add new report for 12m Rolling Developer report.</action>
+            <action dev="benoitx" type="add">
+                Add ability to MERGE 2 users through the config-file user.[userName].replacedBy=[newUserName]
+            </action>
+            <action dev="benoitx" type="add">
+                A bit of fun, added links to Twitter. In the statsvn.properties file defining the user, See
+                <a href="http://wiki.statsvn.org/User%20Manual.ashx">manual</a>
+            </action>
+            <action dev="benoitx" type="add">
+                Charts are now configurable, See
+                <a href="http://wiki.statsvn.org/User%20Manual.ashx">manual</a>
+            </action>
+            <action dev="benoitx" type="add">
+                Through StatCVS, a few cool Twitter features to either have links to your Twitter profile, widgets (see <a href="statsvn/user_benoitx.html">this page</a>) or to be able to Tweet some StatSVN stats straight from
+                the StatSVN generated pages (see <a href="statsvn/index.html">this page</a>).
+            </action>
+        </release>
+		<release version="0.4.1" date="2008-06-20" description="Maintenance">
+			<action dev="jkealey" type="fix" issue="1963918" due-to="Joseph Armbruster">Fixed issue when the only change was a property change.</action>
+			<action dev="jkealey" type="fix" issue="1993217" due-to="Edward Oubrayrie">Fixed issue in command line help with regards to -concurrency-threshold</action>
+			<action dev="benoitx" type="add">Add charset option on command line.</action>
+			<action dev="benoitx" type="add">Add maillist as Nabble forums.</action>
+		</release>
+		<release version="0.4.0" date="2008-04-20" description="Maintenance+move to StatCVS">
+			<action dev="benoitx" type="add" due-to="Nilendra Weerasinghe">Added support for an XML export of the main reports, just use option -xml, based on patched proposed by
+				Nilendra Weerasinghe.</action>
+			<action dev="benoitx" type="add" issue="1639462" due-to="Jean-Francois Burdet">Applied patch for [ 1639462 ] Added TRAC Support.</action>
+			<action dev="benoitx" type="add" issue="1932689" due-to="Martin Majlis">
+				Applied patch to StatCVS to show the Head Revision (had to change it to hide it for CVS as it does not make sense for CVS).
+            </action>
+			<action dev="benoitx" type="update">
+				The RepoMap and LOCChurn reports have been promoted to StatCVS and hence, removed from the StatSVN source tree.
+            </action>
+			<action dev="jkealey" type="add">
+				Performance enhancement. If SVN 1.4 is available, do one diff per revision instead of one diff per file per revision. Added -force-legacy-diff
+				option to retain previous functionality.
+            </action>
+			<action dev="benoitx" type="add" due-to="Martin Majlis">Applied patch to StatCVS to add Affected files count per commit.</action>
+			<action dev="benoitx" type="add" issue="1839303" due-to="Martin Majlis">Applied patch to StatCVS to add Revision number on commit page.</action>
+			<action dev="benoitx" type="add">
+				I have added a validation mechanism that checks the Repository object once the log is parsed, if root is null, it will terminate the execution.
+            </action>
+			<action dev="benoitx" type="add" issue="1687928">
+				I have added a small project attribute which makes it more obvious which cache belongs to what project in the repositories.xml and xml cache
+				files.
+            </action>
+			<action dev="benoitx" type="add" issue="1692245">
+				Added support for tags-dir as a way to specify 'top' directory where the tags are stored, defaulted to "/tags/".
+            </action>
+			<action dev="benoitx" type="fix">Changed RSS to use the common one: http://feeds.feedburner.com/ObjectlabOpenSourceNews</action>
+			<action dev="jpdaigle" type="add" issue="1743119">Added support for a '-anonymize' command line option, to anonymize committer names.</action>
+		</release>
+
+		<release version="0.3.1" date="2007-03-10" description="Maintenance">
+			<action dev="benoitx" type="fix">
+				Fix an issue in detecting tags that may be further down than the root directory of the log. Also use the tag pattern earlier on in the log
+				parser, so only required tags will be considered.
+            </action>
+			<action dev="benoitx" type="fix">Exclude pattern is now used also for the diffs (avoid attempting to svn diff '.htaccess' at all cost!).</action>
+			<action dev="benoitx" type="fix" issue="1653392" due-to="Dermot Daly">Fixing url encoded module name.</action>
+			<action dev="jpdaigle" type="add">
+				Added EnvReport function to aid in identifying common failure cases (no change to StatSVN command line, it is a seperate executable class).
+            </action>
+			<action dev="benoitx" type="add">Added introduction page for demos.</action>
+			<action dev="benoitx" type="fix" issue="1673601" due-to="Benoit Xhenseval">
+				Support the tags command line parameter (will only show a given set of tags).
+            </action>
+			<action dev="benoitx" type="fix">Removed JDK 1.5 dependency on String.replace(CharSequence,CharSequence).</action>
+			<action dev="benoitx" type="fix" issue="1657197" due-to="p_michalczyk">Fixed an NPE in RepoPageMaker (only happening if repo has no dates.</action>
+			<action dev="jkealey" type="add" issue="1637082">Improved reporting of XML parsing errors.</action>
+			<action dev="benoitx" type="fix" issue="1655200" due-to="Alejandro Scandroli">
+				Changed the Maven dependencies to use a backport concurrent compiled with jdk 1.4
+            </action>
+			<action dev="jpdaigle" type="fix" issue="1654750" due-to="Jean-Philippe Daigle">
+				Fixed a glitch for SvnInfoUtils.urlToAbsolutePath path mangling
+            </action>
+		</release>
+		<release version="0.3.0" date="2007-01-12" description="Maintenance, concurrent diff, new RepoMap and Loc/Churn Reports">
+			<action dev="benoitx" type="fix">
+				Included a small fix in StatCVS (just post 0.3 release) in order to avoid NPE with Ant for ViewCVS integration.
+            </action>
+			<action dev="jkealey" type="update" issue="1601433" due-to="John Brugge">
+				Earlier fix did not work on all operating systems; our support for spaces in filenames no longer causes problems.
+            </action>
+			<action dev="jkealey" type="fix" issue="1573421" due-to="John Brugge">
+				Ant task was broken in 0.2.0; fixed and changed to use same conventions as StatCVS
+            </action>
+			<action dev="jkealey" type="fix" issue="1605167" due-to="Anonymous">
+				Fixed a mime-type problem discovered when running StatSVN on Widelands project.
+            </action>
+			<action dev="benoitx" type="fix">
+				Fixed a number of issues related to the LOC for files that have been moved or directories moved and/or deleted.
+            </action>
+			<action dev="benoitx" type="fix" issue="1601433" due-to="Anonymous">
+				The error report highlighted an issue with filenames containing space(s) in the svn diff call.
+            </action>
+			<action dev="benoitx" type="add">
+				New Report: LOC and Churn shows the usual LOC with the amount of code touched per day. Hopefully the churn should go decreasingly towards a
+				release.
+            </action>
+			<action dev="benoitx" type="add">
+				New Report: Repo Map, a jtreemap-based report (applet) that shows the entire source tree in a hierarchical manner, the size of each box is
+				related to LOC and the colour to the changes over the last 30 days (red -loc, green +loc).
+            </action>
+			<action dev="benoitx" type="add" issue="1608782">
+				Adding basic support for Symbolic Names (i.e. tags). You MUST get a log at the top level of the project, not the trunk level, e.g.: svn log -v
+				--xml https://svn.sourceforge.net/svnroot/statsvn/ That way, the log will contain some information about the tags. At the moment, StatSVN only
+				works with "/tags/" directory.
+            </action>
+			<action dev="benoitx" type="update" issue="1612184" due-to="Richard Cyganiak">Patch for upgrade to StatCVS 0.3.0-dev.</action>
+			<action dev="benoitx" type="fix" issue="1612997" due-to="samuli">Removed 1.5-specific code.</action>
+			<action dev="benoitx" type="fix" issue="1608474" due-to="samuli">Removed 1.5-specific code.</action>
+			<action dev="benoitx" type="add" issue="1605731">
+				Overhaul of the SVN Diff to use multiple threads if required. Command line parameters -threads (default 25) and -concurrency-threshold (default
+				2000 ms) added.
+            </action>
+			<action dev="benoitx" type="update">Upgrade dependency to statcvs-0.3 which allows extra reports to be integrated.</action>
+			<action dev="benoitx" type="fix" issue="1602429" due-to="Miroslav Sulc">
+				Patch to fix issue:running tests doesn't work because writing to /root/.statsvn is not allowed.
+            </action>
+			<action dev="benoitx" type="add" issue="1605311" due-to="Benoit Xhenseval">
+				Adding a counter for the number of diff calls made and to be made, save the cache every 2 minutes (takes 15ms) and provides an estimate for
+				completion time.
+            </action>
+		</release>
+		<release version="0.2.0" date="2006-11-28" description="Removing the StatCvs code from StatSVN">
+			<action dev="benoitx" type="remove">Removing the StatCvs code from StatSVN</action>
+			<action dev="benoitx" type="fix">Fixed issues related to InputStream from svn command line executions</action>
+			<action dev="benoitx" type="fix">Acted on FindBugs, PMD and Checkstyle warnings.</action>
+			<action dev="benoitx" type="fix">Fixed issue related to number of files when they are moved/deleted.</action>
+		</release>
+		<release version="0.1.3" date="2006-11-20" description="XDoc support and move to net.sf.statsvn">
+			<action dev="benoitx" type="add">Added support for xdoc.</action>
+			<action dev="benoitx" type="add">Moved code to net.sf.statsvn in preparation of removing the code that belongs to StatCvs.</action>
+		</release>
+	</body>
+</document>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/tests-src/net/sf/statcvs/output/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/tests-src/net/sf/statcvs/output/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2006-01-19 08:13</span></dd>
+    <dt>Directory Deleted:</dt>
+    <dd><span class="date">2006-11-19 20:39</span></dd>
+    <dt>Total Files:</dt>
+    <dd>0</dd>
+    <dt>Deleted Files:</dt>
+    <dd>2</dd>
+    <dt>Lines of Code:</dt>
+    <dd>0</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<a href="dir_statsvn_tests-src.html">tests-src</a>/<a href="dir_statsvn_tests-src_net.html">net</a>/<a href="dir_statsvn_tests-src_net_sf.html">sf</a>/<a href="dir_statsvn_tests-src_net_sf_statcvs.html">statcvs</a>/<strong>output</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_module_statsvn_tests-src_net_sf_statcvs_output.png" alt="statsvn/tests-src/net/sf/statcvs/output/ Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>9 (100.0%)</td>
+        <td>242 (100.0%)</td>
+        <td>26.8</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></th>
+        <td>2 (22.2%)</td>
+        <td>130 (53.7%)</td>
+        <td>65.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">Jason Kealey</a></th>
+        <td>2 (22.2%)</td>
+        <td>65 (26.9%)</td>
+        <td>32.5</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_gunterm.html" class="author">Gunter Mussbacher</a></th>
+        <td>1 (11.1%)</td>
+        <td>28 (11.6%)</td>
+        <td>28.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>4 (44.4%)</td>
+        <td>19 (7.9%)</td>
+        <td>4.7</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="6"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-19 20:39</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">145</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move tests to net.sf.statsvn
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/AllTests.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/WebRepositoryIntegrationTest.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">WebRepositoryIntegrationTest.java</a>&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-18 02:14</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">141</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed some checkstyle issues (using final wherever possible, hence a few changes...)<br />
+Introduced constants and rename final static method in upper case (was inconsistent).<br />
+Also there were a few inconsistencies in the use of { on the same line as for or if.<br />
+Re-ordered private/static/final keywords to follow java standard (e.g. private static final...)<br />
+I hope this is ok.
+    </p>
+    <p class="commitdetails"><strong>19</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/AllTests.java?r1=5&amp;r2=141" class="webrepository">AllTests.java</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/WebRepositoryIntegrationTest.java?r1=87&amp;r2=141" class="webrepository">WebRepositoryIntegrationTest.java</a>&#160;<span class="change">(+18&#160;-18)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-04-10 17:59</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">87</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+renamed viewcvs to viewvc everywhere except Ant task.
+    </p>
+    <p class="commitdetails"><strong>33</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/WebRepositoryIntegrationTest.java?r1=78&amp;r2=87" class="webrepository">WebRepositoryIntegrationTest.java</a>&#160;<span class="change">(+33&#160;-34)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-03-20 16:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">78</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+got rid of cvsweb and fixed broken tests for repository integration
+    </p>
+    <p class="commitdetails"><strong>32</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/WebRepositoryIntegrationTest.java?r1=13&amp;r2=78" class="webrepository">WebRepositoryIntegrationTest.java</a>&#160;<span class="change">(+32&#160;-127)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_gunterm.html" class="author">Gunter Mussbacher</a>
+    <span class="date">2006-02-21 21:23</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">13</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+renaming from CVS to abstract names or SVN; followed StatsCVS recommedations
+    </p>
+    <p class="commitdetails"><strong>28</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/WebRepositoryIntegrationTest.java?r1=5&amp;r2=13" class="webrepository">WebRepositoryIntegrationTest.java</a>&#160;<span class="change">(+28&#160;-28)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a>
+    <span class="date">2006-01-19 08:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">5</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Initial statcvs project import
+    </p>
+    <p class="commitdetails"><strong>130</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/WebRepositoryIntegrationTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">WebRepositoryIntegrationTest.java</a>&#160;<span class="new">(new&#160;129)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

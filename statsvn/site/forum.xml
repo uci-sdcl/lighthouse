@@ -1,0 +1,31 @@
+<document>
+  <properties>
+    <title>User Forum</title>
+  </properties>
+  <head>
+    <meta name="description"
+	content="StatSVN retrieves information from a Subversion repository and generates various tables and charts describing the project development."
+	/>
+
+    <meta name="keywords"
+        content="SubVersion, StatCVS, Statistics Subversion, svn, Code Repository, svn statistics, svn graphs, java, open source" />
+    <meta name="Subject" content="Statistics Subversion SVN" />
+    <meta name="Copyright" content="StatSVN Team and ObjectLab Financial Ltd" />
+    <meta name="Language" content="English" />
+    <meta name="Designer" content="StatSVN Team and ObjectLab Financial Ltd" />
+    <meta name="Distribution" content="Global" />
+    <meta name="robots" content="ALL"/>
+    <meta name="Revisit-After" content="20 Days" />
+    <link rel="alternate" type="application/rss+xml"
+                title="ObjectLab Open Source News" href="http://feeds.feedburner.com/ObjectLabOpenSourceNews?format=xml"/>
+  </head>
+  <body>
+    <!-- The body of the document contains a number of sections -->
+    <section name="User Forum">
+<a id="nabblelink" href="http://n2.nabble.com/StatSVN-Users-f153.html">StatSVN Users</a>
+<script src="http://n2.nabble.com/embed/f153"></script>
+</section>
+
+
+  </body>
+</document>

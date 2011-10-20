@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/site/press/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/site/press/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2006-11-23 20:44</span></dd>
+    <dt>Total Files:</dt>
+    <dd>7</dd>
+    <dt>Deleted Files:</dt>
+    <dd>0</dd>
+    <dt>Lines of Code:</dt>
+    <dd>246</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<a href="dir_statsvn_site.html">site</a>/<strong>press</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_module_statsvn_site_press.png" alt="statsvn/site/press/ Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>16 (100.0%)</td>
+        <td>258 (100.0%)</td>
+        <td>16.1</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="10"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-12 20:51</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">302</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+last changes before release build.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.3.1.txt?r1=296&amp;r2=302" class="webrepository">press-release-0.3.1.txt</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-10 13:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">296</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+getting ready for 0.3.1 (still need to check an issue with tags).
+    </p>
+    <p class="commitdetails"><strong>7</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.3.1.txt?r1=294&amp;r2=296" class="webrepository">press-release-0.3.1.txt</a>&#160;<span class="change">(+7&#160;-4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-08 18:11</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">294</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+getting ready for 0.3.1
+    </p>
+    <p class="commitdetails"><strong>70</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/index.xml?r1=260&amp;r2=294" class="webrepository">index.xml</a>&#160;<span class="change">(+9)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.3.1.txt?rev=294&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">press-release-0.3.1.txt</a>&#160;<span class="new">(new&#160;61)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-12 19:42</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">262</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+forgot to mention StatCVS 0.3...
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.3.0.txt?r1=260&amp;r2=262" class="webrepository">press-release-0.3.0.txt</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-12 19:39</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">260</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bit more doco and suggested 'press release'.
+    </p>
+    <p class="commitdetails"><strong>67</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/index.xml?r1=179&amp;r2=260" class="webrepository">index.xml</a>&#160;<span class="change">(+9)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.3.0.txt?rev=260&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">press-release-0.3.0.txt</a>&#160;<span class="new">(new&#160;58)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-29 15:51</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">179</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a couple of links.
+    </p>
+    <p class="commitdetails"><strong>15</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/index.xml?r1=172&amp;r2=179" class="webrepository">index.xml</a>&#160;<span class="change">(+15&#160;-2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/java.net-0.2.0.png?rev=179&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">java.net-0.2.0.png</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/javalobby-homepage-0.2.0.pdf?rev=179&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">javalobby-homepage-0.2.0.pdf</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/javalobby-homepage-0.2.0.png?rev=179&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">javalobby-homepage-0.2.0.png</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-29 00:38</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">178</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Typos for StatSVN.
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.2.0.txt?r1=174&amp;r2=178" class="webrepository">press-release-0.2.0.txt</a>&#160;<span class="change">(+6&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-28 05:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">174</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Change link
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.2.0.txt?r1=166&amp;r2=174" class="webrepository">press-release-0.2.0.txt</a>&#160;<span class="change">(+1&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-28 04:54</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">172</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Small changes for website.
+    </p>
+    <p class="commitdetails"><strong>14</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/index.xml?r1=166&amp;r2=172" class="webrepository">index.xml</a>&#160;<span class="change">(+14)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-23 20:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">166</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Page for future "press" coverage.
+    </p>
+    <p class="commitdetails"><strong>76</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/press</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/index.xml?rev=166&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">index.xml</a>&#160;<span class="new">(new&#160;35)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/press/press-release-0.2.0.txt?rev=166&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">press-release-0.2.0.txt</a>&#160;<span class="new">(new&#160;41)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

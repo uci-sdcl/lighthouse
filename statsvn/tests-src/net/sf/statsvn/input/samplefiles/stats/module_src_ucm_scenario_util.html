@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Module src/ucm/scenario/util/</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.2.4"/>
+    <link rel="stylesheet" href="statcvs.css" type="text/css"/>
+  </head>
+
+<body>
+
+
+<h1>Module src/ucm/scenario/util/</h1>
+<p><a href="index.html">back to main page</a></p>
+<p class="summaryperiod">
+  Summary Period:
+  <span class="date">2005-03-15</span> to
+  <span class="date">2006-01-29</span></p>
+
+<h2>Modules</h2>
+<p><a href="module.html">[root]</a>/<a href="module_src.html">src</a>/<a href="module_src_ucm.html">ucm</a>/<a href="module_src_ucm_scenario.html">scenario</a>/<strong>util</strong>
+<br/></p>
+
+<h2>Lines of Code</h2>
+<p><img src="loc_module_src_ucm_scenario_util.png" width="640" height="480" alt=""/><br/>
+<strong>Total Lines Of Code: </strong>
+402 (<span class="date">2006-03-31 18:01</span>)</p>
+
+<h2>Authors</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>16 (100.0%)</td>
+        <td>804 (100.0%)</td>
+        <td>50.2</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>6 (37.5%)</td>
+        <td>402 (50.0%)</td>
+        <td>67.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_etremblay.html" class="author">etremblay</a></th>
+        <td>8 (50.0%)</td>
+        <td>402 (50.0%)</td>
+        <td>50.2</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>2 (12.5%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-01-29 19:34</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge of GRL branch with the main trunk
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        ScenarioSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 22:13</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge grl branch with the main trunk<br/>
+Major modification of the metamodel (URN_08.mdl) (Added GRL metamodel, New interfaces that define common element in GRL and UCM, Modified UCM-Map package to implement the new interfaces (some associations and attributes have been refactored using the interfaces), Map is now called UCMmap (to resolve conflict with java.util.map in the implementation), Removed Path Graph)<br/>
+Modification of the code that used the metamodel.<br/>
+Started modification of jUCMNav to support GRL.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>402</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="new">(new&#160;191)</span>,
+        ScenarioSwitch.java&#160;<span class="new">(new&#160;211)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 21:39</span>
+  </dt>
+  <dd>
+    <p class="comment">
+***This build could not compile. DO NOT CHECKOUT THIS VERSION<br/>
+ <br/>
+Merging the grl branch in the main trunk. Problem during the merging with the metamodel package. <br/>
+Need to delete these packages. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="del">(del)</span>,
+        ScenarioSwitch.java&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-02 19:17</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Upgraded meta-model to version 7.<br/>
+bug 193 - ReqElemStartPointAttributes<br/>
+properties view shows workload attribute as a nested attribute (instead of original dialog box proposal)<br/>
+properties view doesn't refresh its descriptors every time you change a property. (property descriptors are properly cached by implementing the PropertyID class with hashCode and equals that work better than Object[]'s)<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        ScenarioSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-25 21:44</span>
+  </dt>
+  <dd>
+    <p class="comment">
+The new meta model was generated in the code.<br/>
+The start, empty and end point are not in the palette anymore.  Use the path tool to create them from now on.<br/>
+Deleted the marquee in the palette since the selection tool do the same thing...<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        ScenarioSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-29 22:01</span>
+  </dt>
+  <dd>
+    <p class="comment">
+URN model version 5 is now generated in EMF.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        ScenarioSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-28 14:48</span>
+  </dt>
+  <dd>
+    <p class="comment">
+- You can add multiple path in one diagram.<br/>
+- The path tool is close to work like planned.<br/>
+- To extend a path, select the end point of the path you want to extends, select the end point tool and then click where you want to extend.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="change">(changed)</span>,
+        ScenarioSwitch.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-15 21:05</span>
+  </dt>
+  <dd>
+    <p class="comment">
+- The new model is now working.<br/>
+- Creating path works (do/undo)<br/>
+- Extending path works (do/undo)<br/>
+- SplitLinkCommand doesn't work<br/>
+- BSplineConnectionRouter works #1!<br/>
+
+    </p>
+    <p class="commitdetails"><strong>402</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/ucm/scenario/util</strong>:
+        ScenarioAdapterFactory.java&#160;<span class="new">(new&#160;191)</span>,
+        ScenarioSwitch.java&#160;<span class="new">(new&#160;211)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<div id="generatedby"><p>Generated by <a href="http://statcvs.sourceforge.net">StatCVS</a> 0.2.4</p>
+</div>
+</body>
+</html>

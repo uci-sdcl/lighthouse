@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/site/demo/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/site/demo/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2007-03-05 00:37</span></dd>
+    <dt>Total Files:</dt>
+    <dd>2</dd>
+    <dt>Deleted Files:</dt>
+    <dd>0</dd>
+    <dt>Lines of Code:</dt>
+    <dd>118</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<a href="dir_statsvn_site.html">site</a>/<strong>demo</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_module_statsvn_site_demo.png" alt="statsvn/site/demo/ Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>14 (100.0%)</td>
+        <td>143 (100.0%)</td>
+        <td>10.2</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="13"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-06-25 21:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">367</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added -chartset option.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/navigation.xml?r1=325&amp;r2=367" class="webrepository">navigation.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-04-06 20:42</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">326</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fix XML syntax.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=325&amp;r2=326" class="webrepository">index.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-04-06 19:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">325</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+demo page including a link to the zipped cache.
+    </p>
+    <p class="commitdetails"><strong>57</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=324&amp;r2=325" class="webrepository">index.xml</a>&#160;<span class="change">(+16&#160;-5)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/navigation.xml?rev=325&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">navigation.xml</a>&#160;<span class="new">(new&#160;41)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-04-06 19:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">324</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Better headlines. Plus use of config file for User Real Name and co.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=310&amp;r2=324" class="webrepository">index.xml</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-20 10:50</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">310</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Updating stats published.
+    </p>
+    <p class="commitdetails"><strong>23</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=309&amp;r2=310" class="webrepository">index.xml</a>&#160;<span class="change">(+23&#160;-9)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-14 16:27</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">309</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added Apache QPid.
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=308&amp;r2=309" class="webrepository">index.xml</a>&#160;<span class="change">(+2&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-13 23:53</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">308</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added Apache Synapse to demos.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=307&amp;r2=308" class="webrepository">index.xml</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-13 22:11</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">307</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added Mule (ESB) to the demo stats.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=301&amp;r2=307" class="webrepository">index.xml</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-12 16:31</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">301</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed formatting and prepare for release build
+    </p>
+    <p class="commitdetails"><strong>9</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=296&amp;r2=301" class="webrepository">index.xml</a>&#160;<span class="change">(+9)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-10 13:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">296</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+getting ready for 0.3.1 (still need to check an issue with tags).
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=294&amp;r2=296" class="webrepository">index.xml</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-08 18:11</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">294</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+getting ready for 0.3.1
+    </p>
+    <p class="commitdetails"><strong>3</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=293&amp;r2=294" class="webrepository">index.xml</a>&#160;<span class="change">(+3&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-08 11:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">293</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+update the demo, rss and latest fix.
+    </p>
+    <p class="commitdetails"><strong>10</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?r1=288&amp;r2=293" class="webrepository">index.xml</a>&#160;<span class="change">(+10&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-05 00:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">288</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added intro page for demo site.
+    </p>
+    <p class="commitdetails"><strong>32</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site/demo</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/demo/index.xml?rev=288&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">index.xml</a>&#160;<span class="new">(new&#160;32)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Directory src/seg/jUCMNav/views/stub/</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>Directory src/seg/jUCMNav/views/stub/</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2005-06-10 23:52</span></dd>
+    <dt>Total Files:</dt>
+    <dd>5</dd>
+    <dt>Deleted Files:</dt>
+    <dd>1</dd>
+    <dt>Lines of Code:</dt>
+    <dd>1743</dd>
+</dl>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_src.html">src</a>/<a href="dir_src_seg.html">seg</a>/<a href="dir_src_seg_jUCMNav.html">jUCMNav</a>/<a href="dir_src_seg_jUCMNav_views.html">views</a>/<strong>stub</strong><br/>
+</p>
+
+<div class="section">
+<h2>Lines of Code</h2>
+<p class="chart"><img src="loc_module_src_seg_jUCMNav_views_stub.png" alt="src/seg/jUCMNav/views/stub/ Lines of Code" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Developers</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>31 (100.0%)</td>
+        <td>1743 (100.0%)</td>
+        <td>56.2</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_etremblay.html" class="author">etremblay</a></th>
+        <td>12 (38.7%)</td>
+        <td>1728 (99.1%)</td>
+        <td>144.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>16 (51.6%)</td>
+        <td>15 (0.9%)</td>
+        <td>0.9</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>3 (9.7%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="20"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-27 19:27</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">839</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 387: error on cancel after map creation
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-27 19:23</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">838</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 341: automatic update of pluginbinding properties
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-01-29 20:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">669</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge of GRL branch with the main trunk
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-24 18:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">655</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Extracted a bunch of strings, translated language files to French. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 23:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">585</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge grl branch with the main trunk<br />
+Major modification of the metamodel (URN_08.mdl) (Added GRL metamodel, New interfaces that define common element in GRL and UCM, Modified UCM-Map package to implement the new interfaces (some associations and attributes have been refactored using the interfaces), Map is now called UCMmap (to resolve conflict with java.util.map in the implementation), Removed Path Graph)<br />
+Modification of the code that used the metamodel.<br />
+Started modification of jUCMNav to support GRL.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        PluginListDialog.java&#160;<span class="change">(changed)</span>,
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-29 19:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">498</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bugs 372 - 378 - 380 - 379 - 273 - 375 - massive changes in deletion command infrastructure. mainly refactoring but also various functionality additions<br />
+<br />
+also committing minor changes to the twiki plugin created by JFRoy and an ant script to generate javadoc on a windows machine.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-07-15 00:24</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">486</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Lesson learned...  Never try to make an SWT application in 3.1 for 3.0....  The layout won't work like you designed it in 3.1...<br />
+Added condition editing in the StubBindingDialog.  Quick hack to take what was working in the 3.1 version done during the day and add it to the 3.0 version.  The layout is not as nice though in 3.0.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-14 17:30</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">480</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+added headers + package.html for all files in the seg.jUCMNav.views.* package. did not clean the files<br />
+
+    </p>
+    <p class="commitdetails"><strong>15</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        PluginContentProvider.java&#160;<span class="change">(changed)</span>,
+        PluginLabelProvider.java&#160;<span class="change">(changed)</span>,
+        PluginListDialog.java&#160;<span class="change">(changed)</span>,
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>,
+        package.html&#160;<span class="new">(new&#160;15)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-07-14 02:41</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">474</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Deleted useless Resp view actions.<br />
+Added a create map button in the Stub Dialog.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-14 01:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">473</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 344 - localization wizard<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-11 16:43</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">455</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 359 - mode now affects all editors;<br />
+undiscovered regression bug - stub labels sometimes didn't move;<br />
+cleaned&amp;commented (javadoc) seg.jUCMNav.editparts;<br />
+moved remaining stub code from PathNodeEditPart to StubEditPart;<br />
+moved remaiining condition code form LabelEditPart to ConditionEditPart<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-06-29 02:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">433</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a really basic Responsibility View.  Right now you can select each responsibility but the selection synchronization is not there yet.<br />
+If you change info of responsibilities it'll show in the list, but if you add new ones it won't for the moment...<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-27 19:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">428</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 335: palette wording<br />
+bug 344: extracted more strings<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-17 20:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">387</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+etienne: beware lowercase/uppercase differences in filenames!<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-17 14:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">378</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed null pointer bug in stub bindings view<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-14 22:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">359</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+minor enhancement in binding dialog<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-14 20:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">357</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 295 - missing tooltip<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-06-12 21:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">344</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Delete of PluginBindings now works when deleting a stub with 1 or more number of in or out...<br />
+StubBindingsDialog now display IN and OUT from 1 instead of 0.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-06-11 14:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">337</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added some comments.<br />
+
+    </p>
+    <p class="commitdetails"><strong>62</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        MapLabelProvider.java&#160;<span class="del">(del)</span>,
+        PluginContentProvider.java&#160;<span class="change">(changed)</span>,
+        PluginLabelProvider.java&#160;<span class="new">(new&#160;62)</span>,
+        PluginListDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-06-10 23:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">336</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New dialog when you double click on a dynamic stub to select the map you want to open.<br />
+
+    </p>
+    <p class="commitdetails"><strong>1666</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        MapLabelProvider.java&#160;<span class="new">(new)</span>,
+        PluginContentProvider.java&#160;<span class="new">(new&#160;50)</span>,
+        PluginListDialog.java&#160;<span class="new">(new&#160;105)</span>,
+        StubBindingsDialog.java&#160;<span class="new">(new&#160;1511)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Directory src/seg/jUCMNav/model/commands/transformations/internal/</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>Directory src/seg/jUCMNav/model/commands/transformations/internal/</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2005-07-29 19:09</span></dd>
+    <dt>Total Files:</dt>
+    <dd>4</dd>
+    <dt>Deleted Files:</dt>
+    <dd>0</dd>
+    <dt>Lines of Code:</dt>
+    <dd>488</dd>
+</dl>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_src.html">src</a>/<a href="dir_src_seg.html">seg</a>/<a href="dir_src_seg_jUCMNav.html">jUCMNav</a>/<a href="dir_src_seg_jUCMNav_model.html">model</a>/<a href="dir_src_seg_jUCMNav_model_commands.html">commands</a>/<a href="dir_src_seg_jUCMNav_model_commands_transformations.html">transformations</a>/<strong>internal</strong><br/>
+</p>
+
+<div class="section">
+<h2>Lines of Code</h2>
+<p class="chart"><img src="loc_module_src_seg_jUCMNav_model_commands_transformations_internal.png" alt="src/seg/jUCMNav/model/commands/transformations/internal/ Lines of Code" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Developers</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>11 (100.0%)</td>
+        <td>488 (100.0%)</td>
+        <td>44.3</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>5 (45.5%)</td>
+        <td>488 (100.0%)</td>
+        <td>97.6</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>6 (54.5%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="4"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-01-29 20:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">669</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge of GRL branch with the main trunk
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations/internal</strong>:
+        AttachEndCommand.java&#160;<span class="change">(changed)</span>,
+        AttachStartCommand.java&#160;<span class="change">(changed)</span>,
+        DoMergeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-24 18:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">655</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Extracted a bunch of strings, translated language files to French. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations/internal</strong>:
+        DoMergeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 23:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">585</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge grl branch with the main trunk<br />
+Major modification of the metamodel (URN_08.mdl) (Added GRL metamodel, New interfaces that define common element in GRL and UCM, Modified UCM-Map package to implement the new interfaces (some associations and attributes have been refactored using the interfaces), Map is now called UCMmap (to resolve conflict with java.util.map in the implementation), Removed Path Graph)<br />
+Modification of the code that used the metamodel.<br />
+Started modification of jUCMNav to support GRL.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations/internal</strong>:
+        AttachEndCommand.java&#160;<span class="change">(changed)</span>,
+        AttachStartCommand.java&#160;<span class="change">(changed)</span>,
+        DoMergeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-29 19:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">498</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bugs 372 - 378 - 380 - 379 - 273 - 375 - massive changes in deletion command infrastructure. mainly refactoring but also various functionality additions<br />
+<br />
+also committing minor changes to the twiki plugin created by JFRoy and an ant script to generate javadoc on a windows machine.<br />
+
+    </p>
+    <p class="commitdetails"><strong>488</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations/internal</strong>:
+        AttachEndCommand.java&#160;<span class="new">(new&#160;153)</span>,
+        AttachStartCommand.java&#160;<span class="new">(new&#160;176)</span>,
+        DoMergeCommand.java&#160;<span class="new">(new&#160;136)</span>,
+        package.html&#160;<span class="new">(new&#160;23)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

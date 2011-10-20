@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>StatSVN Developers</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="StatSVN Developers">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Number of Developers:</dt>
+    <dd>4</dd>
+</dl>
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Author Id</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th></th>
+        <td>Totals</td>
+        <td>2301 (100.0%)</td>
+        <td>32091 (100.0%)</td>
+        <td>13.9</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td><a href="user_benoitx.html" class="author">benoitx</a></td>
+        <td>1607 (69.8%)</td>
+        <td>13845 (43.1%)</td>
+        <td>8.6</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">Jason Kealey</a></th>
+        <td><a href="user_jkealey.html" class="author">jkealey</a></td>
+        <td>334 (14.5%)</td>
+        <td>10912 (34.0%)</td>
+        <td>32.6</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></th>
+        <td><a href="user_jpdaigle.html" class="author">jpdaigle</a></td>
+        <td>213 (9.3%)</td>
+        <td>3758 (11.7%)</td>
+        <td>17.6</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_gunterm.html" class="author">Gunter Mussbacher</a></th>
+        <td><a href="user_gunterm.html" class="author">gunterm</a></td>
+        <td>147 (6.4%)</td>
+        <td>3576 (11.1%)</td>
+        <td>24.3</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<div class="section">
+<subsection name ="Last 12 Months">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Up to 8/2008</th>
+        <th>9/2008</th>
+        <th>10/2008</th>
+        <th>11/2008</th>
+        <th>12/2008</th>
+        <th>1/2009</th>
+        <th>2/2009</th>
+        <th>3/2009</th>
+        <th>4/2009</th>
+        <th>5/2009</th>
+        <th>6/2009</th>
+        <th>7/2009</th>
+        <th>8/2009</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>31158 (100.0%)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>599 (100.0%)</td>
+        <td>17 (100.0%)</td>
+        <td>293 (100.0%)</td>
+        <td>10 (100.0%)</td>
+        <td>0 (-)</td>
+        <td>14 (100.0%)</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>12912 (41.4%)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>599 (100.0%)</td>
+        <td>17 (100.0%)</td>
+        <td>293 (100.0%)</td>
+        <td>10 (100.0%)</td>
+        <td>0 (-)</td>
+        <td>14 (100.0%)</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">Jason Kealey</a></th>
+        <td>10912 (35.0%)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (-)</td>
+        <td>0 (0.0%)</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></th>
+        <td>3758 (12.1%)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (-)</td>
+        <td>0 (0.0%)</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_gunterm.html" class="author">Gunter Mussbacher</a></th>
+        <td>3576 (11.5%)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (-)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0 (-)</td>
+        <td>0 (0.0%)</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_per_author.png" alt="Contributed Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developer of the Month">
+  <table  class="statCvsTable" rules="groups" summary="Repository Tags">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Author</th>
+        <th>Lines</th>
+        <th>Tweet This</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="2009-08.html">August 2009</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>14</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20August%202009%20for%20StatSVN%20%7B0}%20with%2014%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2009-06.html">June 2009</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>10</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20June%202009%20for%20StatSVN%20%7B0}%20with%2010%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2009-05.html">May 2009</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>293</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20May%202009%20for%20StatSVN%20%7B0}%20with%20293%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2009-04.html">April 2009</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>17</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20April%202009%20for%20StatSVN%20%7B0}%20with%2017%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2009-03.html">March 2009</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>599</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20March%202009%20for%20StatSVN%20%7B0}%20with%20599%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2008-07.html">July 2008</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>2</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20July%202008%20for%20StatSVN%20%7B0}%20with%202%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2008-06.html">June 2008</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>742</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20June%202008%20for%20StatSVN%20%7B0}%20with%20742%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2008-05.html">May 2008</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>12</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20May%202008%20for%20StatSVN%20%7B0}%20with%2012%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2008-04.html">April 2008</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>153</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20April%202008%20for%20StatSVN%20%7B0}%20with%20153%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2008-03.html">March 2008</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>1657</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20March%202008%20for%20StatSVN%20%7B0}%20with%201%2C657%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2008-01.html">January 2008</a></th>
+        <td><a href="user_jkealey.html" class="author">Jason Kealey</a></td>
+        <td>175</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jkealey%20is%20Developer%20of%20The%20Month%20for%20January%202008%20for%20StatSVN%20%7B0}%20with%20175%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2007-07.html">July 2007</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>16</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20July%202007%20for%20StatSVN%20%7B0}%20with%2016%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2007-06.html">June 2007</a></th>
+        <td><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></td>
+        <td>43</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jpdaigle%20is%20Developer%20of%20The%20Month%20for%20June%202007%20for%20StatSVN%20%7B0}%20with%2043%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2007-05.html">May 2007</a></th>
+        <td><a href="user_jkealey.html" class="author">Jason Kealey</a></td>
+        <td>1</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jkealey%20is%20Developer%20of%20The%20Month%20for%20May%202007%20for%20StatSVN%20%7B0}%20with%201%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2007-04.html">April 2007</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>557</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20April%202007%20for%20StatSVN%20%7B0}%20with%20557%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2007-03.html">March 2007</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>1387</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20March%202007%20for%20StatSVN%20%7B0}%20with%201%2C387%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2007-02.html">February 2007</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>141</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20February%202007%20for%20StatSVN%20%7B0}%20with%20141%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2007-01.html">January 2007</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>1205</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20January%202007%20for%20StatSVN%20%7B0}%20with%201%2C205%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2006-12.html">December 2006</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>1730</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20December%202006%20for%20StatSVN%20%7B0}%20with%201%2C730%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2006-11.html">November 2006</a></th>
+        <td><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></td>
+        <td>5310</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20is%20Developer%20of%20The%20Month%20for%20November%202006%20for%20StatSVN%20%7B0}%20with%205%2C310%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2006-08.html">August 2006</a></th>
+        <td><a href="user_jkealey.html" class="author">Jason Kealey</a></td>
+        <td>27</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jkealey%20is%20Developer%20of%20The%20Month%20for%20August%202006%20for%20StatSVN%20%7B0}%20with%2027%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2006-04.html">April 2006</a></th>
+        <td><a href="user_jkealey.html" class="author">Jason Kealey</a></td>
+        <td>1354</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jkealey%20is%20Developer%20of%20The%20Month%20for%20April%202006%20for%20StatSVN%20%7B0}%20with%201%2C354%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2006-03.html">March 2006</a></th>
+        <td><a href="user_jkealey.html" class="author">Jason Kealey</a></td>
+        <td>4862</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jkealey%20is%20Developer%20of%20The%20Month%20for%20March%202006%20for%20StatSVN%20%7B0}%20with%204%2C862%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="even">
+        <th><a href="2006-02.html">February 2006</a></th>
+        <td><a href="user_jkealey.html" class="author">Jason Kealey</a></td>
+        <td>3309</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jkealey%20is%20Developer%20of%20The%20Month%20for%20February%202006%20for%20StatSVN%20%7B0}%20with%203%2C309%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="2006-01.html">January 2006</a></th>
+        <td><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></td>
+        <td>3292</td>
+        <td><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40jpdaigle%20is%20Developer%20of%20The%20Month%20for%20January%202006%20for%20StatSVN%20%7B0}%20with%203%2C292%20lines.%20Stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tt-twitter-micro3.png"/></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Developer Activity ">
+<p class="chart"><img src="commitscatterauthors.png" alt="Commit Activity" width="1024" height="460" /></p><p class="chart"><img src="activity.png" alt="Author Activity" width="952" height="186" /></p></subsection></div>
+<div class="section">
+<subsection name ="Activity by Clock Time">
+<p class="chart"><img src="activity_time.png" alt="Activity by Hour of Day" width="1024" height="500" /></p><p class="chart"><img src="activity_day.png" alt="Activity by Day of Week" width="1024" height="500" /></p></subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/src/net/sf/statsvn/reportmodel/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/src/net/sf/statsvn/reportmodel/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Deleted:</dt>
+    <dd><span class="date">2006-11-21 01:08</span></dd>
+    <dt>Total Files:</dt>
+    <dd>0</dd>
+    <dt>Deleted Files:</dt>
+    <dd>12</dd>
+    <dt>Lines of Code:</dt>
+    <dd>0</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<a href="dir_statsvn_src.html">src</a>/<a href="dir_statsvn_src_net.html">net</a>/<a href="dir_statsvn_src_net_sf.html">sf</a>/<a href="dir_statsvn_src_net_sf_statsvn.html">statsvn</a>/<strong>reportmodel</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>36 (100.0%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-21 01:08</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">155</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Attention... <br />
+StatSvn no longer contains the StatCvs code, instead it shall depend on statcvs-0.2.4.jar (or whichever version StatCvs shall use when they take our changes).<br />
+A fair amount of changes will make it to StatCvs in order to support xdoc (in StatCvs), XHTML generation and use of StringBuffers.<br />
+Jason will do the StatCvs checkin soon, in the meantime I include statcvs-0.2.4.jar in the lib directory. <br />
+Enjoy
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">12 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/reportmodel</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/AuthorColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AuthorColumn.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/Column.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Column.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/DirectoryColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoryColumn.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/FileColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileColumn.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/GenericColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">GenericColumn.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/HelperTimePoint.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">HelperTimePoint.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/IntegerColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">IntegerColumn.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/RatioColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">RatioColumn.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/SimpleTextColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">SimpleTextColumn.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/Table.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Table.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/TimeLine.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TimeLine.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/TimePoint.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TimePoint.java</a>&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-19 20:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">144</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move to net.sf.statsvn
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">24 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/reportmodel</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/AuthorColumn.java?r1=144&amp;r2=144" class="webrepository">AuthorColumn.java</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/Column.java?r1=144&amp;r2=144" class="webrepository">Column.java</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/DirectoryColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoryColumn.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/FileColumn.java?r1=144&amp;r2=144" class="webrepository">FileColumn.java</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/GenericColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">GenericColumn.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/HelperTimePoint.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">HelperTimePoint.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/IntegerColumn.java?r1=144&amp;r2=144" class="webrepository">IntegerColumn.java</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/RatioColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">RatioColumn.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/SimpleTextColumn.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">SimpleTextColumn.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/Table.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Table.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/TimeLine.java?r1=144&amp;r2=144" class="webrepository">TimeLine.java</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/reportmodel/TimePoint.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TimePoint.java</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory maven-common-build/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory maven-common-build/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2006-11-16 12:10</span></dd>
+    <dt>Total Files:</dt>
+    <dd>2</dd>
+    <dt>Deleted Files:</dt>
+    <dd>0</dd>
+    <dt>Lines of Code:</dt>
+    <dd>231</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/maven-common-build/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<strong>maven-common-build</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_module_maven-common-build.png" alt="maven-common-build/ Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>5 (100.0%)</td>
+        <td>234 (100.0%)</td>
+        <td>46.8</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="5"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-03 22:16</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">225</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+width should be 160.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>maven-common-build</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/maven-common-build/objectlab_statsvn_checks.xml?r1=224&amp;r2=225" class="webrepository">objectlab_statsvn_checks.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-03 22:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">224</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+A bit of QA tidy-up.
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>maven-common-build</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/maven-common-build/objectlab_statsvn_checks.xml?r1=139&amp;r2=224" class="webrepository">objectlab_statsvn_checks.xml</a>&#160;<span class="change">(+2&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-03 22:14</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">185</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Introduce new options for multi-threading the SVN DIFF commands.<br />
+-threads (default 25)<br />
+-concurrency-threshold (default 2000 ms)<br />
+This means that unless an svn diff takes more than 2 sec, it will not launch the 25 threads.<br />
+Multi-threading is limited to the svn diff.
+    </p>
+    <p class="commitdetails"><strong>4</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>maven-common-build</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/maven-common-build/findbugs-exclude.xml?rev=185&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">findbugs-exclude.xml</a>&#160;<span class="new">(new&#160;4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-17 01:45</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">139</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Line should be max of 160 characters.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>maven-common-build</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/maven-common-build/objectlab_statsvn_checks.xml?r1=137&amp;r2=139" class="webrepository">objectlab_statsvn_checks.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-16 12:10</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">137</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+First cut for the refactored html/xdoc generation.<br />
+Use the new command line parameter -format xdoc|html (html by default).<br />
+When xdoc is used and NO css is provided, it will use the objectlab-statcvs-xdoc.css which is now part of StatSvn.<br />
+This checkin also resurrect the Maven build.
+    </p>
+    <p class="commitdetails"><strong>226</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>maven-common-build</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/maven-common-build/objectlab_statsvn_checks.xml?rev=137&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">objectlab_statsvn_checks.xml</a>&#160;<span class="new">(new&#160;226)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

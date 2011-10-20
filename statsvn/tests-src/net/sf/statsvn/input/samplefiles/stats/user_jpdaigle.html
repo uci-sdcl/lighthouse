@@ -1,0 +1,812 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - jUCMNav Developers: jpdaigle</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>jUCMNav Developers: jpdaigle</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a> &#171; <a href="developers.html">Developers</a></div>
+<dl class="attributes">
+    <dt>Login name:</dt>
+    <dd>jpdaigle</dd>
+    <dt>Total Commits:</dt>
+    <dd>317 (5.7%)</dd>
+    <dt>Lines of Code:</dt>
+    <dd>5,821 (3.3%)</dd>
+    <dt>Most Recent Commit:</dt>
+    <dd><span class="date">2005-07-18 22:46</span></dd>
+    <dt>Tweet this:</dt>
+    <dd><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=jpdaigle%20contributed%205%2C821%20(3.3%25)%20lines%20to%20jUCMNav%20%7B0}%20most%20recent%20commit%202005-07-18%20stats%20by%20StatCVS%20http%3A%2F%2Ftr.im%2Fkccq"><img style="border:0px" alt="Tweet this" src="tweet-this.png"/></a></dd>
+</dl>
+
+<div class="section">
+<h2>Activity by Clock Time</h2>
+<p class="chart"><img src="activity_time_jpdaigle.png" alt="Activity by Hour of Day for jpdaigle" width="800" height="500" /></p><p class="chart"><img src="activity_day_jpdaigle.png" alt="Activity by Day of Week for jpdaigle" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Activity in Directories</h2>
+  <table  rules="groups" summary="Overview of this author's activities in different directories">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Directory</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>317 (100.0%)</td>
+        <td>5821 (100.0%)</td>
+        <td>18.3</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_tests_progress.html" class="directory">src/seg/jUCMNav/tests/progress/</a></th>
+        <td>3 (0.9%)</td>
+        <td>2188 (37.6%)</td>
+        <td>729.3</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_tests_commands.html" class="directory">src/seg/jUCMNav/tests/commands/</a></th>
+        <td>7 (2.2%)</td>
+        <td>1098 (18.9%)</td>
+        <td>156.8</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_helpcontent.html" class="directory">helpcontent/</a></th>
+        <td>10 (3.2%)</td>
+        <td>710 (12.2%)</td>
+        <td>71.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_actions.html" class="directory">src/seg/jUCMNav/actions/</a></th>
+        <td>19 (6.0%)</td>
+        <td>403 (6.9%)</td>
+        <td>21.2</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_model_util_modelexplore_queries.html" class="directory">src/seg/jUCMNav/model/util/modelexplore/queries/</a></th>
+        <td>6 (1.9%)</td>
+        <td>372 (6.4%)</td>
+        <td>62.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir.html" class="directory">/</a></th>
+        <td>39 (12.3%)</td>
+        <td>348 (6.0%)</td>
+        <td>8.9</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_model_util_modelexplore.html" class="directory">src/seg/jUCMNav/model/util/modelexplore/</a></th>
+        <td>18 (5.7%)</td>
+        <td>233 (4.0%)</td>
+        <td>12.9</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_model_commands_transformations.html" class="directory">src/seg/jUCMNav/model/commands/transformations/</a></th>
+        <td>25 (7.9%)</td>
+        <td>199 (3.4%)</td>
+        <td>7.9</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_updatesite_features.html" class="directory">updatesite/features/</a></th>
+        <td>4 (1.3%)</td>
+        <td>66 (1.1%)</td>
+        <td>16.5</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_.settings.html" class="directory">.settings/</a></th>
+        <td>2 (0.6%)</td>
+        <td>64 (1.1%)</td>
+        <td>32.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_editpolicies_feedback.html" class="directory">src/seg/jUCMNav/editpolicies/feedback/</a></th>
+        <td>2 (0.6%)</td>
+        <td>60 (1.0%)</td>
+        <td>30.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_tests.html" class="directory">src/seg/jUCMNav/tests/</a></th>
+        <td>4 (1.3%)</td>
+        <td>48 (0.8%)</td>
+        <td>12.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_updatesite_site.html" class="directory">updatesite/site/</a></th>
+        <td>4 (1.3%)</td>
+        <td>32 (0.5%)</td>
+        <td>8.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_views_wizards.html" class="directory">src/seg/jUCMNav/views/wizards/</a></th>
+        <td>6 (1.9%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_views_resp.html" class="directory">src/seg/jUCMNav/views/resp/</a></th>
+        <td>1 (0.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_views_property_descriptors.html" class="directory">src/seg/jUCMNav/views/property/descriptors/</a></th>
+        <td>1 (0.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_views_property.html" class="directory">src/seg/jUCMNav/views/property/</a></th>
+        <td>8 (2.5%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_views_compositeList.html" class="directory">src/seg/jUCMNav/views/compositeList/</a></th>
+        <td>1 (0.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_model_util.html" class="directory">src/seg/jUCMNav/model/util/</a></th>
+        <td>6 (1.9%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_model_commands_delete.html" class="directory">src/seg/jUCMNav/model/commands/delete/</a></th>
+        <td>15 (4.7%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_model_commands_create.html" class="directory">src/seg/jUCMNav/model/commands/create/</a></th>
+        <td>29 (9.1%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_model_commands_changeConstraints.html" class="directory">src/seg/jUCMNav/model/commands/changeConstraints/</a></th>
+        <td>10 (3.2%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_model_commands.html" class="directory">src/seg/jUCMNav/model/commands/</a></th>
+        <td>1 (0.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_model.html" class="directory">src/seg/jUCMNav/model/</a></th>
+        <td>4 (1.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_icons.html" class="directory">src/seg/jUCMNav/icons/</a></th>
+        <td>6 (1.9%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_figures_util.html" class="directory">src/seg/jUCMNav/figures/util/</a></th>
+        <td>3 (0.9%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_figures_router.html" class="directory">src/seg/jUCMNav/figures/router/</a></th>
+        <td>7 (2.2%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_figures.html" class="directory">src/seg/jUCMNav/figures/</a></th>
+        <td>11 (3.5%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_editpolicies_layout.html" class="directory">src/seg/jUCMNav/editpolicies/layout/</a></th>
+        <td>7 (2.2%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_editpolicies_element.html" class="directory">src/seg/jUCMNav/editpolicies/element/</a></th>
+        <td>1 (0.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_editpolicies_directEditPolicy.html" class="directory">src/seg/jUCMNav/editpolicies/directEditPolicy/</a></th>
+        <td>2 (0.6%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_editparts.html" class="directory">src/seg/jUCMNav/editparts/</a></th>
+        <td>14 (4.4%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_editors_resourceManagement.html" class="directory">src/seg/jUCMNav/editors/resourceManagement/</a></th>
+        <td>1 (0.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_editors_palette.html" class="directory">src/seg/jUCMNav/editors/palette/</a></th>
+        <td>3 (0.9%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav_editors_actionContributors.html" class="directory">src/seg/jUCMNav/editors/actionContributors/</a></th>
+        <td>11 (3.5%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_src_seg_jUCMNav_editors.html" class="directory">src/seg/jUCMNav/editors/</a></th>
+        <td>6 (1.9%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_src_seg_jUCMNav.html" class="directory">src/seg/jUCMNav/</a></th>
+        <td>5 (1.6%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_icons.html" class="directory">icons/</a></th>
+        <td>9 (2.8%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_docs.html" class="directory">docs/</a></th>
+        <td>1 (0.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_build.html" class="directory">build/</a></th>
+        <td>5 (1.6%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+<p class="chart"><img src="directory_sizes_jpdaigle.png" alt="Activity of jpdaigle" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="20"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-18 22:46</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">493</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
++ Addition of eclipse.org's book.css for nicer and more consistent formatting of documentation. (pulled from twiki)<br />
++ Fixed up the update script to remove "&lt;BASE&gt;" tags from the downloaded HTML documentation.<br />
++ Tweaked deployment instructions to reflect new jar-based deployment, in conformance with new E3.1 plugin packaging standards.<br />
+
+    </p>
+    <p class="commitdetails"><strong>99</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>helpcontent</strong>:
+        book.css&#160;<span class="new">(new&#160;99)</span>,
+        getlatest&#160;<span class="change">(changed)</span>,
+        helponline.html&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-18 22:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">492</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+* jUCMNav now fully builds against Eclipse 3.1 installed libs<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-18 17:21</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">490</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
++ Fix help bug when deployed with base href=""<br />
++ Better build script: smaller artifact outputs, all-in-one jarfile for deployment.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>helpcontent</strong>:
+        helponline.html&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-17 00:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">489</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
++ Addition of referenced images in helpcontents folder.<br />
+* Fixed update script to correctly convert links to relative form and download any images referenced by the page.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>helpcontent</strong>:
+        getlatest&#160;<span class="change">(changed)</span>,
+        helponline.html&#160;<span class="change">(changed)</span>,
+        jucmnav_screenshot1.png&#160;<span class="new">(new)</span>,
+        notere_02.png&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-16 22:48</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">488</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
++ Including a local version of the monolithic help file for offline browsing.<br />
++ Script for fetching latest version from TWiki site.<br />
++ Build script updates to include help content in deployment package.<br />
++ help.xml updates to refer to local help.<br />
+<br />
+(TODO: images still stored offsite - need to hack the script to change external refs; debug wget -p option)<br />
+
+    </p>
+    <p class="commitdetails"><strong>611</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>,
+        help.xml&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>helpcontent</strong>:
+        getlatest&#160;<span class="new">(new&#160;16)</span>,
+        helponline.html&#160;<span class="new">(new&#160;595)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-12 01:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">458</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+JP: javadoc improvements on private-visibility methods<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">13 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/figures/router</strong>:
+        BSpline.java&#160;<span class="change">(changed)</span>,
+        UCMConnectionRouter.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        ChangeLabelNameCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        ParentFinder.java&#160;<span class="change">(changed)</span>,
+        SafePathChecker.java&#160;<span class="change">(changed)</span>,
+        URNNamingHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/tests/progress</strong>:
+        ProgressTests.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/compositeList</strong>:
+        CompositeListControl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/property</strong>:
+        ComponentPropertySource.java&#160;<span class="change">(changed)</span>,
+        EObjectPropertySource.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityPropertySource.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/resp</strong>:
+        ResponsibilityView.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards</strong>:
+        AutoLayoutWizard.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-07 20:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">447</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+A few tweaks / cleanups. This will also serve as build test and setup test for e31 on my laptop.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        MapAndPathGraphEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/directEditPolicy</strong>:
+        ExtendedDirectEditManager.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/layout</strong>:
+        NodeConnectionXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteMultiNodeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-07 18:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">444</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+JP: fix testing scripts for now by fixing version. Need to fix up update site versioning later<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-07 05:51</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">442</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Changed comments to trigger a build<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-07-07 05:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">441</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+JP: My last commit didn't happen for some weird reason.<br />
+* .settings (project settings for e31)<br />
+* Update site dev<br />
+<br />
+Update site versioning is weird and eclipse is installing several versions of the plugin in parallel right now for some reason, which is disastrous for the end user. Will investigate soon.<br />
+
+    </p>
+    <p class="commitdetails"><strong>64</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>.settings</strong>:
+        org.eclipse.jdt.core.prefs&#160;<span class="new">(new&#160;57)</span>,
+        org.eclipse.jdt.ui.prefs&#160;<span class="new">(new&#160;7)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-29 05:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">436</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Update site xml descriptions<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>updatesite/features</strong>:
+        feature.xml&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>updatesite/site</strong>:
+        site.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-29 04:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">434</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Initial update site scripts. Almost work.<br />
+
+    </p>
+    <p class="commitdetails"><strong>98</strong> lines of code changed in <span class="files">8 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>build</strong>:
+        .cvsignore&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>updatesite/features</strong>:
+        .cvsignore&#160;<span class="new">(new&#160;1)</span>,
+        build.xml&#160;<span class="new">(new&#160;21)</span>,
+        feature.xml&#160;<span class="new">(new&#160;44)</span>
+      </li>
+      <li>
+        <strong>updatesite/site</strong>:
+        .cvsignore&#160;<span class="new">(new&#160;1)</span>,
+        build.xml&#160;<span class="new">(new&#160;20)</span>,
+        site.xml&#160;<span class="new">(new&#160;11)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-21 19:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">402</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+more cruise tests<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        .cvsignore&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-21 18:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">401</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Another cruise test<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        .cvsignore&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-21 18:27</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">399</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Just a test to check if cruisecontrol problems are solved. Have a nice lunch everyone.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        .cvsignore&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-19 02:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">392</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug 249: Hover feedback on AND-forks/joins. For some reason though, after moving the node the feedback is not cleared.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        AndForkFigure.java&#160;<span class="change">(changed)</span>,
+        AndJoinFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-19 01:41</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">391</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix for Bug 301: allow moving a pathnode when dragging it onto a connection<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/layout</strong>:
+        NodeConnectionXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-17 21:03</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">388</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix for missing i18n strings in plugin descriptor... ET forgot to modify the build script when he externalized strings!<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-16 03:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">372</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Implemented canExecute in the MergeStartEnd command; corrected a bug in the test!!! that made it keep failing.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        MergeStartEndCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/tests/commands</strong>:
+        JUCMNavCommandTests.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-16 03:30</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">371</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+JP: use new breakiterator algorithm when running javadoc<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        build.xml&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<p>(68 more)</p>
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

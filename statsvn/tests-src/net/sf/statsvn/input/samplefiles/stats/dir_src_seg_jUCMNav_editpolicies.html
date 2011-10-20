@@ -1,0 +1,713 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Directory src/seg/jUCMNav/editpolicies/</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>Directory src/seg/jUCMNav/editpolicies/</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2005-02-22 17:48</span></dd>
+    <dt>Total Files:</dt>
+    <dd>1</dd>
+    <dt>Deleted Files:</dt>
+    <dd>25</dd>
+    <dt>Lines of Code:</dt>
+    <dd>19</dd>
+</dl>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_src.html">src</a>/<a href="dir_src_seg.html">seg</a>/<a href="dir_src_seg_jUCMNav.html">jUCMNav</a>/<strong>editpolicies</strong><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_src_seg_jUCMNav_editpolicies_directEdit.html">directEdit</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_editpolicies_directEditPolicy.html">directEditPolicy</a> 
+(7 files, 538 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_editpolicies_element.html">element</a> 
+(19 files, 701 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_editpolicies_feedback.html">feedback</a> 
+(6 files, 455 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_editpolicies_layout.html">layout</a> 
+(6 files, 936 lines)<br />
+</p>
+
+<div class="section">
+<h2>Lines of Code</h2>
+<p class="chart"><img src="loc_module_src_seg_jUCMNav_editpolicies.png" alt="src/seg/jUCMNav/editpolicies/ Lines of Code" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Developers</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>86 (100.0%)</td>
+        <td>19 (100.0%)</td>
+        <td>0.2</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>9 (10.5%)</td>
+        <td>19 (100.0%)</td>
+        <td>2.1</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jmcmanus.html" class="author">jmcmanus</a></th>
+        <td>4 (4.7%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_etremblay.html" class="author">etremblay</a></th>
+        <td>73 (84.9%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="25"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-12 02:47</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">459</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+new feature: use pathtool/fork/join from palette on fork/join and a new branch will be added.<br />
+fixed a bug introduced during cleanup in LabelEditPart.<br />
+cleaned up seg.jUCMNav.editpolicies.* and wrote javadoc<br />
+
+    </p>
+    <p class="commitdetails"><strong>19</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        package.html&#160;<span class="new">(new&#160;19)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-04-25 21:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">77</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Refactored a lot of packages to better reflect our strategy for the future.<br />
+Corrected some bugs to follow some guidelines we defined earlier.<br />
+Extracted the RessourceTracker class from UCMEditor.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">10 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        ComponentRefEditPolicy.java&#160;<span class="del">(del)</span>,
+        LabelComponentEditPolicy.java&#160;<span class="del">(del)</span>,
+        LabelDirectEditPolicy.java&#160;<span class="del">(del)</span>,
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="del">(del)</span>,
+        NodeConnectionEditPolicy.java&#160;<span class="del">(del)</span>,
+        NodeConnectionEndpointEditPolicy.java&#160;<span class="del">(del)</span>,
+        NodeConnectionSelectionHandlesEditPolicy.java&#160;<span class="del">(del)</span>,
+        NodeConnectionXYLayoutEditPolicy.java&#160;<span class="del">(del)</span>,
+        PathNodeComponentEditPolicy.java&#160;<span class="del">(del)</span>,
+        PathNodeNonRezizableEditPolicy.java&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-04-17 23:54</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">76</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a new figure for labels, labels are now relative to nodes, add label action disappears when label is already there.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-04-17 17:08</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">74</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+* Cleaned up CutPathCommand, ExtendPathCommand, SetConstraintCommand, SplitLinkCommand.<br />
+* They now extend JUCMNavCommand<br />
+* Added a few tests<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        NodeConnectionXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        PathNodeComponentEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-04-16 18:18</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">72</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+* Created General Test Suite that will run all smaller ones; this test suite should be run by cruisecontrol<br />
+* Refactored ModelCreationFactory to allow static use<br />
+* Cleaned CreatePathCommand ; now extends JUCMNavCommand and no longer references Draw2D<br />
+* Created a test case for it.<br />
+* Removed CreatePathNodeCommand which wasn't used.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-04-15 22:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">68</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+first attempts at autogenerated junit tests.<br />
+the code committed here will probably break the compiler; eclipse must be updated as stated here:<br />
+<a href="http://www.cis.upenn.edu">http://www.cis.upenn.edu</a>/~matuszek/cit594-2004/Pages/eclipse-faq.html<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-04-12 16:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">64</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Components are now on there own layer...  Caused a LOT of problems.  I had to reimplement a lot of function of the MapPathGraphEditPart.<br />
+Fixed some bugs of notifying of MapGraphEditPart too.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-04-11 02:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">63</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+worked on bug 184; top level element is now URNspec; will break existing files.<br />
+perfected a few issues concerning components; are now subsets of URNspec<br />
+fixed a bug concerning the label's addaction that caused an error to be thrown when clicking outside the editor<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-04-01 16:41</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">60</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+*** empty log message ***<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        LabelComponentEditPolicy.java&#160;<span class="new">(new)</span>,
+        LabelDirectEditPolicy.java&#160;<span class="new">(new)</span>,
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-29 20:04</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">54</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Commented the functions for all the following package:<br />
+- editors<br />
+- emf<br />
+- figures<br />
+- figures.router<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        PathNodeEditPolicy.java&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-29 15:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">52</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Resolved bug 166.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        NodeConnectionXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-03-29 04:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">51</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+initial version of being able to add components  ( bug 133 )<br />
+lots of cleanup required.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        MapAndPathGraphXYLayoutEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathGraphXYLayoutEditPolicy.java&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-28 15:48</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">50</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- You can add multiple path in one diagram.<br />
+- The path tool is close to work like planned.<br />
+- To extend a path, select the end point of the path you want to extends, select the end point tool and then click where you want to extend.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        PathGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        PathNodeComponentEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathNodeNonRezizableEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-16 03:57</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">44</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- You can now add a EmptyPoint and a Responsibility on a NodeConnection.<br />
+- Now each editpart know about the root model (The PathGraph).  It's easier to make the commands this way.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        NodeConnectionXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        PathNodeNonRezizableEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-15 22:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">43</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- The new model is now working.<br />
+- Creating path works (do/undo)<br />
+- Extending path works (do/undo)<br />
+- SplitLinkCommand doesn't work<br />
+- BSplineConnectionRouter works #1!<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">16 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        ComponentRefEditPolicy.java&#160;<span class="new">(new)</span>,
+        LinkEditPolicy.java&#160;<span class="del">(del)</span>,
+        LinkEndpointEditPolicy.java&#160;<span class="del">(del)</span>,
+        LinkSelectionHandlesEditPolicy.java&#160;<span class="del">(del)</span>,
+        LinkXYLayoutEditPolicy.java&#160;<span class="del">(del)</span>,
+        NodeConnectionEditPolicy.java&#160;<span class="new">(new)</span>,
+        NodeConnectionEndpointEditPolicy.java&#160;<span class="new">(new)</span>,
+        NodeConnectionSelectionHandlesEditPolicy.java&#160;<span class="new">(new)</span>,
+        NodeConnectionXYLayoutEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathGraphXYLayoutEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathNodeEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathNodeNonRezizableEditPolicy.java&#160;<span class="new">(new)</span>,
+        UcmComponentEditPolicy.java&#160;<span class="del">(del)</span>,
+        UcmNodeEditPolicy.java&#160;<span class="del">(del)</span>,
+        UcmNodeNonRezizableEditPolicy.java&#160;<span class="del">(del)</span>,
+        UcmXYLayoutEditPolicy.java&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-08 15:31</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">38</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+TODO list is now up to date.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">9 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        LinkEditPolicy.java&#160;<span class="change">(changed)</span>,
+        LinkEndpointEditPolicy.java&#160;<span class="change">(changed)</span>,
+        LinkSelectionHandlesEditPolicy.java&#160;<span class="change">(changed)</span>,
+        LinkXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmComponentEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmEditPolicy.java&#160;<span class="del">(del)</span>,
+        UcmNodeEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmNodeNonRezizableEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-06 22:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">35</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Maintenant les paths semblent fonctionner presque à<br />
+100%.  À part que je ne sais pas encore comment faire pour mettre mes<br />
+figure de node par dessus mes connection (ce qui créé des problèmes<br />
+d'affordance).  J'ai tenté d'écrire une fonction qui "clip" la<br />
+connection pour ne pas qu'elle embarque sur la node, mais j'ai plein<br />
+de problème...  Également j'ai encore quelques problèmes avec le zoom<br />
+:P.  Je vais expliquer tout ça lundi dans la réunion.<br />
+<br />
+Maintenant les figures sont plus facile à sélectionner.  Elles sont<br />
+entouré d'un plus grand rectangle de sélection que la figure elle<br />
+même.  Réglé des problèmes de coordonnées des figures également quand<br />
+on les changeait de place.  J'ai changé aussi comment elles étaient<br />
+dessinées.  Elles ne sont plus dessinées à la main dans paintFigure().<br />
+<br />
+Le default tool de la palette quand tu commence est la créaction de<br />
+path et ensuite quand le user créé une path ça change au end point<br />
+tool...  Donc ça simule le behavior de UCM Nav en fait.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        UcmXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-04 22:18</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">32</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+You can now add a node on the curve and the connection router will update accordingly.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        UcmNodeNonRezizableEditPolicy.java&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-03-02 16:25</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">26</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Zooming is now working.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        LinkXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-02-25 22:20</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">24</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Modified the palette and the palette behavior...<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        UcmXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-02-25 22:11</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">23</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Now the default tool on the palette is the last used.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        LinkEndpointEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-02-25 18:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">22</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added the command ExtendPathCommand.  When you add an end point to the diagram, this command get's executed and an empty point is inserted and the endpoint is moved to the the new clicked location.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        LinkXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-02-25 17:29</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">21</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Now the user can create a path and add node between links.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">9 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        LinkEditPolicy.java&#160;<span class="new">(new)</span>,
+        LinkEndpointEditPolicy.java&#160;<span class="new">(new)</span>,
+        LinkSelectionHandlesEditPolicy.java&#160;<span class="new">(new)</span>,
+        LinkXYLayoutEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathComponentEditPolicy.java&#160;<span class="del">(del)</span>,
+        PathDirectEditPolicy.java&#160;<span class="del">(del)</span>,
+        PathEditPolicy.java&#160;<span class="del">(del)</span>,
+        PathXYLayoutEditPolicy.java&#160;<span class="del">(del)</span>,
+        UcmXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-02-22 23:03</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">19</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added path edit parts<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        PathComponentEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathDirectEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmComponentEditPolicy.java&#160;<span class="change">(changed)</span>,
+        UcmXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-02-22 17:48</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">18</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Nothing is working right now...<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">6 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies</strong>:
+        PathEditPolicy.java&#160;<span class="new">(new)</span>,
+        PathXYLayoutEditPolicy.java&#160;<span class="new">(new)</span>,
+        UcmComponentEditPolicy.java&#160;<span class="new">(new)</span>,
+        UcmEditPolicy.java&#160;<span class="new">(new)</span>,
+        UcmNodeEditPolicy.java&#160;<span class="new">(new)</span>,
+        UcmXYLayoutEditPolicy.java&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

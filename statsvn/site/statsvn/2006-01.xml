@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>January 2006 Commit Log</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="January 2006 Commit Log">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+
+<div id="nav" class="section">
+<subsection name ="Commit Logs">
+<ul>
+    <li><a href="2009-08.html">August 2009</a></li>
+    <li><a href="2009-07.html">July 2009</a></li>
+    <li><a href="2009-06.html">June 2009</a></li>
+    <li><a href="2009-05.html">May 2009</a></li>
+    <li><a href="2009-04.html">April 2009</a></li>
+    <li><a href="2009-03.html">March 2009</a></li>
+    <li><a href="2009-02.html">February 2009</a></li>
+    <li><a href="2009-01.html">January 2009</a></li>
+    <li><a href="2008-12.html">December 2008</a></li>
+    <li><a href="2008-11.html">November 2008</a></li>
+    <li><a href="2008-10.html">October 2008</a></li>
+    <li><a href="2008-09.html">September 2008</a></li>
+    <li><a href="2008-08.html">August 2008</a></li>
+    <li><a href="2008-07.html">July 2008</a></li>
+    <li><a href="2008-06.html">June 2008</a></li>
+    <li><a href="2008-05.html">May 2008</a></li>
+    <li><a href="2008-04.html">April 2008</a></li>
+    <li><a href="2008-03.html">March 2008</a></li>
+    <li><a href="2008-02.html">February 2008</a></li>
+    <li><a href="2008-01.html">January 2008</a></li>
+    <li><a href="2007-12.html">December 2007</a></li>
+    <li><a href="2007-11.html">November 2007</a></li>
+    <li><a href="2007-10.html">October 2007</a></li>
+    <li><a href="2007-09.html">September 2007</a></li>
+    <li><a href="2007-08.html">August 2007</a></li>
+    <li><a href="2007-07.html">July 2007</a></li>
+    <li><a href="2007-06.html">June 2007</a></li>
+    <li><a href="2007-05.html">May 2007</a></li>
+    <li><a href="2007-04.html">April 2007</a></li>
+    <li><a href="2007-03.html">March 2007</a></li>
+    <li><a href="2007-02.html">February 2007</a></li>
+    <li><a href="2007-01.html">January 2007</a></li>
+    <li><a href="2006-12.html">December 2006</a></li>
+    <li><a href="2006-11.html">November 2006</a></li>
+    <li><a href="2006-10.html">October 2006</a></li>
+    <li><a href="2006-09.html">September 2006</a></li>
+    <li><a href="2006-08.html">August 2006</a></li>
+    <li><a href="2006-07.html">July 2006</a></li>
+    <li><a href="2006-06.html">June 2006</a></li>
+    <li><a href="2006-05.html">May 2006</a></li>
+    <li><a href="2006-04.html">April 2006</a></li>
+    <li><a href="2006-03.html">March 2006</a></li>
+    <li><a href="2006-02.html">February 2006</a></li>
+    <li><span class="here">January 2006</span></li>
+</ul>
+</subsection></div><dl class="attributes">
+    <dt>Number of Commits:</dt>
+    <dd>3</dd>
+    <dt>Number of Active Developers:</dt>
+    <dd>1</dd>
+</dl>
+<dl class="commitlist">
+  <dt><a name="3"></a>
+    <a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a>
+    <span class="date">2006-01-23 02:46</span>
+    <a class="permalink" title="Permalink to this commit" href="#3">#3</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">6</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+added link for dev wiki
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>website</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/website/index.html?r1=1&amp;r2=6" class="webrepository">index.html</a>&#160;<span class="change">(+2&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a>
+    <span class="date">2006-01-19 08:13</span>
+    <a class="permalink" title="Permalink to this commit" href="#2">#2</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">5</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Initial statcvs project import
+    </p>
+    <p class="commitdetails"><strong>3219</strong> lines of code changed in <span class="files">168 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">build.xml</a>&#160;<span class="new">(new&#160;194)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/maven.xml?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">maven.xml</a>&#160;<span class="new">(new&#160;47)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">project.properties</a>&#160;<span class="new">(new&#160;26)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">project.xml</a>&#160;<span class="new">(new&#160;168)</span>
+      </li>
+      <li>
+        <strong>statsvn/etc</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/etc/README?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">README</a>&#160;<span class="new">(new&#160;28)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/etc/report-notes.txt?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">report-notes.txt</a>&#160;<span class="new">(new&#160;10)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/ant.jar?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ant.jar</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jcommon-0.9.6.jar?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jcommon-0.9.6.jar</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jfreechart-0.9.21.jar?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jfreechart-0.9.21.jar</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/junit.jar?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">junit.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/Main.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Main.java</a>&#160;<span class="new">(new&#160;61)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/Messages.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Messages.java</a>&#160;<span class="new">(new&#160;3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/logging-debug.properties?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">logging-debug.properties</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/logging-verbose.properties?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">logging-verbose.properties</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/logging.properties?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">logging.properties</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/package.html?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">package.html</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/statcvs.properties?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs.properties</a>&#160;<span class="new">(new&#160;4)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/ant/StatCvsTask.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">StatCvsTask.java</a>&#160;<span class="new">(new&#160;54)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/ant/package.html?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">package.html</a>&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/Builder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Builder.java</a>&#160;<span class="new">(new&#160;239)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/CommitListBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommitListBuilder.java</a>&#160;<span class="new">(new&#160;106)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/CvsFileBlockParser.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsFileBlockParser.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/CvsLogBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsLogBuilder.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/CvsLogfileParser.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsLogfileParser.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/CvsRevisionParser.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsRevisionParser.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/EmptyRepositoryException.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">EmptyRepositoryException.java</a>&#160;<span class="new">(new&#160;23)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/FileBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileBuilder.java</a>&#160;<span class="new">(new&#160;289)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/LogSyntaxException.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LogSyntaxException.java</a>&#160;<span class="new">(new&#160;19)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/NoLineCountException.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">NoLineCountException.java</a>&#160;<span class="new">(new&#160;21)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/RepositoryFileManager.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">RepositoryFileManager.java</a>&#160;<span class="new">(new&#160;102)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/RevisionData.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">RevisionData.java</a>&#160;<span class="new">(new&#160;158)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/input/package.html?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">package.html</a>&#160;<span class="new">(new&#160;16)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/model</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/Author.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Author.java</a>&#160;<span class="new">(new&#160;4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/Commit.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Commit.java</a>&#160;<span class="new">(new&#160;9)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/CvsContent.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsContent.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/CvsFile.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsFile.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/CvsRevision.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsRevision.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/Directory.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Directory.java</a>&#160;<span class="new">(new&#160;18)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/DirectoryImpl.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoryImpl.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/DirectoryRoot.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoryRoot.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/SymbolicName.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">SymbolicName.java</a>&#160;<span class="new">(new&#160;15)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/model/package.html?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">package.html</a>&#160;<span class="new">(new&#160;1)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/AuthorPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AuthorPage.java</a>&#160;<span class="new">(new&#160;19)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/CPAPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CPAPage.java</a>&#160;<span class="new">(new&#160;8)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/ChoraIntegration.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ChoraIntegration.java</a>&#160;<span class="new">(new&#160;35)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/CommandLineParser.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommandLineParser.java</a>&#160;<span class="new">(new&#160;8)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/CommitLogPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommitLogPage.java</a>&#160;<span class="new">(new&#160;4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/ConfigurationException.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ConfigurationException.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/ConfigurationOptions.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ConfigurationOptions.java</a>&#160;<span class="new">(new&#160;292)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/CssHandler.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CssHandler.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/CvswebIntegration.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvswebIntegration.java</a>&#160;<span class="new">(new&#160;10)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/DefaultCssHandler.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DefaultCssHandler.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/DirectorySizesPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectorySizesPage.java</a>&#160;<span class="new">(new&#160;4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/FileSizesPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileSizesPage.java</a>&#160;<span class="new">(new&#160;10)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/HTMLOutput.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">HTMLOutput.java</a>&#160;<span class="new">(new&#160;114)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/HTMLPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">HTMLPage.java</a>&#160;<span class="new">(new&#160;28)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/HTMLTagger.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">HTMLTagger.java</a>&#160;<span class="new">(new&#160;9)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/IndexPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">IndexPage.java</a>&#160;<span class="new">(new&#160;15)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/LOCPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LOCPage.java</a>&#160;<span class="new">(new&#160;7)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/LOCSeriesBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LOCSeriesBuilder.java</a>&#160;<span class="new">(new&#160;3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/LocalFileCssHandler.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LocalFileCssHandler.java</a>&#160;<span class="new">(new&#160;6)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/ModulePage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ModulePage.java</a>&#160;<span class="new">(new&#160;29)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/NoFilesPage.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">NoFilesPage.java</a>&#160;<span class="new">(new&#160;3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/UrlCssHandler.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">UrlCssHandler.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/ViewCvsIntegration.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ViewCvsIntegration.java</a>&#160;<span class="new">(new&#160;10)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/output/WebRepositoryIntegration.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">WebRepositoryIntegration.java</a>&#160;<span class="new">(new&#160;7)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/renderer</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/BarChart.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">BarChart.java</a>&#160;<span class="new">(new&#160;8)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/Chart.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Chart.java</a>&#160;<span class="new">(new&#160;8)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/CombinedCommitScatterChart.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CombinedCommitScatterChart.java</a>&#160;<span class="new">(new&#160;28)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/CommitLogRenderer.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommitLogRenderer.java</a>&#160;<span class="new">(new&#160;64)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/FileCollectionFormatter.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileCollectionFormatter.java</a>&#160;<span class="new">(new&#160;28)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/HTMLTableCellRenderer.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">HTMLTableCellRenderer.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/LOCChart.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LOCChart.java</a>&#160;<span class="new">(new&#160;18)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/PieChart.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">PieChart.java</a>&#160;<span class="new">(new&#160;14)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/PointXYRenderer.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">PointXYRenderer.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/StackedBarChart.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">StackedBarChart.java</a>&#160;<span class="new">(new&#160;17)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/SymbolicNameAnnotation.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">SymbolicNameAnnotation.java</a>&#160;<span class="new">(new&#160;11)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/TableCellRenderer.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TableCellRenderer.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/TableRenderer.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TableRenderer.java</a>&#160;<span class="new">(new&#160;31)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/renderer/TimeLineChart.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TimeLineChart.java</a>&#160;<span class="new">(new&#160;13)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/reportmodel</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/AuthorColumn.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AuthorColumn.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/Column.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Column.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/DirectoryColumn.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoryColumn.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/FileColumn.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileColumn.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/GenericColumn.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">GenericColumn.java</a>&#160;<span class="new">(new&#160;6)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/HelperTimePoint.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">HelperTimePoint.java</a>&#160;<span class="new">(new&#160;5)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/IntegerColumn.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">IntegerColumn.java</a>&#160;<span class="new">(new&#160;10)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/RatioColumn.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">RatioColumn.java</a>&#160;<span class="new">(new&#160;6)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/SimpleTextColumn.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">SimpleTextColumn.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/Table.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">Table.java</a>&#160;<span class="new">(new&#160;6)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/TimeLine.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TimeLine.java</a>&#160;<span class="new">(new&#160;9)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reportmodel/TimePoint.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TimePoint.java</a>&#160;<span class="new">(new&#160;1)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/reports</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/AbstractLocTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AbstractLocTableReport.java</a>&#160;<span class="new">(new&#160;15)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/AuthorsForDirectoryTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AuthorsForDirectoryTableReport.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/AuthorsTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AuthorsTableReport.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/AvgFileSizeTimeLineReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AvgFileSizeTimeLineReport.java</a>&#160;<span class="new">(new&#160;6)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/DirectoriesForAuthorTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoriesForAuthorTableReport.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/DirectoriesTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoriesTableReport.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/FileCountTimeLineReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileCountTimeLineReport.java</a>&#160;<span class="new">(new&#160;6)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/FilesLocComparator.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FilesLocComparator.java</a>&#160;<span class="new">(new&#160;3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/FilesRevisionCountComparator.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FilesRevisionCountComparator.java</a>&#160;<span class="new">(new&#160;6)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/FilesWithMostRevisionsTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FilesWithMostRevisionsTableReport.java</a>&#160;<span class="new">(new&#160;4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/LargestFilesTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LargestFilesTableReport.java</a>&#160;<span class="new">(new&#160;4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/TableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TableReport.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/reports/TopAuthorsTableReport.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TopAuthorsTableReport.java</a>&#160;<span class="new">(new&#160;4)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/util</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/ConsoleOutErrHandler.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ConsoleOutErrHandler.java</a>&#160;<span class="new">(new&#160;3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/ConsoleOutHandler.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ConsoleOutHandler.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/CvsLogUtils.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsLogUtils.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/FilePatternMatcher.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FilePatternMatcher.java</a>&#160;<span class="new">(new&#160;13)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/FileUtils.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileUtils.java</a>&#160;<span class="new">(new&#160;84)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/IntegerMap.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">IntegerMap.java</a>&#160;<span class="new">(new&#160;18)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/LogFormatter.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LogFormatter.java</a>&#160;<span class="new">(new&#160;7)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/LookaheadReader.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LookaheadReader.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/OutputUtils.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">OutputUtils.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/util/package.html?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">package.html</a>&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statcvs/web-files</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/web-files/file-deleted.png?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">file-deleted.png</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/web-files/file.png?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">file.png</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/web-files/folder-deleted.png?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">folder-deleted.png</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/web-files/folder.png?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">folder.png</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statcvs/web-files/statcvs.css?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs.css</a>&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new&#160;2)</span>
+      </li>
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">BuilderTest.java</a>&#160;<span class="new">(new&#160;38)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/CommitListBuilderTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommitListBuilderTest.java</a>&#160;<span class="new">(new&#160;25)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DummyBuilder.java</a>&#160;<span class="new">(new&#160;10)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyRepositoryFileManager.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DummyRepositoryFileManager.java</a>&#160;<span class="new">(new&#160;32)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBlockParserTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileBlockParserTest.java</a>&#160;<span class="new">(new&#160;12)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBuilderTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileBuilderTest.java</a>&#160;<span class="new">(new&#160;20)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="new">(new&#160;27)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">MockLogBuilder.java</a>&#160;<span class="new">(new&#160;5)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ParserTest.java</a>&#160;<span class="new">(new&#160;11)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/access-list.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">access-list.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/binary.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">binary.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/delimiter-in-comment.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">delimiter-in-comment.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/description.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">description.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/in-attic.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">in-attic.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/locks.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">locks.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/newdate.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">newdate.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/newlines-after-end.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">newlines-after-end.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-revs-selected-w-description.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-revs-selected-w-description.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-revs-selected.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-revs-selected.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-symbolic-names.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-symbolic-names.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/premature-end.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">premature-end.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/simple.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">simple.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/simple.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">simple.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/two-files.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">two-files.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/two-revisions.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">two-revisions.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/uncommitted-files.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">uncommitted-files.log</a>&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/model</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/model/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new&#160;2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/model/AuthorTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AuthorTest.java</a>&#160;<span class="new">(new&#160;30)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/model/CommitTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommitTest.java</a>&#160;<span class="new">(new&#160;19)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/model/CvsContentTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsContentTest.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/model/CvsFileTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsFileTest.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/model/DirectoryTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DirectoryTest.java</a>&#160;<span class="new">(new&#160;24)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/model/RevisionTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">RevisionTest.java</a>&#160;<span class="new">(new&#160;8)</span>
+      </li>
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/output</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/output/WebRepositoryIntegrationTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">WebRepositoryIntegrationTest.java</a>&#160;<span class="new">(new&#160;129)</span>
+      </li>
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/renderer</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/renderer/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/renderer/FileCollectionFormatterTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileCollectionFormatterTest.java</a>&#160;<span class="new">(new&#160;12)</span>
+      </li>
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/reportmodel</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/reportmodel/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new&#160;1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/reportmodel/TimeLineTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">TimeLineTest.java</a>&#160;<span class="new">(new&#160;23)</span>
+      </li>
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/util</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/util/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new&#160;22)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/util/CvsLogUtilsTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CvsLogUtilsTest.java</a>&#160;<span class="new">(new&#160;16)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/util/FilePatternMatcherTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FilePatternMatcherTest.java</a>&#160;<span class="new">(new&#160;15)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/util/FileUtilsTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileUtilsTest.java</a>&#160;<span class="new">(new&#160;3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/util/IntegerMapTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">IntegerMapTest.java</a>&#160;<span class="new">(new&#160;7)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/util/LookaheadReaderTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LookaheadReaderTest.java</a>&#160;<span class="new">(new&#160;3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/util/OutputUtilsTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">OutputUtilsTest.java</a>&#160;<span class="new">(new&#160;2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a>
+    <span class="date">2006-01-18 08:35</span>
+    <a class="permalink" title="Permalink to this commit" href="#1">#1</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">1</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+initial import of website files<br />
+
+    </p>
+    <p class="commitdetails"><strong>71</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>website</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/website/index.html?rev=1&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">index.html</a>&#160;<span class="new">(new&#160;71)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/website/statsvn_textrefl.png?rev=1&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statsvn_textrefl.png</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/website/title_bottom_grad.png?rev=1&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">title_bottom_grad.png</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/lib/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/lib/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2006-01-19 08:13</span></dd>
+    <dt>Total Files:</dt>
+    <dd>5</dd>
+    <dt>Deleted Files:</dt>
+    <dd>11</dd>
+    <dt>Lines of Code:</dt>
+    <dd>0</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<strong>lib</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>58 (100.0%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></th>
+        <td>4 (6.9%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">Jason Kealey</a></th>
+        <td>5 (8.6%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>49 (84.5%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="40"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-08-06 12:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">392</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Prepare release 0.6.0
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.6.0.jar?r1=391&amp;r2=392" class="webrepository">statcvs-0.6.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="39"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-06-02 16:42</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">391</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move to 0.6.0 and the StatCVS 0.6.0 which is far less memory hungry.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=387&amp;r2=391" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.6.0.jar?rev=391&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.6.0.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="38"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-05-22 16:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">387</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Preparing release 0.5.0
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=386&amp;r2=387" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="37"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-05-01 17:59</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">386</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New StatCVS Beta
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=385&amp;r2=386" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="36"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-04-26 10:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">385</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+updated statCVS to latest beta with cloud and chart background images facilities.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=383&amp;r2=385" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="35"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-18 17:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">383</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+When replacing the name for Author, one should also replace the author ID.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=382&amp;r2=383" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="34"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-17 00:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">382</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Add ability to MERGE 2 users through the config-file user.[userName].replacedBy=[newUserName]<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=381&amp;r2=382" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="33"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-14 12:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">381</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added copyright notice on all charts...
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=380&amp;r2=381" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="32"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-14 01:01</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">380</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New statcvs-0.5.0.jar with configurable charts.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=379&amp;r2=380" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="31"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-11 17:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">379</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Latest statcvs-0.5.0.jar with Twitter integration.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=378&amp;r2=379" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="30"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-11 01:15</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">378</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Adding some Twitter attributes to StatSVN Developer Page.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=377&amp;r2=378" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="29"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-11 00:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">377</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Add some Twitter attributes to the statcvs-0.5.0.jar and the statsvn.properties file.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=374&amp;r2=377" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="28"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-09 23:29</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">374</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Upgraded StatCVS to 0.5.0 for new Rolling Dev report
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.1.jar?rev=369&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.4.1.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?rev=374&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="27"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-07-16 23:04</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">369</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Site changes for release.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.1.jar?r1=367&amp;r2=369" class="webrepository">statcvs-0.4.1.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="26"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-06-25 21:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">367</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added -chartset option.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.0.jar?rev=359&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.4.0.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.1.jar?rev=367&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.4.1.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="25"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-05-04 11:57</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">359</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+prepare for release 0.4.0
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.0.jar?r1=358&amp;r2=359" class="webrepository">statcvs-0.4.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-04-17 16:22</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">358</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Changed to version 0.4.0
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?rev=356&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.0.jar?rev=358&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.4.0.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-04-03 18:39</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">356</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Applied patch to StatCVS for request 1932689 to show the Head Revision (had to change it to hide it for CVS as it does not make sense for CVS).
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=352&amp;r2=356" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-03-31 17:14</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">352</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+removed some 1.5 code, updated StatCVS 0.3.1-dev
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=348&amp;r2=352" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-03-28 17:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">348</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+The RepoMap and LOCChurn pages are now managed by StatCVS.<br />
+Also enable the -xml option in StatSVN.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=345&amp;r2=348" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-03-28 00:42</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">345</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Matching changes made in StatCVS for the XML output.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=344&amp;r2=345" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-03-27 00:45</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">344</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Applied 2 patches from Martin Majlis to StatCVS and checked in the jar.<br />
+Also added Marcin Jekot as the Maven Repo Master :-)
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=331&amp;r2=344" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-04-09 16:50</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">331</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+[Request 1692245 ] Allow to use another top-level directory than 'tags'. use -tags-dir /releases/ if your directory is the top directory "releases".
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=327&amp;r2=331" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-04-09 11:54</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">327</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Using the latest version of StatCVS (fixed an NPE).
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=323&amp;r2=327" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-04-06 18:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">323</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Our suggested patch for User name and co has been committed to CVS, so we rebased our jar on the latest source from StatCVS.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=314&amp;r2=323" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-25 20:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">314</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Patch for filename in commit page.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=311&amp;r2=314" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-20 23:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">311</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix issue in StatCVS whereby the xml generated for XDOC is using US-ASCII rather than a more international format, this caused some issue with Mule.<br />
+A patch will be sent to StatCVS.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?r1=283&amp;r2=311" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-02-19 10:28</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">283</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Removed recent 1.5 code, updated the statcvs to 0.3.1-dev, compiled under 1.4.<br />
+Will do a beta release of the new jar under <a href="http://www.statsvn.org/beta/statsvn.jar">www.statsvn.org/beta/statsvn.jar</a><br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.1-dev.jar?rev=283&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.3.1-dev.jar</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.jar?rev=264&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.3.jar</a>&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-12 20:12</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">264</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Version 0.3 + 1 change for fixing NPE in the Ant task ViewVC integration.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.jar?r1=228&amp;r2=264" class="webrepository">statcvs-0.3.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-05 12:20</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">228</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Using the StatCVS release 0.3, except that we fixed an issue with revision tags containing "." which are transformed to '_' in a name anchor.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.0-dev.jar?rev=217&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.3.0-dev.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.jar?rev=228&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.3.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-03 13:10</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">217</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Based on a clean copy of StatCVS with all of our patches applied in StatCVS.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.0-dev.jar?r1=216&amp;r2=217" class="webrepository">statcvs-0.3.0-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-28 20:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">216</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Including latest patches from Richard (regarding NPE on Developer report).
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.0-dev.jar?r1=214&amp;r2=216" class="webrepository">statcvs-0.3.0-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-26 22:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">214</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+When handling SymbolicNames, the new SymbolicName constructor (not-committed yet in statcvs) must be used.<br />
+There is a significant difference in the way CVS operates vs SVN.<br />
+SVN tags by creating a revision which is a copy of another revision.<br />
+Each checkin changes the 'revision' across the board, the log <br />
+therefore may involve only a given number of files for this.<br />
+<br />
+I have found a way to go through all files and associate the latest <br />
+version of a given file with the appropriate SymbolicName.<br />
+<br />
+However, the way the SymbolicNames works is that it picks up the date <br />
+from a bunch of revision Data.<br />
+Since the copy is not associated with ANY file, it would lose that <br />
+date unless it could be given to the SymbolicName,<br />
+<br />
+Therefore I am suggesting a transparent change to SymbolicName to add <br />
+a constructor that would accept such a date and on call to getDate <br />
+would behaves as usual UNLESS there was a given non-null date.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.0-dev.jar?r1=210&amp;r2=214" class="webrepository">statcvs-0.3.0-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-12-23 20:49</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">210</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 1573421: updated statcvs dev jar file; fixed resource problems in ant task, added new arguments. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.0-dev.jar?r1=200&amp;r2=210" class="webrepository">statcvs-0.3.0-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-12 21:26</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">200</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New Report: LOC and Churn shows the usual LOC with the amount of code touched per day.<br />
+Hopefully the churn should go decreasingly towards a release.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.0-dev.jar?r1=191&amp;r2=200" class="webrepository">statcvs-0.3.0-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-11 11:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">191</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Upgraded StatCVS to version 0.3.0-dev (lots of refactoring inside StatCVS).
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jcommon-1.0.0.jar?rev=120&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jcommon-1.0.0.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jfreechart-1.0.1.jar?rev=120&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jfreechart-1.0.1.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.2.5-dev.jar?rev=186&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.2.5-dev.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.3.0-dev.jar?rev=191&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.3.0-dev.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-03 23:20</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">186</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Reviewed the new interfaces in StatCVS and modified them.<br />
+Using code that was sent to Richard for inclusion in statcvs.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.2.5-dev.jar?r1=185&amp;r2=186" class="webrepository">statcvs-0.2.5-dev.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-03 22:14</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">185</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Introduce new options for multi-threading the SVN DIFF commands.<br />
+-threads (default 25)<br />
+-concurrency-threshold (default 2000 ms)<br />
+This means that unless an svn diff takes more than 2 sec, it will not launch the 25 threads.<br />
+Multi-threading is limited to the svn diff.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/backport-util-concurrent-3.0.jar?rev=185&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">backport-util-concurrent-3.0.jar</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.2.4.jar?rev=155&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.2.4.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.2.5-dev.jar?rev=185&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.2.5-dev.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-21 01:08</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">155</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Attention... <br />
+StatSvn no longer contains the StatCvs code, instead it shall depend on statcvs-0.2.4.jar (or whichever version StatCvs shall use when they take our changes).<br />
+A fair amount of changes will make it to StatCvs in order to support xdoc (in StatCvs), XHTML generation and use of StringBuffers.<br />
+Jason will do the StatCvs checkin soon, in the meantime I include statcvs-0.2.4.jar in the lib directory. <br />
+Enjoy
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.2.4.jar?rev=155&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.2.4.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-11-07 03:10</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">120</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merged in changes from StatCVS 0.2.3. Creating StatSVN 0.1.1
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jcommon-0.9.6.jar?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jcommon-0.9.6.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jcommon-1.0.0.jar?rev=120&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jcommon-1.0.0.jar</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jfreechart-0.9.21.jar?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jfreechart-0.9.21.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/jfreechart-1.0.1.jar?rev=120&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jfreechart-1.0.1.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<p>(1 more)</p>
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/src/net/sf/statsvn/ant/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/src/net/sf/statsvn/ant/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Total Files:</dt>
+    <dd>2</dd>
+    <dt>Deleted Files:</dt>
+    <dd>1</dd>
+    <dt>Lines of Code:</dt>
+    <dd>227</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<a href="dir_statsvn_src.html">src</a>/<a href="dir_statsvn_src_net.html">net</a>/<a href="dir_statsvn_src_net_sf.html">sf</a>/<a href="dir_statsvn_src_net_sf_statsvn.html">statsvn</a>/<strong>ant</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_module_statsvn_src_net_sf_statsvn_ant.png" alt="statsvn/src/net/sf/statsvn/ant/ Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>22 (100.0%)</td>
+        <td>339 (100.0%)</td>
+        <td>15.4</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>16 (72.7%)</td>
+        <td>198 (58.4%)</td>
+        <td>12.3</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">Jason Kealey</a></th>
+        <td>6 (27.3%)</td>
+        <td>141 (41.6%)</td>
+        <td>23.5</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="17"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-06-25 22:23</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">368</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix a few Checkstyle warnings.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=351&amp;r2=368" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+1&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-03-28 19:46</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">351</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Eclipse cleanUp.
+    </p>
+    <p class="commitdetails"><strong>11</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/AntTaskLogger.java?r1=255&amp;r2=351" class="webrepository">AntTaskLogger.java</a>&#160;<span class="change">(+3&#160;-3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=347&amp;r2=351" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+8&#160;-8)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2008-03-28 14:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">347</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Modified changes.xml and Ant task. 
+    </p>
+    <p class="commitdetails"><strong>15</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=256&amp;r2=347" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+15&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-10 23:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">256</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix a few QA warnings.
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=248&amp;r2=256" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+2&#160;-4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-10 23:08</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">255</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixing QA warnings
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/AntTaskLogger.java?r1=254&amp;r2=255" class="webrepository">AntTaskLogger.java</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-10 22:49</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">254</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Removed a warning for unused import.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/AntTaskLogger.java?r1=252&amp;r2=254" class="webrepository">AntTaskLogger.java</a>&#160;<span class="change">(-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-10 22:46</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">252</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+AntTaskLogger will not log anything at:<br />
+- log/debug level UNLESS the loggingProperties file is 'debug' (-debug)<br />
+- info level UNLESS the loggingProperties file is 'verbose' (-verbose)<br />
+This is a bit of a hack to avoid changing StatCVS.
+    </p>
+    <p class="commitdetails"><strong>52</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/AntTaskLogger.java?r1=246&amp;r2=252" class="webrepository">AntTaskLogger.java</a>&#160;<span class="change">(+52&#160;-36)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2007-01-10 21:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">248</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+aligned ant task names with statcvs conventions
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=246&amp;r2=248" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-10 21:25</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">246</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+In order to ensure consistency and ability to use the Ant Task as a logging mechanism, we've replaced Logger by a TaskLogger<br />
+The default implementation is the java.util.logging.Logger with fine/info/severe levels. There is also an AntTaskLogger automatically<br />
+used for the Ant task.
+    </p>
+    <p class="commitdetails"><strong>21</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/AntTaskLogger.java?r1=164&amp;r2=246" class="webrepository">AntTaskLogger.java</a>&#160;<span class="change">(+20)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=244&amp;r2=246" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+1&#160;-4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2007-01-10 20:28</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">244</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Default cache directory was not set for ant task. 
+    </p>
+    <p class="commitdetails"><strong>8</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=224&amp;r2=244" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+8)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-03 22:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">224</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+A bit of QA tidy-up.
+    </p>
+    <p class="commitdetails"><strong>10</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=210&amp;r2=224" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+10&#160;-12)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-12-23 20:49</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">210</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 1573421: updated statcvs dev jar file; fixed resource problems in ant task, added new arguments. 
+    </p>
+    <p class="commitdetails"><strong>91</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=209&amp;r2=210" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+91&#160;-37)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-12-23 20:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">209</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug 1573421: Update statcvs Ant task for SVN - better error logging. 
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=208&amp;r2=209" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-12-23 19:07</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">208</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug 1573421: Update statcvs Ant task for SVN.
+    </p>
+    <p class="commitdetails"><strong>24</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=164&amp;r2=208" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+24)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-23 00:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">164</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+A fair amount of tidy up following warnings from FindBugs, PMD, Checkstyle.
+    </p>
+    <p class="commitdetails"><strong>37</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/AntTaskLogger.java?rev=164&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AntTaskLogger.java</a>&#160;<span class="new">(new&#160;36)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?r1=155&amp;r2=164" class="webrepository">StatSvnTask.java</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-21 01:08</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">155</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Attention... <br />
+StatSvn no longer contains the StatCvs code, instead it shall depend on statcvs-0.2.4.jar (or whichever version StatCvs shall use when they take our changes).<br />
+A fair amount of changes will make it to StatCvs in order to support xdoc (in StatCvs), XHTML generation and use of StringBuffers.<br />
+Jason will do the StatCvs checkin soon, in the meantime I include statcvs-0.2.4.jar in the lib directory. <br />
+Enjoy
+    </p>
+    <p class="commitdetails"><strong>62</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatCvsTask.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">StatCvsTask.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatSvnTask.java?rev=155&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">StatSvnTask.java</a>&#160;<span class="new">(new&#160;62)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-19 20:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">144</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move to net.sf.statsvn
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/ant</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/ant/StatCvsTask.java?rev=144&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">StatCvsTask.java</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

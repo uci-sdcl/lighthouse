@@ -1,0 +1,717 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Directory src/seg/jUCMNav/importexport/</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>Directory src/seg/jUCMNav/importexport/</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2005-08-16 18:34</span></dd>
+    <dt>Total Files:</dt>
+    <dd>13</dd>
+    <dt>Deleted Files:</dt>
+    <dd>1</dd>
+    <dt>Lines of Code:</dt>
+    <dd>2055</dd>
+</dl>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_src.html">src</a>/<a href="dir_src_seg.html">seg</a>/<a href="dir_src_seg_jUCMNav.html">jUCMNav</a>/<strong>importexport</strong><br/>
+</p>
+
+<div class="section">
+<h2>Lines of Code</h2>
+<p class="chart"><img src="loc_module_src_seg_jUCMNav_importexport.png" alt="src/seg/jUCMNav/importexport/ Lines of Code" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Developers</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>59 (100.0%)</td>
+        <td>2188 (100.0%)</td>
+        <td>37.0</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>36 (61.0%)</td>
+        <td>1783 (81.5%)</td>
+        <td>49.5</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>23 (39.0%)</td>
+        <td>405 (18.5%)</td>
+        <td>17.6</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="31"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-31 19:01</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">846</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix the ExportDXL to use URN import instead UCM
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="30"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-27 21:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">842</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix problem with sanitizeURN
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="29"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-27 05:04</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">835</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+In DXL export, modified the name of the export model for the name of the file instead of the name of the URNspec.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="28"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-27 04:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">834</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added export of GRL elements in DXL
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="27"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-17 09:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">814</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Modification of the import autolayout mechanism(added vector for diagrams to do autolayout)<br />
+Fixed 2 tests broke in previous commit.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="26"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-15 16:58</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">810</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed naming issues when importing GRL catalog
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="25"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-15 15:54</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">809</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-15 15:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">808</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Component/Responsibility references have no descriptions, while they should include that of their respective references<br />
+<br />
+Fixed for respRef
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-06 22:57</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">792</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed javadoc problems
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-06 22:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">791</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Externalize String
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportGRLCatalog.java&#160;<span class="change">(changed)</span>,
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-28 21:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">772</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed problem resolving name conflict during import
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-27 22:10</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">766</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Modification of the import extension point to support importing model in selected files or in a new file. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>,
+        URNImportExtensionPointHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-23 18:14</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">756</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added option to import URN element in the selected file. Added option to autolayout only imported diagrams.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-23 05:47</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">753</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed autolayout for importing grl catalog
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-23 05:23</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">752</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Created xsd file for the GRL catalog
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>,
+        grlcatalog.dtd&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-21 23:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">743</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added first version of the GRL catalog import/export
+    </p>
+    <p class="commitdetails"><strong>405</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportGRLCatalog.java&#160;<span class="new">(new&#160;187)</span>,
+        ImportGRLCatalog.java&#160;<span class="new">(new&#160;218)</span>,
+        grlcatalog.dtd&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-02-16 20:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">735</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 402 - autolayout of GRL diagrams
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-02-09 18:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">720</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+GIF image export format added. Limited to 256 color palette. <br />
+
+    </p>
+    <p class="commitdetails"><strong>182</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ColorCounter.java&#160;<span class="new">(new&#160;18)</span>,
+        ExportImageGIF.java&#160;<span class="new">(new&#160;164)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-02-09 01:30</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">716</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Imported Yong Dae Kim's DXL export class. Refactored it a bit and cleaned it up to make it easier to read. <br />
+<br />
+Changed export extension point to support saving the bitmaps immediately after the DXL file. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>,
+        URNExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-05 17:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">715</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed bugs 400, 401, 403 and 404<br />
+- Added GRL export as images 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportImage.java&#160;<span class="change">(changed)</span>,
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-01-29 20:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">669</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge of GRL branch with the main trunk
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-24 18:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">655</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Extracted a bunch of strings, translated language files to French. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>,
+        ExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>,
+        UCMExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>,
+        URNExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>,
+        URNImportExtensionPointHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-14 23:53</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">636</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+was using java 1.5 code; don't know why cruisecontrol didn't complain.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-12 20:53</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">635</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+was using IURNExport instead of IURNImport
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        URNImportExtensionPointHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-12 19:47</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">634</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed javadoc
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-12 17:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">629</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+I had forgotten to remove a few links and implement a few lines of code relating to the import/export infrastructure changes. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">7 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>,
+        ExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>,
+        ExportImage.java&#160;<span class="change">(changed)</span>,
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>,
+        UCMExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>,
+        URNExportExtensionPointHelper.java&#160;<span class="change">(changed)</span>,
+        URNImportExtensionPointHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-12 16:19</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">628</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Created a URN Import extension point and related wizard. currently very simple, but sufficient for the use case to use case map conversion utility which will be packaged seperately.<br />
+<br />
+Various other small modifications to import/export/autolayout extensions/wizards. 
+    </p>
+    <p class="commitdetails"><strong>80</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>,
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>,
+        URNImportExtensionPointHelper.java&#160;<span class="new">(new&#160;80)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 23:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">585</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge grl branch with the main trunk<br />
+Major modification of the metamodel (URN_08.mdl) (Added GRL metamodel, New interfaces that define common element in GRL and UCM, Modified UCM-Map package to implement the new interfaces (some associations and attributes have been refactored using the interfaces), Map is now called UCMmap (to resolve conflict with java.util.map in the implementation), Removed Path Graph)<br />
+Modification of the code that used the metamodel.<br />
+Started modification of jUCMNav to support GRL.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportImage.java&#160;<span class="change">(changed)</span>,
+        ExportLayoutDOT.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-09-22 05:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">567</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+looks like there is a bug in the SVN plugin; forgot this file!
+    </p>
+    <p class="commitdetails"><strong>133</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportExtensionPointHelper.java&#160;<span class="new">(new&#160;133)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-09-22 05:11</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">566</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added export URNSpec extension point and template for DXL export.
+    </p>
+    <p class="commitdetails"><strong>1000</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="new">(new&#160;825)</span>,
+        ExportExtensionPointHelper.java&#160;<span class="del">(del)</span>,
+        UCMExportExtensionPointHelper.java&#160;<span class="new">(new&#160;85)</span>,
+        URNExportExtensionPointHelper.java&#160;<span class="new">(new&#160;90)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-08-16 18:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">509</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+   * bug 363 - preference page for label colors<br />
+   * also created preference page for autolayout.<br />
+   * added our first extension point: UseCaseMapExport.<br />
+   * Refactored existing export image and autolayout code to create three extensions<br />
+   * Will have to rethink UI/extension point (or create a new one)  to be able to export a URNspec<br />
+
+    </p>
+    <p class="commitdetails"><strong>388</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportExtensionPointHelper.java&#160;<span class="new">(new&#160;133)</span>,
+        ExportImage.java&#160;<span class="new">(new&#160;66)</span>,
+        ExportImageBMP.java&#160;<span class="new">(new&#160;22)</span>,
+        ExportImageJPG.java&#160;<span class="new">(new&#160;22)</span>,
+        ExportLayoutDOT.java&#160;<span class="new">(new&#160;145)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

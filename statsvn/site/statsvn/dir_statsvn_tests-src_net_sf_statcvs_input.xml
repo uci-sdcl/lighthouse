@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/tests-src/net/sf/statcvs/input/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/tests-src/net/sf/statcvs/input/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2006-01-19 08:13</span></dd>
+    <dt>Directory Deleted:</dt>
+    <dd><span class="date">2006-11-19 20:39</span></dd>
+    <dt>Total Files:</dt>
+    <dd>0</dd>
+    <dt>Deleted Files:</dt>
+    <dd>28</dd>
+    <dt>Lines of Code:</dt>
+    <dd>0</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<a href="dir_statsvn_tests-src.html">tests-src</a>/<a href="dir_statsvn_tests-src_net.html">net</a>/<a href="dir_statsvn_tests-src_net_sf.html">sf</a>/<a href="dir_statsvn_tests-src_net_sf_statcvs.html">statcvs</a>/<strong>input</strong><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_input_samplefiles.html">samplefiles</a> 
+(0 files, 0 lines)<br />
+</p>
+
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_module_statsvn_tests-src_net_sf_statcvs_input.png" alt="statsvn/tests-src/net/sf/statcvs/input/ Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>97 (100.0%)</td>
+        <td>738 (100.0%)</td>
+        <td>7.6</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">Jason Kealey</a></th>
+        <td>22 (22.7%)</td>
+        <td>309 (41.9%)</td>
+        <td>14.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></th>
+        <td>27 (27.8%)</td>
+        <td>180 (24.4%)</td>
+        <td>6.6</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>39 (40.2%)</td>
+        <td>137 (18.6%)</td>
+        <td>3.5</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_gunterm.html" class="author">Gunter Mussbacher</a></th>
+        <td>9 (9.3%)</td>
+        <td>112 (15.2%)</td>
+        <td>12.4</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="17"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-19 20:39</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">145</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move tests to net.sf.statsvn
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">28 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/AllTests.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">BuilderTest.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/CommitListBuilderTest.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommitListBuilderTest.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyBuilder.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DummyBuilder.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyRepositoryFileManager.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DummyRepositoryFileManager.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBlockParserTest.java?rev=56&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileBlockParserTest.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBuilderTest.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileBuilderTest.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">MockLogBuilder.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ParserTest.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/SvnLogfileParserTest.java?rev=141&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">SvnLogfileParserTest.java</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/access-list.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">access-list.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/binary.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">binary.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/delimiter-in-comment.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">delimiter-in-comment.log</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/description.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">description.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/in-attic.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">in-attic.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/locks.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">locks.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/newdate.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">newdate.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/newlines-after-end.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">newlines-after-end.log</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-revs-selected-w-description.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-revs-selected-w-description.log</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-revs-selected.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-revs-selected.log</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-symbolic-names.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-symbolic-names.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/premature-end.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">premature-end.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/simple.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">simple.log</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/simple.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">simple.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/two-files.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">two-files.log</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/two-revisions.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">two-revisions.log2</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/uncommitted-files.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">uncommitted-files.log</a>&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-18 02:14</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">141</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed some checkstyle issues (using final wherever possible, hence a few changes...)<br />
+Introduced constants and rename final static method in upper case (was inconsistent).<br />
+Also there were a few inconsistencies in the use of { on the same line as for or if.<br />
+Re-ordered private/static/final keywords to follow java standard (e.g. private static final...)<br />
+I hope this is ok.
+    </p>
+    <p class="commitdetails"><strong>136</strong> lines of code changed in <span class="files">10 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/AllTests.java?r1=84&amp;r2=141" class="webrepository">AllTests.java</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?r1=115&amp;r2=141" class="webrepository">BuilderTest.java</a>&#160;<span class="change">(+33&#160;-33)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/CommitListBuilderTest.java?r1=13&amp;r2=141" class="webrepository">CommitListBuilderTest.java</a>&#160;<span class="change">(+19&#160;-19)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyBuilder.java?r1=5&amp;r2=141" class="webrepository">DummyBuilder.java</a>&#160;<span class="change">(+10&#160;-10)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyRepositoryFileManager.java?r1=84&amp;r2=141" class="webrepository">DummyRepositoryFileManager.java</a>&#160;<span class="change">(+17&#160;-15)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBuilderTest.java?r1=115&amp;r2=141" class="webrepository">FileBuilderTest.java</a>&#160;<span class="change">(+8&#160;-8)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?r1=115&amp;r2=141" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="change">(+14&#160;-14)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?r1=117&amp;r2=141" class="webrepository">MockLogBuilder.java</a>&#160;<span class="change">(+17&#160;-17)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=117&amp;r2=141" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+16&#160;-16)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/SvnLogfileParserTest.java?r1=137&amp;r2=141" class="webrepository">SvnLogfileParserTest.java</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-11-16 12:10</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">137</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+First cut for the refactored html/xdoc generation.<br />
+Use the new command line parameter -format xdoc|html (html by default).<br />
+When xdoc is used and NO css is provided, it will use the objectlab-statcvs-xdoc.css which is now part of StatSvn.<br />
+This checkin also resurrect the Maven build.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/SvnLogfileParserTest.java?r1=85&amp;r2=137" class="webrepository">SvnLogfileParserTest.java</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-08-30 16:16</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">117</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+errors found by klocwork inforce
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?r1=64&amp;r2=117" class="webrepository">MockLogBuilder.java</a>&#160;<span class="change">(+4&#160;-4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=62&amp;r2=117" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-04-17 03:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">115</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed existing tests that were broken; patched some code, removed some irrelevant tests.
+    </p>
+    <p class="commitdetails"><strong>55</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?r1=84&amp;r2=115" class="webrepository">BuilderTest.java</a>&#160;<span class="change">(+1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBuilderTest.java?r1=58&amp;r2=115" class="webrepository">FileBuilderTest.java</a>&#160;<span class="change">(+23&#160;-20)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?r1=84&amp;r2=115" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="change">(+31&#160;-28)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-04-04 21:18</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 12: some work towards re-integrating input layer level tests<br />
+wrote a fixture that helps run statsvn without having to connect to the server, using files. 
+    </p>
+    <p class="commitdetails"><strong>202</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/AllTests.java?r1=38&amp;r2=84" class="webrepository">AllTests.java</a>&#160;<span class="change">(+10&#160;-4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?r1=58&amp;r2=84" class="webrepository">BuilderTest.java</a>&#160;<span class="change">(+43&#160;-38)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyRepositoryFileManager.java?r1=5&amp;r2=84" class="webrepository">DummyRepositoryFileManager.java</a>&#160;<span class="change">(+147&#160;-32)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?r1=58&amp;r2=84" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="change">(+1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/SvnLogfileParserTest.java?rev=85&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">SvnLogfileParserTest.java</a>&#160;<span class="new">(new&#160;1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-03-12 02:38</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">64</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 27: refactor: Builder.getFileBuilders() - partial work only. <br />
+<br />
+
+    </p>
+    <p class="commitdetails"><strong>5</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?r1=63&amp;r2=64" class="webrepository">MockLogBuilder.java</a>&#160;<span class="change">(+5)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-03-12 02:08</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">63</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 30: refactor: SvnLogfileParser casts SvnLogBuilder to Builder
+    </p>
+    <p class="commitdetails"><strong>10</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?r1=58&amp;r2=63" class="webrepository">MockLogBuilder.java</a>&#160;<span class="change">(+10)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-03-12 01:41</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">62</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 29: refactor: calls to Svn*Utils should pass by RepositoryFileManager
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=58&amp;r2=62" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+6&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-03-10 20:57</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">58</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added JavaDoc and did a bit of cleaning in the net.sf.statcvs.input package. 
+    </p>
+    <p class="commitdetails"><strong>14</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?r1=13&amp;r2=58" class="webrepository">BuilderTest.java</a>&#160;<span class="change">(+4&#160;-4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBuilderTest.java?r1=13&amp;r2=58" class="webrepository">FileBuilderTest.java</a>&#160;<span class="change">(+3&#160;-3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?r1=13&amp;r2=58" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="change">(+3&#160;-3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?r1=26&amp;r2=58" class="webrepository">MockLogBuilder.java</a>&#160;<span class="change">(+3&#160;-3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=56&amp;r2=58" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-03-10 04:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">56</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Re-formatted input package classes.<br />
+<br />
+Removed the old FileBlockParser now that our alpha works.<br />
+<br />
+Preparing for major code-cleanup and documentation.<br />
+<br />
+
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBlockParserTest.java?r1=13&amp;r2=56" class="webrepository">FileBlockParserTest.java</a>&#160;<span class="change">(+4&#160;-4)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=20&amp;r2=56" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-02-28 19:46</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">38</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+   * Added some serial ids to serializable classes.<br />
+   * added utility methods to go from [relative, absolute, url] to [relative, absolute, url] <br />
+   * deprecated a few files<br />
+   * Bug 1: added test suite to make sure they work as intended. need to test in the field, but behaviour is now easy to track. 
+    </p>
+    <p class="commitdetails"><strong>4</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/AllTests.java?r1=5&amp;r2=38" class="webrepository">AllTests.java</a>&#160;<span class="change">(+4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_gunterm.html" class="author">Gunter Mussbacher</a>
+    <span class="date">2006-02-23 23:50</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">26</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+added parsing of svn diff (per revision is commented out, per file is enabled)
+    </p>
+    <p class="commitdetails"><strong>5</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?r1=13&amp;r2=26" class="webrepository">MockLogBuilder.java</a>&#160;<span class="change">(+5)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2006-02-23 05:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">20</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+inefficient code to get a working hello world
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=14&amp;r2=20" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_gunterm.html" class="author">Gunter Mussbacher</a>
+    <span class="date">2006-02-21 23:58</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">14</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+first attempts at the XML parser
+    </p>
+    <p class="commitdetails"><strong>8</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=13&amp;r2=14" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+8&#160;-7)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_gunterm.html" class="author">Gunter Mussbacher</a>
+    <span class="date">2006-02-21 21:23</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">13</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+renaming from CVS to abstract names or SVN; followed StatsCVS recommedations
+    </p>
+    <p class="commitdetails"><strong>99</strong> lines of code changed in <span class="files">7 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?r1=5&amp;r2=13" class="webrepository">BuilderTest.java</a>&#160;<span class="change">(+19&#160;-19)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/CommitListBuilderTest.java?r1=5&amp;r2=13" class="webrepository">CommitListBuilderTest.java</a>&#160;<span class="change">(+25&#160;-25)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBlockParserTest.java?r1=5&amp;r2=13" class="webrepository">FileBlockParserTest.java</a>&#160;<span class="change">(+12&#160;-12)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBuilderTest.java?r1=5&amp;r2=13" class="webrepository">FileBuilderTest.java</a>&#160;<span class="change">(+8&#160;-8)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?r1=5&amp;r2=13" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="change">(+19&#160;-19)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?r1=5&amp;r2=13" class="webrepository">MockLogBuilder.java</a>&#160;<span class="change">(+5&#160;-5)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?r1=5&amp;r2=13" class="webrepository">ParserTest.java</a>&#160;<span class="change">(+11&#160;-11)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a>
+    <span class="date">2006-01-19 08:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">5</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Initial statcvs project import
+    </p>
+    <p class="commitdetails"><strong>180</strong> lines of code changed in <span class="files">27 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/tests-src/net/sf/statcvs/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/AllTests.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">AllTests.java</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/BuilderTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">BuilderTest.java</a>&#160;<span class="new">(new&#160;38)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/CommitListBuilderTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">CommitListBuilderTest.java</a>&#160;<span class="new">(new&#160;25)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DummyBuilder.java</a>&#160;<span class="new">(new&#160;10)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/DummyRepositoryFileManager.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">DummyRepositoryFileManager.java</a>&#160;<span class="new">(new&#160;32)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBlockParserTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileBlockParserTest.java</a>&#160;<span class="new">(new&#160;12)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/FileBuilderTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">FileBuilderTest.java</a>&#160;<span class="new">(new&#160;20)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/LinesOfCodeTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">LinesOfCodeTest.java</a>&#160;<span class="new">(new&#160;27)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/MockLogBuilder.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">MockLogBuilder.java</a>&#160;<span class="new">(new&#160;5)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/ParserTest.java?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">ParserTest.java</a>&#160;<span class="new">(new&#160;11)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/access-list.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">access-list.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/binary.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">binary.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/delimiter-in-comment.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">delimiter-in-comment.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/description.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">description.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/in-attic.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">in-attic.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/locks.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">locks.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/newdate.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">newdate.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/newlines-after-end.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">newlines-after-end.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-revs-selected-w-description.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-revs-selected-w-description.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-revs-selected.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-revs-selected.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/no-symbolic-names.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">no-symbolic-names.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/premature-end.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">premature-end.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/simple.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">simple.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/simple.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">simple.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/two-files.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">two-files.log</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/two-revisions.log2?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">two-revisions.log2</a>&#160;<span class="new">(new)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/tests-src/net/sf/statcvs/input/uncommitted-files.log?rev=5&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">uncommitted-files.log</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

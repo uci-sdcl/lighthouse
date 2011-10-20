@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2006-01-19 08:13</span></dd>
+    <dt>Total Files:</dt>
+    <dd>6</dd>
+    <dt>Deleted Files:</dt>
+    <dd>0</dd>
+    <dt>Lines of Code:</dt>
+    <dd>657</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<strong>statsvn</strong><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_.settings.html">.settings</a> 
+(3 files, 329 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_devdoc.html">devdoc</a> 
+(3 files, 126 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_etc.html">etc</a> 
+(2 files, 38 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_lib.html">lib</a> 
+(5 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_site.html">site</a> 
+(7 files, 593 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_site_demo.html">demo</a> 
+(2 files, 118 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_site_images.html">images</a> 
+(2 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_site_press.html">press</a> 
+(7 files, 246 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_site_style.html">style</a> 
+(1 files, 146 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src.html">src</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src_net.html">net</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src_net_sf.html">sf</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs.html">statcvs</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_ant.html">ant</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_input.html">input</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_model.html">model</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_output.html">output</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_renderer.html">renderer</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_reportmodel.html">reportmodel</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_reports.html">reports</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_util.html">util</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statcvs_web-files.html">web-files</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn.html">statsvn</a> 
+(6 files, 700 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_ant.html">ant</a> 
+(2 files, 227 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_input.html">input</a> 
+(12 files, 3938 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_model.html">model</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_output.html">output</a> 
+(4 files, 499 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_output_web-files.html">web-files</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_renderer.html">renderer</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_reportmodel.html">reportmodel</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_reports.html">reports</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_src_net_sf_statsvn_util.html">util</a> 
+(15 files, 1826 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_tests-src.html">tests-src</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_tests-src_net.html">net</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_tests-src_net_sf.html">sf</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs.html">statcvs</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_input.html">input</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_input_samplefiles.html">samplefiles</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_model.html">model</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_output.html">output</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_renderer.html">renderer</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_reportmodel.html">reportmodel</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statcvs_util.html">util</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statsvn.html">statsvn</a> 
+(1 files, 61 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statsvn_input.html">input</a> 
+(10 files, 1958 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statsvn_model.html">model</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statsvn_output.html">output</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statsvn_renderer.html">renderer</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statsvn_reportmodel.html">reportmodel</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_statsvn_tests-src_net_sf_statsvn_util.html">util</a> 
+(3 files, 132 lines)<br />
+</p>
+
+<div class="section">
+<subsection name ="Lines of Code">
+<p class="chart"><img src="loc_module_statsvn.png" alt="statsvn/ Lines of Code" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>110 (100.0%)</td>
+        <td>1193 (100.0%)</td>
+        <td>10.8</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>85 (77.3%)</td>
+        <td>559 (46.9%)</td>
+        <td>6.5</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jpdaigle.html" class="author">Jean-Philippe Daigle</a></th>
+        <td>5 (4.5%)</td>
+        <td>436 (36.5%)</td>
+        <td>87.2</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">Jason Kealey</a></th>
+        <td>18 (16.4%)</td>
+        <td>197 (16.5%)</td>
+        <td>10.9</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_gunterm.html" class="author">Gunter Mussbacher</a></th>
+        <td>2 (1.8%)</td>
+        <td>1 (0.1%)</td>
+        <td>0.5</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="40"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-08-06 12:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">392</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Prepare release 0.6.0
+    </p>
+    <p class="commitdetails"><strong>8</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=385&amp;r2=392" class="webrepository">project.xml</a>&#160;<span class="change">(+8&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="39"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-06-02 16:42</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">391</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move to 0.6.0 and the StatCVS 0.6.0 which is far less memory hungry.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=378&amp;r2=391" class="webrepository">.classpath</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=389&amp;r2=391" class="webrepository">project.properties</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="38"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-05-27 19:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">389</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+free the Builder as soon as possible in order to reduce the max memory required.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=374&amp;r2=389" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="37"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-05-22 16:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">387</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Preparing release 0.5.0
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=306&amp;r2=387" class="webrepository">build.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="36"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-04-26 10:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">385</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+updated statCVS to latest beta with cloud and chart background images facilities.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=375&amp;r2=385" class="webrepository">project.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="35"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-11 01:15</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">378</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Adding some Twitter attributes to StatSVN Developer Page.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=368&amp;r2=378" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="34"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-09 23:49</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">375</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Getting ready for a 0.5.0
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=367&amp;r2=375" class="webrepository">project.xml</a>&#160;<span class="change">(+6&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="33"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-09 23:29</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">374</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Upgraded StatCVS to 0.5.0 for new Rolling Dev report
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=367&amp;r2=374" class="webrepository">project.properties</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="32"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-06-25 22:23</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">368</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix a few Checkstyle warnings.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=363&amp;r2=368" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="31"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-06-25 21:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">367</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added -chartset option.
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=366&amp;r2=367" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=366&amp;r2=367" class="webrepository">project.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="30"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-06-17 15:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">366</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Change to version 0.4.1 and add the embedded Nabble forums.
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=358&amp;r2=366" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=360&amp;r2=366" class="webrepository">project.xml</a>&#160;<span class="change">(+5)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="29"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2008-05-31 18:58</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">363</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+(changed classpath from absolute to relative path)
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=358&amp;r2=363" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="28"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-05-04 12:18</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">360</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Site changes for release.
+    </p>
+    <p class="commitdetails"><strong>3</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=359&amp;r2=360" class="webrepository">project.xml</a>&#160;<span class="change">(+3&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="27"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-05-04 11:57</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">359</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+prepare for release 0.4.0
+    </p>
+    <p class="commitdetails"><strong>4</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=358&amp;r2=359" class="webrepository">project.xml</a>&#160;<span class="change">(+4&#160;-6)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="26"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-04-17 16:22</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">358</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Changed to version 0.4.0
+    </p>
+    <p class="commitdetails"><strong>7</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=346&amp;r2=358" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=305&amp;r2=358" class="webrepository">project.properties</a>&#160;<span class="change">(+2&#160;-2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=344&amp;r2=358" class="webrepository">project.xml</a>&#160;<span class="change">(+4&#160;-4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="25"></a>
+    <a href="user_jkealey.html" class="author">Jason Kealey</a>
+    <span class="date">2008-03-28 05:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">346</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Beta of improved diff that makes use of the per-revision diffs now available in Subversion (instead of per file).
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=287&amp;r2=346" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-03-27 00:45</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">344</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Applied 2 patches from Martin Majlis to StatCVS and checked in the jar.<br />
+Also added Marcin Jekot as the Maven Repo Master :-)
+    </p>
+    <p class="commitdetails"><strong>21</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=320&amp;r2=344" class="webrepository">project.xml</a>&#160;<span class="change">(+21&#160;-11)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-29 15:27</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">320</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Add the statsvn-users list to the page.
+    </p>
+    <p class="commitdetails"><strong>20</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=305&amp;r2=320" class="webrepository">project.xml</a>&#160;<span class="change">(+20&#160;-9)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-13 19:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">306</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+an "ant release" really ought to run the tests!
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=283&amp;r2=306" class="webrepository">build.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-13 19:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">305</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move current version to 0.3.2-SNAPSHOT to avoid mistakes.
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=294&amp;r2=305" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=294&amp;r2=305" class="webrepository">project.xml</a>&#160;<span class="change">(+5)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-08 18:11</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">294</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+getting ready for 0.3.1
+    </p>
+    <p class="commitdetails"><strong>5</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=283&amp;r2=294" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=284&amp;r2=294" class="webrepository">project.xml</a>&#160;<span class="change">(+4&#160;-4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-03-04 23:24</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">287</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+[Bug 1673601]Support the -tags command line parameter by limiting the tags to the given list.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=286&amp;r2=287" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-02-19 11:06</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">286</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix NPE in RepoMapPageMaker.java<br />
+see <a href="https://sourceforge.net/tracker/index.php">https://sourceforge.net/tracker/index.php</a>?func=detail&amp;aid=1657197&amp;group_id=164845&amp;atid=833326
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=285&amp;r2=286" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-02-19 10:42</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">285</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Moved statcvs dependency to 0.3.1-dev
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=263&amp;r2=285" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-02-19 10:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">284</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a unit test for SvnInfoUtil.replace(...)
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=280&amp;r2=284" class="webrepository">project.xml</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-02-19 10:28</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">283</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Removed recent 1.5 code, updated the statcvs to 0.3.1-dev, compiled under 1.4.<br />
+Will do a beta release of the new jar under <a href="http://www.statsvn.org/beta/statsvn.jar">www.statsvn.org/beta/statsvn.jar</a><br />
+
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=267&amp;r2=283" class="webrepository">build.xml</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=274&amp;r2=283" class="webrepository">project.properties</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-02-08 19:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">280</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+[ 1655200 ] backport-util-concurrent Error, changed the dependencies for Maven (although we use Ant to build the jars).
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=275&amp;r2=280" class="webrepository">project.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-22 00:39</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">275</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added the new ObjectLab news list for those who may want to receive web alerts of posting about this project.
+    </p>
+    <p class="commitdetails"><strong>13</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=274&amp;r2=275" class="webrepository">project.xml</a>&#160;<span class="change">(+13)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-20 11:54</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">274</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Set next release to 0.3.1-dev and started a changes.xml section for it.
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=261&amp;r2=274" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=266&amp;r2=274" class="webrepository">project.xml</a>&#160;<span class="change">(+5)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-12 21:19</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">267</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+created a 'release' target that does (in the right order) zip.source, dist and zip.
+    </p>
+    <p class="commitdetails"><strong>3</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=228&amp;r2=267" class="webrepository">build.xml</a>&#160;<span class="change">(+3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-12 21:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">266</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+0.3.0 build, with a couple of fixes for QA warnings.
+    </p>
+    <p class="commitdetails"><strong>3</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=228&amp;r2=266" class="webrepository">project.xml</a>&#160;<span class="change">(+3&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-12 19:49</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">263</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+a couple of changes.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=229&amp;r2=263" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-12 19:41</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">261</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Official Release will be 0.3.0
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=200&amp;r2=261" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-05 20:30</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">229</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Using the StatCVS release 0.3, except that we fixed an issue with revision tags containing "." which are transformed to '_' in a name anchor.
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=206&amp;r2=229" class="webrepository">.classpath</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2007-01-05 12:20</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">228</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Using the StatCVS release 0.3, except that we fixed an issue with revision tags containing "." which are transformed to '_' in a name anchor.
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=200&amp;r2=228" class="webrepository">build.xml</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=200&amp;r2=228" class="webrepository">project.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-13 16:29</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">206</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+removed absolute path.
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=199&amp;r2=206" class="webrepository">.classpath</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-12 21:26</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">200</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New Report: LOC and Churn shows the usual LOC with the amount of code touched per day.<br />
+Hopefully the churn should go decreasingly towards a release.
+    </p>
+    <p class="commitdetails"><strong>9</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=196&amp;r2=200" class="webrepository">build.xml</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=196&amp;r2=200" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=191&amp;r2=200" class="webrepository">project.xml</a>&#160;<span class="change">(+7)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-12 18:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">199</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed to use statcvs-0.3.0-dev
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=185&amp;r2=199" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-12 14:15</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">196</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+A bit of tidy up (Checkstyle, PMD, FindBugs, Simian).<br />
+Plus showing a statsvn.bat script for typical usage.<br />
+Changed the TODO to @todo which are picked up by Maven (see the Task List report, Jason it would be good to go through it and drop whatever may be old).
+    </p>
+    <p class="commitdetails"><strong>8</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=191&amp;r2=196" class="webrepository">build.xml</a>&#160;<span class="change">(+4&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=191&amp;r2=196" class="webrepository">project.properties</a>&#160;<span class="change">(+4&#160;-7)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-11 11:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">191</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Upgraded StatCVS to version 0.3.0-dev (lots of refactoring inside StatCVS).
+    </p>
+    <p class="commitdetails"><strong>6</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=185&amp;r2=191" class="webrepository">build.xml</a>&#160;<span class="change">(+1&#160;-3)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=185&amp;r2=191" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=185&amp;r2=191" class="webrepository">project.xml</a>&#160;<span class="change">(+4&#160;-4)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<p>(34 more)</p>
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

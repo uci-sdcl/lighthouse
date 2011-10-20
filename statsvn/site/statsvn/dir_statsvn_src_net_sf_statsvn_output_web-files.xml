@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>Directory statsvn/src/net/sf/statsvn/output/web-files/</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="Directory statsvn/src/net/sf/statsvn/output/web-files/">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2006-12-12 14:16</span></dd>
+    <dt>Directory Deleted:</dt>
+    <dd><span class="date">2008-03-28 17:55</span></dd>
+    <dt>Total Files:</dt>
+    <dd>0</dd>
+    <dt>Deleted Files:</dt>
+    <dd>1</dd>
+    <dt>Lines of Code:</dt>
+    <dd>0</dd>
+</dl>
+<p><a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/output/web-files/">Browse with ViewVC</a></p>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_statsvn.html">statsvn</a>/<a href="dir_statsvn_src.html">src</a>/<a href="dir_statsvn_src_net.html">net</a>/<a href="dir_statsvn_src_net_sf.html">sf</a>/<a href="dir_statsvn_src_net_sf_statsvn.html">statsvn</a>/<a href="dir_statsvn_src_net_sf_statsvn_output.html">output</a>/<strong>web-files</strong><br/>
+</p>
+
+<div class="section">
+<subsection name ="Developers">
+  <table  class="statCvsTable" rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_benoitx.html" class="author">Benoit Xhenseval</a></th>
+        <td>3 (100.0%)</td>
+        <td>0 (-)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-03-28 17:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">348</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+The RepoMap and LOCChurn pages are now managed by StatCVS.<br />
+Also enable the -xml option in StatSVN.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/output/web-files</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/output/web-files/jtreemap-1.1.0.jar?rev=201&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jtreemap-1.1.0.jar</a>&#160;<span class="del">(del)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-13 00:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">201</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move to newer version of jtreemap that fixes the reload problem.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/output/web-files</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/output/web-files/jtreemap-1.1.0.jar?r1=197&amp;r2=201" class="webrepository">jtreemap-1.1.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2006-12-12 14:16</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">197</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New Report: Repo Map, a jtreemap-based report (applet) that shows the entire source tree in a hierarchical manner, the size of each box is related to LOC and the colour to the changes over the last 30 days (red -loc, green +loc). This is experimental but quite useful I think.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/output/web-files</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/output/web-files/jtreemap-1.1.0.jar?rev=197&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">jtreemap-1.1.0.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

@@ -1,0 +1,950 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Directory src/seg/jUCMNav/model/</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>Directory src/seg/jUCMNav/model/</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2005-04-25 21:55</span></dd>
+    <dt>Total Files:</dt>
+    <dd>2</dd>
+    <dt>Deleted Files:</dt>
+    <dd>0</dd>
+    <dt>Lines of Code:</dt>
+    <dd>435</dd>
+</dl>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_src.html">src</a>/<a href="dir_src_seg.html">seg</a>/<a href="dir_src_seg_jUCMNav.html">jUCMNav</a>/<strong>model</strong><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_commands.html">commands</a> 
+(2 files, 45 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_commands_changeConstraints.html">changeConstraints</a> 
+(9 files, 1150 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_commands_create.html">create</a> 
+(24 files, 2852 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_commands_delete.html">delete</a> 
+(25 files, 1876 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_commands_delete_internal.html">internal</a> 
+(27 files, 3243 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_commands_transformations.html">transformations</a> 
+(14 files, 2224 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_commands_transformations_internal.html">internal</a> 
+(4 files, 488 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_src_seg_jUCMNav_model_ucm.html">ucm</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_src_seg_jUCMNav_model_ucm_impl.html">impl</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder-deleted.png" width="15" height="13" alt="Folder removed from repo" title="Folder removed from repo"/> 
+<a href="dir_src_seg_jUCMNav_model_ucm_util.html">util</a> 
+(0 files, 0 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_util.html">util</a> 
+(12 files, 2145 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_util_modelexplore.html">modelexplore</a> 
+(7 files, 251 lines)<br />
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<img src="folder.png" width="15" height="13" alt="directory in repo" title="directory in repo"/> 
+<a href="dir_src_seg_jUCMNav_model_util_modelexplore_queries.html">queries</a> 
+(6 files, 726 lines)<br />
+</p>
+
+<div class="section">
+<h2>Lines of Code</h2>
+<p class="chart"><img src="loc_module_src_seg_jUCMNav_model.png" alt="src/seg/jUCMNav/model/ Lines of Code" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Developers</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>43 (100.0%)</td>
+        <td>435 (100.0%)</td>
+        <td>10.1</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_etremblay.html" class="author">etremblay</a></th>
+        <td>6 (14.0%)</td>
+        <td>419 (96.3%)</td>
+        <td>69.8</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>19 (44.2%)</td>
+        <td>16 (3.7%)</td>
+        <td>0.8</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jpdaigle.html" class="author">jpdaigle</a></th>
+        <td>4 (9.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jmcmanus.html" class="author">jmcmanus</a></th>
+        <td>4 (9.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>10 (23.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="40"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-17 07:31</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">813</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix bug 412 (default strategy and strategies group).<br />
+Removed redundant code for the creation of a new file (using jUCMNavLoader and ModelCreationFactory instead of static xml).<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="39"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-06 22:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">791</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Externalize String
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="38"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-28 08:15</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">771</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added URNlink dialog, actions and commands
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="37"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-22 23:48</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">746</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Ended name change.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="36"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-22 23:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">745</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Name change for EvaluationScenario (now called Strategy)
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="35"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-21 23:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">743</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added first version of the GRL catalog import/export
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="34"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-11 23:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">724</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added scenario author, color modification when scenario selected and fixed NullPointerException in Scenario view when closing the editor.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="33"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-11 18:25</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">722</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Evaluation scenario view added. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="32"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-01-29 20:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">669</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge of GRL branch with the main trunk
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="31"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-24 18:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">655</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Extracted a bunch of strings, translated language files to French. 
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="30"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 23:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">585</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge grl branch with the main trunk<br />
+Major modification of the metamodel (URN_08.mdl) (Added GRL metamodel, New interfaces that define common element in GRL and UCM, Modified UCM-Map package to implement the new interfaces (some associations and attributes have been refactored using the interfaces), Map is now called UCMmap (to resolve conflict with java.util.map in the implementation), Removed Path Graph)<br />
+Modification of the code that used the metamodel.<br />
+Started modification of jUCMNav to support GRL.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="29"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-07-15 00:24</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">486</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Lesson learned...  Never try to make an SWT application in 3.1 for 3.0....  The layout won't work like you designed it in 3.1...<br />
+Added condition editing in the StubBindingDialog.  Quick hack to take what was working in the 3.1 version done during the day and add it to the 3.0 version.  The layout is not as nice though in 3.0.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="28"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-12 23:22</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">466</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+cleaned/commented (thankfully was already done) seg.jUCMNav.model.commands.changeConstraints<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="27"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-12 20:22</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">464</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+cleaned/commented everything under seg.jUCMNav.model except the commands<br />
+
+    </p>
+    <p class="commitdetails"><strong>16</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>,
+        package.html&#160;<span class="new">(new&#160;16)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="26"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-27 19:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">428</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 335: palette wording<br />
+bug 344: extracted more strings<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="25"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-17 05:36</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">377</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 191 - connections; initial work implemented. a few bugs remain but are not critical; mostly delete issues concerning delete multinode which I want refactored anyways. todo: improve usability with drag &amp; drop connections and element position<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-06-16 02:54</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">369</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+JP: Mega commit! Fixed all 120 javadoc warnings on public members, and made the build script a tiny bit less verbose.<br />
+Added meaningful javadoc location where possible.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-06 20:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">301</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 194 - pre/post conditions now appear on start/end. more tests pass! simply missing timer/wait. note that conditions on existing start/end points will overlap the label but for new start/end points, it should be positioned better.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-06-06 04:59</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">296</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Updated behavior for displaying conditions (will only be displayed if there is a label to display)<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-03 20:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">288</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 280, bug 281 - cleaned up condition code. should no longer cause half the application to crash. can be deleted, can have their text changed. no restriction on which node connections can have conditions yet.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-06-03 02:58</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">285</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Can now add Conditions on NodeConnections. Few bugs: delete is broken and need a ChangeNameCommand for direct editting.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-02 20:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">284</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Upgraded meta-model to version 7.<br />
+bug 193 - ReqElemStartPointAttributes<br />
+properties view shows workload attribute as a nested attribute (instead of original dialog box proposal)<br />
+properties view doesn't refresh its descriptors every time you change a property. (property descriptors are properly cached by implementing the PropertyID class with hashCode and equals that work better than Object[]'s)<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-31 21:57</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">274</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- Can now add InBindings from the stub bindings view.<br />
+- Changed the binding list from a Table to a Tree.<br />
+- Changed a lot of behaviors in the view.<br />
+- Adding bindings is still in an ealry prototype phase, use it at your own risk for the validity of your files.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-30 04:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">252</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+StubBindingsView now do something interesting...  Select a stub and the view will update itself with binding information from the stub.<br />
+Right now you can select a map from a List to bind the stub to this map.  The list of bindings will update itself.  The behavior is not working completly yet, but this will be implemented soon.<br />
+Note: Programming with eclipse forms without any graphical ediing software is really painfull!! :P<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-26 17:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">237</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 230 - now settings urnspec fields<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-26 17:08</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">235</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 229 - changed to use urnspec.nextglobalid<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-05-26 05:06</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">231</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Stubs no longer rotate, andforks now rotate (anchors ned to be set up with connection router to prevent overlapping of figure with splines).<br />
+Added DirectionArrow, andforks<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-25 11:55</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">219</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added Dynamic Stub in the palette.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-25 02:26</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">216</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug #251 - ReqElemOrJoin creation.<br />
+Basic implementation works, undo/redo working.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-21 16:50</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">197</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+can now add maps; see contextual menu of URNspec.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-13 18:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">141</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 181: labels now show name of responsibility instead of respref.<br />
+onload, any unlinked reference will have defintiions created.<br />
+need to update propertysource so that it behaves properly.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-13 17:30</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">140</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 225: modelcreationfactory no longer creates components or responsibilities with naming conflicts.<br />
+bug 181: modelcreationfactory creates a responsibility with each respref.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-12 21:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">135</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 225: now sanitizes the URNspec when loaded. resolves any naming conflicts or duplicate IDs.<br />
+labels no longer set any names<br />
+now need to ensure that modelcreationfactory generates IDs/names that don't conflict (not just the next time you open the file)<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-12 16:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">134</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug226 : autolabel creation on selected elements. pathnode label should draw itself outside the bounds of the figure instead of in center.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-12 16:28</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">133</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+removed dependency on java 1.5<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-12 15:45</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">132</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 225: first draft at naming/identifying model elements. currently chokes on old files. doesn't check to see if names are unique; doesn't perform sanity check at start.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-12 02:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">128</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+- New icon for files<br />
+- New Polygon figure class if you want to make arbitrary filled figure (draw2d doesn't have one)<br />
+- Can insert a stub in the diagram from the palette.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-10 03:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">120</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
++ OrFork creation support in the palette<br />
++ Very Buggy And / Or fork saving<br />
++ A few various bugfixes<br />
++ Multipage editor support for forks<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_jmcmanus.html" class="author">jmcmanus</a>
+    <span class="date">2005-05-08 17:41</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">112</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Labels for ComponentRefs added. Changed most of the old Label logic.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jpdaigle.html" class="author">jpdaigle</a>
+    <span class="date">2005-05-06 03:10</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">106</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+JP: First OR-Fork implementation. Caution: no undo, no delete, no multiple branches (&gt;2) for now.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<p>(2 more)</p>
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

@@ -1,0 +1,804 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Directory src/seg/jUCMNav/editparts/treeEditparts/</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>Directory src/seg/jUCMNav/editparts/treeEditparts/</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+<dl class="attributes">
+    <dt>Directory Created:</dt>
+    <dd><span class="date">2005-05-18 03:46</span></dd>
+    <dt>Total Files:</dt>
+    <dd>20</dd>
+    <dt>Deleted Files:</dt>
+    <dd>3</dd>
+    <dt>Lines of Code:</dt>
+    <dd>1753</dd>
+</dl>
+<p class="dirtree">
+<a href="dir.html">[root]</a>/<a href="dir_src.html">src</a>/<a href="dir_src_seg.html">seg</a>/<a href="dir_src_seg_jUCMNav.html">jUCMNav</a>/<a href="dir_src_seg_jUCMNav_editparts.html">editparts</a>/<strong>treeEditparts</strong><br/>
+</p>
+
+<div class="section">
+<h2>Lines of Code</h2>
+<p class="chart"><img src="loc_module_src_seg_jUCMNav_editparts_treeEditparts.png" alt="src/seg/jUCMNav/editparts/treeEditparts/ Lines of Code" width="800" height="500" /></p></div>
+<div class="section">
+<h2>Developers</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>120 (100.0%)</td>
+        <td>1753 (100.0%)</td>
+        <td>14.6</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_etremblay.html" class="author">etremblay</a></th>
+        <td>27 (22.5%)</td>
+        <td>780 (44.5%)</td>
+        <td>28.8</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>28 (23.3%)</td>
+        <td>772 (44.0%)</td>
+        <td>27.5</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>65 (54.2%)</td>
+        <td>201 (11.5%)</td>
+        <td>3.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="section">
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt><a name="31"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-06 22:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">791</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Externalize String
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="30"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-02-17 20:54</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">738</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added actor evaluation level.<br />
+Fixed bug when entering non integer for evaluation level
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        IntentionalElementRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        IntentionalElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="29"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-01-29 20:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">669</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge of GRL branch with the main trunk
+    </p>
+    <p class="commitdetails"><strong>772</strong> lines of code changed in <span class="files">19 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ActorRefTreeEditPart.java&#160;<span class="new">(new&#160;85)</span>,
+        ActorTreeEditPart.java&#160;<span class="new">(new&#160;70)</span>,
+        BeliefTreeEditPart.java&#160;<span class="new">(new&#160;47)</span>,
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ElementLinkTreeEditPart.java&#160;<span class="new">(new&#160;101)</span>,
+        GrlGraphTreeEditPart.java&#160;<span class="new">(new&#160;80)</span>,
+        IntentionalElementRefTreeEditPart.java&#160;<span class="new">(new&#160;119)</span>,
+        IntentionalElementTreeEditPart.java&#160;<span class="new">(new&#160;94)</span>,
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        StubTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="del">(del)</span>,
+        UrnModelElementTreeEditPart.java&#160;<span class="new">(new&#160;176)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="28"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-01-12 19:47</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">634</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed javadoc
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        package.html&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="27"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 23:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">585</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge grl branch with the main trunk<br />
+Major modification of the metamodel (URN_08.mdl) (Added GRL metamodel, New interfaces that define common element in GRL and UCM, Modified UCM-Map package to implement the new interfaces (some associations and attributes have been refactored using the interfaces), Map is now called UCMmap (to resolve conflict with java.util.map in the implementation), Removed Path Graph)<br />
+Modification of the code that used the metamodel.<br />
+Started modification of jUCMNav to support GRL.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="26"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-11 18:13</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">456</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+cleaned seg.jUCMNav.editparts.treeEditparts and added javadoc; found bugs concerning outline icon when component kind or stub dynamic was changed.<br />
+
+    </p>
+    <p class="commitdetails"><strong>100</strong> lines of code changed in <span class="files">13 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        OutlineRootEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        StubTreeEditPart.java&#160;<span class="new">(new&#160;68)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        package.html&#160;<span class="new">(new&#160;32)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="25"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-08 02:22</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">451</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+unreferenced components/responsibilities in outline now shown in gray<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-27 20:38</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">431</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+stupid crappy wizard always breaking the same file.<br />
+bug 338 - bold+italic<br />
+bug 336 - colors<br />
+bug 339 - can replace direction arrow as well<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-27 19:40</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">428</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 335: palette wording<br />
+bug 344: extracted more strings<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-24 20:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">415</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 328 - reordered elements in outline.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">10 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        OutlineRootEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UCMspecTreeEditPart.java&#160;<span class="del">(del)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-17 19:32</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">385</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 313 - outline icons<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-15 21:16</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">368</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 195 - 196 - 183: actors, started implementing waiting place and timer. (currently simple path nodes)<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-06-08 23:15</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">322</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Internationalization of all the strings.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">10 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UCMspecTreeEditPart.java&#160;<span class="new">(new)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-30 18:00</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">257</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 254 - removed some eContainers<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 16:05</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">207</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 222 - outline now available even if there are no maps.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-24 04:12</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">202</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed bug 258; end point problems.<br />
+fixed major command stack problems relating to create map / delete map.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-23 18:58</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">199</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+initial version of map deletion. note: major problem subsists with the command stack and add/delete map. discovered it while doing deletion, but exists since addition.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-21 16:50</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">197</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+can now add maps; see contextual menu of URNspec.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 18:09</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">192</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed small bug: losed gray when refreshing outline. (thanks ET for noticing)<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 17:38</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">190</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+now can delete any pathnode with 1 in, 1 out.<br />
+now can delete components and responsibilities in outline<br />
+build script modified to include help.xml<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 16:48</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">189</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+improvements in outline; URNspec now is the root (because it has data); got rid of UCMspec because it doesn't contain any data. reordered empty nodes so that they appear at the end of the list. when opened, the outline no longer is scrolled to the bottom of the tree view.<br />
+
+    </p>
+    <p class="commitdetails"><strong>30</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        OutlineRootEditPart.java&#160;<span class="new">(new&#160;30)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>,
+        UCMspecTreeEditPart.java&#160;<span class="del">(del)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-20 04:46</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">185</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+added orfork/andfork icons to outline<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 22:45</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">180</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+added icon on map in outline.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 21:56</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">177</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 239 and visual improvements in outline view. (empty points: gray, sorted alphabetically)<br />
+
+    </p>
+    <p class="commitdetails"><strong>71</strong> lines of code changed in <span class="files">7 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        MapTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        RespRefTreeEditPart.java&#160;<span class="new">(new&#160;71)</span>,
+        RespTreeEditPart.java&#160;<span class="del">(del)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        TreeEditPartFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 14:47</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">171</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+cut path now works in outline view. pathnodetreeeditpart overwrote installEditPolicy instead of createEditPolicy.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 12:58</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">169</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+in outline, added icons to components/responsibilities<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 04:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">167</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 239: components now refresh properly in outline view. also added delete of components in outline view.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-19 02:36</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">165</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+outline now switches maps and selects the appropriate element when an item is selected there.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-19 01:45</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">164</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Image handles are now disposed in the outline when the editpart is deactivated.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        ComponentTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UCMspecTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-18 11:35</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">162</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Stubs now have the right icon in the outline.<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        PathNodeTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-18 03:46</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">159</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+The outline view is now working.  There's still some bugs, but the skeleton is there to add some behavior etc.  Added a new package under editparts named treeEditparts where all the editparts for the outline are located.<br />
+
+    </p>
+    <p class="commitdetails"><strong>780</strong> lines of code changed in <span class="files">11 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        ComponentRefTreeEditPart.java&#160;<span class="new">(new&#160;107)</span>,
+        ComponentTreeEditPart.java&#160;<span class="new">(new&#160;93)</span>,
+        LabelTreeEditPart.java&#160;<span class="new">(new&#160;156)</span>,
+        MapTreeEditPart.java&#160;<span class="new">(new&#160;80)</span>,
+        PathNodeTreeEditPart.java&#160;<span class="new">(new&#160;101)</span>,
+        RespTreeEditPart.java&#160;<span class="new">(new)</span>,
+        ResponsibilityTreeEditPart.java&#160;<span class="new">(new&#160;65)</span>,
+        TreeEditPartFactory.java&#160;<span class="new">(new&#160;84)</span>,
+        UCMspecTreeEditPart.java&#160;<span class="new">(new)</span>,
+        URNspecTreeEditPart.java&#160;<span class="new">(new&#160;94)</span>,
+        UcmModelElementTreeEditPart.java&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+</div><div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

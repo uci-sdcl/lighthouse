@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns:lxslt="http://xml.apache.org/xslt">
+<properties><title>StatSVN Developers: Benoit Xhenseval</title></properties>
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+   <link rel="stylesheet" href="objectlab-statcvs-xdoc.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+</head>
+
+<body><section name="StatSVN Developers: Benoit Xhenseval">
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for StatSVN</a> &#171; <a href="developers.html">Developers</a></div>
+<dl class="attributes">
+    <dt>Login name:</dt>
+    <dd>benoitx</dd>
+    <dt>Real name:</dt>
+    <dd>Benoit Xhenseval</dd>
+    <dt>Twitter:</dt>
+    <dd>@<a href="http://twitter.com/benoitx">benoitx</a></dd>
+    <dt>Home Page:</dt>
+    <dd><a href="http://www.xhenseval.com/benoit">http://www.xhenseval.com/benoit</a></dd>
+    <dt>Image:</dt>
+    <dd><img src="http://www.xhenseval.com/benoit/bx-avatar.jpg" alt="Benoit Xhenseval"/></dd>
+    <dt>Total Commits:</dt>
+    <dd>1,607 (65.6%)</dd>
+    <dt>Lines of Code:</dt>
+    <dd>13,845 (43.1%)</dd>
+    <dt>Most Recent Commit:</dt>
+    <dd><span class="date">2009-08-06 12:52</span></dd>
+    <dt>Tweet this:</dt>
+    <dd><a onclick="return shortenTweet(this.href);" href="http://twitter.com/home?status=%40benoitx%20contributed%2013%2C845%20(43.1%25)%20lines%20to%20StatSVN%20%7B0}%20most%20recent%20commit%202009-08-06%20stats%20by%20StatSVN%20http%3A%2F%2Ftr.im%2FkciG"><img style="border:0px" alt="Tweet this" src="tweet-this.png"/></a></dd>
+</dl>
+
+<div class="section">
+<subsection name ="Activity by Clock Time">
+<p class="chart"><img src="activity_time_benoitx.png" alt="Activity by Hour of Day for Benoit Xhenseval" width="1024" height="500" /></p><p class="chart"><img src="activity_day_benoitx.png" alt="Activity by Day of Week for Benoit Xhenseval" width="1024" height="500" /></p></subsection></div>
+<div class="section">
+<subsection name ="Twitter">
+<div id="twitter_div"><ul id="twitter_update_list"/><a href="http://twitter.com/benoitx" id="twitter-link" style="display:block;text-align:right;">follow me on Twitter</a></div><script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script><script type="text/javascript" src="http://twitter.com/statuses/user_timeline/benoitx.json?callback=twitterCallback2&amp;count=5"></script></subsection></div>
+<div class="section">
+<subsection name ="Twitter">
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,124,0" width="550" height="350" id="TwitterWidget" align="middle"><param name="allowScriptAccess" value="sameDomain" /><param name="allowFullScreen" value="false" /><param name="movie" value="http://static.twitter.com/flash/widgets/profile/TwitterWidget.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#000000" /><param name="FlashVars" value="userID=18722145&amp;styleURL=http://static.twitter.com/flash/widgets/profile/velvetica.xml"/><embed src="http://static.twitter.com/flash/widgets/profile/TwitterWidget.swf" quality="high" bgcolor="#000000" width="550" height="350" name="TwitterWidget" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="userID=18722145&amp;styleURL=http://static.twitter.com/flash/widgets/profile/velvetica.xml"/></object></subsection></div>
+<div class="section">
+<subsection name ="Activity in Directories">
+  <table  class="statCvsTable" rules="groups" summary="Overview of this author's activities in different directories">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Directory</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>1607 (100.0%)</td>
+        <td>13845 (100.0%)</td>
+        <td>8.6</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_input.html" class="directory">statsvn/src/net/sf/statsvn/input/</a></th>
+        <td>124 (7.7%)</td>
+        <td>3714 (26.8%)</td>
+        <td>29.9</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_output.html" class="directory">statsvn/src/net/sf/statsvn/output/</a></th>
+        <td>123 (7.7%)</td>
+        <td>1047 (7.6%)</td>
+        <td>8.5</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statsvn.html" class="directory">statsvn/src/net/sf/statsvn/</a></th>
+        <td>60 (3.7%)</td>
+        <td>1002 (7.2%)</td>
+        <td>16.7</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_output.html" class="directory">statsvn/src/net/sf/statcvs/output/</a></th>
+        <td>82 (5.1%)</td>
+        <td>928 (6.7%)</td>
+        <td>11.3</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_site.html" class="directory">statsvn/site/</a></th>
+        <td>98 (6.1%)</td>
+        <td>847 (6.1%)</td>
+        <td>8.6</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_util.html" class="directory">statsvn/src/net/sf/statsvn/util/</a></th>
+        <td>116 (7.2%)</td>
+        <td>782 (5.6%)</td>
+        <td>6.7</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_demo_script.html" class="directory">demo/script/</a></th>
+        <td>144 (9.0%)</td>
+        <td>680 (4.9%)</td>
+        <td>4.7</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn.html" class="directory">statsvn/</a></th>
+        <td>85 (5.3%)</td>
+        <td>559 (4.0%)</td>
+        <td>6.5</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_input.html" class="directory">statsvn/src/net/sf/statcvs/input/</a></th>
+        <td>45 (2.8%)</td>
+        <td>430 (3.1%)</td>
+        <td>9.5</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_renderer.html" class="directory">statsvn/src/net/sf/statcvs/renderer/</a></th>
+        <td>43 (2.7%)</td>
+        <td>400 (2.9%)</td>
+        <td>9.3</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_demo.html" class="directory">demo/</a></th>
+        <td>9 (0.6%)</td>
+        <td>381 (2.8%)</td>
+        <td>42.3</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_util.html" class="directory">statsvn/src/net/sf/statcvs/util/</a></th>
+        <td>51 (3.2%)</td>
+        <td>361 (2.6%)</td>
+        <td>7.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_tests-src_net_sf_statsvn_input.html" class="directory">statsvn/tests-src/net/sf/statsvn/input/</a></th>
+        <td>61 (3.8%)</td>
+        <td>335 (2.4%)</td>
+        <td>5.4</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_.settings.html" class="directory">statsvn/.settings/</a></th>
+        <td>9 (0.6%)</td>
+        <td>322 (2.3%)</td>
+        <td>35.7</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_site_press.html" class="directory">statsvn/site/press/</a></th>
+        <td>16 (1.0%)</td>
+        <td>258 (1.9%)</td>
+        <td>16.1</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_maven-common-build.html" class="directory">maven-common-build/</a></th>
+        <td>5 (0.3%)</td>
+        <td>234 (1.7%)</td>
+        <td>46.8</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_ant.html" class="directory">statsvn/src/net/sf/statsvn/ant/</a></th>
+        <td>16 (1.0%)</td>
+        <td>198 (1.4%)</td>
+        <td>12.3</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_site_style.html" class="directory">statsvn/site/style/</a></th>
+        <td>1 (0.1%)</td>
+        <td>146 (1.1%)</td>
+        <td>146.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_site_demo.html" class="directory">statsvn/site/demo/</a></th>
+        <td>14 (0.9%)</td>
+        <td>143 (1.0%)</td>
+        <td>10.2</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs_input.html" class="directory">statsvn/tests-src/net/sf/statcvs/input/</a></th>
+        <td>39 (2.4%)</td>
+        <td>137 (1.0%)</td>
+        <td>3.5</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_demo_site_src_xdocs.html" class="directory">demo/site/src/xdocs/</a></th>
+        <td>6 (0.4%)</td>
+        <td>121 (0.9%)</td>
+        <td>20.1</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs_model.html" class="directory">statsvn/tests-src/net/sf/statcvs/model/</a></th>
+        <td>16 (1.0%)</td>
+        <td>118 (0.9%)</td>
+        <td>7.3</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_tests-src_net_sf_statsvn_util.html" class="directory">statsvn/tests-src/net/sf/statsvn/util/</a></th>
+        <td>26 (1.6%)</td>
+        <td>106 (0.8%)</td>
+        <td>4.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_model.html" class="directory">statsvn/src/net/sf/statcvs/model/</a></th>
+        <td>22 (1.4%)</td>
+        <td>81 (0.6%)</td>
+        <td>3.6</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir.html" class="directory">/</a></th>
+        <td>24 (1.5%)</td>
+        <td>79 (0.6%)</td>
+        <td>3.2</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statcvs.html" class="directory">statsvn/src/net/sf/statcvs/</a></th>
+        <td>10 (0.6%)</td>
+        <td>74 (0.5%)</td>
+        <td>7.4</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_tests-src_net_sf_statsvn.html" class="directory">statsvn/tests-src/net/sf/statsvn/</a></th>
+        <td>4 (0.2%)</td>
+        <td>67 (0.5%)</td>
+        <td>16.7</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_reports.html" class="directory">statsvn/src/net/sf/statcvs/reports/</a></th>
+        <td>31 (1.9%)</td>
+        <td>58 (0.4%)</td>
+        <td>1.8</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_reportmodel.html" class="directory">statsvn/src/net/sf/statcvs/reportmodel/</a></th>
+        <td>30 (1.9%)</td>
+        <td>56 (0.4%)</td>
+        <td>1.8</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_ant.html" class="directory">statsvn/src/net/sf/statcvs/ant/</a></th>
+        <td>3 (0.2%)</td>
+        <td>54 (0.4%)</td>
+        <td>18.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs_util.html" class="directory">statsvn/tests-src/net/sf/statcvs/util/</a></th>
+        <td>16 (1.0%)</td>
+        <td>32 (0.2%)</td>
+        <td>2.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs_reportmodel.html" class="directory">statsvn/tests-src/net/sf/statcvs/reportmodel/</a></th>
+        <td>4 (0.2%)</td>
+        <td>24 (0.2%)</td>
+        <td>6.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_devdoc.html" class="directory">statsvn/devdoc/</a></th>
+        <td>1 (0.1%)</td>
+        <td>20 (0.1%)</td>
+        <td>20.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs_output.html" class="directory">statsvn/tests-src/net/sf/statcvs/output/</a></th>
+        <td>4 (0.2%)</td>
+        <td>19 (0.1%)</td>
+        <td>4.7</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_website.html" class="directory">website/</a></th>
+        <td>3 (0.2%)</td>
+        <td>14 (0.1%)</td>
+        <td>4.6</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs_renderer.html" class="directory">statsvn/tests-src/net/sf/statcvs/renderer/</a></th>
+        <td>4 (0.2%)</td>
+        <td>13 (0.1%)</td>
+        <td>3.2</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_website_dist.html" class="directory">website/dist/</a></th>
+        <td>2 (0.1%)</td>
+        <td>3 (0.0%)</td>
+        <td>1.5</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs.html" class="directory">statsvn/tests-src/net/sf/statcvs/</a></th>
+        <td>2 (0.1%)</td>
+        <td>2 (0.0%)</td>
+        <td>1.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_website_dist_0.2.0.html" class="directory">website/dist/0.2.0/</a></th>
+        <td>2 (0.1%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_website_dist_0.1.3.html" class="directory">website/dist/0.1.3/</a></th>
+        <td>2 (0.1%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_tests-src_net_sf_statsvn_reportmodel.html" class="directory">statsvn/tests-src/net/sf/statsvn/reportmodel/</a></th>
+        <td>6 (0.4%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statsvn_renderer.html" class="directory">statsvn/tests-src/net/sf/statsvn/renderer/</a></th>
+        <td>6 (0.4%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_tests-src_net_sf_statsvn_output.html" class="directory">statsvn/tests-src/net/sf/statsvn/output/</a></th>
+        <td>6 (0.4%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_tests-src_net_sf_statsvn_model.html" class="directory">statsvn/tests-src/net/sf/statsvn/model/</a></th>
+        <td>21 (1.3%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_tests-src_net_sf_statcvs_input_samplefiles.html" class="directory">statsvn/tests-src/net/sf/statcvs/input/samplefiles/</a></th>
+        <td>6 (0.4%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_reports.html" class="directory">statsvn/src/net/sf/statsvn/reports/</a></th>
+        <td>39 (2.4%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_reportmodel.html" class="directory">statsvn/src/net/sf/statsvn/reportmodel/</a></th>
+        <td>36 (2.2%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_renderer.html" class="directory">statsvn/src/net/sf/statsvn/renderer/</a></th>
+        <td>42 (2.6%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_output_web-files.html" class="directory">statsvn/src/net/sf/statsvn/output/web-files/</a></th>
+        <td>3 (0.2%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_src_net_sf_statsvn_model.html" class="directory">statsvn/src/net/sf/statsvn/model/</a></th>
+        <td>27 (1.7%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_src_net_sf_statcvs_web-files.html" class="directory">statsvn/src/net/sf/statcvs/web-files/</a></th>
+        <td>11 (0.7%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="dir_statsvn_site_images.html" class="directory">statsvn/site/images/</a></th>
+        <td>2 (0.1%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="dir_statsvn_lib.html" class="directory">statsvn/lib/</a></th>
+        <td>49 (3.0%)</td>
+        <td>0 (0.0%)</td>
+        <td>0.0</td>
+      </tr>
+    </tbody>
+  </table>
+
+<p class="chart"><img src="directory_sizes_benoitx.png" alt="Activity of Benoit Xhenseval" width="952" height="596" /></p></subsection></div>
+<div class="section">
+<subsection name ="Most Recent Commits">
+<dl class="commitlist">
+  <dt><a name="20"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-08-06 12:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">392</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Prepare release 0.6.0
+    </p>
+    <p class="commitdetails"><strong>14</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn.bat?r1=389&amp;r2=392" class="webrepository">statsvn.bat</a>&#160;<span class="change">(+3&#160;-3)</span>
+      </li>
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=385&amp;r2=392" class="webrepository">project.xml</a>&#160;<span class="change">(+8&#160;-3)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.6.0.jar?r1=391&amp;r2=392" class="webrepository">statcvs-0.6.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/changes.xml?r1=389&amp;r2=392" class="webrepository">changes.xml</a>&#160;<span class="change">(+1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/index.xml?r1=391&amp;r2=392" class="webrepository">index.xml</a>&#160;<span class="change">(+2)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-06-02 16:42</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">391</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Move to 0.6.0 and the StatCVS 0.6.0 which is far less memory hungry.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">6 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=378&amp;r2=391" class="webrepository">.classpath</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=389&amp;r2=391" class="webrepository">project.properties</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/.settings</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.settings/org.eclipse.jdt.ui.prefs?r1=356&amp;r2=391" class="webrepository">org.eclipse.jdt.ui.prefs</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=387&amp;r2=391" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.6.0.jar?rev=391&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.6.0.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/index.xml?r1=389&amp;r2=391" class="webrepository">index.xml</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-06-02 16:15</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">390</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Mentioning possible issues
+    </p>
+    <p class="commitdetails"><strong>10</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/Main.java?r1=389&amp;r2=390" class="webrepository">Main.java</a>&#160;<span class="change">(+10&#160;-4)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-05-27 19:17</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">389</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+free the Builder as soon as possible in order to reduce the max memory required.
+    </p>
+    <p class="commitdetails"><strong>276</strong> lines of code changed in <span class="files">7 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn.bat?r1=385&amp;r2=389" class="webrepository">statsvn.bat</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=374&amp;r2=389" class="webrepository">project.properties</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/changes.xml?r1=387&amp;r2=389" class="webrepository">changes.xml</a>&#160;<span class="change">(+20&#160;-16)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/index.xml?r1=382&amp;r2=389" class="webrepository">index.xml</a>&#160;<span class="change">(+2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/navigation.xml?r1=378&amp;r2=389" class="webrepository">navigation.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/Main.java?r1=384&amp;r2=389" class="webrepository">Main.java</a>&#160;<span class="change">(+242&#160;-236)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/input/Builder.java?r1=383&amp;r2=389" class="webrepository">Builder.java</a>&#160;<span class="change">(+8)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-05-22 16:52</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">387</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Preparing release 0.5.0
+    </p>
+    <p class="commitdetails"><strong>13</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/build.xml?r1=306&amp;r2=387" class="webrepository">build.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=386&amp;r2=387" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/changes.xml?r1=382&amp;r2=387" class="webrepository">changes.xml</a>&#160;<span class="change">(+12&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/site/images</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/images/chartExplanation.png?rev=387&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">chartExplanation.png</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-05-01 17:59</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">386</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New StatCVS Beta
+    </p>
+    <p class="commitdetails"><strong>4</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>demo/script</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/demo/script/statsvn.properties?r1=385&amp;r2=386" class="webrepository">statsvn.properties</a>&#160;<span class="change">(+3)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=385&amp;r2=386" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/statcvs.properties?r1=384&amp;r2=386" class="webrepository">statcvs.properties</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-04-26 10:02</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">385</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+updated statCVS to latest beta with cloud and chart background images facilities.
+    </p>
+    <p class="commitdetails"><strong>9</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn.bat?r1=380&amp;r2=385" class="webrepository">statsvn.bat</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>demo/script</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/demo/script/statsvn.properties?r1=381&amp;r2=385" class="webrepository">statsvn.properties</a>&#160;<span class="change">(+7)</span>
+      </li>
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=375&amp;r2=385" class="webrepository">project.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=383&amp;r2=385" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-04-22 09:22</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">384</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Tidy up.
+    </p>
+    <p class="commitdetails"><strong>8</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/src/net/sf/statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/Main.java?r1=367&amp;r2=384" class="webrepository">Main.java</a>&#160;<span class="change">(-2)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/statcvs.properties?r1=200&amp;r2=384" class="webrepository">statcvs.properties</a>&#160;<span class="change">(+8&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-18 17:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">383</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+When replacing the name for Author, one should also replace the author ID.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=382&amp;r2=383" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/input/Builder.java?r1=382&amp;r2=383" class="webrepository">Builder.java</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-17 00:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">382</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Add ability to MERGE 2 users through the config-file user.[userName].replacedBy=[newUserName]<br />
+
+    </p>
+    <p class="commitdetails"><strong>440</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=381&amp;r2=382" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/changes.xml?r1=375&amp;r2=382" class="webrepository">changes.xml</a>&#160;<span class="change">(+105&#160;-101)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/index.xml?r1=373&amp;r2=382" class="webrepository">index.xml</a>&#160;<span class="change">(+2)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/input/Builder.java?r1=378&amp;r2=382" class="webrepository">Builder.java</a>&#160;<span class="change">(+333&#160;-319)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-14 12:37</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">381</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added copyright notice on all charts...
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>demo/script</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/demo/script/statsvn.properties?r1=380&amp;r2=381" class="webrepository">statsvn.properties</a>&#160;<span class="change">(+2)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=380&amp;r2=381" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-14 01:01</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">380</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+New statcvs-0.5.0.jar with configurable charts.
+    </p>
+    <p class="commitdetails"><strong>89</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn.bat?r1=375&amp;r2=380" class="webrepository">statsvn.bat</a>&#160;<span class="change">(+2)</span>
+      </li>
+      <li>
+        <strong>demo/script</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/demo/script/statsvn.properties?r1=377&amp;r2=380" class="webrepository">statsvn.properties</a>&#160;<span class="change">(+87)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=379&amp;r2=380" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-11 17:34</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">379</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Latest statcvs-0.5.0.jar with Twitter integration.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=378&amp;r2=379" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-11 01:15</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">378</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Adding some Twitter attributes to StatSVN Developer Page.
+    </p>
+    <p class="commitdetails"><strong>12</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/.classpath?r1=368&amp;r2=378" class="webrepository">.classpath</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=377&amp;r2=378" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/navigation.xml?r1=376&amp;r2=378" class="webrepository">navigation.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/src/net/sf/statsvn/input</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/src/net/sf/statsvn/input/Builder.java?r1=351&amp;r2=378" class="webrepository">Builder.java</a>&#160;<span class="change">(+10)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-11 00:33</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">377</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Add some Twitter attributes to the statcvs-0.5.0.jar and the statsvn.properties file.
+    </p>
+    <p class="commitdetails"><strong>12</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>demo/script</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/demo/script/statsvn.properties?r1=338&amp;r2=377" class="webrepository">statsvn.properties</a>&#160;<span class="change">(+12)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?r1=374&amp;r2=377" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-10 18:48</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">376</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Changed the SF Logo as per SF Email March 10.
+    </p>
+    <p class="commitdetails"><strong>1</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/navigation.xml?r1=370&amp;r2=376" class="webrepository">navigation.xml</a>&#160;<span class="change">(+1)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-09 23:49</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">375</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Getting ready for a 0.5.0
+    </p>
+    <p class="commitdetails"><strong>10</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn.bat?r1=367&amp;r2=375" class="webrepository">statsvn.bat</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.xml?r1=367&amp;r2=375" class="webrepository">project.xml</a>&#160;<span class="change">(+6&#160;-1)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/changes.xml?r1=367&amp;r2=375" class="webrepository">changes.xml</a>&#160;<span class="change">(+3)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-09 23:29</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">374</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Upgraded StatCVS to 0.5.0 for new Rolling Dev report
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/project.properties?r1=367&amp;r2=374" class="webrepository">project.properties</a>&#160;<span class="change">(+2&#160;-2)</span>
+      </li>
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.1.jar?rev=369&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.4.1.jar</a>&#160;<span class="del">(del)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.5.0.jar?rev=374&amp;content-type=text/vnd.viewcvs-markup" class="webrepository">statcvs-0.5.0.jar</a>&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2009-03-08 21:44</span>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">373</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added Twitter links.
+    </p>
+    <p class="commitdetails"><strong>30</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/index.xml?r1=370&amp;r2=373" class="webrepository">index.xml</a>&#160;<span class="change">(+30)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_benoitx.html" class="author">Benoit Xhenseval</a>
+    <span class="date">2008-07-16 23:04</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Site changes for release.<br />
+
+    </p>
+    <p class="commitdetails"><strong>2</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>statsvn/lib</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/lib/statcvs-0.4.1.jar?r1=367&amp;r2=369" class="webrepository">statcvs-0.4.1.jar</a>&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>statsvn/site</strong>:
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/index.xml?r1=367&amp;r2=370" class="webrepository">index.xml</a>&#160;<span class="change">(+1&#160;-1)</span>,
+        <a href="http://svn.sourceforge.net/viewvc/statsvn/trunk/statsvn/site/navigation.xml?r1=367&amp;r2=370" class="webrepository">navigation.xml</a>&#160;<span class="change">(+1&#160;-1)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<p>(194 more)</p>
+</subsection></div></section><div id="generatedby">Generated by <a href="http://www.statsvn.org">StatSVN</a> 0.6.0</div>
+</body>
+</document>

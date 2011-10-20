@@ -1,0 +1,1299 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - March 2006 Commit Log</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.6.0"/>
+<link rel="stylesheet" href="objectlab-statcvs.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8" src="http://bit.ly/javascript-api.js?version=latest&amp;login=statsvn&amp;apiKey=R_2c362b417d0517c27876cbaca1bb68cc"></script>
+<script type="text/javascript" charset="utf-8">
+   // wait until page is loaded to call API
+   var redir_url;
+   var short_url;
+   BitlyCB.myShortenCallback = function(data) {
+      // this is how to get a result of shortening a single url
+      var result;
+      short_url=null;
+      for (var r in data.results) {
+         result = data.results[r];
+         result['longUrl'] = r;
+         short_url = result['shortUrl'];
+         break;
+      }
+      if (short_url==null) // bit.ly failed
+      document.location=redir_url;
+      else
+      redirToTwitter();
+   };
+   function shortenTweet(url) {
+      if (short_url == null || redir_url!=url) {
+      redir_url = url;
+      BitlyClient.shorten(document.location, 'BitlyCB.myShortenCallback');
+      }
+      else
+      redirToTwitter();
+      return false;
+   }
+   function redirToTwitter() { 
+      // replace {0} which is visible as %7B0} in the link
+      document.location = redir_url.replace('%7B0}', short_url);
+   }
+</script>
+  </head>
+
+<body>
+
+<h1>March 2006 Commit Log</h1>
+<div id="parentlink">&#171; <a href="index.html">Development Statistics for jUCMNav</a></div>
+
+<div id="nav" class="section">
+<h2>Commit Logs</h2>
+<ul>
+    <li><span class="here">March 2006</span></li>
+    <li><a href="2006-02.html">February 2006</a></li>
+    <li><a href="2006-01.html">January 2006</a></li>
+    <li><a href="2005-12.html">December 2005</a></li>
+    <li><a href="2005-11.html">November 2005</a></li>
+    <li><a href="2005-10.html">October 2005</a></li>
+    <li><a href="2005-09.html">September 2005</a></li>
+    <li><a href="2005-08.html">August 2005</a></li>
+    <li><a href="2005-07.html">July 2005</a></li>
+    <li><a href="2005-06.html">June 2005</a></li>
+    <li><a href="2005-05.html">May 2005</a></li>
+    <li><a href="2005-04.html">April 2005</a></li>
+    <li><a href="2005-03.html">March 2005</a></li>
+    <li><a href="2005-02.html">February 2005</a></li>
+</ul>
+</div><dl class="attributes">
+    <dt>Number of Commits:</dt>
+    <dd>36</dd>
+    <dt>Number of Active Developers:</dt>
+    <dd>2</dd>
+</dl>
+<dl class="commitlist">
+  <dt><a name="36"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-31 19:01</span>
+    <a class="permalink" title="Permalink to this commit" href="#36">#36</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">846</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix the ExportDXL to use URN import instead UCM
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="35"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-27 21:37</span>
+    <a class="permalink" title="Permalink to this commit" href="#35">#35</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">842</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix problem with sanitizeURN
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="34"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-27 19:27</span>
+    <a class="permalink" title="Permalink to this commit" href="#34">#34</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">839</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 387: error on cancel after map creation
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="33"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-27 19:23</span>
+    <a class="permalink" title="Permalink to this commit" href="#33">#33</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">838</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 341: automatic update of pluginbinding properties
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        ChangeLabelNameCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/stub</strong>:
+        StubBindingsDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="32"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-27 05:29</span>
+    <a class="permalink" title="Permalink to this commit" href="#32">#32</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">836</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed problem with the intentional element name that did not fit in the figure
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        GrlNodeFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="31"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-27 05:04</span>
+    <a class="permalink" title="Permalink to this commit" href="#31">#31</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">835</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+In DXL export, modified the name of the export model for the name of the file instead of the name of the URNspec.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="30"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-27 04:00</span>
+    <a class="permalink" title="Permalink to this commit" href="#30">#30</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">834</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added export of GRL elements in DXL
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="29"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-23 09:12</span>
+    <a class="permalink" title="Permalink to this commit" href="#29">#29</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">832</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix problem when deleting an evaluation
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteEvaluationCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="28"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-23 08:30</span>
+    <a class="permalink" title="Permalink to this commit" href="#28">#28</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">831</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Created command test cases for GRL<br />
+Fixed bug when saving Evaluation and LinkRef
+    </p>
+    <p class="commitdetails"><strong>726</strong> lines of code changed in <span class="files">27 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/grl</strong>:
+        Evaluation.java&#160;<span class="change">(changed)</span>,
+        GrlPackage.java&#160;<span class="change">(changed)</span>,
+        IntentionalElement.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/grl/impl</strong>:
+        EvaluationImpl.java&#160;<span class="change">(changed)</span>,
+        GrlPackageImpl.java&#160;<span class="change">(changed)</span>,
+        IntentionalElementImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        AddEvaluationGroupAction.java&#160;<span class="del">(del)</span>,
+        AddStrategiesGroupAction.java&#160;<span class="new">(new&#160;51)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/actionContributors</strong>:
+        ActionRegistryManager.java&#160;<span class="change">(changed)</span>,
+        StrategyContextMenuProvider.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/element</strong>:
+        EvaluationStrategyComponentEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/emf</strong>:
+        URN.genmodel&#160;<span class="change">(changed)</span>,
+        grl.ecore&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/changeConstraints</strong>:
+        MoveResizeGrlNodeCommand.java&#160;<span class="del">(del)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        AddEvaluationCommand.java&#160;<span class="change">(changed)</span>,
+        AddLinkRefCommand.java&#160;<span class="change">(changed)</span>,
+        CreateStrategiesGroupCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteEvaluationCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteEvaluationStrategyCommand.java&#160;<span class="del">(del)</span>,
+        DeleteStrategyCommand.java&#160;<span class="new">(new&#160;35)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        AddBeliefToIntentionalElementRefCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/strategies</strong>:
+        DefaultGRLStrategyAlgorithm.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/tests</strong>:
+        TestAllTestSuite.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/tests/commands</strong>:
+        JUCMNavCommandTests.java&#160;<span class="change">(changed)</span>,
+        JUCMNavGRLCommandTests.java&#160;<span class="new">(new&#160;640)</span>
+      </li>
+      <li>
+        <strong>src/urncore</strong>:
+        GRLmodelElement.java&#160;<span class="change">(changed)</span>,
+        UCMmodelElement.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="27"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 22:12</span>
+    <a class="permalink" title="Permalink to this commit" href="#27">#27</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">828</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+sorted resource files
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav</strong>:
+        messages.properties&#160;<span class="change">(changed)</span>,
+        messages_fr.properties&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="26"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 22:07</span>
+    <a class="permalink" title="Permalink to this commit" href="#26">#26</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">827</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+fixed resource file problems.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav</strong>:
+        messages.properties&#160;<span class="change">(changed)</span>,
+        messages_fr.properties&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/layout</strong>:
+        GrlGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/changeConstraints</strong>:
+        SetConstraintBoundContainerRefCompoundCommand.java&#160;<span class="change">(changed)</span>,
+        SetConstraintContainerRefCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="25"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 21:50</span>
+    <a class="permalink" title="Permalink to this commit" href="#25">#25</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">826</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed issue with add ucm/grl not being in some context menus.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        SelectionHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="24"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 21:38</span>
+    <a class="permalink" title="Permalink to this commit" href="#24">#24</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">825</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug 381: 3.1: remove extra items from contextual menus<br />
+(forgot to commit GRL)
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        GrlEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="23"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 21:30</span>
+    <a class="permalink" title="Permalink to this commit" href="#23">#23</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">824</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Bug 381: 3.1: remove extra items from contextual menus
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors</strong>:
+        UcmEditor.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="22"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 21:28</span>
+    <a class="permalink" title="Permalink to this commit" href="#22">#22</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">823</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Not sure why JF was closing editors loaded by the ImportWizard, but he was doing it even if the editor had not been opened. added an extra flag to prevent it from being closed when the ImportWizard did not explicitely open it.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards/importexport</strong>:
+        ImportWizard.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="21"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 17:53</span>
+    <a class="permalink" title="Permalink to this commit" href="#21">#21</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">822</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 414 component fill color problem on undo
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/property</strong>:
+        ContainerPropertySource.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="20"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 17:32</span>
+    <a class="permalink" title="Permalink to this commit" href="#20">#20</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">821</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 417: import wizard: overwrite doesn't work if file is open
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards/importexport</strong>:
+        jUCMNavLoader.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="19"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 17:20</span>
+    <a class="permalink" title="Permalink to this commit" href="#19">#19</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">820</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 420: LinkRef bendpoint not correctly positioned when zoomed
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/element</strong>:
+        LinkRefBendpointEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="18"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-21 17:08</span>
+    <a class="permalink" title="Permalink to this commit" href="#18">#18</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">819</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug found by gunter with hiding stub labels
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/actionContributors</strong>:
+        ModeComboContributionItem.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="17"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-17 09:05</span>
+    <a class="permalink" title="Permalink to this commit" href="#17">#17</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">814</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Modification of the import autolayout mechanism(added vector for diagrams to do autolayout)<br />
+Fixed 2 tests broke in previous commit.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">5 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/extensionpoints</strong>:
+        IURNImport.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/tests/progress</strong>:
+        ProgressTests.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards/importexport</strong>:
+        ImportWizard.java&#160;<span class="change">(changed)</span>,
+        jUCMNavLoader.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="16"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-17 07:31</span>
+    <a class="permalink" title="Permalink to this commit" href="#16">#16</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">813</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix bug 412 (default strategy and strategies group).<br />
+Removed redundant code for the creation of a new file (using jUCMNavLoader and ModelCreationFactory instead of static xml).<br />
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">3 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/resourceManagement</strong>:
+        MultiPageFileManager.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards</strong>:
+        NewUcmFileWizard.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="15"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-17 06:40</span>
+    <a class="permalink" title="Permalink to this commit" href="#15">#15</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">812</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix problem in the evaluation algorithm (value of 0 with a dependency)
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/strategies</strong>:
+        DefaultGRLStrategyAlgorithm.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="14"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-15 16:58</span>
+    <a class="permalink" title="Permalink to this commit" href="#14">#14</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">810</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed naming issues when importing GRL catalog
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="13"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-15 15:54</span>
+    <a class="permalink" title="Permalink to this commit" href="#13">#13</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">809</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="12"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-15 15:52</span>
+    <a class="permalink" title="Permalink to this commit" href="#12">#12</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">808</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Component/Responsibility references have no descriptions, while they should include that of their respective references<br />
+<br />
+Fixed for respRef
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="11"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-13 23:10</span>
+    <a class="permalink" title="Permalink to this commit" href="#11">#11</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">802</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added extension point for the Strategy algorithms
+    </p>
+    <p class="commitdetails"><strong>682</strong> lines of code changed in <span class="files">21 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        plugin.properties&#160;<span class="change">(changed)</span>,
+        plugin.xml&#160;<span class="change">(changed)</span>,
+        plugin_fr.properties&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>.settings</strong>:
+        org.eclipse.jdt.core.prefs&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>schema</strong>:
+        GRLStrategyAlgorithm.exsd&#160;<span class="new">(new&#160;119)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        DeleteEvaluationAction.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        ActorRefEditPart.java&#160;<span class="change">(changed)</span>,
+        IntentionalElementEditPart.java&#160;<span class="change">(changed)</span>,
+        LabelEditPart.java&#160;<span class="change">(changed)</span>,
+        LinkRefEditPart.java&#160;<span class="change">(changed)</span>,
+        URNRootEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/extensionpoints</strong>:
+        IGRLStrategyAlgorithm.java&#160;<span class="new">(new&#160;51)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/changeConstraints</strong>:
+        MoveLinkRefBendpointCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        AddDependencyElementLinkCommand.java&#160;<span class="change">(changed)</span>,
+        AddStandardElementLinkCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteEvaluationCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        EvaluationStrategyManager.java&#160;<span class="del">(del)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/strategies</strong>:
+        DefaultGRLStrategyAlgorithm.java&#160;<span class="new">(new&#160;207)</span>,
+        EvaluationStrategyManager.java&#160;<span class="new">(new&#160;305)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/property</strong>:
+        IntentionalElementPropertySource.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/strategies</strong>:
+        StrategiesView.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="10"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-13 06:34</span>
+    <a class="permalink" title="Permalink to this commit" href="#10">#10</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">801</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed actor references labels (position and feedback)
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">6 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        LabelEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/feedback</strong>:
+        LabelFeedbackEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/layout</strong>:
+        AbstractDiagramXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        GrlGraphXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>,
+        MapXYLayoutEditPolicy.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/changeConstraints</strong>:
+        SetConstraintCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="9"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-06 22:57</span>
+    <a class="permalink" title="Permalink to this commit" href="#9">#9</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">792</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed javadoc problems
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">7 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editparts/strategyTreeEditparts</strong>:
+        GRLspecStrategyTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportDXL.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/changeConstraints</strong>:
+        SetConstraintCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        AddContainerRefCommand.java&#160;<span class="change">(changed)</span>,
+        AddUrnLinkCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteActorCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards/importexport</strong>:
+        ExportWizard.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="8"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-06 22:13</span>
+    <a class="permalink" title="Permalink to this commit" href="#8">#8</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">791</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Externalize String
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">93 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav</strong>:
+        messages.properties&#160;<span class="change">(changed)</span>,
+        messages_fr.properties&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        AddBeliefAction.java&#160;<span class="change">(changed)</span>,
+        DeleteEvaluationAction.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/actionContributors</strong>:
+        ActionRegistryManager.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette</strong>:
+        GrlPaletteRoot.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        ActorRefEditPart.java&#160;<span class="change">(changed)</span>,
+        BeliefEditPart.java&#160;<span class="change">(changed)</span>,
+        IntentionalElementEditPart.java&#160;<span class="change">(changed)</span>,
+        LabelEditPart.java&#160;<span class="change">(changed)</span>,
+        LinkRefEditPart.java&#160;<span class="change">(changed)</span>,
+        PathNodeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/strategyTreeEditparts</strong>:
+        GRLspecStrategyTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts/treeEditparts</strong>:
+        LabelTreeEditPart.java&#160;<span class="change">(changed)</span>,
+        URNspecTreeEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        LabelFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/importexport</strong>:
+        ExportGRLCatalog.java&#160;<span class="change">(changed)</span>,
+        ImportGRLCatalog.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model</strong>:
+        ModelCreationFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/changeConstraints</strong>:
+        ContainerRefBindChildCommand.java&#160;<span class="change">(changed)</span>,
+        ContainerRefUnbindChildCommand.java&#160;<span class="change">(changed)</span>,
+        MoveLinkRefBendpointCommand.java&#160;<span class="change">(changed)</span>,
+        MoveResizeGrlNodeCommand.java&#160;<span class="change">(changed)</span>,
+        SetConstraintCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        AddBeliefCommand.java&#160;<span class="change">(changed)</span>,
+        AddBeliefLinkCommand.java&#160;<span class="change">(changed)</span>,
+        AddBranchCommand.java&#160;<span class="change">(changed)</span>,
+        AddDependencyElementLinkCommand.java&#160;<span class="change">(changed)</span>,
+        AddEvaluationCommand.java&#160;<span class="change">(changed)</span>,
+        AddLinkRefBendpointCommand.java&#160;<span class="change">(changed)</span>,
+        AddLinkRefCommand.java&#160;<span class="change">(changed)</span>,
+        AddStandardElementLinkCommand.java&#160;<span class="change">(changed)</span>,
+        AddUrnLinkCommand.java&#160;<span class="change">(changed)</span>,
+        ConnectCommand.java&#160;<span class="change">(changed)</span>,
+        CreateAllLinkRefCommand.java&#160;<span class="change">(changed)</span>,
+        CreateElementLinkCommand.java&#160;<span class="change">(changed)</span>,
+        CreateGrlGraphCommand.java&#160;<span class="change">(changed)</span>,
+        CreateLabelCommand.java&#160;<span class="change">(changed)</span>,
+        CreateMapCommand.java&#160;<span class="change">(changed)</span>,
+        CreateStrategiesGroupCommand.java&#160;<span class="change">(changed)</span>,
+        CreateStrategyCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteActorCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteActorRefCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteAllLinkRefCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteBindingsCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteBranchesCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteComponentElementCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteComponentRefCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteElementLinkCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteEvaluationCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteEvaluationStrategyCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteGRLGraphCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteGRLNodeCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteIntentionalElementCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteLinkRefBendpointCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteLinkRefCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteNodeConnectionCommand.java&#160;<span class="change">(changed)</span>,
+        DeletePathNodeCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteResponsibilityCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteStrategiesGroupCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteURNlinkCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteUselessStartNCEndCommand.java&#160;<span class="change">(changed)</span>,
+        DisconnectCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete/internal</strong>:
+        DeleteGRLGraphRefDefLinksCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveActorCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveComponentElementCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveElementLinkCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveEvaluationStrategyCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveGRLGraphCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveIntentionalElementCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveLinkRefCommand.java&#160;<span class="change">(changed)</span>,
+        RemoveURNmodelElementCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/transformations</strong>:
+        AddBeliefToIntentionalElementRefCommand.java&#160;<span class="change">(changed)</span>,
+        AttachBranchCommand.java&#160;<span class="change">(changed)</span>,
+        ChangeGrlNodeNameCommand.java&#160;<span class="change">(changed)</span>,
+        ChangeLabelNameCommand.java&#160;<span class="change">(changed)</span>,
+        DividePathCommand.java&#160;<span class="change">(changed)</span>,
+        MergeStartEndCommand.java&#160;<span class="change">(changed)</span>,
+        ReplaceEmptyPointCommand.java&#160;<span class="change">(changed)</span>,
+        ReplacePluginCommand.java&#160;<span class="change">(changed)</span>,
+        TrimEmptyNodeCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        URNNamingHelper.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views</strong>:
+        UCMPerspectiveFactory.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/elements</strong>:
+        ElementListViewer.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/preferences</strong>:
+        GeneralPreferencePage.java&#160;<span class="change">(changed)</span>,
+        PreferenceInitializer.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/property</strong>:
+        IntentionalElementPropertySource.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/strategies</strong>:
+        StrategiesView.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/urnlinks</strong>:
+        URNLinksDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards</strong>:
+        AutoLayoutWizard.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards/importexport</strong>:
+        ExportPreferenceHelper.java&#160;<span class="change">(changed)</span>,
+        ExportWizard.java&#160;<span class="change">(changed)</span>,
+        ExportWizardMapSelectionPage.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="7"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-02 18:24</span>
+    <a class="permalink" title="Permalink to this commit" href="#7">#7</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">785</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed error with private/protected association (does not affect the code)
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/emf</strong>:
+        URN.genmodel&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="6"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-02 06:52</span>
+    <a class="permalink" title="Permalink to this commit" href="#6">#6</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">784</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Modified workbench menu to include Add GRLGraph action
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">4 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        plugin.properties&#160;<span class="change">(changed)</span>,
+        plugin.xml&#160;<span class="change">(changed)</span>,
+        plugin_fr.properties&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        AddGrlGraphAction.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="5"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-02 06:38</span>
+    <a class="permalink" title="Permalink to this commit" href="#5">#5</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">783</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fix the URNlink to support multiple links type. Modification of the links display in UCM
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">84 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/grl</strong>:
+        GrlPackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/grl/impl</strong>:
+        ActorImpl.java&#160;<span class="change">(changed)</span>,
+        ActorRefImpl.java&#160;<span class="change">(changed)</span>,
+        BeliefImpl.java&#160;<span class="change">(changed)</span>,
+        ContributionImpl.java&#160;<span class="change">(changed)</span>,
+        DecompositionImpl.java&#160;<span class="change">(changed)</span>,
+        DependencyImpl.java&#160;<span class="change">(changed)</span>,
+        ElementLinkImpl.java&#160;<span class="change">(changed)</span>,
+        EvaluationStrategyImpl.java&#160;<span class="change">(changed)</span>,
+        GRLGraphImpl.java&#160;<span class="change">(changed)</span>,
+        GRLNodeImpl.java&#160;<span class="change">(changed)</span>,
+        IntentionalElementImpl.java&#160;<span class="change">(changed)</span>,
+        IntentionalElementRefImpl.java&#160;<span class="change">(changed)</span>,
+        StrategiesGroupImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        EditURNLinksAction.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        BeliefEditPart.java&#160;<span class="change">(changed)</span>,
+        ConditionEditPart.java&#160;<span class="change">(changed)</span>,
+        IntentionalElementEditPart.java&#160;<span class="change">(changed)</span>,
+        LabelEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editpolicies/directEditPolicy</strong>:
+        ExtendedDirectEditManager.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/emf</strong>:
+        URN.genmodel&#160;<span class="change">(changed)</span>,
+        urn.ecore&#160;<span class="change">(changed)</span>,
+        urncore.ecore&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        GrlNodeFigure.java&#160;<span class="change">(changed)</span>,
+        LabelElementFigure.java&#160;<span class="change">(changed)</span>,
+        LabelFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/icons</strong>:
+        urnlink.gif&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/create</strong>:
+        AddUrnLinkCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete</strong>:
+        DeleteActorCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteComponentElementCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteIntentionalElementCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteResponsibilityCommand.java&#160;<span class="change">(changed)</span>,
+        DeleteURNlinkCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/commands/delete/internal</strong>:
+        CleanRelationshipsCommand.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/urnlinks</strong>:
+        URNLinksDialog.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/map</strong>:
+        MapPackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/map/impl</strong>:
+        AbortImpl.java&#160;<span class="change">(changed)</span>,
+        AndForkImpl.java&#160;<span class="change">(changed)</span>,
+        AndJoinImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentRefImpl.java&#160;<span class="change">(changed)</span>,
+        ConnectImpl.java&#160;<span class="change">(changed)</span>,
+        DirectionArrowImpl.java&#160;<span class="change">(changed)</span>,
+        EmptyPointImpl.java&#160;<span class="change">(changed)</span>,
+        EndPointImpl.java&#160;<span class="change">(changed)</span>,
+        FailurePointImpl.java&#160;<span class="change">(changed)</span>,
+        LoopImpl.java&#160;<span class="change">(changed)</span>,
+        OrForkImpl.java&#160;<span class="change">(changed)</span>,
+        OrJoinImpl.java&#160;<span class="change">(changed)</span>,
+        PathNodeImpl.java&#160;<span class="change">(changed)</span>,
+        RespRefImpl.java&#160;<span class="change">(changed)</span>,
+        StartPointImpl.java&#160;<span class="change">(changed)</span>,
+        StubImpl.java&#160;<span class="change">(changed)</span>,
+        TimerImpl.java&#160;<span class="change">(changed)</span>,
+        UCMmapImpl.java&#160;<span class="change">(changed)</span>,
+        WaitingPlaceImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/performance</strong>:
+        PerformancePackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/performance/impl</strong>:
+        PerfMeasureImpl.java&#160;<span class="change">(changed)</span>,
+        ResponseTimeReqImpl.java&#160;<span class="change">(changed)</span>,
+        TimestampImpl.java&#160;<span class="change">(changed)</span>,
+        WorkloadImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/scenario</strong>:
+        ScenarioPackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/ucm/scenario/impl</strong>:
+        ScenarioDefImpl.java&#160;<span class="change">(changed)</span>,
+        ScenarioGroupImpl.java&#160;<span class="change">(changed)</span>,
+        VariableImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urn</strong>:
+        URNlink.java&#160;<span class="change">(changed)</span>,
+        UrnPackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urn/impl</strong>:
+        URNlinkImpl.java&#160;<span class="change">(changed)</span>,
+        UrnFactoryImpl.java&#160;<span class="change">(changed)</span>,
+        UrnPackageImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urncore</strong>:
+        GRLmodelElement.java&#160;<span class="change">(changed)</span>,
+        UCMmodelElement.java&#160;<span class="change">(changed)</span>,
+        URNmodelElement.java&#160;<span class="change">(changed)</span>,
+        UrncorePackage.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/urncore/impl</strong>:
+        ComponentElementImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentRegularImpl.java&#160;<span class="change">(changed)</span>,
+        ComponentTypeImpl.java&#160;<span class="change">(changed)</span>,
+        DynamicResponsibilityImpl.java&#160;<span class="change">(changed)</span>,
+        GRLmodelElementImpl.java&#160;<span class="change">(changed)</span>,
+        PoolImpl.java&#160;<span class="change">(changed)</span>,
+        ResponsibilityImpl.java&#160;<span class="change">(changed)</span>,
+        UCMmodelElementImpl.java&#160;<span class="change">(changed)</span>,
+        URNmodelElementImpl.java&#160;<span class="change">(changed)</span>,
+        UrncorePackageImpl.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="4"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-02 01:32</span>
+    <a class="permalink" title="Permalink to this commit" href="#4">#4</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">781</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed bug 415
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">2 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards/importexport</strong>:
+        ImportWizard.java&#160;<span class="change">(changed)</span>,
+        jUCMNavLoader.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="3"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-02 01:00</span>
+    <a class="permalink" title="Permalink to this commit" href="#3">#3</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">780</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Fixed bug 416
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/views/wizards/importexport</strong>:
+        ExportWizardMapSelectionPage.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="2"></a>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2006-03-02 00:31</span>
+    <a class="permalink" title="Permalink to this commit" href="#2">#2</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">778</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+invalid class was used.
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">1 file</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        URNElementFinder.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt><a name="1"></a>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-03-01 04:35</span>
+    <a class="permalink" title="Permalink to this commit" href="#1">#1</a>
+    <span class="revisionNumberOuter">Rev.: <span class="revisionNumberInner">776</span></span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added feedback in UCM for URNlinks
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in <span class="files">10 files</span>:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/actions</strong>:
+        EditURNLinksAction.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/editparts</strong>:
+        LabelEditPart.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/figures</strong>:
+        LabelFigure.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/icons</strong>:
+        deniedUCM.gif&#160;<span class="new">(new)</span>,
+        satisficedUCM.gif&#160;<span class="new">(new)</span>,
+        urnlink.gif&#160;<span class="new">(new)</span>,
+        wdeniedUCM.gif&#160;<span class="new">(new)</span>,
+        wsatisficedUCM.gif&#160;<span class="new">(new)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/model/util</strong>:
+        EvaluationStrategyManager.java&#160;<span class="change">(changed)</span>
+      </li>
+      <li>
+        <strong>src/seg/jUCMNav/views/strategies</strong>:
+        StrategiesView.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<p class="previous"><a href="2006-02.html">February 2006</a> &#187; </p>
+<div id="generatedby">Generated by <a href="http://statcvs.sf.net">StatCVS</a> 0.6.0</div>
+</body>
+</html>

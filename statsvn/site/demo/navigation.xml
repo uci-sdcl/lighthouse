@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="StatSVN Demos">
+  <title>StatSVN Demo</title>
+  <body>
+      <links>
+         <item name="Project Page on SF.net" href="http://sourceforge.net/projects/statsvn" />
+         <item name="HomePage" href="http://www.statsvn.org" />
+         <item name="Wiki" href="http://wiki.statsvn.org/" />
+      </links>
+      
+      <sitemap/>
+      <search/>
+
+      <menu name="StatSVN">
+         <item name="HomePage" href="http://www.statsvn.org/" />
+         <item name="Demos" href="http://www.statsvn.org/demo" />
+      </menu>
+
+<powered-by>
+  <item
+    name="ObjectLab"
+    href="http://www.objectlab.co.uk"
+    img="http://www.objectlab.co.uk/images/objectlab-poweredby3.gif"
+    />
+</powered-by>
+
+<footer>
+<iframe frameborder="0" scrolling="no" align="middle" height="110" width="770" src="http://www.objectlab.co.uk/statsvn/demo.html">
+</iframe>
+
+      <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+      </script>
+      <script type="text/javascript">
+      _uacct = "UA-615747-9";
+      urchinTracker();
+	</script>
+     </footer>
+
+  </body>
+</project>  

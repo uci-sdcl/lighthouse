@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StatCVS - Module src/seg/jUCMNav/editors/palette/tools/</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="Generator" content="StatCVS 0.2.4"/>
+    <link rel="stylesheet" href="statcvs.css" type="text/css"/>
+  </head>
+
+<body>
+
+
+<h1>Module src/seg/jUCMNav/editors/palette/tools/</h1>
+<p><a href="index.html">back to main page</a></p>
+<p class="summaryperiod">
+  Summary Period:
+  <span class="date">2005-04-25</span> to
+  <span class="date">2006-01-29</span></p>
+
+<h2>Modules</h2>
+<p><a href="module.html">[root]</a>/<a href="module_src.html">src</a>/<a href="module_src_seg.html">seg</a>/<a href="module_src_seg_jUCMNav.html">jUCMNav</a>/<a href="module_src_seg_jUCMNav_editors.html">editors</a>/<a href="module_src_seg_jUCMNav_editors_palette.html">palette</a>/<strong>tools</strong>
+<br/></p>
+
+<h2>Lines of Code</h2>
+<p><img src="loc_module_src_seg_jUCMNav_editors_palette_tools.png" width="640" height="480" alt=""/><br/>
+<strong>Total Lines Of Code: </strong>
+459 (<span class="date">2006-03-31 18:01</span>)</p>
+
+<h2>Authors</h2>
+  <table  rules="groups" summary="All authors and the number of their changes and lines of code in this directory">
+    <colgroup align="left"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <colgroup align="right"/>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Changes</th>
+        <th>Lines of Code</th>
+        <th>Lines per Change</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Totals</th>
+        <td>25 (100.0%)</td>
+        <td>459 (100.0%)</td>
+        <td>18.3</td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr  class="odd">
+        <th><a href="user_etremblay.html" class="author">etremblay</a></th>
+        <td>5 (20.0%)</td>
+        <td>386 (84.1%)</td>
+        <td>77.2</td>
+      </tr>
+      <tr  class="even">
+        <th><a href="user_jfroy.html" class="author">jfroy</a></th>
+        <td>6 (24.0%)</td>
+        <td>56 (12.2%)</td>
+        <td>9.3</td>
+      </tr>
+      <tr  class="odd">
+        <th><a href="user_jkealey.html" class="author">jkealey</a></th>
+        <td>14 (56.0%)</td>
+        <td>17 (3.7%)</td>
+        <td>1.2</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<h2>Most Recent Commits</h2>
+<dl class="commitlist">
+  <dt>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2006-01-29 19:34</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge of GRL branch with the main trunk
+    </p>
+    <p class="commitdetails"><strong>56</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        UCMElementCreationEntry.java&#160;<span class="del">(del)</span>,
+        UCMElementCreationTool.java&#160;<span class="del">(del)</span>,
+        URNElementCreationEntry.java&#160;<span class="new">(new&#160;25)</span>,
+        URNElementCreationTool.java&#160;<span class="new">(new&#160;31)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jfroy.html" class="author">jfroy</a>
+    <span class="date">2005-10-26 22:13</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Merge grl branch with the main trunk<br/>
+Major modification of the metamodel (URN_08.mdl) (Added GRL metamodel, New interfaces that define common element in GRL and UCM, Modified UCM-Map package to implement the new interfaces (some associations and attributes have been refactored using the interfaces), Map is now called UCMmap (to resolve conflict with java.util.map in the implementation), Removed Path Graph)<br/>
+Modification of the code that used the metamodel.<br/>
+Started modification of jUCMNav to support GRL.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        UCMElementCreationEntry.java&#160;<span class="change">(changed)</span>,
+        UCMElementCreationTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-26 14:59</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 325 - found bug with use of queries in pathtool when doing previous change.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-26 14:47</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 331 - stumbled on something I thought the PathTool did, but wasn't true.<br/>
+<br/>
+Now, with the pathtool selected, you can select another start/end point  and extend the path (I may have broken this behaviour earlier on when introduced the deselect tool when click on PathNode<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-07-07 19:08</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 357 - palette tools kept active using AbstractTool method instead of setFlag() directly. Added javadoc for seg.jUCMNav.palette and subpackages. Made generated javadoc include private members as well.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>17</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>,
+        PathToolEntry.java&#160;<span class="change">(changed)</span>,
+        UCMElementCreationEntry.java&#160;<span class="change">(changed)</span>,
+        UCMElementCreationTool.java&#160;<span class="change">(changed)</span>,
+        package.html&#160;<span class="new">(new&#160;17)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-27 16:26</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 337 - escape selects the selection tool. also fixed a bug with right-click that sometimes caused the app to enter a nullpointerexception loop.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-24 18:48</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 331 - if click with path tool on pathnode, pathnode will be selected and tool will be unloaded. also, right-middle click anywhere with an active tool will unload it. (for gunter)<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>,
+        UCMElementCreationEntry.java&#160;<span class="new">(new)</span>,
+        UCMElementCreationTool.java&#160;<span class="new">(new)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-22 03:29</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 320 - loops; to investigate: given this preliminary version, what is okay, what is not. I think it looks pretty good but I haven't tested everything thoroughly. I know that it is too restrictive concerning paths that have a stub that should be considered to contain a start/end point, but for simplicity's sake, I think the workarounds are sufficient.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-06-17 16:57</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 191 - connects -&gt; improvements in deletion. i think there remains a bug where you do something, then undo it, then select a timer and the app causes an error because the connect path isn't the 2nd input, its the 1st. unable to repro but asking for testing.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_jkealey.html" class="author">jkealey</a>
+    <span class="date">2005-05-25 00:36</span>
+  </dt>
+  <dd>
+    <p class="comment">
+bug 242 - added check to see if node connection lead somewhere to prevent the quick click bug<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-24 22:15</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a lot of comments in PathTool.java<br/>
+Will continue to work on this to support all the behavior of the tool...<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-15 04:52</span>
+  </dt>
+  <dd>
+    <p class="comment">
+PathTool seems to be working flawlessly for creating new path, then extending it...  Click on any connection and an EmptyPoint will get created on the path.  If you click on a connection of an other path, the EndPoint of this path will get selected so that you can continue to extend this path easily.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>0</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-05-14 20:15</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Added a PathTool.  This will be the main tool to edit a path.  Right it has a and-join icon in the palette.<br/>
+You can only create a path with it right now and then the end point is selected by default (instead of the start point like before).  The hardest part seems to be to make the tool both a creation tool and a selection tool at the same time.<br/>
+I'm still trying to make this part of the path tool work.  I'll commit it later.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>35</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="change">(changed)</span>,
+        PathToolEntry.java&#160;<span class="new">(new&#160;35)</span>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a href="user_etremblay.html" class="author">etremblay</a>
+    <span class="date">2005-04-25 20:55</span>
+  </dt>
+  <dd>
+    <p class="comment">
+Refactored a lot of packages to better reflect our strategy for the future.<br/>
+Corrected some bugs to follow some guidelines we defined earlier.<br/>
+Extracted the RessourceTracker class from UCMEditor.<br/>
+
+    </p>
+    <p class="commitdetails"><strong>351</strong> lines of code changed in:</p>
+    <ul class="commitdetails">
+      <li>
+        <strong>src/seg/jUCMNav/editors/palette/tools</strong>:
+        PathTool.java&#160;<span class="new">(new&#160;351)</span>
+      </li>
+    </ul>
+  </dd>
+
+</dl>
+
+<div id="generatedby"><p>Generated by <a href="http://statcvs.sourceforge.net">StatCVS</a> 0.2.4</p>
+</div>
+</body>
+</html>
