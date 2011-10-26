@@ -66,8 +66,8 @@ public class LighthouseEvent implements Serializable{
 	 * is because of the need to only capture the event of change at a high granularity and
 	 * not every single change, so change events are overwritten for a particular entity so 
 	 * that only fact that it changed is persisted. */
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private String customId;
+	@OneToOne(cascade = CascadeType.ALL)
+	private LighthouseEventCustomID customId = new LighthouseEventCustomID();
 
 	/** User that generates the event. */
 	@OneToOne(cascade = CascadeType.ALL)
@@ -121,7 +121,7 @@ public class LighthouseEvent implements Serializable{
 			if(type != type.CUSTOM)
 				this.id = LHStringUtil.getMD5Hash(hashStringId); 
 			else{
-				this.id = customId;
+				this.id = customId.getNumber()+"";
 			}
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(e,e);
@@ -268,5 +268,6 @@ public class LighthouseEvent implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 }
