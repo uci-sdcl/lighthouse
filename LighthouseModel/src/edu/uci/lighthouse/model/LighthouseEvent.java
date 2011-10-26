@@ -118,7 +118,7 @@ public class LighthouseEvent implements Serializable{
 			
 			String hashStringId = author.toString()+type+artifact;
 			
-			if(type != type.CUSTOM)
+			if(type != TYPE.CUSTOM)
 				this.id = LHStringUtil.getMD5Hash(hashStringId); 
 			else{
 				this.id = customId.getNumber()+"";
