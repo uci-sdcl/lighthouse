@@ -15,7 +15,7 @@ public class LighthouseEventCustomID implements Serializable{
 	private static final long serialVersionUID = 5218231795439723280L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue
 	private int ID;
 
 	public void setID(int number) {
