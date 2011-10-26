@@ -58,16 +58,15 @@ public class LighthouseEvent implements Serializable{
 
 	private static Logger logger = Logger.getLogger(LighthouseEvent.class);
 
-	@Id /** hash, combination of author+type+artifact*/
-	private String id = "";
-	
-	/*A different id is used if the type is custom, this is because other events do not have 
+	/* Events do not have 
 	 * unique ids. The design decision behind having none unique ids for the other events
 	 * is because of the need to only capture the event of change at a high granularity and
 	 * not every single change, so change events are overwritten for a particular entity so 
 	 * that only fact that it changed is persisted. */
-	@OneToOne(cascade = CascadeType.ALL)
-	private LighthouseEventCustomID customId;
+	@Id /** hash, combination of author+type+artifact*/
+	private String id = "";
+	
+
 
 	/** User that generates the event. */
 	@OneToOne(cascade = CascadeType.ALL)
@@ -116,14 +115,18 @@ public class LighthouseEvent implements Serializable{
 		this.setArtifact(artifact);
 		try {
 			
-			String hashStringId = author.toString()+type+artifact;
+			
+			String hashStringId;
 			
 			if(type != TYPE.CUSTOM)
-				this.id = LHStringUtil.getMD5Hash(hashStringId); 
+				hashStringId = author.toString()+type+artifact;
 			else{
-				customId = new LighthouseEventCustomID();
-				this.id = customId.getID()+"";
+				Date date = new Date();
+				hashStringId = author.toString()+type+artifact+date.toString();
 			}
+			
+				this.id = LHStringUtil.getMD5Hash(hashStringId); 
+
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(e,e);
 		} 
