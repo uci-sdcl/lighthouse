@@ -9,6 +9,8 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -58,6 +60,14 @@ public class LighthouseEvent implements Serializable{
 
 	@Id /** hash, combination of author+type+artifact*/
 	private String id = "";
+	
+	/*A different id is used if the type is custom, this is because other events do not have 
+	 * unique ids. The design decision behind having none unique ids for the other events
+	 * is because of the need to only capture the event of change at a high granularity and
+	 * not every single change, so change events are overwritten for a particular entity so 
+	 * that only fact that it changed is persisted. */
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private String customId;
 
 	/** User that generates the event. */
 	@OneToOne(cascade = CascadeType.ALL)
@@ -105,8 +115,14 @@ public class LighthouseEvent implements Serializable{
 		this.type = type;
 		this.setArtifact(artifact);
 		try {
+			
 			String hashStringId = author.toString()+type+artifact;
-			this.id = LHStringUtil.getMD5Hash(hashStringId); 
+			
+			if(type != type.CUSTOM)
+				this.id = LHStringUtil.getMD5Hash(hashStringId); 
+			else{
+				this.id = customId;
+			}
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(e,e);
 		} 
