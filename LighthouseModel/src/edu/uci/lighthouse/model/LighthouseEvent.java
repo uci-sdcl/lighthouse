@@ -121,7 +121,7 @@ public class LighthouseEvent implements Serializable{
 			if(type != TYPE.CUSTOM)
 				this.id = LHStringUtil.getMD5Hash(hashStringId); 
 			else{
-				this.id = customId.getNumber()+"";
+				this.id = customId.getID()+"";
 			}
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(e,e);
