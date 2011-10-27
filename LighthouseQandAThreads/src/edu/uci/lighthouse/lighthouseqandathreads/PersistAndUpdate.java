@@ -41,7 +41,7 @@ public class PersistAndUpdate implements IPersistAndUpdate{
 				.offer(new ForumUpdateClientsAction(getEntity()));
 
 		LighthouseAuthor author = ModelUtility.getAuthor();
-		LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.MODIFY,
+		LighthouseEvent lh = new LighthouseEvent(LighthouseEvent.TYPE.CUSTOM,
 				author, getEntity());
 		//LighthouseEvent foundEvent = LighthouseModel.getInstance().getEventByID(lh.getId());
 	
