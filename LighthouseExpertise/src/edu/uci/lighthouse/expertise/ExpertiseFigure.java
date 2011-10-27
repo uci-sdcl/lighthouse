@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 
 
 
+
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -40,6 +41,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.tigris.subversion.subclipse.core.SVNProviderPlugin;
+import org.tigris.subversion.subclipse.ui.SVNUIPlugin;
 
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
@@ -49,6 +52,9 @@ import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.LHAuthorDAO;
 import edu.uci.lighthouse.ui.figures.CompartmentFigure;
 import edu.uci.lighthouse.ui.figures.ILighthouseClassFigure.MODE;
+
+import org.tigris.subversion.subclipse.ui.SVNUIPlugin;
+import org.tigris.subversion.svnclientadapter.ISVNClientAdapter;
 
 public class ExpertiseFigure extends CompartmentFigure {
 	private int NUM_COLUMNS = 1;
@@ -88,6 +94,9 @@ public class ExpertiseFigure extends CompartmentFigure {
 
 	//	IWorkspace workspace = ResourcesPlugin.getWorkspace();
 	//	IWorkspaceRoot root = workspace.getRoot();
+	//	SvnConfigurationOptions.setSvnUsername("lmartie");
+	//	SvnConfigurationOptions.setSvnPassword("ATOmbomb098/");
+	//	SvnConfigurationOptions.getProcessor().getInfoProcessor().getRepositoryUrl();
 	}
 
 	public boolean isVisible(MODE mode) {
@@ -115,6 +124,8 @@ public class ExpertiseFigure extends CompartmentFigure {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+
 		
 	}
 	
