@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="LighthouseUI"
+            class="edu.uci.lighthouse.extensions.codereview.ui.ReviewRequestsView"
+            id="edu.uci.lighthouse.extensions.codereview.ui.ReviewRequestsView"
+            name="ReviewRequestsView"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>

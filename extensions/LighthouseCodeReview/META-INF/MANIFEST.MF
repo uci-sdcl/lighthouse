@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Lighthouse Code Review Plug-in
+Bundle-SymbolicName: edu.uci.lighthouse.extensions.codereview;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: edu.uci.lighthouse.extensions.codereview.Activator
+Bundle-Vendor: UC Irvine
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.mylyn.commons.ui;bundle-version="3.4.0",
+ org.eclipse.jdt.ui;bundle-version="3.6.0",
+ org.eclipse.team.ui;bundle-version="3.5.100",
+ org.eclipse.team.core;bundle-version="3.5.100"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
