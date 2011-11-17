@@ -4,3 +4,4 @@
 
 # Binary Files #
 bin/
+*.class
