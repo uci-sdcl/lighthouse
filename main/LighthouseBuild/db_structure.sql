@@ -141,23 +141,6 @@ CREATE TABLE `LighthouseModifier` (
 
 
 
-# Dump of table LighthouseQuestion
-# ------------------------------------------------------------
-
-CREATE TABLE `LighthouseQuestion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `subject` varchar(255) DEFAULT NULL,
-  `text` varchar(255) DEFAULT NULL,
-  `timestamp` datetime DEFAULT NULL,
-  `author_name` varchar(255) DEFAULT NULL,
-  `lhClass_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK4E6F41F0DFAA39AE` (`lhClass_id`),
-  KEY `FK4E6F41F02F7797D2` (`author_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-
-
 # Dump of table LighthouseRelationship
 # ------------------------------------------------------------
 
