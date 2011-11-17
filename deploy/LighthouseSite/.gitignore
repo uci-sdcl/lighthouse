@@ -1,0 +1,6 @@
+# Generated Site files
+binary/
+features/
+plugins/
+artifacts.jar
+content.jar
