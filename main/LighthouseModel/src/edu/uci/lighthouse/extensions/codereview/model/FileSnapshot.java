@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.extensions.codereview.model;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,7 @@ public class FileSnapshot {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="snapshot_id", referencedColumnName="id")
-	private Set<CodeSelection> codeSelection;
+	private Set<CodeSelection> codeSelections = new LinkedHashSet<CodeSelection>();
 
 	public String getContent() {
 		return content;
@@ -31,7 +32,7 @@ public class FileSnapshot {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	protected void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -40,10 +41,14 @@ public class FileSnapshot {
 	}
 
 	public Set<CodeSelection> getCodeSelection() {
-		return codeSelection;
+		return codeSelections;
+	}
+	
+	public void addCodeSelection(CodeSelection codeSelection){
+		codeSelections.add(codeSelection);
 	}
 
-	public void setCodeSelection(Set<CodeSelection> codeSelection) {
-		this.codeSelection = codeSelection;
+	protected void setCodeSelection(Set<CodeSelection> codeSelection) {
+		this.codeSelections = codeSelection;
 	}
 }

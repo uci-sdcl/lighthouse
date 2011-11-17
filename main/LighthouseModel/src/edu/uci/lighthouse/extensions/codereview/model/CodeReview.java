@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.extensions.codereview.model;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,21 +19,29 @@ public class CodeReview {
 	@Id @GeneratedValue
 	private Integer id;	
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private LighthouseAuthor reviewee;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private LighthouseAuthor reviewer;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="review_id", referencedColumnName="id")	
-	private Set<FileSnapshot> fileSnapshot;
+	private Set<FileSnapshot> filesSnapshot = new LinkedHashSet<FileSnapshot>();
+	
+	public CodeReview(LighthouseAuthor reviewee){
+		this.reviewee = reviewee;
+	}
+	
+	protected CodeReview(){
+		// Required by JPA
+	}
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	protected void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -53,10 +62,14 @@ public class CodeReview {
 	}
 
 	public Set<FileSnapshot> getFileSnapshot() {
-		return fileSnapshot;
+		return filesSnapshot;
 	}
 
-	public void setFileSnapshot(Set<FileSnapshot> fileSnapshot) {
-		this.fileSnapshot = fileSnapshot;
+	public void addFileSnapshot(FileSnapshot snapshot){
+		filesSnapshot.add(snapshot);
+	}
+	
+	protected void setFileSnapshot(Set<FileSnapshot> fileSnapshot) {
+		this.filesSnapshot = fileSnapshot;
 	}
 }

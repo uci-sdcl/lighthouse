@@ -3,7 +3,9 @@ package edu.uci.lighthouse.extensions.codereview.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -20,19 +22,40 @@ import edu.uci.lighthouse.model.LighthouseAuthor;
 @Entity(name="LighthouseComment")
 public class Comment {
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private LighthouseAuthor author;
 
-	@Id @Temporal(TemporalType.TIMESTAMP)
+	@Id @GeneratedValue
+	private Integer id;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	protected void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date timestamp;
 
 	private String content;
+	
+	public Comment(LighthouseAuthor author, String content){
+		this.author = author;
+		this.content = content;
+	}
+	
+	protected Comment(){
+		// Required by JPA
+	}
 	
 	public LighthouseAuthor getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(LighthouseAuthor author) {
+	protected void setAuthor(LighthouseAuthor author) {
 		this.author = author;
 	}
 
@@ -40,7 +63,7 @@ public class Comment {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	protected void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 
