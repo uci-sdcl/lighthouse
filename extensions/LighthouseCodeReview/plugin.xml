@@ -11,5 +11,59 @@
             restorable="true">
       </view>
    </extension>
+   
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="LighthouseCodeReview.codeReviewActionSet"
+            label="Code Review"
+            visible="true">
+         <action
+               class="edu.uci.lighthouse.extensions.codereview.ui.AddRequestAction"
+               id="LighthouseCodeReview.addRequestAction"
+               label="Request Code Review"
+               toolbarPath="someting"
+               style="push">
+         </action>
+      </actionSet>
+   </extension>
+   
+<extension id="LighthouseCodeReview.requestMarker"
+              name="SiteBDiffMarker"
+              point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.textmarker"/>
+ </extension>
+
+ <extension
+         point="org.eclipse.ui.editors.annotationTypes">
+         <type
+             name="requestAnnotation"
+             super="org.eclipse.ui.workbench.texteditor.info"
+             markerType="LighthouseCodeReview.requestMarker">
+         </type>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors.markerAnnotationSpecification">
+         <specification
+             icon = "icons/il.gif"
+             annotationType="requestAnnotation"
+             verticalRulerPreferenceKey="highlight.rulers.vertical"
+             textPreferenceKey="highlight.text"
+            colorPreferenceKey="highlight.color"
+            highlightPreferenceKey="highlight.background"
+            textPreferenceValue="true"
+            textStylePreferenceValue="BOX"
+            overviewRulerPreferenceKey="highlight.rulers.overview"
+            presentationLayer="4"
+            highlightPreferenceValue="true"
+            label="DiffSiteB"
+            symbolicIcon="warning"
+            colorPreferenceValue="255,255,127"
+            verticalRulerPreferenceValue="true"
+            overviewRulerPreferenceValue="true"
+            textStylePreferenceKey="highlight.text.style" >
+        </specification >
+    </extension>
 
 </plugin>

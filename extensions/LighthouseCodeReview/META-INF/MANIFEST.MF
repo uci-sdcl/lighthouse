@@ -10,6 +10,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylyn.commons.ui;bundle-version="3.4.0",
  org.eclipse.jdt.ui;bundle-version="3.6.0",
  org.eclipse.team.ui;bundle-version="3.5.100",
- org.eclipse.team.core;bundle-version="3.5.100"
+ org.eclipse.team.core;bundle-version="3.5.100",
+ org.eclipse.jface.text;bundle-version="3.7.1",
+ org.eclipse.ui.workbench.texteditor;bundle-version="3.7.0",
+ org.eclipse.ui.editors;bundle-version="3.7.0",
+ org.eclipse.core.resources;bundle-version="3.7.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
