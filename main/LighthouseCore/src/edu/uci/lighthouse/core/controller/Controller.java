@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -39,10 +38,10 @@ import edu.uci.lighthouse.core.data.PersistableRegistry;
 import edu.uci.lighthouse.core.dbactions.CompoundAction;
 import edu.uci.lighthouse.core.dbactions.CreateNewDatabaseConnectionAction;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
-import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.core.dbactions.JobDecoratorAction;
 import edu.uci.lighthouse.core.dbactions.SaveUserAction;
 import edu.uci.lighthouse.core.dbactions.pull.CheckoutAction;
+import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.dbactions.pull.SynchronizeModelAction;
 import edu.uci.lighthouse.core.dbactions.pull.UpdateAction;
 import edu.uci.lighthouse.core.dbactions.push.CommitAction;
@@ -89,6 +88,9 @@ IPluginListener, IPreferencesChangeListener /*, Runnable, IPropertyChangeListene
 		thread = new DatabaseActionsThread(buffer);
 		thread.start(context);
 		WorkbenchUtility.updateProjectIcon();
+		
+		// Start fetching new events from DB
+		buffer.offer(new FetchNewEventsAction());
 	}
 
 	@Override

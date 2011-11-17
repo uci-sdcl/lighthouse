@@ -19,13 +19,13 @@ import org.apache.log4j.Logger;
 
 import edu.uci.lighthouse.core.controller.PullModel;
 import edu.uci.lighthouse.core.controller.UpdateLighthouseModel;
-import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
+import edu.uci.lighthouse.core.dbactions.IPeriodicDatabaseAction;
 import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.LighthouseEvent;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
-public class FetchNewEventsAction implements IDatabaseAction {
+public class FetchNewEventsAction implements IPeriodicDatabaseAction {
 	
 	private static Logger logger = Logger.getLogger(FetchNewEventsAction.class);
 	

@@ -13,6 +13,9 @@
  *******************************************************************************/ 
 package edu.uci.lighthouse.core.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Status;
@@ -20,6 +23,7 @@ import org.osgi.framework.BundleContext;
 
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
+import edu.uci.lighthouse.core.dbactions.IPeriodicDatabaseAction;
 import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
@@ -95,15 +99,22 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	
 	private void processBuffer() {
 		try {
+			List<IPeriodicDatabaseAction> periodicActions = new ArrayList<IPeriodicDatabaseAction>();
 			while (!buffer.isEmpty()) {
 				logger.debug("Executing "+buffer.size()+" database actions.");
 				IDatabaseAction databaseAction = buffer.peek();
 				databaseAction.run();
+				if (databaseAction instanceof IPeriodicDatabaseAction) {
+					periodicActions.add((IPeriodicDatabaseAction)databaseAction);
+				}
 				buffer.poll();
 			}
 			if (ModelUtility.hasImportedProjects(ResourcesPlugin.getWorkspace())) {
 				StatusWidget.getInstance().setStatus(Status.OK_STATUS);
-				buffer.offer(new FetchNewEventsAction());
+				//buffer.offer(new FetchNewEventsAction());
+				for(IPeriodicDatabaseAction pda : periodicActions){
+					buffer.offer(pda);
+				}
 			}
 			backoffMultiplier = 1;
 		} catch (Exception ex) {

@@ -36,11 +36,25 @@ public class DatabaseActionsBuffer extends LinkedList<IDatabaseAction> implement
 
 	@Override
 	public synchronized boolean offer(IDatabaseAction e) {
+		if (e instanceof IPeriodicDatabaseAction && exists((IPeriodicDatabaseAction)e)) {
+			return false;
+		}
 		return super.offer(e);
 	}
-
+	
 	@Override
 	public String getFileName() {
 		return WorkbenchUtility.getMetadataDirectory() + filename;
-	}	
+	}
+	
+	private boolean exists(IPeriodicDatabaseAction periodicAction){
+		for (IDatabaseAction action: this) {
+			if (action instanceof IPeriodicDatabaseAction) {
+				if (action.getClass().equals(periodicAction.getClass())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
