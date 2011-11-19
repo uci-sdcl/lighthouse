@@ -13,8 +13,8 @@
  *******************************************************************************/ 
 package edu.uci.lighthouse.core.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -24,7 +24,6 @@ import org.osgi.framework.BundleContext;
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.core.dbactions.IPeriodicDatabaseAction;
-import edu.uci.lighthouse.core.dbactions.pull.FetchNewEventsAction;
 import edu.uci.lighthouse.core.listeners.IPluginListener;
 import edu.uci.lighthouse.core.preferences.DatabasePreferences;
 import edu.uci.lighthouse.core.util.ModelUtility;
@@ -45,6 +44,8 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	private boolean running = false;
 	private boolean suspended = false;
 	private DatabaseActionsBuffer buffer;
+	
+	Set<IPeriodicDatabaseAction> periodicActions = new LinkedHashSet<IPeriodicDatabaseAction>();
 		
 	private static Logger logger = Logger.getLogger(DatabaseActionsThread.class);
 	
@@ -99,7 +100,6 @@ public class DatabaseActionsThread extends Thread implements IPluginListener{
 	
 	private void processBuffer() {
 		try {
-			List<IPeriodicDatabaseAction> periodicActions = new ArrayList<IPeriodicDatabaseAction>();
 			while (!buffer.isEmpty()) {
 				logger.debug("Executing "+buffer.size()+" database actions.");
 				IDatabaseAction databaseAction = buffer.peek();
