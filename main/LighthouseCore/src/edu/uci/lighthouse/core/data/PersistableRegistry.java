@@ -13,6 +13,7 @@
  *******************************************************************************/ 
 package edu.uci.lighthouse.core.data;
 
+import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +55,10 @@ public class PersistableRegistry {
 					LighthouseModel inModel = (LighthouseModel)svc.load(instance);
 					manager.modelCopy(inModel);
 				} else {
-					instance = clazz.newInstance();
+					//instance = clazz.newInstance();
+					Constructor<? extends IPersistable> c = clazz.getDeclaredConstructor();
+					c.setAccessible(true);
+					instance = c.newInstance();
 					instance = svc.load(instance);
 				}
 			} catch (Exception e) {

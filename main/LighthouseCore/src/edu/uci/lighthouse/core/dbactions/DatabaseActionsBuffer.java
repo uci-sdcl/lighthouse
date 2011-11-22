@@ -24,6 +24,13 @@ public class DatabaseActionsBuffer extends LinkedList<IDatabaseAction> implement
 	
 	private static final String filename = "lighthouse_buffer.bin";
 	
+	private transient static DatabaseActionsBuffer instance;
+	
+	private DatabaseActionsBuffer() {
+		// TODO (tproenca): Make this a Singleton class. Implications: check the IPersistable service, since it uses reflection to load the objects.
+//		instance = this;
+	}
+	
 	@Override
 	public synchronized IDatabaseAction peek() {
 		return super.peek();
@@ -56,5 +63,17 @@ public class DatabaseActionsBuffer extends LinkedList<IDatabaseAction> implement
 			}
 		}
 		return false;
+	}
+	
+	public static DatabaseActionsBuffer getInstance(){
+		if (instance == null) {
+			instance = new DatabaseActionsBuffer();
+		}
+		return instance;
+	}
+	
+	// readResolve method to preserve singleton property
+	private Object readResolve() {
+		return getInstance();
 	}
 }
