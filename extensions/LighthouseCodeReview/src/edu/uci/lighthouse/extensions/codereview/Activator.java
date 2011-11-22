@@ -3,6 +3,10 @@ package edu.uci.lighthouse.extensions.codereview;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
+import edu.uci.lighthouse.extensions.codereview.dbactions.FetchNewReviewsAction;
+import edu.uci.lighthouse.extensions.codereview.dbactions.RefreshCurrentReviewsAction;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -27,6 +31,8 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		DatabaseActionsBuffer.getInstance().offer(new FetchNewReviewsAction());
+		DatabaseActionsBuffer.getInstance().offer(new RefreshCurrentReviewsAction());
 	}
 
 	/*
