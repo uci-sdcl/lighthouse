@@ -1,11 +1,13 @@
 package edu.uci.lighthouse.extensions.codereview;
 
+import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import edu.uci.lighthouse.core.dbactions.DatabaseActionsBuffer;
 import edu.uci.lighthouse.extensions.codereview.dbactions.FetchNewReviewsAction;
 import edu.uci.lighthouse.extensions.codereview.dbactions.RefreshCurrentReviewsAction;
+import edu.uci.lighthouse.extensions.codereview.ui.ICodeReviewImages;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -31,6 +33,10 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		WorkbenchImages.getImageRegistry().put(ICodeReviewImages.IMG_REVIEW, AbstractUIPlugin
+				.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/review.gif"));
+		WorkbenchImages.getImageRegistry().put(ICodeReviewImages.IMG_SELECTION, AbstractUIPlugin
+				.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/selection.png"));
 		DatabaseActionsBuffer.getInstance().offer(new FetchNewReviewsAction());
 		DatabaseActionsBuffer.getInstance().offer(new RefreshCurrentReviewsAction());
 	}
