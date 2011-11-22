@@ -65,5 +65,28 @@
             textStylePreferenceKey="highlight.text.style" >
         </specification >
     </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            targetID="#CompilationUnitEditorContext"
+            id="org.eclipse.jdt.ui.CompilationUnitEditor.EditorContext">
+         <menu
+               id="edu.uci.lighthouse.codereview.menu.root"
+               label="Lighthouse"
+               path="additions">
+            <separator
+                  name="edu.uci.lighthouse.codereview.group1">
+            </separator>
+         </menu>
+         <action
+               class="edu.uci.lighthouse.extensions.codereview.delegates.AddCodeReviewActionDelegate"
+               enablesFor="+"
+               icon="icons/review.gif"
+               id="LighthouseCodeReview.action1"
+               label="Add to Code Review"
+               menubarPath="edu.uci.lighthouse.codereview.menu.root/edu.uci.lighthouse.codereview.group1">
+         </action>
+      </viewerContribution>
+   </extension>
 
 </plugin>
