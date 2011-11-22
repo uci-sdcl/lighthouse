@@ -7,8 +7,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,7 +16,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.text.ITextSelection;
@@ -34,12 +36,14 @@ public class CodeSelection {
 	private Integer id;
 
 	@Lob
+	@NotNull
 	private byte[] selection;
-
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "selection_id", referencedColumnName = "id")
-	private Collection<Comment> comments = new LinkedHashSet<Comment>();
+	@MapKey(name="id")
+	private Map<Integer, Comment> comments = new HashMap<Integer, Comment>();
 
 	private static Logger logger = Logger.getLogger(CodeSelection.class);
 
@@ -56,7 +60,15 @@ public class CodeSelection {
 		ByteArrayInputStream bis = new ByteArrayInputStream(this.selection);
 		DataInputStream dis = new DataInputStream(bis);
 		try {
-			result = new TextSelection(dis.readInt(), dis.readInt());
+			final int offset = dis.readInt();
+			final int length = dis.readInt();
+			final int startLine = dis.readInt();
+			result = new TextSelection(offset, length){
+				@Override
+				public int getStartLine() {
+					return startLine;
+				}
+			};
 			dis.close();
 			bis.close();
 		} catch (IOException e) {
@@ -71,6 +83,7 @@ public class CodeSelection {
 		try {
 			dos.writeInt(selection.getOffset());
 			dos.writeInt(selection.getLength());
+			dos.writeInt(selection.getStartLine());
 			dos.close();
 			bos.close();
 		} catch (IOException e) {
@@ -83,21 +96,22 @@ public class CodeSelection {
 		return id;
 	}
 
-	protected void setId(Integer id) {
+	void setId(Integer id) {
 		this.id = id;
 	}
 
 	public Collection<Comment> getComments() {
-		return comments;
+		//return comments;
+		return comments.values();
 	}
 
 	public void addComment(Comment comment) {
-		comments.add(comment);
+		//comments.add(comment);
+		comments.put(comment.getId(), comment);
 	}
-
-	protected void setComments(Set<Comment> comments) {
-		logger.debug("Set comments: " + comments.size());
-		this.comments = comments;
+	
+	public Comment getCommentById(int id){
+		return comments.get(id);
 	}
 
 	@Override
@@ -112,12 +126,17 @@ public class CodeSelection {
 	public boolean equals(Object obj) {
 		if (obj instanceof CodeSelection) {
 			CodeSelection other = (CodeSelection) obj;
-			if (id.intValue() == other.id.intValue()
+			if (id.equals(other.id)
 					&& Arrays.equals(selection, other.selection)
-					&& CollectionsUtil.equals(comments, other.comments)) {
+					&& CollectionsUtil.equals(comments.values(), other.comments.values())) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Line "+getSelection().getStartLine();
 	}
 }

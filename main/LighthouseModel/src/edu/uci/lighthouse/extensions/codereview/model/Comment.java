@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import edu.uci.lighthouse.model.LighthouseAuthor;
 
@@ -20,20 +21,22 @@ import edu.uci.lighthouse.model.LighthouseAuthor;
 
 @Entity(name = "LighthouseComment")
 public class Comment {
-
-	@OneToOne
-	private LighthouseAuthor author;
-
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
+
+	@OneToOne
+	@NotNull
+	private LighthouseAuthor author;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date timestamp;
 
+	@NotNull
 	private String content;
-
+	
 	public Comment(LighthouseAuthor author, String content) {
 		this.author = author;
 		this.content = content;
@@ -87,7 +90,7 @@ public class Comment {
 	public boolean equals(Object obj) {
 		if (obj instanceof Comment) {
 			Comment other = (Comment) obj;
-			if (id.intValue() == other.id.intValue()
+			if (id.equals(other.id)
 					&& author.equals(other.author)
 					&& timestamp.equals(other.timestamp)
 					&& content.equals(content)) {
