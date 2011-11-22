@@ -1,0 +1,41 @@
+body {
+  font-family: arial,sans-serif;
+  font-size: 12px;
+}
+hr {
+color: #cccccc;
+background-color: #cccccc;
+height: 1px;
+border: 0px;
+}
+.message {
+	
+}
+.avatar {
+	width: 44px;
+	height: 48px;
+	/*float: left;*/
+	/*display: inline;*/
+	position: absolute;
+}
+.avatar img {
+	background-color: #cccccc;
+}
+.author {
+    top: 1px;
+    padding-left: 44px;
+    color: grey;
+    font-weight: bold;
+    position: relative;
+}
+.date {
+	float: right;
+
+	font-weight: normal;
+}
+.comment {
+	top: 5px;
+	padding-left: 44px;
+	position: relative;
+	padding-bottom: 8px;
+}
