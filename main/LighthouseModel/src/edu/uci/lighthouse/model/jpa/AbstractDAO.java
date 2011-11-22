@@ -148,6 +148,8 @@ public abstract class AbstractDAO<T, PK extends Serializable> implements Interfa
 		try {
 			JPAUtility.beginTransaction(entityManager);
 			entityManager.persist(entity);
+			entityManager.flush();
+			entityManager.refresh(entity);
 			JPAUtility.commitTransaction(entityManager);
 		} catch (RuntimeException e) {
 			throw new JPAException("Error trying to save/update the entity: " + entity, e.fillInStackTrace());
