@@ -9,6 +9,7 @@ import edu.uci.lighthouse.core.util.ModelUtility;
 import edu.uci.lighthouse.extensions.codereview.model.CodeReview;
 import edu.uci.lighthouse.extensions.codereview.model.CodeReviewModel;
 import edu.uci.lighthouse.extensions.codereview.model.CodeReviewModelManager;
+import edu.uci.lighthouse.model.LighthouseAuthor;
 import edu.uci.lighthouse.model.jpa.AbstractDAO;
 import edu.uci.lighthouse.model.jpa.JPAException;
 
@@ -19,8 +20,10 @@ public class FetchNewReviewsAction implements IPeriodicDatabaseAction {
 	@Override
 	public void run() throws JPAException {
 		CodeReviewModel model = CodeReviewModel.getInstance();
+		LighthouseAuthor me = ModelUtility.getAuthor();
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("reviewer", ModelUtility.getAuthor());
+		parameters.put("reviewer", me);
+		parameters.put("reviewee", me);
 		parameters.put("lastId", model.getLastAddedReviewId());
 		AbstractDAO<CodeReview, Integer> dao = new AbstractDAO<CodeReview, Integer>() {};
 		List<CodeReview> reviews = dao.executeNamedQuery("CodeReview.getPendingReviews", parameters);
