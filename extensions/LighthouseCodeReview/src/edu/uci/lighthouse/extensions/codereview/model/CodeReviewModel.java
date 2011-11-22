@@ -1,9 +1,12 @@
 package edu.uci.lighthouse.extensions.codereview.model;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.EntityManager;
 
 public class CodeReviewModel {
 	
@@ -35,7 +38,7 @@ public class CodeReviewModel {
 		return codeReviews.remove(review.getId());
 	}
 
-	public Iterable<CodeReview> getReviews(){
+	public Collection<CodeReview> getReviews(){
 		return codeReviews.values();
 	}
 	
@@ -55,9 +58,102 @@ public class CodeReviewModel {
 		return codeReviews.get(reviewId);
 	}
 	
-	protected void fireModelChanged() {
-		for (ICodeReviewModelListener l : listeners){
-			l.modelChanged();
+	public CodeReview getReview(FileSnapshot fs) {
+		int id = fs.getId();
+		Collection<CodeReview> reviews = codeReviews.values();
+		for (CodeReview review: reviews) {
+			if (review.getFileSnapshotById(id) != null) {
+				return review;
+			}
 		}
+		return null;
+	}
+	
+	public CodeReview getReview(Comment comment) {
+		int id = comment.getId();
+		Collection<CodeReview> reviews = codeReviews.values();
+		for (CodeReview review: reviews) {
+			Collection<FileSnapshot> filesSnapshots = review.getFilesSnapshot();
+			for (FileSnapshot fs: filesSnapshots){
+				Collection<CodeSelection> selections = fs.getCodeSelection();
+				for (CodeSelection s: selections) {
+					if (s.getCommentById(id)!= null) {
+						return review;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public CodeReview getReview(CodeSelection selection) {
+		int id = selection.getId();
+		Collection<CodeReview> reviews = codeReviews.values();
+		for (CodeReview review: reviews) {
+			Collection<FileSnapshot> filesSnapshots = review.getFilesSnapshot();
+			for (FileSnapshot fs: filesSnapshots){
+				if (fs.getCodeSelectionById(id)!= null) {
+					return review;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public FileSnapshot getFileSnapshot(CodeSelection selection){
+		int id = selection.getId();
+		Collection<CodeReview> reviews = codeReviews.values();
+		for (CodeReview review: reviews) {
+			Collection<FileSnapshot> filesSnapshots = review.getFilesSnapshot();
+			for (FileSnapshot fs: filesSnapshots){
+				if (fs.getCodeSelectionById(id)!= null) {
+					return fs;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public CodeSelection getCodeSelection(Comment comment){
+		int id = comment.getId();
+		Collection<CodeReview> reviews = codeReviews.values();
+		for (CodeReview review: reviews) {
+			Collection<FileSnapshot> filesSnapshots = review.getFilesSnapshot();
+			for (FileSnapshot fs: filesSnapshots){
+				Collection<CodeSelection> selections = fs.getCodeSelection();
+				for (CodeSelection s: selections) {
+					if (s.getCommentById(id)!= null) {
+						return s;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	protected void fireAdded(Collection<CodeReview> changedReviews) {
+		for (ICodeReviewModelListener l : listeners){
+			l.added(changedReviews);
+		}
+	}
+	
+	protected void fireChanged(Collection<CodeReview> changedReviews) {
+		for (ICodeReviewModelListener l : listeners){
+			l.changed(changedReviews);
+		}
+	}
+	
+	protected void fireRemoved(Collection<CodeReview> changedReviews) {
+		for (ICodeReviewModelListener l : listeners){
+			l.removed(changedReviews);
+		}
+	}
+	
+	public void addCodeReviewModelListener(ICodeReviewModelListener listener){
+		listeners.add(listener);
+	}
+	
+	public void removeCodeReviewModelListener(ICodeReviewModelListener listener){
+		listeners.remove(listener);
 	}
 }
