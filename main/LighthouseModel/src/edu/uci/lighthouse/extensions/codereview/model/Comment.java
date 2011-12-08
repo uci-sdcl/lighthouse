@@ -20,7 +20,7 @@ import edu.uci.lighthouse.model.LighthouseAuthor;
  */
 
 @Entity(name = "LighthouseComment")
-public class Comment {
+public class Comment implements IDatabaseEntry {
 	
 	@Id
 	@GeneratedValue
@@ -93,7 +93,7 @@ public class Comment {
 			if (id.equals(other.id)
 					&& author.equals(other.author)
 					&& timestamp.equals(other.timestamp)
-					&& content.equals(content)) {
+					&& content.equals(other.content)) {
 				return true;
 			}
 		}

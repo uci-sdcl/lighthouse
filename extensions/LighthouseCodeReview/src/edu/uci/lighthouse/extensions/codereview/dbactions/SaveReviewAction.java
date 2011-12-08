@@ -1,14 +1,13 @@
 package edu.uci.lighthouse.extensions.codereview.dbactions;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 
 import edu.uci.lighthouse.core.dbactions.IDatabaseAction;
 import edu.uci.lighthouse.extensions.codereview.model.CodeReview;
+import edu.uci.lighthouse.extensions.codereview.model.CodeReview.StatusType;
 import edu.uci.lighthouse.extensions.codereview.model.CodeReviewModel;
 import edu.uci.lighthouse.extensions.codereview.model.CodeReviewModelManager;
-import edu.uci.lighthouse.extensions.codereview.model.CodeReview.StatusType;
-import edu.uci.lighthouse.model.jpa.AbstractDAO;
+import edu.uci.lighthouse.extensions.codereview.util.EditorUtility;
 import edu.uci.lighthouse.model.jpa.JPAException;
 import edu.uci.lighthouse.model.jpa.JPAUtility;
 
@@ -39,6 +38,7 @@ public class SaveReviewAction implements IDatabaseAction {
 		em.refresh(dbReview);
 		if (isToRemove(dbReview)){
 			mm.removeReview(dbReview);
+			EditorUtility.removeAllLocalMarkers(dbReview);
 		} else {
 			mm.addReview(dbReview);
 		}

@@ -1,6 +1,7 @@
 package edu.uci.lighthouse.extensions.codereview.delegates;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
@@ -14,6 +15,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 
 import edu.uci.lighthouse.extensions.codereview.model.CodeReviewFacade;
 import edu.uci.lighthouse.extensions.codereview.ui.AddCodeReviewDialog;
+import edu.uci.lighthouse.extensions.codereview.util.EditorUtility;
 
 public class AddCodeReviewActionDelegate implements IEditorActionDelegate {
 
@@ -45,6 +47,17 @@ public class AddCodeReviewActionDelegate implements IEditorActionDelegate {
 				crf.addSelection(reviewDialog.getReview(), document, filename, selection,
 						reviewDialog.getComment());
 			}
+			int offset = selection.getOffset();
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			MarkerUtilities.setCharStart(map, offset);
+//			MarkerUtilities.setCharEnd(map, offset + selection.getLength());
+//			try {
+//				MarkerUtilities.createMarker((IFile)editor.getEditorInput().getAdapter(IFile.class), map, "LighthouseCodeReview.requestMarker");
+//			} catch (CoreException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			EditorUtility.createMarker(offset, offset + selection.getLength(), (IFile)editor.getEditorInput().getAdapter(IFile.class));
 		}
 	}
 

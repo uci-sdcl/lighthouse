@@ -16,7 +16,7 @@ public class CodeReviewFacade {
 //	private CodeReviewModel model = CodeReviewModel.getInstance();
 //	private CodeReviewModelManager modelManager = new CodeReviewModelManager(CodeReviewModel.getInstance());
 
-//	private static Logger logger = Logger.getLogger(CodeReviewFacade.class);
+	private static Logger logger = Logger.getLogger(CodeReviewFacade.class);
 	
 	public void addReview(LighthouseAuthor reviewer, IDocument document, String filename,
 			ITextSelection selection, String comment) {
@@ -40,27 +40,43 @@ public class CodeReviewFacade {
 	
 	public void addSelection(CodeReview review, IDocument document, String filename,
 			ITextSelection selection, String comment) {
-		CodeSelection codeSelection = new CodeSelection(selection);
-		codeSelection.addComment(new Comment(review.getReviewee(), comment));
+		try {
+			review = (CodeReview) review.clone();
+			CodeSelection codeSelection = new CodeSelection(selection);
+			codeSelection.addComment(new Comment(review.getReviewee(), comment));
 
-		FileSnapshot fs = getFileSnapshotFromFilename(review, filename);
-		if (fs == null) {
-			fs = new FileSnapshot();
-			fs.setFilename(filename);
+			FileSnapshot fs = getFileSnapshotFromFilename(review, filename);
+			if (fs == null) {
+				fs = new FileSnapshot();
+				fs.setFilename(filename);
+//				review.addFileSnapshot(fs);
+			} else {
+				fs = (FileSnapshot) fs.clone();
+			}
+			// Update the content
+			fs.setContent(document.get());
+			fs.addCodeSelection(codeSelection);
+			
 			review.addFileSnapshot(fs);
+			dbService.offer(new SaveReviewAction(review));
+		} catch (CloneNotSupportedException e) {
+			logger.error(e,e);
 		}
-		// Update the content
-		fs.setContent(document.get());
-		fs.addCodeSelection(codeSelection);
-		
-		dbService.offer(new SaveReviewAction(review));
 	}
 	
 	public void addComment(CodeSelection codeSelection, String comment){
-		CodeReview review = CodeReviewModel.getInstance().getReview(codeSelection);
-		codeSelection.addComment(new Comment(review.getReviewee(), comment));
-		
-		dbService.offer(new SaveReviewAction(review));
+		try {
+			CodeReviewModel model = CodeReviewModel.getInstance();
+			CodeReview review = (CodeReview) model.getReview(codeSelection).clone();
+			FileSnapshot fs = (FileSnapshot) model.getFileSnapshot(codeSelection).clone();
+			codeSelection = (CodeSelection) codeSelection.clone();
+			codeSelection.addComment(new Comment(ModelUtility.getAuthor(), comment));
+			fs.addCodeSelection(codeSelection);
+			review.addFileSnapshot(fs);
+			dbService.offer(new SaveReviewAction(review));
+		} catch (CloneNotSupportedException e) {
+			logger.error(e,e);
+		}
 	}
 	
 	public void updateSnaphot(FileSnapshot fs, IDocument document){

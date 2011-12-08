@@ -29,7 +29,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import edu.uci.lighthouse.model.util.CollectionsUtil;
 
 @Entity(name = "LighthouseCodeSelection")
-public class CodeSelection {
+public class CodeSelection implements Cloneable, IDatabaseEntry {
 
 	@Id
 	@GeneratedValue
@@ -138,5 +138,12 @@ public class CodeSelection {
 	@Override
 	public String toString() {
 		return "Line "+getSelection().getStartLine();
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		CodeSelection clone = (CodeSelection)super.clone();
+		clone.comments = new HashMap<Integer, Comment>(this.comments);
+		return clone;
 	}
 }

@@ -20,7 +20,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import edu.uci.lighthouse.model.util.CollectionsUtil;
 
 @Entity(name = "LighthouseFileSnapShot")
-public class FileSnapshot {
+public class FileSnapshot implements Cloneable, IDatabaseEntry{
 
 	@Id
 	@GeneratedValue
@@ -100,5 +100,12 @@ public class FileSnapshot {
 	@Override
 	public String toString() {
 		return getFilename();
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		FileSnapshot clone = (FileSnapshot) super.clone();
+		clone.codeSelections = new HashMap<Integer, CodeSelection>(this.codeSelections); 
+		return clone;
 	}
 }

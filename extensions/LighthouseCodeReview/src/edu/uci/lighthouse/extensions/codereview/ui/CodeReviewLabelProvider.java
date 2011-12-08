@@ -1,5 +1,6 @@
 package edu.uci.lighthouse.extensions.codereview.ui;
 
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -7,24 +8,29 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uci.lighthouse.core.util.ModelUtility;
+import edu.uci.lighthouse.extensions.codereview.Activator;
 import edu.uci.lighthouse.extensions.codereview.model.CodeReview;
 import edu.uci.lighthouse.extensions.codereview.model.CodeSelection;
 import edu.uci.lighthouse.extensions.codereview.model.FileSnapshot;
+import edu.uci.lighthouse.model.LighthouseAuthor;
 
 public class CodeReviewLabelProvider extends StyledCellLabelProvider {
 	
 	//@Override
 	public Image getImage(Object element) {
 		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
+		ImageRegistry imageRegistry = Activator.getDefault().getImageRegistry();
 		if (element instanceof CodeReview) {
-			return sharedImages.getImage(ICodeReviewImages.IMG_REVIEW);
+			CodeReview review = (CodeReview) element;
+			LighthouseAuthor me = ModelUtility.getAuthor();
+			return me.equals(review.getReviewee()) ? imageRegistry.get(ICodeReviewImages.IMG_ME) : imageRegistry.get(ICodeReviewImages.IMG_REVIEW);
 		} else if (element instanceof FileSnapshot) {
 			return sharedImages.getImage(ISharedImages.IMG_OBJ_FILE);
 		} else if (element instanceof CodeSelection) {
-			return sharedImages.getImage(ICodeReviewImages.IMG_SELECTION);
+			return imageRegistry.get(ICodeReviewImages.IMG_SELECTION);
 		}
-		//return super.getImage(element);
-		return null;
+		return null;		
 	}
 	
 	@Override
@@ -34,9 +40,19 @@ public class CodeReviewLabelProvider extends StyledCellLabelProvider {
 		 
 		if(obj instanceof CodeReview) {
 			CodeReview r = (CodeReview) obj;
-		styledString.append(" [" +
-		r.getReviewer() +
-		"]", StyledString.DECORATIONS_STYLER);
+			LighthouseAuthor me = ModelUtility.getAuthor();
+			
+			if (me.equals(r.getReviewee())) {
+				styledString.append(" > " +
+						r.getReviewer() +
+						"", StyledString.DECORATIONS_STYLER);
+			} else {
+				styledString.append(" < " +
+						r.getReviewee() +
+						"", StyledString.DECORATIONS_STYLER);
+			}
+			
+	
 		}
 		 
 		cell.setText(styledString.toString());
@@ -44,16 +60,4 @@ public class CodeReviewLabelProvider extends StyledCellLabelProvider {
 		cell.setImage(getImage(obj));
 		super.update(cell);		
 	}
-
-//	@Override
-//	public String getText(Object element) {
-//		if (element instanceof CodeReview) {
-//			CodeReview r = (CodeReview) element;
-//			return r.toString() + " (" + r.getReviewer() + ")";
-//		}
-//		return element.toString();
-//	}
-	
-
-
 }

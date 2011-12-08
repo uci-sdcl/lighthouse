@@ -14,9 +14,13 @@
 package edu.uci.lighthouse.model;
 
 import java.io.Serializable;
+import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import edu.uci.lighthouse.model.util.LHStringUtil;
 
 /**
  * This is the class that represents each developer
@@ -38,11 +42,37 @@ public class LighthouseAuthor implements Serializable{
 	}
 
 	public String getName() {
+		int pos = name.indexOf("@");
+		if (pos != -1) {
+			return name.substring(0, pos);
+		}
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getFullName(){
+		return name;
+	}
+	
+	public URL getAvatar() {
+		URL result = null;
+		try {
+			result = new URL(
+					"https://ssl.gstatic.com/ui/v1/icons/mail/profile_mask2.png");
+			int pos = name.indexOf("@");
+			if (pos != -1) {
+
+				result = new URL("http://www.gravatar.com/avatar/"
+						+ LHStringUtil.getMD5Hash(name).toLowerCase() + "?s=32");
+
+			}
+		} catch (Exception e) {
+
+		}
+		return result;
 	}
 
 	@Override

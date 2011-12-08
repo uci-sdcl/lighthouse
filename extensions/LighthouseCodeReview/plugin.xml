@@ -32,6 +32,9 @@
               name="SiteBDiffMarker"
               point="org.eclipse.core.resources.markers">
       <super type="org.eclipse.core.resources.textmarker"/>
+      <persistent
+            value="true">
+      </persistent>
  </extension>
 
  <extension
@@ -46,7 +49,7 @@
    <extension
          point="org.eclipse.ui.editors.markerAnnotationSpecification">
          <specification
-             icon = "icons/il.gif"
+             icon = "icons/highlight.gif"
              annotationType="requestAnnotation"
              verticalRulerPreferenceKey="highlight.rulers.vertical"
              textPreferenceKey="highlight.text"
@@ -58,8 +61,8 @@
             presentationLayer="4"
             highlightPreferenceValue="true"
             label="DiffSiteB"
-            symbolicIcon="warning"
-            colorPreferenceValue="255,255,127"
+            symbolicIcon="task"
+            colorPreferenceValue="255,255,204"
             verticalRulerPreferenceValue="true"
             overviewRulerPreferenceValue="true"
             textStylePreferenceKey="highlight.text.style" >

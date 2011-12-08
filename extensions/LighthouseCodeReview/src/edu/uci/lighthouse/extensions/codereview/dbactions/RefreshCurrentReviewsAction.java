@@ -26,19 +26,24 @@ public class RefreshCurrentReviewsAction implements IPeriodicDatabaseAction {
 			List<CodeReview> toAddReviews = new LinkedList<CodeReview>();
 			List<CodeReview> toRemoveReviews = new LinkedList<CodeReview>();
 			for (CodeReview review : model.getReviews()) {
-				CodeReview dbReview = em.find(CodeReview.class, review.getId());
-				if (isToRemove(review)) {
-					toRemoveReviews.add(dbReview);
-				} else {
-					toAddReviews.add(dbReview);
-				}
+				//if (!review.isDirty()) {
+					CodeReview dbReview = em.find(CodeReview.class,
+							review.getId());
+					if (!dbReview.equals(review)) {
+						if (isToRemove(dbReview)) {
+							toRemoveReviews.add(dbReview);
+						} else {
+							toAddReviews.add(dbReview);
+						}
+					}
+				//}
 			}
 			mm.addReviews(toAddReviews);
 			mm.removeReviews(toRemoveReviews);
 			JPAUtility.closeEntityManager(em);
 		}
 	}
-	
+
 	private boolean isToRemove(CodeReview review) {
 		return review.getStatus().equals(StatusType.CLOSE);
 	}

@@ -1,5 +1,7 @@
 package edu.uci.lighthouse.extensions.codereview;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -33,12 +35,16 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		WorkbenchImages.getImageRegistry().put(ICodeReviewImages.IMG_REVIEW, AbstractUIPlugin
-				.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/review.gif"));
-		WorkbenchImages.getImageRegistry().put(ICodeReviewImages.IMG_SELECTION, AbstractUIPlugin
-				.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "/icons/selection.png"));
 		DatabaseActionsBuffer.getInstance().offer(new FetchNewReviewsAction());
 		DatabaseActionsBuffer.getInstance().offer(new RefreshCurrentReviewsAction());
+	}
+
+	@Override
+	protected void initializeImageRegistry(ImageRegistry reg) {
+		super.initializeImageRegistry(reg);
+		reg.put(ICodeReviewImages.IMG_REVIEW, ImageDescriptor.createFromFile(getClass(), "/icons/review.gif"));
+		reg.put(ICodeReviewImages.IMG_SELECTION, ImageDescriptor.createFromFile(getClass(), "/icons/selection.png"));
+		reg.put(ICodeReviewImages.IMG_ME, ImageDescriptor.createFromFile(getClass(), "/icons/me.png"));
 	}
 
 	/*

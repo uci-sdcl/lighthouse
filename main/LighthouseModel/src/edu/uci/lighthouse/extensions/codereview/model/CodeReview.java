@@ -27,7 +27,7 @@ import edu.uci.lighthouse.model.util.CollectionsUtil;
 		+ "OR review.reviewee = :reviewee) "
 		+ "AND review.status <> '2' "
 		+ "AND review.id > :lastId")
-public class CodeReview {
+public class CodeReview implements Cloneable, IDatabaseEntry{
 
 	@Id
 	@GeneratedValue
@@ -106,6 +106,28 @@ public class CodeReview {
 	public void setStatus(StatusType status) {
 		this.status = status;
 	}
+	
+	public boolean isDirty() {
+		if (id == null) {
+			return true;
+		}
+		for (FileSnapshot  fs: getFilesSnapshot()) {
+			if (fs.getId() == null) {
+				return true;
+			}
+			for (CodeSelection cs: fs.getCodeSelection()) {
+				if (cs.getId() == null) {
+					return true;
+				}
+				for (Comment c: cs.getComments()) {
+					if (c.getId() == null){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public int hashCode() {
@@ -135,4 +157,13 @@ public class CodeReview {
 	public String toString() {
 		return "Review "+id;
 	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		CodeReview clone = (CodeReview)super.clone();
+		clone.filesSnapshot = new HashMap<Integer, FileSnapshot>(this.filesSnapshot);
+		return clone;
+	}
+	
+	
 }

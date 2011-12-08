@@ -36,7 +36,9 @@ public class CodeReviewContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		Object[] result = new Object[]{};
-		if (parentElement instanceof CodeReview) {
+		/*if (parentElement instanceof CodeReviewModel) {
+			result = model.getReviews().toArray();
+		} else*/ if (parentElement instanceof CodeReview) {
 			result =   ((CodeReview)parentElement).getFilesSnapshot().toArray();
 		} else if (parentElement instanceof FileSnapshot) {
 			result = ((FileSnapshot)parentElement).getCodeSelection().toArray();
@@ -50,7 +52,9 @@ public class CodeReviewContentProvider implements ITreeContentProvider {
 	@Override
 	public Object getParent(Object element) {
 		Object result = null;
-		if (element instanceof FileSnapshot) {
+		/*if (element instanceof CodeReview) {
+			result = model;
+		}else*/ if (element instanceof FileSnapshot) {
 			result = model.getReview((FileSnapshot)element);
 		} else if (element instanceof CodeSelection) {
 			result = model.getFileSnapshot((CodeSelection)element);

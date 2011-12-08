@@ -29,7 +29,9 @@ public class CodeReviewModelManager {
 				added.add(review);
 			}else if (!review.equals(oldInstance)) {
 				changed.add(review);
-			}			
+			} else {
+				logger.debug("not added");
+			}
 		}
 		if (added.size() > 0){
 			logger.debug("Reviews added: "+added.size());

@@ -13,11 +13,7 @@
  *******************************************************************************/ 
 package edu.uci.lighthouse.ui.views;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
 import org.apache.log4j.Logger;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -36,6 +32,7 @@ import edu.uci.lighthouse.model.LighthouseModel;
 import edu.uci.lighthouse.ui.views.actions.DiagramModeDropDownAction;
 import edu.uci.lighthouse.ui.views.actions.FilterActiveClassAction;
 import edu.uci.lighthouse.ui.views.actions.FilterAuthorAction;
+import edu.uci.lighthouse.ui.views.actions.FilterCodeReviewAction;
 import edu.uci.lighthouse.ui.views.actions.FilterModifiedAction;
 import edu.uci.lighthouse.ui.views.actions.FilterPackageAction;
 import edu.uci.lighthouse.ui.views.actions.HighlightDropDownAction;
@@ -55,6 +52,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 	private HighlightManager highlightManager;
 	
 	private SoftLockAction softLockAction;
+	private FilterCodeReviewAction codeReviewAction;
 	
 	
 	@Override
@@ -91,6 +89,8 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		editorListener.addEditorSelectionListener(activeClassAction);
 //		editorListener.addEditorSelectionListener(openEditorAction);
 		editorListener.addEditorSelectionListener(linkAction);
+		codeReviewAction = new FilterCodeReviewAction(viewer);
+		getSite().getPage().addSelectionListener("edu.uci.lighthouse.extensions.codereview.ui.ReviewRequestsView", codeReviewAction);
 		
 		IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
 		
@@ -101,6 +101,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 		toolbarManager.add(new FilterAuthorAction(viewer.getGraphControl()));
 		toolbarManager.add(new FilterPackageAction(viewer));
 		toolbarManager.add(new FilterModifiedAction(viewer.getGraphControl()));
+		toolbarManager.add(codeReviewAction);
 		toolbarManager.add(activeClassAction);
 		//toolbarManager.add(openEditorAction);
 		toolbarManager.add(new ZoomDropDownAction(this));
@@ -145,6 +146,7 @@ public class EmergingDesignView extends ThumbnailView implements IZoomableWorkbe
 	public void dispose() {
 		logger.info("dispose()");
 		getSite().getPage().removePartListener(editorListener);
+		getSite().getPage().removeSelectionListener(codeReviewAction);
 		super.dispose();
 	}
 }
